@@ -1,0 +1,38 @@
+package com.beowulfe.hap.impl.characteristics.thermostat;
+
+import java.util.concurrent.CompletableFuture;
+
+import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
+import com.beowulfe.hap.accessories.Thermostat;
+
+public class HeatingThresholdTemperatureCharacteristic extends
+		AbstractTemperatureCharacteristic {
+
+	private final Thermostat thermostat;
+	
+	public HeatingThresholdTemperatureCharacteristic(Thermostat thermostat) {
+		super("00000012-0000-1000-8000-0026BB765291", true, "Temperature below which heating will be active", thermostat);
+		this.thermostat = thermostat;
+	}
+
+	@Override
+	public void subscribe(HomekitCharacteristicChangeCallback callback) {
+		thermostat.subscribeHeatingThresholdTemperature(callback);
+	}
+
+	@Override
+	public void unsubscribe() {
+		thermostat.unsubscribeHeatingThresholdTemperature();
+	}
+
+	@Override
+	protected CompletableFuture<Double> getDoubleValue() {
+		return thermostat.getHeatingThresholdTemperature();
+	}
+
+	@Override
+	protected void setValue(Double value) throws Exception {
+		thermostat.setHeatingThresholdTemperature(value);
+	}
+
+}
