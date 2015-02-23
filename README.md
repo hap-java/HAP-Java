@@ -10,4 +10,4 @@ This library would not have been possible without the work done by [Tian Zhang](
 
 Usage
 =========
-Read the [Javadoc](http://beowulfe.github.io/HAP-Java/apidocs/) and check out the [Sample}(https://github.com/beowulfe/HAP-Java/tree/sample).
+Read the [Javadoc](http://beowulfe.github.io/HAP-Java/apidocs/) and check out the [Sample](https://github.com/beowulfe/HAP-Java/tree/sample).
