@@ -101,5 +101,14 @@ public class HomekitRoot {
 					}
 		});
 	}
+	
+	/**
+	 * Stops advertising and handling the Homekit accessories.
+	 */
+	public void stop() {
+		advertiser.stop();
+		webHandler.stop();
+		started = false;
+	}
 
 }

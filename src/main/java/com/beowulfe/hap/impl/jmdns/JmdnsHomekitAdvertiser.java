@@ -44,4 +44,8 @@ public class JmdnsHomekitAdvertiser {
     	}));
 	}
 	
+	public void stop() {
+		jmdns.unregisterAllServices();
+	}
+	
 }

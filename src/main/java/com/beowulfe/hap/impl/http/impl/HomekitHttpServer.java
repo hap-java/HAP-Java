@@ -11,6 +11,7 @@ public class HomekitHttpServer implements HomekitWebHandler {
 	private final int port;
 	private final int nThreads;
 
+	@Override
 	public void stop() {
 		if (this.service != null) {
 			this.service.shutdown();
