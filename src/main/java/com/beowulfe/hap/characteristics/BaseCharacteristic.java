@@ -151,7 +151,13 @@ public abstract class BaseCharacteristic<T> implements Characteristic {
 	 */
 	protected abstract T getDefault();
 
-	private void setJsonValue(JsonObjectBuilder builder, T value) {
+	/**
+	 * Writes the value key to the serialized characteristic
+	 * 
+	 * @param builder The JSON builder to add the value to
+	 * @param value The value to add
+	 */
+	protected void setJsonValue(JsonObjectBuilder builder, T value) {
 		//I don't like this - there should really be a way to construct a disconnected JSONValue...
 		if (value instanceof Boolean) {
 			builder.add("value", (Boolean) value);

@@ -2,6 +2,8 @@ package com.beowulfe.hap.characteristics;
 
 import java.util.concurrent.CompletableFuture;
 
+import javax.json.JsonObjectBuilder;
+
 /**
  * A characteristic that provides a boolean that can only be written to, not read.
  *
@@ -27,4 +29,8 @@ public abstract class WriteOnlyBooleanCharacteristic extends BooleanCharacterist
 	@Override
 	protected final CompletableFuture<Boolean> getValue() { return CompletableFuture.completedFuture(false); }
 
+	@Override
+	protected final void setJsonValue(JsonObjectBuilder builder, Boolean value) {
+		//Do nothing - non-readable characteristics cannot have a value key set
+	}
 }
