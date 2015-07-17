@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 
 import javax.json.Json;
 import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonValue;
@@ -32,30 +33,28 @@ public class CharacteristicsController {
 		this.registry = registry;
 		this.subscriptions = subscriptions;
 	}
-	
+
 	public HttpResponse get(HttpRequest request) throws Exception {
 		String uri = request.getUri();
-		String query = uri.substring("/characteristics?q=".length()+1);
-		String[] parts = query.split("\\.");
-		if (parts.length != 2) {
-			logger.error("Unexpected characteristics request: "+uri);
-			return new NotFoundResponse();
+		// Characteristics are requested with /characteristics?id=1.1,2.1,3.1
+		String query = uri.substring("/characteristics?id=".length());
+		String[] ids = query.split(",");
+		JsonArrayBuilder characteristics = Json.createArrayBuilder();
+		for (String id : ids) {
+			String[] parts = id.split("\\.");
+			if (parts.length != 2) {
+				logger.error("Unexpected characteristics request: " + uri);
+				return new NotFoundResponse();
+			}
+			int aid = Integer.parseInt(parts[0]);
+			int iid = Integer.parseInt(parts[1]);
+			JsonObjectBuilder characteristic = Json.createObjectBuilder();
+			registry.getCharacteristics(aid).get(iid).supplyValue(characteristic);
+
+			characteristics.add(characteristic.add("aid", aid).add("iid", iid).build());
 		}
-		int aid = Integer.parseInt(parts[0]);
-		int iid = Integer.parseInt(parts[1]);
-		JsonObjectBuilder characteristic = Json.createObjectBuilder();
-		registry.getCharacteristics(aid).get(iid).supplyValue(characteristic);
-		
-		JsonObject result = Json.createObjectBuilder()
-			.add("characteristics", Json.createArrayBuilder()
-					.add(characteristic
-							.add("aid", aid)
-							.add("iid", iid)
-							.build()
-					).build()
-		).build();
 		try(ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-			Json.createWriter(baos).write(result);
+			Json.createWriter(baos).write(Json.createObjectBuilder().add("characteristics", characteristics.build()).build());
 			return new HapJsonResponse(baos.toByteArray());
 		}
 	}
