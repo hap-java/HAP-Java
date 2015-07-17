@@ -34,9 +34,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>net.i2p.crypto</groupId>
-			<artifactId>eddsa</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<groupId>net.vrallev.ecc</groupId>
+			<artifactId>ecc-25519-java</artifactId>
+			<version>1.0.1</version>
 		</dependency>
 
 		<dependency>
@@ -66,7 +66,7 @@
 		<dependency>
 			<groupId>javax.jmdns</groupId>
 			<artifactId>jmdns</artifactId>
-			<version>3.4.2-SNAPSHOT</version>
+			<version>3.4.1</version>
 		</dependency>
 
 	</dependencies>
