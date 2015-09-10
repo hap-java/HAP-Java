@@ -5,8 +5,10 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageCodec;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
+import org.apache.commons.io.HexDump;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,6 +31,7 @@ public class BinaryHandler extends ByteToMessageCodec<ByteBuf> {
 		if (started) {
 			byte[] b = new byte[msg.readableBytes()];
 			msg.readBytes(b);
+			traceData("Sending data", b, ctx);
 			out.writeBytes(connection.encryptResponse(b));
 		} else {
 			out.writeBytes(msg);
@@ -41,6 +44,7 @@ public class BinaryHandler extends ByteToMessageCodec<ByteBuf> {
 		byte[] b = new byte[in.readableBytes()];
 		in.readBytes(b);
 		byte[] decrypted = connection.decryptRequest(b);
+		traceData("Received data", decrypted, ctx);
 		out.add(Unpooled.copiedBuffer(decrypted));
 		started = true;
 	}
@@ -50,6 +54,17 @@ public class BinaryHandler extends ByteToMessageCodec<ByteBuf> {
 			throws Exception {
 		logger.error("Exception in binary handler", cause);
 		super.exceptionCaught(ctx, cause);
+	}
+	
+	private void traceData(String msg, byte[] b, ChannelHandlerContext ctx) throws Exception {
+		if (logger.isTraceEnabled()) {
+			try (ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
+				HexDump.dump(b, 0, stream, 0);
+				stream.flush();
+				logger.trace(String.format("%s [%s]:\n%s\n", msg, ctx.channel().remoteAddress().toString(),
+						stream.toString()));
+			}
+		}
 	}
 
 }
