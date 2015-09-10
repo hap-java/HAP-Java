@@ -1,6 +1,8 @@
 package com.beowulfe.hap.characteristics;
 
+import javax.json.JsonNumber;
 import javax.json.JsonValue;
+import javax.json.JsonValue.ValueType;
 
 /**
  * Characteristic that exposes a Boolean value.
@@ -32,6 +34,9 @@ public abstract class BooleanCharacteristic extends BaseCharacteristic<Boolean> 
 	 */
 	@Override
 	protected Boolean convert(JsonValue jsonValue) {
+		if (jsonValue.getValueType().equals(ValueType.NUMBER)) {
+			return ((JsonNumber) jsonValue).intValue() > 0;
+		}
 		return jsonValue.equals(JsonValue.TRUE);
 	}
 	
