@@ -90,7 +90,7 @@ public abstract class BaseCharacteristic<T> implements Characteristic {
 				.add("events", false)
 				.add("bonjour", false)
 				.add("description", description);
-			setJsonValue(builder, value != null ? value : getDefault());
+			setJsonValue(builder, value);
 			return builder;
 		});
 	}

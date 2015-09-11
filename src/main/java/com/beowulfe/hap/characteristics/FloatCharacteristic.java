@@ -69,7 +69,7 @@ public abstract class FloatCharacteristic extends BaseCharacteristic<Double> {
 	@Override
 	protected final CompletableFuture<Double> getValue() {
 		double rounder = 1 / this.minStep;
-		return getDoubleValue().thenApply(d -> Math.round(d * rounder) / rounder); 
+		return getDoubleValue().thenApply(d -> d == null ? null : Math.round(d * rounder) / rounder); 
 	}
 	
 	/**
