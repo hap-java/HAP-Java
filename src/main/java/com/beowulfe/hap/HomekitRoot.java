@@ -35,7 +35,12 @@ public class HomekitRoot {
 
 	HomekitRoot(String label, HomekitWebHandler webHandler, InetAddress localhost, 
 			HomekitAuthInfo authInfo) throws IOException {
-		advertiser = new JmdnsHomekitAdvertiser(localhost);
+		this(label, webHandler, authInfo, new JmdnsHomekitAdvertiser(localhost));
+	}
+	
+	HomekitRoot(String label, HomekitWebHandler webHandler, HomekitAuthInfo authInfo, 
+			JmdnsHomekitAdvertiser advertiser) throws IOException {
+		this.advertiser = advertiser;
 		this.webHandler = webHandler;
 		this.authInfo = authInfo;
 		this.label = label;
@@ -109,6 +114,10 @@ public class HomekitRoot {
 		advertiser.stop();
 		webHandler.stop();
 		started = false;
+	}
+	
+	HomekitRegistry getRegistry() {
+		return registry;
 	}
 
 }
