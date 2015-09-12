@@ -4,9 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
-import com.beowulfe.hap.HomekitAccessory;
-import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
-import com.beowulfe.hap.Service;
+import com.beowulfe.hap.*;
 import com.beowulfe.hap.impl.services.OutletService;
 
 /**
@@ -39,7 +37,7 @@ public interface Outlet extends HomekitAccessory {
 	 * @return a future that completes when the change is made
 	 * @throws Exception when the change cannot be made
 	 */
-	public CompletableFuture<Void> setPowerState(boolean state);
+	public CompletableFuture<Void> setPowerState(boolean state) throws Exception;
 	
 	/**
 	 * Subscribes to changes in the binary state of the outlet's power.
