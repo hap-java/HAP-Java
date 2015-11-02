@@ -39,13 +39,15 @@ public class LoggingHandler extends ChannelDuplexHandler {
 	}
 	
 	private void logBytes(String type, ByteBuf buf, ChannelHandlerContext ctx) throws IOException {
-		try (ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
-			byte[] bytes = new byte[buf.readableBytes()];
-			buf.getBytes(0, bytes, 0, bytes.length);
-			HexDump.dump(bytes, 0, stream, 0);
-			stream.flush();
-			logger.trace(String.format("%s %s [%s]:\n%s\n", type, buf, ctx.channel().remoteAddress().toString(),
-					stream.toString()));
+		if (buf.readableBytes() > 0) {
+			try (ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
+				byte[] bytes = new byte[buf.readableBytes()];
+				buf.getBytes(0, bytes, 0, bytes.length);
+				HexDump.dump(bytes, 0, stream, 0);
+				stream.flush();
+				logger.trace(String.format("%s %s [%s]:\n%s\n", type, buf, ctx.channel().remoteAddress().toString(),
+						stream.toString()));
+			}
 		}
 	}
 }

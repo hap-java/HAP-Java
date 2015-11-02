@@ -24,6 +24,7 @@ public class HomekitRegistry {
 	private final Map<Integer, HomekitAccessory> accessories;
 	private final Map<HomekitAccessory, List<Service>> services = new HashMap<>();
 	private final Map<HomekitAccessory, Map<Integer, Characteristic>> characteristics = new HashMap<>();
+	private boolean isAllowUnauthenticatedRequests = false;
 	
 	public HomekitRegistry(String label) {
 		this.label = label;
@@ -80,6 +81,14 @@ public class HomekitRegistry {
 
 	public void remove(HomekitAccessory accessory) {
 		accessories.remove(accessory.getId());
+	}
+	
+	public boolean isAllowUnauthenticatedRequests() {
+		return isAllowUnauthenticatedRequests;
+	}
+
+	public void setAllowUnauthenticatedRequests(boolean allow) {
+		this.isAllowUnauthenticatedRequests = allow;
 	}
 
 }

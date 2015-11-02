@@ -54,11 +54,12 @@ class HttpSession {
 			return handlePairVerify(request);
 			
 		default:
-			logger.info("Unrecognized request for "+request.getUri());
-			return new NotFoundResponse();
-			
-			// Enable this to allow unauthenticated access. Useful for debugging.
-			//return handleAuthenticatedRequest(request);
+			if (registry.isAllowUnauthenticatedRequests()) {
+				return handleAuthenticatedRequest(request);
+			} else {
+				logger.info("Unrecognized request for "+request.getUri());
+				return new NotFoundResponse();
+			}
 		}
 	}
 	

@@ -53,11 +53,13 @@ public class JmdnsHomekitAdvertiser {
 	}
 	
 	public void setDiscoverable(boolean discoverable) throws IOException {
-		this.discoverable = discoverable;
-		if (isAdvertising) {
-			logger.info("Re-creating service due to change in discoverability to "+discoverable);
-			jmdns.unregisterAllServices();
-			registerService();
+		if (this.discoverable != discoverable) {
+			this.discoverable = discoverable;
+			if (isAdvertising) {
+				logger.info("Re-creating service due to change in discoverability to "+discoverable);
+				jmdns.unregisterAllServices();
+				registerService();
+			}
 		}
 	}
 	
@@ -65,7 +67,6 @@ public class JmdnsHomekitAdvertiser {
 		logger.info("Registering "+SERVICE_TYPE+" on port "+port);
 		Map<String, String> props = new HashMap<>();
 		props.put("sf", discoverable ? "1" : "0");
-		props.put("pv", "1.0");
 		props.put("id", mac);
 		props.put("md", label);
 		props.put("c#", "1");

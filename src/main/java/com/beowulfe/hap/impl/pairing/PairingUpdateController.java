@@ -30,7 +30,7 @@ public class PairingUpdateController {
 			byte[] username = d.getBytes(MessageType.USERNAME);
 			authInfo.removeUser(authInfo.getMac()+new String(username));
 			if (!authInfo.hasUser()) {
-				advertiser.setDiscoverable(false);
+				advertiser.setDiscoverable(true);
 			}
 		} else {
 			throw new RuntimeException("Unrecognized method: "+method);

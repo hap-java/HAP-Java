@@ -100,7 +100,7 @@ public class HomekitRoot {
 		webHandler.start(new HomekitClientConnectionFactoryImpl(authInfo,
 				registry, subscriptions, advertiser)).thenAccept(port -> {
 					try {
-						advertiser.setDiscoverable(!authInfo.hasUser());
+						refreshAuthInfo();
 						advertiser.advertise(label, authInfo.getMac(), port);
 					} catch (Exception e) {
 						throw new RuntimeException(e);
@@ -115,6 +115,25 @@ public class HomekitRoot {
 		advertiser.stop();
 		webHandler.stop();
 		started = false;
+	}
+	
+	/**
+	 * Refreshes auth info after it has been changed outside this library
+	 * 
+	 * @throws IOException if the info cannot be read
+	 */
+	public void refreshAuthInfo() throws IOException {
+		advertiser.setDiscoverable(!authInfo.hasUser());
+	}
+	
+	/**
+	 * By default, most homekit requests require that the client be paired. Allowing unauthenticated requests
+	 * can be useful for debugging, but should not be used in production.
+	 * 
+	 * @param allow whether to allow unauthenticated requests
+	 */
+	public void allowUnauthenticatedRequests(boolean allow) {
+		registry.setAllowUnauthenticatedRequests(allow);
 	}
 	
 	HomekitRegistry getRegistry() {

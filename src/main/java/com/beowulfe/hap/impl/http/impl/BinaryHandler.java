@@ -57,7 +57,7 @@ public class BinaryHandler extends ByteToMessageCodec<ByteBuf> {
 	}
 	
 	private void traceData(String msg, byte[] b, ChannelHandlerContext ctx) throws Exception {
-		if (logger.isTraceEnabled()) {
+		if (logger.isTraceEnabled() && b.length > 0) {
 			try (ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
 				HexDump.dump(b, 0, stream, 0);
 				stream.flush();
