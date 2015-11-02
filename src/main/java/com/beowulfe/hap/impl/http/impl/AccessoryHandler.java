@@ -37,7 +37,14 @@ class AccessoryHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
 			if (!channel.isActive()) { return; }
 			channel.writeAndFlush(NettyResponseUtil.createResponse(response));
 		});
+		LOGGER.info("New homekit connection from "+ctx.channel().remoteAddress().toString());
 		super.channelActive(ctx);
+	}
+	
+	@Override
+	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+		LOGGER.info("Terminated homekit connection from "+ctx.channel().remoteAddress().toString());
+		super.channelInactive(ctx);
 	}
 
 	@Override
