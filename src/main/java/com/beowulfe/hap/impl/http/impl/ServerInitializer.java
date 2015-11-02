@@ -30,8 +30,7 @@ class ServerInitializer extends ChannelInitializer<SocketChannel> {
 	@Override
 	protected void initChannel(SocketChannel ch) throws Exception {
 		ChannelPipeline pipeline = ch.pipeline();
-		// Useful for debugging:
-		//pipeline.addLast(new LoggingHandler()); 
+		pipeline.addLast(new LoggingHandler()); 
 		pipeline.addLast(HTTP_HANDLER_NAME, new HttpResponseEncoderAggregate());
 		pipeline.addLast(new HttpRequestDecoder());
 		pipeline.addLast(new HttpObjectAggregator(MAX_POST));
