@@ -73,11 +73,13 @@ class AccessoryHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
 		response.headers().set(HttpHeaders.Names.CONTENT_LENGTH, response.content().readableBytes());
 		response.headers().set(HttpHeaders.Names.CONNECTION, HttpHeaders.Values.KEEP_ALIVE);
 		ctx.write(response);
+		ctx.flush();
 	}
 	
 	private void sendResponse(HttpResponse homekitResponse, ChannelHandlerContext ctx) {
 		FullHttpResponse response = NettyResponseUtil.createResponse(homekitResponse);
 		ctx.write(response);
+		ctx.flush();
 	}
 	
 	@Override
