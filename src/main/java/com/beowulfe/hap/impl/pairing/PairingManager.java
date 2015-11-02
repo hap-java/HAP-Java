@@ -7,6 +7,7 @@ import com.beowulfe.hap.HomekitAuthInfo;
 import com.beowulfe.hap.impl.HomekitRegistry;
 import com.beowulfe.hap.impl.http.HttpRequest;
 import com.beowulfe.hap.impl.http.HttpResponse;
+import com.beowulfe.hap.impl.jmdns.JmdnsHomekitAdvertiser;
 import com.beowulfe.hap.impl.responses.NotFoundResponse;
 import com.beowulfe.hap.impl.responses.UnauthorizedResponse;
 
@@ -16,12 +17,14 @@ public class PairingManager {
 	
 	private final HomekitAuthInfo authInfo;
 	private final HomekitRegistry registry;
+	private final JmdnsHomekitAdvertiser advertiser;
 	
 	private SrpHandler srpHandler;
 	
-	public PairingManager(HomekitAuthInfo authInfo, HomekitRegistry registry) {
+	public PairingManager(HomekitAuthInfo authInfo, HomekitRegistry registry, JmdnsHomekitAdvertiser advertiser) {
 		this.authInfo = authInfo;
 		this.registry = registry;
+		this.advertiser = advertiser;
 	}
 
 	public HttpResponse handle(HttpRequest httpRequest) throws Exception {
@@ -51,7 +54,7 @@ public class PairingManager {
 				logger.warn("Received unexpected stage 3 request for "+registry.getLabel());
 				return new UnauthorizedResponse();
 			} else {
-				FinalPairHandler handler = new FinalPairHandler(srpHandler.getK(), authInfo);
+				FinalPairHandler handler = new FinalPairHandler(srpHandler.getK(), authInfo, advertiser);
 				try {
 					return handler.handle(req);
 				} catch (Exception e) {

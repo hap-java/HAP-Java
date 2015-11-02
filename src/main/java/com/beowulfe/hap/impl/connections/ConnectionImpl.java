@@ -18,6 +18,7 @@ import com.beowulfe.hap.impl.crypto.ChachaEncoder;
 import com.beowulfe.hap.impl.http.HomekitClientConnection;
 import com.beowulfe.hap.impl.http.HttpRequest;
 import com.beowulfe.hap.impl.http.HttpResponse;
+import com.beowulfe.hap.impl.jmdns.JmdnsHomekitAdvertiser;
 import com.beowulfe.hap.impl.pairing.UpgradeResponse;
 
 class ConnectionImpl implements HomekitClientConnection {
@@ -35,8 +36,9 @@ class ConnectionImpl implements HomekitClientConnection {
 	private final static Logger LOGGER = LoggerFactory.getLogger(HomekitClientConnection.class);
 	
 	public ConnectionImpl(HomekitAuthInfo authInfo, HomekitRegistry registry, 
-			Consumer<HttpResponse> outOfBandMessageCallback, SubscriptionManager subscriptions) {
-		httpSession = new HttpSession(authInfo, registry, subscriptions, this);
+			Consumer<HttpResponse> outOfBandMessageCallback, SubscriptionManager subscriptions,
+			JmdnsHomekitAdvertiser advertiser) {
+		httpSession = new HttpSession(authInfo, registry, subscriptions, this, advertiser);
 		this.outOfBandMessageCallback = outOfBandMessageCallback;
 		this.subscriptions = subscriptions;
 	}

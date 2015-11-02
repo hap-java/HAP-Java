@@ -69,4 +69,13 @@ public interface HomekitAuthInfo {
 	 * @return the previously stored public key for this user.
 	 */
 	byte[] getUserPublicKey(String username);
+	
+	/**
+	 * Called to check if a user has been created. The homekit accessory advertises whether the accessory has already been paired.
+	 * At this time, it's unclear whether multiple users can be created, however it is known that advertising as unpaired
+	 * will break in iOS 9. The default value has been provided to maintain API compatibility for implementations targeting iOS 8.
+	 * 
+	 * @return whether a user has been created and stored
+	 */
+	default boolean hasUser() { return false; };
 }

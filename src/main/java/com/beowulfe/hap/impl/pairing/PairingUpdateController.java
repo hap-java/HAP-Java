@@ -5,14 +5,17 @@ import java.io.IOException;
 import com.beowulfe.hap.HomekitAuthInfo;
 import com.beowulfe.hap.impl.http.HttpRequest;
 import com.beowulfe.hap.impl.http.HttpResponse;
+import com.beowulfe.hap.impl.jmdns.JmdnsHomekitAdvertiser;
 import com.beowulfe.hap.impl.pairing.TypeLengthValueUtils.DecodeResult;
 
 public class PairingUpdateController {
 
 	private final HomekitAuthInfo authInfo;
+	private final JmdnsHomekitAdvertiser advertiser;
 	
-	public PairingUpdateController(HomekitAuthInfo authInfo) {
+	public PairingUpdateController(HomekitAuthInfo authInfo, JmdnsHomekitAdvertiser advertiser) {
 		this.authInfo = authInfo;
+		this.advertiser = advertiser;
 	}
 
 	public HttpResponse handle(HttpRequest request) throws IOException {
@@ -26,6 +29,9 @@ public class PairingUpdateController {
 		} else if (method == 4) { //Remove pairing
 			byte[] username = d.getBytes(MessageType.USERNAME);
 			authInfo.removeUser(authInfo.getMac()+new String(username));
+			if (!authInfo.hasUser()) {
+				advertiser.setDiscoverable(false);
+			}
 		} else {
 			throw new RuntimeException("Unrecognized method: "+method);
 		}

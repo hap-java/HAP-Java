@@ -12,6 +12,7 @@ import com.beowulfe.hap.impl.HomekitRegistry;
 import com.beowulfe.hap.impl.http.HomekitClientConnection;
 import com.beowulfe.hap.impl.http.HttpRequest;
 import com.beowulfe.hap.impl.http.HttpResponse;
+import com.beowulfe.hap.impl.jmdns.JmdnsHomekitAdvertiser;
 import com.beowulfe.hap.impl.json.AccessoryController;
 import com.beowulfe.hap.impl.json.CharacteristicsController;
 import com.beowulfe.hap.impl.pairing.PairVerificationManager;
@@ -31,15 +32,17 @@ class HttpSession {
 	private final HomekitRegistry registry;
 	private final SubscriptionManager subscriptions;
 	private final HomekitClientConnection connection;
+	private final JmdnsHomekitAdvertiser advertiser;
 	
 	private final static Logger logger = LoggerFactory.getLogger(HttpSession.class);
 	
 	public HttpSession(HomekitAuthInfo authInfo, HomekitRegistry registry, SubscriptionManager subscriptions,
-			HomekitClientConnection connection) {
+			HomekitClientConnection connection, JmdnsHomekitAdvertiser advertiser) {
 		this.authInfo = authInfo;
 		this.registry = registry;
 		this.subscriptions = subscriptions;
 		this.connection = connection;
+		this.advertiser = advertiser;
 	}
 
 	public HttpResponse handleRequest(HttpRequest request) throws IOException {
@@ -76,7 +79,7 @@ class HttpSession {
 				}
 				
 			case "/pairings":
-				return new PairingUpdateController(authInfo).handle(request);
+				return new PairingUpdateController(authInfo, advertiser).handle(request);
 				
 			default:
 				if (request.getUri().startsWith("/characteristics?")) {
@@ -95,7 +98,7 @@ class HttpSession {
 		if (pairingManager == null) {
 			synchronized(HttpSession.class) {
 				if (pairingManager == null) {
-					pairingManager = new PairingManager(authInfo, registry);
+					pairingManager = new PairingManager(authInfo, registry, advertiser);
 				}
 			}
 		}

@@ -10,6 +10,7 @@ import com.beowulfe.hap.impl.crypto.ChachaEncoder;
 import com.beowulfe.hap.impl.crypto.EdsaSigner;
 import com.beowulfe.hap.impl.crypto.EdsaVerifier;
 import com.beowulfe.hap.impl.http.HttpResponse;
+import com.beowulfe.hap.impl.jmdns.JmdnsHomekitAdvertiser;
 import com.beowulfe.hap.impl.pairing.PairSetupRequest.Stage3Request;
 import com.beowulfe.hap.impl.pairing.TypeLengthValueUtils.DecodeResult;
 import com.beowulfe.hap.impl.pairing.TypeLengthValueUtils.Encoder;
@@ -18,12 +19,14 @@ class FinalPairHandler {
 	
 	private final byte[] k;
 	private final HomekitAuthInfo authInfo;
+	private final JmdnsHomekitAdvertiser advertiser;
 	
 	private byte[] hkdf_enc_key;
 	
-	public FinalPairHandler(byte[] k, HomekitAuthInfo authInfo) {
+	public FinalPairHandler(byte[] k, HomekitAuthInfo authInfo, JmdnsHomekitAdvertiser advertiser) {
 		this.k = k;
 		this.authInfo = authInfo;
+		this.advertiser = advertiser;
 	}
 
 	public HttpResponse handle(PairSetupRequest req) throws Exception {
@@ -60,7 +63,7 @@ class FinalPairHandler {
 			throw new Exception("Invalid signature");
 		}
 		authInfo.createUser(authInfo.getMac()+new String(username), ltpk);
-		
+		advertiser.setDiscoverable(false);
 		return createResponse();
 	}
 	

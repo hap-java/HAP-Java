@@ -98,8 +98,9 @@ public class HomekitRoot {
 		started = true;
 		registry.reset();
 		webHandler.start(new HomekitClientConnectionFactoryImpl(authInfo,
-				registry, subscriptions)).thenAccept(port -> {
+				registry, subscriptions, advertiser)).thenAccept(port -> {
 					try {
+						advertiser.setDiscoverable(authInfo.hasUser());
 						advertiser.advertise(label, authInfo.getMac(), port);
 					} catch (Exception e) {
 						throw new RuntimeException(e);
