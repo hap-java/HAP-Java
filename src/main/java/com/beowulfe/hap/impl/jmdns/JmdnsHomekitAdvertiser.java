@@ -71,6 +71,7 @@ public class JmdnsHomekitAdvertiser {
 		props.put("c#", "1");
 		props.put("s#", "1");
 		props.put("ff", "0");
+		props.put("ci", "1");
 		jmdns.registerService(ServiceInfo.create(SERVICE_TYPE, label, port, 1, 1, props));
 	}
 	
