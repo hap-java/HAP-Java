@@ -32,6 +32,7 @@ public class HomekitRoot {
 	private final HomekitRegistry registry;
 	private final SubscriptionManager subscriptions = new SubscriptionManager();
 	private boolean started = false;
+	private int configurationIndex = 1;
 
 	HomekitRoot(String label, HomekitWebHandler webHandler, InetAddress localhost, 
 			HomekitAuthInfo authInfo) throws IOException {
@@ -101,7 +102,7 @@ public class HomekitRoot {
 				registry, subscriptions, advertiser)).thenAccept(port -> {
 					try {
 						refreshAuthInfo();
-						advertiser.advertise(label, authInfo.getMac(), port);
+						advertiser.advertise(label, authInfo.getMac(), port, configurationIndex);
 					} catch (Exception e) {
 						throw new RuntimeException(e);
 					}
@@ -120,7 +121,7 @@ public class HomekitRoot {
 	/**
 	 * Refreshes auth info after it has been changed outside this library
 	 * 
-	 * @throws IOException if the info cannot be read
+	 * @throws IOException if there is an error in the underlying protocol, such as a TCP error
 	 */
 	public void refreshAuthInfo() throws IOException {
 		advertiser.setDiscoverable(!authInfo.hasUser());
@@ -134,6 +135,27 @@ public class HomekitRoot {
 	 */
 	public void allowUnauthenticatedRequests(boolean allow) {
 		registry.setAllowUnauthenticatedRequests(allow);
+	}
+	
+	
+	/**
+	 * By default, the bridge advertises itself at revision 1. If you make changes to the accessories you're
+	 * including in the bridge after your first call to {@link start()}, you should increment this number. The 
+	 * behavior of the client if the configuration index were to decrement is undefined, so this implementation will
+	 * not manage the configuration index by automatically incrementing - preserving this state across invocations should
+	 * be handled externally.
+	 * 
+	 * @param revision an integer, greater than or equal to one, indicating the revision of the accessory information
+	 * @throws IOException if there is an error in the underlying protocol, such as a TCP error
+	 */
+	public void setConfigurationIndex(int revision) throws IOException {
+		if (revision < 1) {
+			throw new IllegalArgumentException("revision must be greater than or equal to 1");
+		}
+		this.configurationIndex = revision;
+		if (this.started) {
+			advertiser.setConfigurationIndex(revision);
+		}
 	}
 	
 	HomekitRegistry getRegistry() {

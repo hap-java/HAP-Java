@@ -65,7 +65,7 @@ public class HomekitRootTest {
 		String mac = "00:00:00:00:00:00";
 		when(authInfo.getMac()).thenReturn(mac);
 		root.start();
-		verify(advertiser).advertise(eq(LABEL), eq(mac), eq(PORT));
+		verify(advertiser).advertise(eq(LABEL), eq(mac), eq(PORT), eq(1));
 	}
 	
 	@Test

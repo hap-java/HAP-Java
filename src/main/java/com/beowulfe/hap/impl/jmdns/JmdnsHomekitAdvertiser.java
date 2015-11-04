@@ -24,18 +24,20 @@ public class JmdnsHomekitAdvertiser {
 	private String label;
 	private String mac;
 	private int port;
+	private int configurationIndex;
 	
 	public JmdnsHomekitAdvertiser(InetAddress localAddress) throws UnknownHostException, IOException {
 		jmdns = JmDNS.create(localAddress);
 	}
 
-	public synchronized void advertise(String label, String mac, int port) throws Exception {
+	public synchronized void advertise(String label, String mac, int port, int configurationIndex) throws Exception {
 		if (isAdvertising) {
 			throw new IllegalStateException("Homekit advertiser is already running");
 		}
 		this.label = label;
 		this.mac = mac;
 		this.port = port;
+		this.configurationIndex = configurationIndex;
 		
 		logger.info("Advertising accessory "+label);
 	
@@ -48,15 +50,26 @@ public class JmdnsHomekitAdvertiser {
 		isAdvertising = true;
 	}
 	
-	public void stop() {
+	public synchronized void stop() {
 		jmdns.unregisterAllServices();
 	}
 	
-	public void setDiscoverable(boolean discoverable) throws IOException {
+	public synchronized void setDiscoverable(boolean discoverable) throws IOException {
 		if (this.discoverable != discoverable) {
 			this.discoverable = discoverable;
 			if (isAdvertising) {
 				logger.info("Re-creating service due to change in discoverability to "+discoverable);
+				jmdns.unregisterAllServices();
+				registerService();
+			}
+		}
+	}
+	
+	public synchronized void setConfigurationIndex(int revision) throws IOException {
+		if (this.configurationIndex != revision) {
+			this.configurationIndex = revision;
+			if (isAdvertising) {
+				logger.info("Re-creating service due to change in configuration index to "+revision);
 				jmdns.unregisterAllServices();
 				registerService();
 			}
@@ -69,7 +82,7 @@ public class JmdnsHomekitAdvertiser {
 		props.put("sf", discoverable ? "1" : "0");
 		props.put("id", mac);
 		props.put("md", label);
-		props.put("c#", "1");
+		props.put("c#", Integer.toString(configurationIndex));
 		props.put("s#", "1");
 		props.put("ff", "0");
 		props.put("ci", "1");
