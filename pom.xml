@@ -6,7 +6,7 @@
 	<artifactId>hap</artifactId>
 	<name>hap-java</name>
 	<description>Homekit Accessory Protocol for Java</description>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.1.0</version>
 	<packaging>jar</packaging>
 	<url>http://www.github.com/beowulfe/HAP-Java</url>
 
