@@ -21,6 +21,8 @@ class LengthPrefixedByteArrayProcessor {
 					System.arraycopy(data, pos+2, b, 0, targetLength-2);
 					results.add(b);
 					pos = pos + targetLength;
+				} else {
+					break;
 				}
 			}
 		}
