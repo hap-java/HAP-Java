@@ -26,7 +26,7 @@ public class HomekitHttpServer implements HomekitWebHandler {
 	@Override
 	public CompletableFuture<Integer> start(HomekitClientConnectionFactory clientConnectionFactory) {
 		if (service == null) {
-			this.service = NettyHomekitHttpService.get(port, nThreads);
+			this.service = NettyHomekitHttpService.create(port, nThreads);
 			return this.service.create(clientConnectionFactory);
 		} else {
 			throw new RuntimeException("HomekitHttpServer can only be started once");

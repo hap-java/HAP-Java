@@ -1,18 +1,14 @@
 package com.beowulfe.hap.impl.http.impl;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-import io.netty.util.concurrent.Future;
-import io.netty.util.concurrent.GenericFutureListener;
-import io.netty.util.concurrent.GlobalEventExecutor;
+import io.netty.util.concurrent.*;
 
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
@@ -29,20 +25,12 @@ class NettyHomekitHttpService {
 	private final EventLoopGroup workerGroup;
 	
 	private final static Logger logger = LoggerFactory.getLogger(NettyHomekitHttpService.class);
-	private volatile static NettyHomekitHttpService INSTANCE;
 	private final ChannelGroup allChannels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 	private final int port;
 	private final int nThreads;
 	
-	public static NettyHomekitHttpService get(int port, int nThreads) { 
-		if (INSTANCE == null) {
-			synchronized(NettyHomekitHttpService.class) {
-				if (INSTANCE == null) {
-					INSTANCE = new NettyHomekitHttpService(port, nThreads);
-				}
-			}
-		}
-		return INSTANCE; 
+	public static NettyHomekitHttpService create(int port, int nThreads) { 
+		return new NettyHomekitHttpService(port, nThreads);
 	}
 	
 	private NettyHomekitHttpService(int port, int nThreads) {
