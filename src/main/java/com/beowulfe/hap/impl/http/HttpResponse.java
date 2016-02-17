@@ -1,5 +1,6 @@
 package com.beowulfe.hap.impl.http;
 
+import java.nio.ByteBuffer;
 import java.util.Collections;
 import java.util.Map;
 
@@ -7,8 +8,8 @@ public interface HttpResponse {
 
 	int getStatusCode();
 	
-	default byte[] getBody() {
-		return new byte[0];
+	default ByteBuffer getBody() {
+		return ByteBuffer.allocate(0);
 	}
 	
 	default HttpVersion getVersion() {

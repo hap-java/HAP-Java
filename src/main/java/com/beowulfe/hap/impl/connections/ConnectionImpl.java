@@ -15,9 +15,7 @@ import com.beowulfe.hap.HomekitAuthInfo;
 import com.beowulfe.hap.impl.HomekitRegistry;
 import com.beowulfe.hap.impl.crypto.ChachaDecoder;
 import com.beowulfe.hap.impl.crypto.ChachaEncoder;
-import com.beowulfe.hap.impl.http.HomekitClientConnection;
-import com.beowulfe.hap.impl.http.HttpRequest;
-import com.beowulfe.hap.impl.http.HttpResponse;
+import com.beowulfe.hap.impl.http.*;
 import com.beowulfe.hap.impl.jmdns.JmdnsHomekitAdvertiser;
 import com.beowulfe.hap.impl.pairing.UpgradeResponse;
 
@@ -53,8 +51,8 @@ class ConnectionImpl implements HomekitClientConnection {
 				httpSession.handleAuthenticatedRequest(request) : httpSession.handleRequest(request);
 		if (response instanceof UpgradeResponse) {
 			isUpgraded = true;
-			readKey = ((UpgradeResponse) response).getReadKey();
-			writeKey = ((UpgradeResponse) response).getWriteKey();
+			readKey = ((UpgradeResponse) response).getReadKey().array();
+			writeKey = ((UpgradeResponse) response).getWriteKey().array();
 		}
 		LOGGER.info(response.getStatusCode()+" "+request.getUri());
 		return response;

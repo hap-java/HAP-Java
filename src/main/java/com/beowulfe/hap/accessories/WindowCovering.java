@@ -40,7 +40,7 @@ public interface WindowCovering extends HomekitAccessory {
 	CompletableFuture<Boolean> getObstructionDetected();
 	
 	@Override
-	default public Collection<Service> getServices() {
+	default Collection<Service> getServices() {
 		return Collections.singleton(new WindowCoveringService(this));
 	}
 	
@@ -50,7 +50,7 @@ public interface WindowCovering extends HomekitAccessory {
 	 * @return a future that completes when the change is made
 	 * @throws Exception when the change cannot be made
 	 */
-	public CompletableFuture<Void> setTargetPosition(int position) throws Exception;
+	CompletableFuture<Void> setTargetPosition(int position) throws Exception;
 	
 	/**
 	 * Sets the hold position state
@@ -58,7 +58,7 @@ public interface WindowCovering extends HomekitAccessory {
 	 * @return a future that completes when the change is made
 	 * @throws Exception when the change cannot be made
 	 */
-	public CompletableFuture<Void> setHoldPosition(boolean hold) throws Exception;
+	CompletableFuture<Void> setHoldPosition(boolean hold) throws Exception;
 	
 	/**
 	 * Subscribes to changes in the current position.

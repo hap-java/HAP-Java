@@ -1,17 +1,19 @@
 package com.beowulfe.hap.impl.responses;
 
+import java.nio.ByteBuffer;
+
 import com.beowulfe.hap.impl.http.HttpResponse;
 
 public class OkResponse implements HttpResponse {
 
-	private final byte[] body;
+	private final ByteBuffer body;
 	
 	public OkResponse(byte[] body) {
-		this.body = body;
+		this.body = ByteBuffer.wrap(body);
 	}
 	
 	@Override
-	public byte[] getBody() {
+	public ByteBuffer getBody() {
 		return body;
 	}
 	

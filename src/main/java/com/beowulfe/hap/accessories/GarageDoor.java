@@ -4,9 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
-import com.beowulfe.hap.HomekitAccessory;
-import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
-import com.beowulfe.hap.Service;
+import com.beowulfe.hap.*;
 import com.beowulfe.hap.accessories.properties.DoorState;
 import com.beowulfe.hap.impl.services.GarageDoorService;
 
@@ -78,7 +76,7 @@ public interface GarageDoor extends HomekitAccessory {
 
 
 	@Override
-	default public Collection<Service> getServices() {
+	default Collection<Service> getServices() {
 		return Collections.singleton(new GarageDoorService(this));
 	}
 }

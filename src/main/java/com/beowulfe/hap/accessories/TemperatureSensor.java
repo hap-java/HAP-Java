@@ -4,9 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
-import com.beowulfe.hap.HomekitAccessory;
-import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
-import com.beowulfe.hap.Service;
+import com.beowulfe.hap.*;
 import com.beowulfe.hap.accessories.properties.TemperatureUnit;
 import com.beowulfe.hap.impl.services.TemperatureSensorService;
 
@@ -24,7 +22,7 @@ public interface TemperatureSensor extends HomekitAccessory {
 	CompletableFuture<Double> getCurrentTemperature();
 	
 	@Override
-	default public Collection<Service> getServices() {
+	default Collection<Service> getServices() {
 		return Collections.singleton(new TemperatureSensorService(this));
 	}
 	

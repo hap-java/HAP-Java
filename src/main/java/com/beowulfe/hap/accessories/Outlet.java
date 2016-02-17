@@ -15,7 +15,7 @@ import com.beowulfe.hap.impl.services.OutletService;
 public interface Outlet extends HomekitAccessory {
 
 	@Override
-	default public Collection<Service> getServices() {
+	default Collection<Service> getServices() {
 		return Collections.singleton(new OutletService(this));
 	}
 
@@ -23,13 +23,13 @@ public interface Outlet extends HomekitAccessory {
 	 * Retrieves the current binary state of the outlet's power.
 	 * @return a future that will contain the binary state
 	 */
-	public CompletableFuture<Boolean> getPowerState();
+	CompletableFuture<Boolean> getPowerState();
 	
 	/**
 	 * Retrieves the current binary state indicating whether the outlet is in use.
 	 * @return a future that will contain the binary state
 	 */
-	public CompletableFuture<Boolean> getOutletInUse();
+	CompletableFuture<Boolean> getOutletInUse();
 	
 	/**
 	 * Sets the binary state of the outlet's power.
@@ -37,28 +37,28 @@ public interface Outlet extends HomekitAccessory {
 	 * @return a future that completes when the change is made
 	 * @throws Exception when the change cannot be made
 	 */
-	public CompletableFuture<Void> setPowerState(boolean state) throws Exception;
+	CompletableFuture<Void> setPowerState(boolean state) throws Exception;
 	
 	/**
 	 * Subscribes to changes in the binary state of the outlet's power.
 	 * @param callback the function to call when the state changes.
 	 */
-	public void subscribePowerState(HomekitCharacteristicChangeCallback callback);
+	void subscribePowerState(HomekitCharacteristicChangeCallback callback);
 
 	/**
 	 * Subscribes to changes in the binary state indicating whether the outlet is in use.
 	 * @param callback the function to call when the state changes.
 	 */
-	public void subscribeOutletInUse(HomekitCharacteristicChangeCallback callback);
+	void subscribeOutletInUse(HomekitCharacteristicChangeCallback callback);
 	
 	/**
 	 * Unsubscribes from changes in the binary state of the outlet's power.
 	 */
-	public void unsubscribePowerState();
+	void unsubscribePowerState();
 
 	/**
 	 * Unsubscribes from changes in the binary state indicating whether hte outlet is in use.
 	 */
-	public void unsubscribeOutletInUse();
+	void unsubscribeOutletInUse();
 
 }

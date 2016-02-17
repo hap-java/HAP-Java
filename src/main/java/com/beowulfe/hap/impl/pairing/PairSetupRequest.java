@@ -62,7 +62,7 @@ abstract class PairSetupRequest {
 		
 	}
 	
-	public static class Stage3Request extends PairSetupRequest {
+	static class Stage3Request extends PairSetupRequest {
 	
 		private final byte[] messageData;
 		private final byte[] authTagData;

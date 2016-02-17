@@ -4,14 +4,14 @@ import java.io.IOException;
 
 public interface HomekitClientConnection {
 
-	public HttpResponse handleRequest(HttpRequest request) throws IOException;
+	HttpResponse handleRequest(HttpRequest request) throws IOException;
 
 	byte[] decryptRequest(byte[] ciphertext);
 	
 	byte[] encryptResponse(byte[] plaintext) throws IOException;
 	
-	public void close();
+	void close();
 
-	public void outOfBand(HttpResponse message);
+	void outOfBand(HttpResponse message);
 	
 }

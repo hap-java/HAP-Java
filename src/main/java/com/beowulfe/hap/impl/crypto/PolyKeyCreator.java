@@ -12,14 +12,14 @@ class PolyKeyCreator {
         
         if (additionalData != null) {
         	poly.update(additionalData, 0, additionalData.length);
-        	if ((additionalData.length % 16) != 0) {
+        	if (additionalData.length % 16 != 0) {
         		int round = 16-(additionalData.length%16);
         		poly.update(new byte[round], 0, round);
         	}
         }
         
         poly.update(ciphertext, 0, ciphertext.length);
-        if ((ciphertext.length % 16) != 0) {
+        if (ciphertext.length % 16 != 0) {
         	int round = 16-(ciphertext.length%16);
         	poly.update(new byte[round], 0, round);
         }

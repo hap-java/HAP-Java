@@ -1,22 +1,15 @@
 package com.beowulfe.hap.impl.http.impl;
 
 import io.netty.buffer.Unpooled;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.handler.codec.http.DefaultFullHttpResponse;
-import io.netty.handler.codec.http.FullHttpRequest;
-import io.netty.handler.codec.http.FullHttpResponse;
-import io.netty.handler.codec.http.HttpHeaders;
-import io.netty.handler.codec.http.HttpResponseStatus;
-import io.netty.handler.codec.http.HttpVersion;
+import io.netty.channel.*;
+import io.netty.handler.codec.http.*;
+
+import java.nio.charset.StandardCharsets;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.beowulfe.hap.impl.http.HomekitClientConnection;
-import com.beowulfe.hap.impl.http.HomekitClientConnectionFactory;
+import com.beowulfe.hap.impl.http.*;
 import com.beowulfe.hap.impl.http.HttpResponse;
 
 class AccessoryHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
@@ -68,7 +61,7 @@ class AccessoryHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
 			responseBody = "";
 		}
 		FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, status, 
-				Unpooled.copiedBuffer(responseBody.getBytes()));
+				Unpooled.copiedBuffer(responseBody.getBytes(StandardCharsets.UTF_8)));
 		response.headers().set(HttpHeaders.Names.CONTENT_TYPE, "text/plain");
 		response.headers().set(HttpHeaders.Names.CONTENT_LENGTH, response.content().readableBytes());
 		response.headers().set(HttpHeaders.Names.CONNECTION, HttpHeaders.Values.KEEP_ALIVE);

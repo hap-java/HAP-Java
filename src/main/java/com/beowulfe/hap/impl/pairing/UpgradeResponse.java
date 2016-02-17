@@ -1,5 +1,7 @@
 package com.beowulfe.hap.impl.pairing;
 
+import java.nio.ByteBuffer;
+
 public class UpgradeResponse extends PairingResponse {
 
 	private final byte[] readKey;
@@ -16,12 +18,12 @@ public class UpgradeResponse extends PairingResponse {
 		return true;
 	}
 	
-	public byte[] getReadKey() {
-		return readKey;
+	public ByteBuffer getReadKey() {
+		return ByteBuffer.wrap(readKey);
 	}
 	
-	public byte[] getWriteKey() {
-		return writeKey;
+	public ByteBuffer getWriteKey() {
+		return ByteBuffer.wrap(writeKey);
 	}
 
 }

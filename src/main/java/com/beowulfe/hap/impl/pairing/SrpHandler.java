@@ -9,14 +9,11 @@ import org.slf4j.LoggerFactory;
 
 import com.beowulfe.hap.impl.http.HttpResponse;
 import com.beowulfe.hap.impl.pairing.HomekitSRP6ServerSession.State;
-import com.beowulfe.hap.impl.pairing.PairSetupRequest.Stage1Request;
 import com.beowulfe.hap.impl.pairing.PairSetupRequest.Stage2Request;
 import com.beowulfe.hap.impl.pairing.TypeLengthValueUtils.Encoder;
 import com.beowulfe.hap.impl.responses.ConflictResponse;
 import com.beowulfe.hap.impl.responses.NotFoundResponse;
-import com.nimbusds.srp6.SRP6CryptoParams;
-import com.nimbusds.srp6.SRP6VerifierGenerator;
-import com.nimbusds.srp6.XRoutineWithUserIdentity;
+import com.nimbusds.srp6.*;
 
 class SrpHandler {
 
@@ -44,7 +41,7 @@ class SrpHandler {
 	public HttpResponse handle(PairSetupRequest request) throws Exception {
 		switch(request.getStage()) {
 		case ONE:
-			return step1((Stage1Request) request);
+			return step1();
 			
 		case TWO:
 			return step2((Stage2Request) request);
@@ -54,7 +51,7 @@ class SrpHandler {
 		}
 	}
 	
-	private HttpResponse step1(Stage1Request request) throws Exception {
+	private HttpResponse step1() throws Exception {
 		if (session.getState() != State.INIT) {
 			logger.error("Session is not in state INIT when receiving step1");
 			return new ConflictResponse();

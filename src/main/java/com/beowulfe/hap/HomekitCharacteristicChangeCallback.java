@@ -16,5 +16,5 @@ public interface HomekitCharacteristicChangeCallback {
 	/**
 	 * Call when the value of the characteristic that was subscribed to when this object was passed changes.
 	 */
-	public void changed();
+	void changed();
 }

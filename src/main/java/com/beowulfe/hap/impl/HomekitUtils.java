@@ -13,7 +13,7 @@ import com.nimbusds.srp6.SRP6Routines;
 
 public class HomekitUtils {
 	
-	private static SecureRandom secureRandom;
+	private static volatile SecureRandom secureRandom;
 
 	public static BigInteger generateSalt() {
 		return new BigInteger(SRP6Routines.generateRandomSalt(16));

@@ -4,9 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
-import com.beowulfe.hap.HomekitAccessory;
-import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
-import com.beowulfe.hap.Service;
+import com.beowulfe.hap.*;
 import com.beowulfe.hap.accessories.properties.RotationDirection;
 import com.beowulfe.hap.impl.services.FanService;
 
@@ -61,7 +59,7 @@ public interface Fan extends HomekitAccessory {
 	CompletableFuture<Void> setRotationSpeed(Integer speed) throws Exception;
 	
 	@Override
-	default public Collection<Service> getServices() {
+	default Collection<Service> getServices() {
 		return Collections.singleton(new FanService(this));
 	}
 	

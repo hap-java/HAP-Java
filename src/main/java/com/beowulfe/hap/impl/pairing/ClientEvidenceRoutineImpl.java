@@ -1,12 +1,11 @@
 package com.beowulfe.hap.impl.pairing;
 
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import com.nimbusds.srp6.ClientEvidenceRoutine;
-import com.nimbusds.srp6.SRP6ClientEvidenceContext;
-import com.nimbusds.srp6.SRP6CryptoParams;
+import com.nimbusds.srp6.*;
 
 class ClientEvidenceRoutineImpl implements ClientEvidenceRoutine {
 
@@ -37,7 +36,7 @@ class ClientEvidenceRoutineImpl implements ClientEvidenceRoutine {
 		
 		byte[] hNhg = xor(hN, hg);
 		
-		digest.update(ctx.userID.getBytes());
+		digest.update(ctx.userID.getBytes(StandardCharsets.UTF_8));
 		byte[] hu = digest.digest();
 		
 		digest.update(SrpHandler.bigIntegerToUnsignedByteArray(ctx.S));

@@ -1,5 +1,6 @@
 package com.beowulfe.hap.impl.pairing;
 
+import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 
 import org.bouncycastle.crypto.digests.SHA512Digest;
@@ -10,10 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import com.beowulfe.hap.HomekitAuthInfo;
 import com.beowulfe.hap.impl.HomekitRegistry;
-import com.beowulfe.hap.impl.crypto.ChachaDecoder;
-import com.beowulfe.hap.impl.crypto.ChachaEncoder;
-import com.beowulfe.hap.impl.crypto.EdsaSigner;
-import com.beowulfe.hap.impl.crypto.EdsaVerifier;
+import com.beowulfe.hap.impl.crypto.*;
 import com.beowulfe.hap.impl.http.HttpRequest;
 import com.beowulfe.hap.impl.http.HttpResponse;
 import com.beowulfe.hap.impl.pairing.PairVerificationRequest.Stage1Request;
@@ -28,7 +26,7 @@ import djb.Curve25519;
 public class PairVerificationManager {
 	
 	private final static Logger logger = LoggerFactory.getLogger(PairVerificationManager.class);
-	private static SecureRandom secureRandom;
+	private static volatile SecureRandom secureRandom;
 
 	private final HomekitAuthInfo authInfo;
 	private final HomekitRegistry registry;
@@ -68,7 +66,7 @@ public class PairVerificationManager {
 		sharedSecret = new byte[32];
 		Curve25519.curve(sharedSecret, privateKey, clientPublicKey);
 		
-		byte[] material = ByteUtils.joinBytes(publicKey, authInfo.getMac().getBytes(),
+		byte[] material = ByteUtils.joinBytes(publicKey, authInfo.getMac().getBytes(StandardCharsets.UTF_8),
 				clientPublicKey);
 		
 		byte[] proof = new EdsaSigner(authInfo.getPrivateKey()).sign(material);
@@ -95,7 +93,7 @@ public class PairVerificationManager {
 	}
 	
 	private HttpResponse stage2(Stage2Request request) throws Exception {
-		ChachaDecoder chacha = new ChachaDecoder(hkdfKey, "PV-Msg03".getBytes());
+		ChachaDecoder chacha = new ChachaDecoder(hkdfKey, "PV-Msg03".getBytes(StandardCharsets.UTF_8));
 		byte[] plaintext = chacha.decodeCiphertext(request.getAuthTagData(), request.getMessageData());
 		
 		DecodeResult d = TypeLengthValueUtils.decode(plaintext);
@@ -104,7 +102,7 @@ public class PairVerificationManager {
 		
 		byte[] material = ByteUtils.joinBytes(clientPublicKey, clientUsername, publicKey);
 		
-		byte[] clientLtpk = authInfo.getUserPublicKey(authInfo.getMac()+new String(clientUsername));
+		byte[] clientLtpk = authInfo.getUserPublicKey(authInfo.getMac()+new String(clientUsername, StandardCharsets.UTF_8));
 		if (clientLtpk == null) {
 			throw new Exception("Unknown user: "+new String(clientUsername));
 		}
@@ -124,8 +122,8 @@ public class PairVerificationManager {
 	
 	private byte[] createKey(String info) {
 		HKDFBytesGenerator hkdf = new HKDFBytesGenerator(new SHA512Digest());
-		hkdf.init(new HKDFParameters(sharedSecret, "Control-Salt".getBytes(),
-				info.getBytes()));
+		hkdf.init(new HKDFParameters(sharedSecret, "Control-Salt".getBytes(StandardCharsets.UTF_8),
+				info.getBytes(StandardCharsets.UTF_8)));
 		byte[] key = new byte[32];
 		hkdf.generateBytes(key, 0, 32);
 		return key;

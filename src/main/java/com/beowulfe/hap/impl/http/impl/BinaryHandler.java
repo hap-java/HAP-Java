@@ -6,6 +6,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageCodec;
 
 import java.io.ByteArrayOutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.apache.commons.io.HexDump;
@@ -61,8 +62,8 @@ public class BinaryHandler extends ByteToMessageCodec<ByteBuf> {
 			try (ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
 				HexDump.dump(b, 0, stream, 0);
 				stream.flush();
-				logger.trace(String.format("%s [%s]:\n%s\n", msg, ctx.channel().remoteAddress().toString(),
-						stream.toString()));
+				logger.trace(String.format("%s [%s]:%n%s%n", msg, ctx.channel().remoteAddress().toString(),
+						stream.toString(StandardCharsets.UTF_8.name())));
 			}
 		}
 	}

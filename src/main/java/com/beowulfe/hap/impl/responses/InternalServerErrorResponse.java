@@ -1,5 +1,7 @@
 package com.beowulfe.hap.impl.responses;
 
+import java.nio.ByteBuffer;
+
 import com.beowulfe.hap.impl.http.HttpResponse;
 
 public class InternalServerErrorResponse implements HttpResponse {
@@ -16,8 +18,8 @@ public class InternalServerErrorResponse implements HttpResponse {
 	}
 	
 	@Override
-	public byte[] getBody() {
-		return e.getClass().getName().getBytes();
+	public ByteBuffer getBody() {
+		return ByteBuffer.wrap(e.getClass().getName().getBytes());
 	}
 	
 	public Exception getException() {

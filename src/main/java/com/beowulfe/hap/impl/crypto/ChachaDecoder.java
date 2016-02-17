@@ -26,7 +26,7 @@ public class ChachaDecoder {
 	public byte[] decodeCiphertext(byte[] receivedMAC, byte[] additionalData, byte[] ciphertext)
 			throws IOException {
 
-        KeyParameter macKey = initRecordMAC(decryptCipher, false);
+        KeyParameter macKey = initRecordMAC(decryptCipher);
 
         byte[] calculatedMAC = PolyKeyCreator.create(macKey, additionalData, ciphertext);
 
@@ -46,7 +46,7 @@ public class ChachaDecoder {
 		return decodeCiphertext(receivedMAC,  null, ciphertext);
     }
 	
-	private KeyParameter initRecordMAC(ChaChaEngine cipher, boolean forEncryption)
+	private KeyParameter initRecordMAC(ChaChaEngine cipher)
     {
         byte[] firstBlock = new byte[64];
         cipher.processBytes(firstBlock, 0, firstBlock.length, firstBlock, 0);

@@ -1,6 +1,7 @@
 package com.beowulfe.hap.impl.pairing;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import com.beowulfe.hap.HomekitAuthInfo;
 import com.beowulfe.hap.impl.http.HttpRequest;
@@ -25,7 +26,7 @@ public class PairingUpdateController {
 		if (method == 3) { //Add pairing
 			byte[] username = d.getBytes(MessageType.USERNAME);
 			byte[] ltpk = d.getBytes(MessageType.PUBLIC_KEY);
-			authInfo.createUser(authInfo.getMac()+new String(username), ltpk);
+			authInfo.createUser(authInfo.getMac()+new String(username, StandardCharsets.UTF_8), ltpk);
 		} else if (method == 4) { //Remove pairing
 			byte[] username = d.getBytes(MessageType.USERNAME);
 			authInfo.removeUser(authInfo.getMac()+new String(username));

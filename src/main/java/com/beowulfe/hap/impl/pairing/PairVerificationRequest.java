@@ -25,7 +25,7 @@ abstract class PairVerificationRequest {
 	
 	abstract Stage getStage();
 	
-	public static class Stage1Request extends PairVerificationRequest {
+	static class Stage1Request extends PairVerificationRequest {
 
 		private final byte[] clientPublicKey;
 		
@@ -44,7 +44,7 @@ abstract class PairVerificationRequest {
 		
 	}
 	
-	public static class Stage2Request extends PairVerificationRequest {
+	static class Stage2Request extends PairVerificationRequest {
 		
 		private final byte[] messageData;
 		private final byte[] authTagData;

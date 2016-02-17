@@ -29,7 +29,7 @@ public interface VerticalTiltingWindowCovering extends WindowCovering {
 	 * @return a future that completes when the change is made
 	 * @throws Exception when the change cannot be made
 	 */
-	public CompletableFuture<Void> setTargetVerticalTiltAngle(int angle) throws Exception;
+	CompletableFuture<Void> setTargetVerticalTiltAngle(int angle) throws Exception;
 	
 	/**
 	 * Subscribes to changes in the current vertical tilt angle.

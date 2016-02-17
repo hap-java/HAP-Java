@@ -7,10 +7,10 @@ import com.beowulfe.hap.impl.http.HomekitClientConnectionFactory;
 
 public interface HomekitWebHandler {
 
-	public CompletableFuture<Integer> start(HomekitClientConnectionFactory clientConnectionFactory);
+	CompletableFuture<Integer> start(HomekitClientConnectionFactory clientConnectionFactory);
 	
-	public void stop();
+	void stop();
 
-	public void resetConnections();
+	void resetConnections();
 	
 }
