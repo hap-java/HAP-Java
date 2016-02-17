@@ -4,10 +4,10 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.beowulfe.hap.accessories.Thermostat;
+import com.beowulfe.hap.accessories.thermostat.BasicThermostat;
 
 /**
- * The mode used by a {@link Thermostat}
+ * The mode used by a {@link BasicThermostat}
  *
  * @author Andy Lintner
  */

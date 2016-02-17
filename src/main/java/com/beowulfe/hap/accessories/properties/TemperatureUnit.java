@@ -4,10 +4,10 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.beowulfe.hap.accessories.Thermostat;
+import com.beowulfe.hap.accessories.TemperatureSensor;
 
 /**
- * The temperature unit used by a {@link Thermostat}.
+ * The temperature unit used by a {@link TemperatureSensor}.
  *
  * @author Andy Lintner
  */

@@ -3,15 +3,15 @@ package com.beowulfe.hap.impl.characteristics.thermostat;
 import java.util.concurrent.CompletableFuture;
 
 import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
-import com.beowulfe.hap.accessories.Thermostat;
 import com.beowulfe.hap.accessories.properties.ThermostatMode;
+import com.beowulfe.hap.accessories.thermostat.BasicThermostat;
 
 public class TargetHeatingCoolingModeCharacteristic extends
 		AbstractHeatingCoolingModeCharacteristic {
 
-	private final Thermostat thermostat;
+	private final BasicThermostat thermostat;
 	
-	public TargetHeatingCoolingModeCharacteristic(Thermostat thermostat) {
+	public TargetHeatingCoolingModeCharacteristic(BasicThermostat thermostat) {
 		super("00000033-0000-1000-8000-0026BB765291", false, "Target Mode");
 		this.thermostat = thermostat;
 	}
