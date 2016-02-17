@@ -72,17 +72,17 @@ public class PairVerificationManager {
 		byte[] proof = new EdsaSigner(authInfo.getPrivateKey()).sign(material);
 		
 		HKDFBytesGenerator hkdf = new HKDFBytesGenerator(new SHA512Digest());
-		hkdf.init(new HKDFParameters(sharedSecret, "Pair-Verify-Encrypt-Salt".getBytes(),
-				"Pair-Verify-Encrypt-Info".getBytes()));
+		hkdf.init(new HKDFParameters(sharedSecret, "Pair-Verify-Encrypt-Salt".getBytes(StandardCharsets.UTF_8),
+				"Pair-Verify-Encrypt-Info".getBytes(StandardCharsets.UTF_8)));
 		hkdfKey = new byte[32];
 		hkdf.generateBytes(hkdfKey, 0, 32);
 		
 		Encoder encoder = TypeLengthValueUtils.getEncoder();
-		encoder.add(MessageType.USERNAME, authInfo.getMac().getBytes());
+		encoder.add(MessageType.USERNAME, authInfo.getMac().getBytes(StandardCharsets.UTF_8));
 		encoder.add(MessageType.SIGNATURE, proof);
 		byte[] plaintext = encoder.toByteArray();
 		
-		ChachaEncoder chacha = new ChachaEncoder(hkdfKey, "PV-Msg02".getBytes());
+		ChachaEncoder chacha = new ChachaEncoder(hkdfKey, "PV-Msg02".getBytes(StandardCharsets.UTF_8));
 		byte[] ciphertext = chacha.encodeCiphertext(plaintext);
 		
 		encoder = TypeLengthValueUtils.getEncoder();
@@ -104,7 +104,7 @@ public class PairVerificationManager {
 		
 		byte[] clientLtpk = authInfo.getUserPublicKey(authInfo.getMac()+new String(clientUsername, StandardCharsets.UTF_8));
 		if (clientLtpk == null) {
-			throw new Exception("Unknown user: "+new String(clientUsername));
+			throw new Exception("Unknown user: "+new String(clientUsername, StandardCharsets.UTF_8));
 		}
 		
 		Encoder encoder = TypeLengthValueUtils.getEncoder();

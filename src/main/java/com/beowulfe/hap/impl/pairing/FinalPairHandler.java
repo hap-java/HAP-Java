@@ -75,17 +75,17 @@ class FinalPairHandler {
 		
 		EdsaSigner signer = new EdsaSigner(authInfo.getPrivateKey());
 		
-		byte[] material = ByteUtils.joinBytes(okm, authInfo.getMac().getBytes(), signer.getPublicKey());
+		byte[] material = ByteUtils.joinBytes(okm, authInfo.getMac().getBytes(StandardCharsets.UTF_8), signer.getPublicKey());
 		
 		byte[] proof = signer.sign(material);
 		
 		Encoder encoder = TypeLengthValueUtils.getEncoder();
-		encoder.add(MessageType.USERNAME, authInfo.getMac().getBytes());
+		encoder.add(MessageType.USERNAME, authInfo.getMac().getBytes(StandardCharsets.UTF_8));
 		encoder.add(MessageType.PUBLIC_KEY, signer.getPublicKey());
 		encoder.add(MessageType.SIGNATURE, proof);
 		byte[] plaintext = encoder.toByteArray();
 	
-		ChachaEncoder chacha = new ChachaEncoder(hkdf_enc_key, "PS-Msg06".getBytes());
+		ChachaEncoder chacha = new ChachaEncoder(hkdf_enc_key, "PS-Msg06".getBytes(StandardCharsets.UTF_8));
 		byte[] ciphertext = chacha.encodeCiphertext(plaintext);
 		
 		encoder = TypeLengthValueUtils.getEncoder();

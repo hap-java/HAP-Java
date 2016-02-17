@@ -29,7 +29,7 @@ public class PairingUpdateController {
 			authInfo.createUser(authInfo.getMac()+new String(username, StandardCharsets.UTF_8), ltpk);
 		} else if (method == 4) { //Remove pairing
 			byte[] username = d.getBytes(MessageType.USERNAME);
-			authInfo.removeUser(authInfo.getMac()+new String(username));
+			authInfo.removeUser(authInfo.getMac()+new String(username, StandardCharsets.UTF_8));
 			if (!authInfo.hasUser()) {
 				advertiser.setDiscoverable(true);
 			}
