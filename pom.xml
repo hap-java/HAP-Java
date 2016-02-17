@@ -19,7 +19,7 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:git:git@github.com:beowulfe/HAP-Java.git</connection>
+		<connection>scm:git:https://github.com/beowulfe/HAP-Java.git</connection>
 		<developerConnection>scm:git:git@github.com:beowulfe/HAP-Java.git</developerConnection>
 		<url>https://github.com/beowulfe/HAP-Java.git</url>
 		<tag>HEAD</tag>
@@ -169,7 +169,54 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-scm-publish-plugin</artifactId>
+				<version>1.1</version>
+				<executions>
+					<execution>
+						<id>scm-publish</id>
+						<phase>site-deploy</phase>
+						<goals>
+							<goal>publish-scm</goal>
+						</goals>
+						<configuration>
+							<pubScmUrl>scm:git:git@github.com:beowulfe/HAP-Java.git</pubScmUrl>
+							<scmBranch>gh-pages</scmBranch>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>stage-for-scm-publish</id>
+						<phase>post-site</phase>
+						<goals>
+							<goal>stage</goal>
+						</goals>
+						<configuration>
+							<skipDeploy>false</skipDeploy>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<configuration>
+						<skipDeploy>true</skipDeploy>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
 	</build>
 
 	<distributionManagement>
