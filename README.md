@@ -10,4 +10,13 @@ This library would not have been possible without [Tian Zhang](https://github.co
 
 Usage
 =========
-Read the [Javadoc](http://beowulfe.github.io/HAP-Java/apidocs/) and check out the [Sample](https://github.com/beowulfe/HAP-Java/tree/sample).
+Include HAP-Java in your project using maven:
+```
+<dependency>
+	<groupId>com.beowulfe.hap</groupId>
+	<artifactId>hap</artifactId>
+	<version>1.1.3</version>
+</dependency>
+```
+
+After that, read the [Javadoc](http://beowulfe.github.io/HAP-Java/apidocs/) and check out the [Sample](https://github.com/beowulfe/HAP-Java/tree/sample).
