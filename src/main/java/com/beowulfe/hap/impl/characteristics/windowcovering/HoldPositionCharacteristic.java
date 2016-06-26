@@ -22,7 +22,7 @@ public class HoldPositionCharacteristic extends BooleanCharacteristic {
 	@Override
 	protected CompletableFuture<Boolean> getValue() {
 		//Write only
-		return null;
+		return CompletableFuture.completedFuture(null);
 	}
 
 }
