@@ -1,16 +1,21 @@
 package com.beowulfe.hap.accessories;
 
+import com.beowulfe.hap.HomekitAccessory;
+import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
+import com.beowulfe.hap.Service;
+import com.beowulfe.hap.accessories.properties.LockMechanismState;
+import com.beowulfe.hap.impl.services.LockMechanismService;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
-import com.beowulfe.hap.*;
-import com.beowulfe.hap.accessories.properties.LockMechanismState;
-import com.beowulfe.hap.impl.services.LockMechanismService;
-
 /**
- * A lock capable of exposing its binary locked state. For a lock that can be locked/unlocked, use
- * {@link LockableLockMechanism}
+ * <p>A lock capable of exposing its binary locked state. For a lock that can be locked/unlocked, use
+ * {@link LockableLockMechanism}.</p>
+ *
+ * <p>Locks that run on batteries will need to implement this interface and also
+ * implement {@link BatteryAccessory}.</p>
  *
  * @author Andy Lintner
  */
