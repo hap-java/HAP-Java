@@ -11,9 +11,14 @@ import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * A contact sensor that reports whether contact is detected or not. Typical
+ * <p>A contact sensor that reports whether contact is detected or not. Typical
  * contact sensors are window/door sensors. When contact is detected it means
- * that the door/window is closed.
+ * that the door/window is closed.</p>
+ *
+ * <p>Contact sensors that run on batteries will need to implement this interface
+ * and also implement {@link BatteryAccessory}.</p>
+ *
+ * @author Gaston Dombiak
  */
 public interface ContactSensor extends HomekitAccessory {
 
