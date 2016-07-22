@@ -155,7 +155,7 @@
 				<version>2.5.4</version>
 				<configuration>
 					<descriptors>
-						<descriptor>src/assembly/distribution.xml</descriptor>
+						<descriptor>deploy/distribution.xml</descriptor>
 					</descriptors>
 				</configuration>
 				<executions>
@@ -265,7 +265,21 @@
 
 	<profiles>
 		<profile>
-			<id>doRelease</id>
+			<id>ossrh</id>
+			<properties>
+          <gpg.executable>gpg</gpg.executable>
+          <gpg.keyname>${env.GPG_KEYNAME}</gpg.keyname>
+          <gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
+          <gpg.defaultKeyring>false</gpg.defaultKeyring>
+          <gpg.publicKeyring>deploy/pubring.gpg</gpg.publicKeyring>
+          <gpg.secretKeyring>deploy/secring.gpg</gpg.secretKeyring>
+      </properties>
+			<activation>
+          <property>
+              <name>performRelease</name>
+              <value>true</value>
+          </property>
+      </activation>
 			<build>
 				<plugins>
 					<plugin>
