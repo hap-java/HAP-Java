@@ -1,16 +1,19 @@
 package com.beowulfe.hap.impl.http.impl;
 
+import com.beowulfe.hap.impl.http.HomekitClientConnection;
+import com.beowulfe.hap.impl.http.HomekitClientConnectionFactory;
+import com.beowulfe.hap.impl.http.HttpResponse;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.*;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelPipeline;
+import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
-
-import java.nio.charset.StandardCharsets;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.beowulfe.hap.impl.http.*;
-import com.beowulfe.hap.impl.http.HttpResponse;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 class AccessoryHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
 
@@ -84,7 +87,16 @@ class AccessoryHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
 			throws Exception {
-		LOGGER.error("Exception caught in web handler", cause);
+		boolean errorLevel = true;
+		if (cause instanceof IOException) {
+			// Decide level of logging based on exception
+			errorLevel = !"Connection timed out".equals(cause.getMessage());
+		}
+		if (errorLevel) {
+			LOGGER.error("Exception caught in web handler", cause);
+		} else {
+			LOGGER.debug("Exception caught in web handler", cause);
+		}
 		ctx.close();
 	}
 }

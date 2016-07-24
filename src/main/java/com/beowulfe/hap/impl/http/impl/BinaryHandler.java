@@ -1,19 +1,18 @@
 package com.beowulfe.hap.impl.http.impl;
 
+import com.beowulfe.hap.impl.http.HomekitClientConnection;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageCodec;
-
-import java.io.ByteArrayOutputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
-
 import org.apache.commons.io.HexDump;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.beowulfe.hap.impl.http.HomekitClientConnection;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 public class BinaryHandler extends ByteToMessageCodec<ByteBuf> {
 	
@@ -53,7 +52,16 @@ public class BinaryHandler extends ByteToMessageCodec<ByteBuf> {
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
 			throws Exception {
-		logger.error("Exception in binary handler", cause);
+		boolean errorLevel = true;
+		if (cause instanceof IOException) {
+			// Decide level of logging based on exception
+			errorLevel = !"Connection timed out".equals(cause.getMessage());
+		}
+		if (errorLevel) {
+			logger.error("Exception in binary handler", cause);
+		} else {
+			logger.debug("Exception in binary handler", cause);
+		}
 		super.exceptionCaught(ctx, cause);
 	}
 	
