@@ -6,7 +6,11 @@ import com.beowulfe.hap.impl.characteristics.motionsensor.MotionDetectedStateCha
 public class MotionSensorService extends AbstractServiceImpl {
 
     public MotionSensorService(MotionSensor motionSensor) {
-        super("00000085-0000-1000-8000-0026BB765291", motionSensor);
+        this(motionSensor, motionSensor.getLabel());
+    }
+
+    public MotionSensorService(MotionSensor motionSensor, String serviceName) {
+        super("00000085-0000-1000-8000-0026BB765291", motionSensor, serviceName);
         addCharacteristic(new MotionDetectedStateCharacteristic(motionSensor));
     }
 }

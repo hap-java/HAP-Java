@@ -8,7 +8,11 @@ import com.beowulfe.hap.impl.characteristics.lock.mechanism.TargetLockMechanismS
 public class LockMechanismService extends AbstractServiceImpl {
 
 	public LockMechanismService(LockMechanism lock) {
-		super("00000045-0000-1000-8000-0026BB765291", lock);
+		this(lock, lock.getLabel());
+	}
+
+	public LockMechanismService(LockMechanism lock, String serviceName) {
+		super("00000045-0000-1000-8000-0026BB765291", lock, serviceName);
 		addCharacteristic(new CurrentLockMechanismStateCharacteristic(lock));
 		
 		if (lock instanceof LockableLockMechanism) {

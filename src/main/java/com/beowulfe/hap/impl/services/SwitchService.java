@@ -6,7 +6,11 @@ import com.beowulfe.hap.impl.characteristics.common.PowerStateCharacteristic;
 public class SwitchService extends AbstractServiceImpl {
 
 	public SwitchService(Switch switchAccessory) {
-		super("00000049-0000-1000-8000-0026BB765291", switchAccessory);
+		this(switchAccessory, switchAccessory.getLabel());
+	}
+
+	public SwitchService(Switch switchAccessory, String serviceName) {
+		super("00000049-0000-1000-8000-0026BB765291", switchAccessory, serviceName);
 		addCharacteristic(new PowerStateCharacteristic(
 				() -> switchAccessory.getSwitchState(),
 				v -> switchAccessory.setSwitchState(v),
