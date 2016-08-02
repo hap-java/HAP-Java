@@ -52,11 +52,7 @@ public class BinaryHandler extends ByteToMessageCodec<ByteBuf> {
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
 			throws Exception {
-		boolean errorLevel = true;
-		if (cause instanceof IOException) {
-			// Decide level of logging based on exception
-			errorLevel = !"Connection timed out".equals(cause.getMessage());
-		}
+		boolean errorLevel = !(cause instanceof IOException);
 		if (errorLevel) {
 			logger.error("Exception in binary handler", cause);
 		} else {
