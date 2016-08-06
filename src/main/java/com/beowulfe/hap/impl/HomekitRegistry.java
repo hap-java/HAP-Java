@@ -1,20 +1,14 @@
 package com.beowulfe.hap.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.beowulfe.hap.HomekitAccessory;
 import com.beowulfe.hap.Service;
 import com.beowulfe.hap.characteristics.Characteristic;
 import com.beowulfe.hap.impl.services.AccessoryInformationService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class HomekitRegistry {
 	
@@ -72,7 +66,11 @@ public class HomekitRegistry {
 	}
 	
 	public Map<Integer, Characteristic> getCharacteristics(Integer aid) {
-		return Collections.unmodifiableMap(characteristics.get(accessories.get(aid)));
+		Map<Integer, Characteristic> characteristics = this.characteristics.get(accessories.get(aid));
+		if (characteristics == null) {
+			return Collections.emptyMap();
+		}
+		return Collections.unmodifiableMap(characteristics);
 	}
 
 	public void add(HomekitAccessory accessory) {

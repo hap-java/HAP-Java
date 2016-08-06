@@ -1,18 +1,5 @@
 package com.beowulfe.hap.impl.json;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonValue;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.beowulfe.hap.characteristics.Characteristic;
 import com.beowulfe.hap.characteristics.EventableCharacteristic;
 import com.beowulfe.hap.impl.HomekitRegistry;
@@ -21,6 +8,13 @@ import com.beowulfe.hap.impl.http.HomekitClientConnection;
 import com.beowulfe.hap.impl.http.HttpRequest;
 import com.beowulfe.hap.impl.http.HttpResponse;
 import com.beowulfe.hap.impl.responses.NotFoundResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.json.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.util.Map;
 
 public class CharacteristicsController {
 	
@@ -49,9 +43,19 @@ public class CharacteristicsController {
 			int aid = Integer.parseInt(parts[0]);
 			int iid = Integer.parseInt(parts[1]);
 			JsonObjectBuilder characteristic = Json.createObjectBuilder();
-			registry.getCharacteristics(aid).get(iid).supplyValue(characteristic);
+			Map<Integer, Characteristic> characteristicMap = registry.getCharacteristics(aid);
+			if (!characteristicMap.isEmpty()) {
+				Characteristic targetCharacteristic = characteristicMap.get(iid);
+				if (targetCharacteristic != null) {
+					targetCharacteristic.supplyValue(characteristic);
 
-			characteristics.add(characteristic.add("aid", aid).add("iid", iid).build());
+					characteristics.add(characteristic.add("aid", aid).add("iid", iid).build());
+				} else {
+					logger.warn("Accessory " + aid + " does not have characteristic " + iid + "Request: " + uri);
+				}
+			} else {
+				logger.warn("Accessory " + aid + " has no characteristics or does not exist. Request: " + uri);
+			}
 		}
 		try(ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
 			Json.createWriter(baos).write(Json.createObjectBuilder().add("characteristics", characteristics.build()).build());
