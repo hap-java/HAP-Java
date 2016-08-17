@@ -17,6 +17,19 @@ abstract class AbstractServiceImpl implements Service {
 	private final List<Characteristic> characteristics = new LinkedList<>();
 
 	/**
+	 * This constructor has been deprecated and replaced with
+	 * {@link #AbstractServiceImpl(String, HomekitAccessory, String)}. Usages of
+	 * this constructor will need to manually configure {@link Name} characteristic
+	 * and {@link BatteryLevelCharacteristic} if needed.
+	 *
+	 * @param type unique UUID of the service. This information can be obtained from HomeKit Accessory Simulator.
+	 */
+	@Deprecated
+	public AbstractServiceImpl(String type) {
+		this(type, null, null);
+	}
+
+	/**
 	 * <p>Creates a new instance of this class with the specified UUID and {@link HomekitAccessory}.
 	 * Download and install <i>HomeKit Accessory Simulator</i> to discover the corresponding UUID for
 	 * the specific service.</p>
