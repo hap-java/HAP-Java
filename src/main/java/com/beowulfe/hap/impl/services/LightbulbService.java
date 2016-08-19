@@ -11,7 +11,11 @@ import com.beowulfe.hap.impl.characteristics.lightbulb.SaturationCharacteristic;
 public class LightbulbService extends AbstractServiceImpl {
 
 	public LightbulbService(Lightbulb lightbulb) {
-		super("00000043-0000-1000-8000-0026BB765291", lightbulb);
+		this(lightbulb, lightbulb.getLabel());
+	}
+
+	public LightbulbService(Lightbulb lightbulb, String serviceName) {
+		super("00000043-0000-1000-8000-0026BB765291", lightbulb, serviceName);
 		addCharacteristic(new PowerStateCharacteristic(
 				() -> lightbulb.getLightbulbPowerState(),
 				v -> lightbulb.setLightbulbPowerState(v),

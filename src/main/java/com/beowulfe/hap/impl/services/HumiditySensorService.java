@@ -6,7 +6,11 @@ import com.beowulfe.hap.impl.characteristics.humiditysensor.CurrentRelativeHumid
 public class HumiditySensorService extends AbstractServiceImpl {
 	
 	public HumiditySensorService(HumiditySensor sensor) {
-		super("00000082-0000-1000-8000-0026BB765291", sensor);
+		this(sensor, sensor.getLabel());
+	}
+
+	public HumiditySensorService(HumiditySensor sensor, String serviceName) {
+		super("00000082-0000-1000-8000-0026BB765291", sensor, serviceName);
 		addCharacteristic(new CurrentRelativeHumidityCharacteristic(sensor));
 	}
 

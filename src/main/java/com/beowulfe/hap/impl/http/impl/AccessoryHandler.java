@@ -87,11 +87,7 @@ class AccessoryHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
 			throws Exception {
-		boolean errorLevel = true;
-		if (cause instanceof IOException) {
-			// Decide level of logging based on exception
-			errorLevel = !"Connection timed out".equals(cause.getMessage());
-		}
+		boolean errorLevel = !(cause instanceof IOException);
 		if (errorLevel) {
 			LOGGER.error("Exception caught in web handler", cause);
 		} else {

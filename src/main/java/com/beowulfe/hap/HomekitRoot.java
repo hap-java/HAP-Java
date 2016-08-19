@@ -1,17 +1,16 @@
 package com.beowulfe.hap;
 
-import java.io.IOException;
-import java.net.InetAddress;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.beowulfe.hap.impl.HomekitRegistry;
 import com.beowulfe.hap.impl.HomekitWebHandler;
 import com.beowulfe.hap.impl.accessories.Bridge;
 import com.beowulfe.hap.impl.connections.HomekitClientConnectionFactoryImpl;
 import com.beowulfe.hap.impl.connections.SubscriptionManager;
 import com.beowulfe.hap.impl.jmdns.JmdnsHomekitAdvertiser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.net.InetAddress;
 
 /**
  * Provides advertising and handling for Homekit accessories. This class handles the advertising of Homekit accessories and 
@@ -69,7 +68,7 @@ public class HomekitRoot {
 	 */
 	void addAccessorySkipRangeCheck(HomekitAccessory accessory) {
 		this.registry.add(accessory);
-		logger.info("Added accessory "+accessory.getLabel());
+		logger.info("Added accessory " + accessory.getLabel());
 		if (started) {
 			registry.reset();
 			webHandler.resetConnections();
@@ -84,6 +83,7 @@ public class HomekitRoot {
 	 */
 	public void removeAccessory(HomekitAccessory accessory) {
 		this.registry.remove(accessory);
+		logger.info("Removed accessory " + accessory.getLabel());
 		if (started) {
 			registry.reset();
 			webHandler.resetConnections();

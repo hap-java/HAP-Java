@@ -8,7 +8,11 @@ import com.beowulfe.hap.impl.characteristics.thermostat.*;
 public class ThermostatService extends AbstractServiceImpl {
 
 	public ThermostatService(BasicThermostat thermostat) {
-		super("0000004A-0000-1000-8000-0026BB765291", thermostat);
+		this(thermostat, thermostat.getLabel());
+	}
+
+	public ThermostatService(BasicThermostat thermostat, String serviceName) {
+		super("0000004A-0000-1000-8000-0026BB765291", thermostat, serviceName);
 		addCharacteristic(new CurrentHeatingCoolingModeCharacteristic(thermostat));
 		addCharacteristic(new CurrentTemperatureCharacteristic(thermostat));
 		addCharacteristic(new TargetHeatingCoolingModeCharacteristic(thermostat));

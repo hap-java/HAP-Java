@@ -6,7 +6,11 @@ import com.beowulfe.hap.impl.characteristics.contactsensor.ContactSensorStateCha
 public class ContactSensorService extends AbstractServiceImpl {
 
     public ContactSensorService(ContactSensor contactSensor) {
-        super("00000080-0000-1000-8000-0026BB765291", contactSensor);
+        this(contactSensor, contactSensor.getLabel());
+    }
+
+    public ContactSensorService(ContactSensor contactSensor, String serviceName) {
+        super("00000080-0000-1000-8000-0026BB765291", contactSensor, serviceName);
         addCharacteristic(new ContactSensorStateCharacteristic(contactSensor));
     }
 }
