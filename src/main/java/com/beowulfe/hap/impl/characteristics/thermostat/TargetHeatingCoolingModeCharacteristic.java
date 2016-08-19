@@ -12,7 +12,7 @@ public class TargetHeatingCoolingModeCharacteristic extends
 	private final BasicThermostat thermostat;
 	
 	public TargetHeatingCoolingModeCharacteristic(BasicThermostat thermostat) {
-		super("00000033-0000-1000-8000-0026BB765291", false, "Target Mode");
+		super("00000033-0000-1000-8000-0026BB765291", true, "Target Mode");
 		this.thermostat = thermostat;
 	}
 
