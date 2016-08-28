@@ -1,4 +1,4 @@
-package com.beowulfe.hap.impl.characteristics.carbonmonoxide.Carbon;
+package com.beowulfe.hap.impl.characteristics.carbonmonoxide;
 
 import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
 import com.beowulfe.hap.accessories.CarbonMonoxideSensor;
