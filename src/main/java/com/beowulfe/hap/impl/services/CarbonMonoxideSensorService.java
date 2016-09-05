@@ -1,7 +1,7 @@
 package com.beowulfe.hap.impl.services;
 
 import com.beowulfe.hap.accessories.CarbonMonoxideSensor;
-import com.beowulfe.hap.impl.characteristics.carbonmonoxide.Carbon.CarbonMonoxideDetectedCharacteristic;
+import com.beowulfe.hap.impl.characteristics.carbonmonoxide.CarbonMonoxideDetectedCharacteristic;
 
 public class CarbonMonoxideSensorService extends AbstractServiceImpl {
 

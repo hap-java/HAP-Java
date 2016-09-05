@@ -1,10 +1,12 @@
 package com.beowulfe.hap.characteristics;
 
-import java.util.concurrent.CompletableFuture;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.json.JsonNumber;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonValue;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * A characteristic that provides a Float value type.
@@ -12,6 +14,8 @@ import javax.json.JsonValue;
  * @author Andy Lintner
  */
 public abstract class FloatCharacteristic extends BaseCharacteristic<Double> {
+
+	private final static Logger LOGGER = LoggerFactory.getLogger(FloatCharacteristic.class);
 
 	private final double minValue;
 	private final double maxValue;
@@ -45,14 +49,11 @@ public abstract class FloatCharacteristic extends BaseCharacteristic<Double> {
 	 */
 	@Override
 	protected CompletableFuture<JsonObjectBuilder> makeBuilder(int iid) {
-		return super.makeBuilder(iid).thenApply(builder -> {
-			return builder
-					.add("minValue", minValue)
-					.add("maxValue", maxValue)
-					.add("minStep", minStep)
-					.add("unit", unit);
-		});
-			
+		return super.makeBuilder(iid).thenApply(builder -> builder
+                .add("minValue", minValue)
+                .add("maxValue", maxValue)
+                .add("minStep", minStep)
+                .add("unit", unit));
 	}
 
 	/**
@@ -69,7 +70,23 @@ public abstract class FloatCharacteristic extends BaseCharacteristic<Double> {
 	@Override
 	protected final CompletableFuture<Double> getValue() {
 		double rounder = 1 / this.minStep;
-		return getDoubleValue().thenApply(d -> d == null ? null : Math.round(d * rounder) / rounder); 
+		return getDoubleValue().thenApply(d -> d == null ? null : Math.round(d * rounder) / rounder)
+				.thenApply(d -> {
+                    if (d != null) {
+                        if (d < minValue) {
+                            LOGGER.warn("Detected value out of range " + d
+									+ ". Returning min value instead. Characteristic " + this);
+                            return minValue;
+                        }
+                        if (d > maxValue) {
+							LOGGER.warn("Detected value out of range " + d
+									+ ". Returning max value instead. Characteristic " + this);
+                            return maxValue;
+                        }
+                        return d;
+                    }
+                    return null;
+                });
 	}
 	
 	/**
