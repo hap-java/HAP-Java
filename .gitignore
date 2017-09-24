@@ -21,3 +21,10 @@ target/
 
 # Mac Files
 .DS_Store
+
+# IntelliJ
+**/.idea/
+**/*.iml
+
+# Log files
+*.log
