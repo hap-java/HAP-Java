@@ -172,7 +172,7 @@ public abstract class BaseCharacteristic<T> implements Characteristic {
 		} else if (value instanceof BigDecimal){
 			builder.add("value", (BigDecimal) value);
 		} else if (value == null) {
-			// Do not add null value, HomeKit cannot handle that
+			builder.addNull("value");
 		} else {
 			builder.add("value", value.toString());
 		}
