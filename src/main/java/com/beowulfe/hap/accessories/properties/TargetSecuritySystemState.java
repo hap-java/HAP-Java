@@ -14,21 +14,21 @@ import java.util.stream.Collectors;
 public enum TargetSecuritySystemState {
 
     /**
-     * The home is occupied and residents are active.
+     * Arm the system when the home is occupied and residents are active.
      */
     STAY_ARM(0),
     /**
-     * The home is unoccupied.
+     * Arm the system when the home is unoccupied.
      */
     AWAY_ARM(1),
     /**
-     * The home is occupied and residents are sleeping.
+     * Arm the system when the home is occupied and residents are sleeping.
      */
     NIGHT_ARM(2),
     /**
-     * The security system is disarmed.
+     * Disarm the system.
      */
-    DISARMED(3);
+    DISARM(3);
 
     private final static Map<Integer, TargetSecuritySystemState> reverse;
     static {
