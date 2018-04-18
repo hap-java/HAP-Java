@@ -16,7 +16,7 @@ public enum SecuritySystemAlarmType {
     /**
      * Alarm conditions are cleared
      */
-    CLEARED(0),
+    NO_ALARM(0),
     /**
      * Alarm type is not known
      */
