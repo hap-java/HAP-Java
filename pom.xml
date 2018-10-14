@@ -9,6 +9,10 @@
 	<packaging>jar</packaging>
 	<url>http://www.github.com/beowulfe/HAP-Java</url>
 
+	<properties>
+    	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  	</properties>
+
 	<licenses>
 		<license>
 			<name>MIT License</name>
@@ -115,7 +119,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.1</version>
+				<version>3.8.0</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
@@ -124,7 +128,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>2.2.1</version>
+				<version>3.0.1</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -137,7 +141,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.10.1</version>
+				<version>3.0.1</version>
 				<configuration>
 					<excludePackageNames>com.beowulfe.hap.impl</excludePackageNames>
 				</configuration>
@@ -152,7 +156,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.5.4</version>
+				<version>3.1.0</version>
 				<configuration>
 					<descriptors>
 						<descriptor>deploy/distribution.xml</descriptor>
@@ -171,7 +175,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-scm-publish-plugin</artifactId>
-				<version>1.1</version>
+				<version>3.0.0</version>
 				<executions>
 					<execution>
 						<id>scm-publish</id>
@@ -189,6 +193,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
+				<version>3.7.1</version>
 				<executions>
 					<execution>
 						<id>stage-for-scm-publish</id>
@@ -243,7 +248,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.10.3</version>
+				<version>3.0.1</version>
 				<configuration>
 					<excludePackageNames>com.beowulfe.hap.impl</excludePackageNames>
 				</configuration>
