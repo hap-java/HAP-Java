@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
  * {@link LockableLockMechanism}.</p>
  *
  * <p>Locks that run on batteries will need to implement this interface and also
- * implement {@link BatteryAccessory}.</p>
+ * implement {@link BatteryStatusAccessory}.</p>
  *
  * @author Andy Lintner
  */

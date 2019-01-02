@@ -5,35 +5,30 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
+import com.beowulfe.hap.characteristics.BooleanCharacteristic;
 import com.beowulfe.hap.characteristics.EventableCharacteristic;
-import com.beowulfe.hap.characteristics.IntegerCharacteristic;
 
-/**
- * This characteristic is used by a stand-alone BatteryService, which describes
- * a stand-alone battery device, not the battery status of a battery operated
- * device such as a motion sensor.
- */
-public class BatteryLevelCharacteristic extends IntegerCharacteristic implements EventableCharacteristic {
+public class LowBatteryStatusCharacteristic extends BooleanCharacteristic implements EventableCharacteristic {
 
-    private final Supplier<CompletableFuture<Integer>> getter;
+    private final Supplier<CompletableFuture<Boolean>> getter;
     private final Consumer<HomekitCharacteristicChangeCallback> subscriber;
     private final Runnable unsubscriber;
 
-    public BatteryLevelCharacteristic(Supplier<CompletableFuture<Integer>> getter,
+    public LowBatteryStatusCharacteristic(Supplier<CompletableFuture<Boolean>> getter,
             Consumer<HomekitCharacteristicChangeCallback> subscriber, Runnable unsubscriber) {
-        super("00000068-0000-1000-8000-0026BB765291", false, true, "Battery Level", 0, 100, "%");
+        super("00000079-0000-1000-8000-0026BB765291", false, true, "Status Low Battery");
         this.getter = getter;
         this.subscriber = subscriber;
         this.unsubscriber = unsubscriber;
     }
 
     @Override
-    protected CompletableFuture<Integer> getValue() {
+    protected CompletableFuture<Boolean> getValue() {
         return getter.get();
     }
 
     @Override
-    protected void setValue(Integer value) throws Exception {
+    protected void setValue(Boolean value) throws Exception {
         // Read Only
     }
 

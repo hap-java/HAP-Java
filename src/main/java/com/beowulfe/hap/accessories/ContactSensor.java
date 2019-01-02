@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
  * that the door/window is closed.</p>
  *
  * <p>Contact sensors that run on batteries will need to implement this interface
- * and also implement {@link BatteryAccessory}.</p>
+ * and also implement {@link BatteryStatusAccessory}.</p>
  *
  * @author Gaston Dombiak
  */

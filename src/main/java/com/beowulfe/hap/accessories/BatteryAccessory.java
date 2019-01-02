@@ -1,15 +1,15 @@
 package com.beowulfe.hap.accessories;
 
-import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
-
 import java.util.concurrent.CompletableFuture;
 
+import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
+
 /**
- * An accessory that runs on batteries. Accessories that run on batteries are able to report
- * battery level.
+ * Do not use. Devices that have battery levels should implement LowBatteryStatusAccessory.
  *
  * @author Gaston Dombiak
  */
+@Deprecated
 public interface BatteryAccessory {
 
     /**

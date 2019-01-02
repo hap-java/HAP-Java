@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
  * <p>A smoke sensor reports whether smoke has been detected or not.</p>
  *
  * <p>Smoke sensors that run on batteries will need to implement this interface
- * and also implement {@link BatteryAccessory}.</p>
+ * and also implement {@link BatteryStatusAccessory}.</p>
  *
  * @author Gaston Dombiak
  */
