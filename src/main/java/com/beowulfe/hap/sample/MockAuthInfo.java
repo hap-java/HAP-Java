@@ -2,8 +2,7 @@ package com.beowulfe.hap.sample;
 
 import java.math.BigInteger;
 import java.security.InvalidAlgorithmParameterException;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+import java.util.function.Consumer;
 
 import com.beowulfe.hap.HomekitAuthInfo;
 import com.beowulfe.hap.HomekitServer;
@@ -16,57 +15,72 @@ import com.beowulfe.hap.HomekitServer;
  * @author Andy Lintner
  */
 public class MockAuthInfo implements HomekitAuthInfo {
-	
-	private static final String PIN = "031-45-154";
-	
-	private final String mac;
-	private final BigInteger salt;
-	private final byte[] privateKey;
-	private final ConcurrentMap<String, byte[]> userKeyMap = new ConcurrentHashMap<>();
-	
-	public MockAuthInfo() throws InvalidAlgorithmParameterException {
-		mac = HomekitServer.generateMac();
-		salt = HomekitServer.generateSalt();
-		privateKey = HomekitServer.generateKey();
-		System.out.println("Auth info is generated each time the sample application is started. Pairings are not persisted.");
-		System.out.println("The PIN for pairing is "+PIN);
-	}
 
-	@Override
-	public String getPin() {
-		return PIN;
-	}
+    private final AuthState authState;
 
-	@Override
-	public String getMac() {
-		return mac;
-	}
+    Consumer<AuthState> callback;
 
-	@Override
-	public BigInteger getSalt() {
-		return salt;
-	}
+    public MockAuthInfo() throws InvalidAlgorithmParameterException {
+        this(new AuthState("031-45-154", HomekitServer.generateMac(), HomekitServer.generateSalt(),
+                HomekitServer.generateKey()));
+    }
 
-	@Override
-	public byte[] getPrivateKey() {
-		return privateKey;
-	}
+    public MockAuthInfo(AuthState _authState) {
+        authState = _authState;
+        System.out.println("The PIN for pairing is " + authState.PIN);
+    }
 
-	@Override
-	public void createUser(String username, byte[] publicKey) {
-		userKeyMap.putIfAbsent(username, publicKey);
-		System.out.println("Added pairing for "+username);
-	}
+    @Override
+    public String getPin() {
+        return authState.PIN;
+    }
 
-	@Override
-	public void removeUser(String username) {
-		userKeyMap.remove(username);
-		System.out.println("Removed pairing for "+username);
-	}
+    @Override
+    public String getMac() {
+        return authState.mac;
+    }
 
-	@Override
-	public byte[] getUserPublicKey(String username) {
-		return userKeyMap.get(username);
-	}
+    @Override
+    public BigInteger getSalt() {
+        return authState.salt;
+    }
 
+    @Override
+    public byte[] getPrivateKey() {
+        return authState.privateKey;
+    }
+
+    @Override
+    public void createUser(String username, byte[] publicKey) {
+        if (!authState.userKeyMap.containsKey(username)) {
+            authState.userKeyMap.putIfAbsent(username, publicKey);
+            System.out.println("Added pairing for " + username);
+            notifyChange();
+        } else {
+            System.out.println("Already have a user for " + username);
+        }
+    }
+
+    @Override
+    public void removeUser(String username) {
+        authState.userKeyMap.remove(username);
+        System.out.println("Removed pairing for " + username);
+        notifyChange();
+    }
+
+    @Override
+    public byte[] getUserPublicKey(String username) {
+        return authState.userKeyMap.get(username);
+    }
+
+    public void onChange(Consumer<AuthState> _callback) {
+        callback = _callback;
+        notifyChange();
+    }
+
+    private void notifyChange() {
+        if (callback != null) {
+            callback.accept(authState);
+        }
+    }
 }
