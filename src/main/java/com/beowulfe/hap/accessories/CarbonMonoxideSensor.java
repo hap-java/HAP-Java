@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
  * <p>A carbon monoxide sensor reports whether carbon monoxide has been detected or not.</p>
  *
  * <p>Carbon monoxide sensors that run on batteries will need to implement this interface
- * and also implement {@link BatteryAccessory}.</p>
+ * and also implement {@link BatteryStatusAccessory}.</p>
  *
  * @author Gaston Dombiak
  */
