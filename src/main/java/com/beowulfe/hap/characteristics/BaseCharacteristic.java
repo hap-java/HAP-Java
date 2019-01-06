@@ -68,7 +68,14 @@ public abstract class BaseCharacteristic<T> implements Characteristic {
 	 * @return a future that will complete with the JSON builder for the object.
 	 */
 	protected CompletableFuture<JsonObjectBuilder> makeBuilder(int instanceId) {
-		return getValue().exceptionally(t -> {
+		CompletableFuture<T> futureValue = getValue();
+		
+		if (futureValue == null) {
+			logger.error("Could not retrieve value "+this.getClass().getName());
+			return null;
+		}
+		
+		return futureValue.exceptionally(t -> {
 			logger.error("Could not retrieve value "+this.getClass().getName(), t);
 			return null;
 		}).thenApply(value -> {
