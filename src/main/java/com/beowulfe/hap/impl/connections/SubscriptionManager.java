@@ -5,6 +5,7 @@ import com.beowulfe.hap.impl.http.HomekitClientConnection;
 import com.beowulfe.hap.impl.http.HttpResponse;
 import com.beowulfe.hap.impl.json.EventController;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -77,10 +78,13 @@ public class SubscriptionManager {
             subscriptions.get(characteristic);
         characteristicSubscriptions.remove(connection);
         if (characteristicSubscriptions.isEmpty()) {
+          LOGGER.debug("Unsubscribing from characteristic as all subscriptions are closed");
           characteristic.unsubscribe();
+          subscriptions.remove(characteristic);
         }
       }
     }
+    LOGGER.debug("Removed connection {}", connection.hashCode());
   }
 
   private <T> Set<T> newSet() {
@@ -97,5 +101,17 @@ public class SubscriptionManager {
     } catch (Exception e) {
       LOGGER.error("Failed to create new event message", e);
     }
+  }
+
+  /** Remove all existing subscriptions */
+  public void removeAll() {
+    LOGGER.debug("Removing {} reverse connections from subscription manager", reverse.size());
+    Iterator<HomekitClientConnection> i = reverse.keySet().iterator();
+    while (i.hasNext()) {
+      HomekitClientConnection connection = i.next();
+      LOGGER.debug("Removing connection {}", connection.hashCode());
+      removeConnection(connection);
+    }
+    LOGGER.debug("Subscription sizes are {} and {}", reverse.size(), subscriptions.size());
   }
 }
