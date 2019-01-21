@@ -9,14 +9,14 @@ import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
  */
 public interface EventableCharacteristic extends Characteristic {
 
-	/**
-	 * Begin listening to changes to this characteristic. When a change is made, call the provided function.
-	 * @param callback a function to call when a change is made to the characteristic value.
-	 */
-	void subscribe(HomekitCharacteristicChangeCallback callback);
+  /**
+   * Begin listening to changes to this characteristic. When a change is made, call the provided
+   * function.
+   *
+   * @param callback a function to call when a change is made to the characteristic value.
+   */
+  void subscribe(HomekitCharacteristicChangeCallback callback);
 
-	/**
-	 * Stop listening to changes to this characteristic.
-	 */
-	void unsubscribe();
+  /** Stop listening to changes to this characteristic. */
+  void unsubscribe();
 }

@@ -1,7 +1,6 @@
 package com.beowulfe.hap.accessories.properties;
 
 import com.beowulfe.hap.accessories.SecuritySystem;
-
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -13,32 +12,30 @@ import java.util.stream.Collectors;
  */
 public enum SecuritySystemAlarmType {
 
-    /**
-     * Alarm conditions are cleared
-     */
-    NO_ALARM(0),
-    /**
-     * Alarm type is not known
-     */
-    UNKNOWN(1);
+  /** Alarm conditions are cleared */
+  NO_ALARM(0),
+  /** Alarm type is not known */
+  UNKNOWN(1);
 
-    private final static Map<Integer, SecuritySystemAlarmType> reverse;
-    static {
-        reverse = Arrays.stream(SecuritySystemAlarmType.values()).collect(Collectors
-                .toMap(SecuritySystemAlarmType::getCode, t -> t));
-    }
+  private static final Map<Integer, SecuritySystemAlarmType> reverse;
 
-    public static SecuritySystemAlarmType fromCode(Integer code) {
-        return reverse.get(code);
-    }
+  static {
+    reverse =
+        Arrays.stream(SecuritySystemAlarmType.values())
+            .collect(Collectors.toMap(SecuritySystemAlarmType::getCode, t -> t));
+  }
 
-    private final int code;
+  public static SecuritySystemAlarmType fromCode(Integer code) {
+    return reverse.get(code);
+  }
 
-    SecuritySystemAlarmType(int code) {
-        this.code = code;
-    }
+  private final int code;
 
-    public int getCode() {
-        return code;
-    }
+  SecuritySystemAlarmType(int code) {
+    this.code = code;
+  }
+
+  public int getCode() {
+    return code;
+  }
 }
