@@ -1,7 +1,7 @@
 package com.beowulfe.hap.impl.characteristics.thermostat;
 
 import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
-import com.beowulfe.hap.accessories.properties.ThermostatMode;
+import com.beowulfe.hap.accessories.properties.TargetThermostatMode;
 import com.beowulfe.hap.accessories.thermostat.BasicThermostat;
 import com.beowulfe.hap.characteristics.EnumCharacteristic;
 import com.beowulfe.hap.characteristics.EventableCharacteristic;
@@ -19,7 +19,7 @@ public class TargetHeatingCoolingModeCharacteristic extends EnumCharacteristic
 
   @Override
   protected void setValue(Integer code) throws Exception {
-    thermostat.setTargetMode(ThermostatMode.fromCode(code));
+    thermostat.setTargetMode(TargetThermostatMode.fromCode(code));
   }
 
   @Override

@@ -4,7 +4,8 @@ import com.beowulfe.hap.HomekitAccessory;
 import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
 import com.beowulfe.hap.Service;
 import com.beowulfe.hap.accessories.TemperatureSensor;
-import com.beowulfe.hap.accessories.properties.ThermostatMode;
+import com.beowulfe.hap.accessories.properties.TargetThermostatMode;
+import com.beowulfe.hap.accessories.properties.CurrentThermostatMode;
 import com.beowulfe.hap.impl.services.ThermostatService;
 import java.util.Collection;
 import java.util.Collections;
@@ -13,14 +14,14 @@ import java.util.concurrent.CompletableFuture;
 public interface BasicThermostat extends HomekitAccessory, TemperatureSensor {
 
   /**
-   * Retrieves the current {@link ThermostatMode} of the thermostat.
+   * Retrieves the current {@link CurrentThermostatMode} of the thermostat.
    *
    * @return a future that will contain the mode.
    */
-  CompletableFuture<ThermostatMode> getCurrentMode();
+  CompletableFuture<CurrentThermostatMode> getCurrentMode();
 
   /**
-   * Subscribes to changes in the {@link ThermostatMode} of the thermostat.
+   * Subscribes to changes in the {@link CurrentThermostatMode} of the thermostat.
    *
    * @param callback the function to call when the state changes.
    */
@@ -30,22 +31,22 @@ public interface BasicThermostat extends HomekitAccessory, TemperatureSensor {
   void unsubscribeCurrentMode();
 
   /**
-   * Sets the {@link ThermostatMode} of the thermostat.
+   * Sets the {@link TargetThermostatMode} of the thermostat.
    *
-   * @param mode The {@link ThermostatMode} to set.
+   * @param mode The {@link TargetThermostatMode} to set.
    * @throws Exception when the change cannot be made.
    */
-  void setTargetMode(ThermostatMode mode) throws Exception;
+  void setTargetMode(TargetThermostatMode mode) throws Exception;
 
   /**
-   * Retrieves the pending, but not yet complete, {@link ThermostatMode} of the thermostat.
+   * Retrieves the pending, but not yet complete, {@link TargetThermostatMode} of the thermostat.
    *
    * @return a future that will contain the target mode.
    */
-  CompletableFuture<ThermostatMode> getTargetMode();
+  CompletableFuture<TargetThermostatMode> getTargetMode();
 
   /**
-   * Subscribes to changes in the pending, but not yet complete, {@link ThermostatMode} of the
+   * Subscribes to changes in the pending, but not yet complete, {@link CurrentThermostatMode} of the
    * thermostat.
    *
    * @param callback the function to call when the state changes.
@@ -53,7 +54,7 @@ public interface BasicThermostat extends HomekitAccessory, TemperatureSensor {
   void subscribeTargetMode(HomekitCharacteristicChangeCallback callback);
 
   /**
-   * Unsubscribes from changes in the pending, but not yet complete, {@link ThermostatMode} of the
+   * Unsubscribes from changes in the pending, but not yet complete, {@link CurrentThermostatMode} of the
    * thermostat.
    */
   void unsubscribeTargetMode();
