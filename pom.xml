@@ -117,6 +117,18 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>com.coveo</groupId>
+				<artifactId>fmt-maven-plugin</artifactId>
+				<version>2.6.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>format</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.0</version>
@@ -272,19 +284,19 @@
 		<profile>
 			<id>ossrh</id>
 			<properties>
-          <gpg.executable>gpg</gpg.executable>
-          <gpg.keyname>${env.GPG_KEYNAME}</gpg.keyname>
-          <gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
-          <gpg.defaultKeyring>false</gpg.defaultKeyring>
-          <gpg.publicKeyring>deploy/pubring.gpg</gpg.publicKeyring>
-          <gpg.secretKeyring>deploy/secring.gpg</gpg.secretKeyring>
-      </properties>
+					<gpg.executable>gpg</gpg.executable>
+					<gpg.keyname>${env.GPG_KEYNAME}</gpg.keyname>
+					<gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
+					<gpg.defaultKeyring>false</gpg.defaultKeyring>
+					<gpg.publicKeyring>deploy/pubring.gpg</gpg.publicKeyring>
+					<gpg.secretKeyring>deploy/secring.gpg</gpg.secretKeyring>
+			</properties>
 			<activation>
-          <property>
-              <name>performRelease</name>
-              <value>true</value>
-          </property>
-      </activation>
+					<property>
+							<name>performRelease</name>
+							<value>true</value>
+					</property>
+			</activation>
 			<build>
 				<plugins>
 					<plugin>
