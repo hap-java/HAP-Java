@@ -126,6 +126,7 @@ public class HomekitRoot {
   public void stop() {
     advertiser.stop();
     webHandler.stop();
+    subscriptions.removeAll();
     started = false;
   }
 
