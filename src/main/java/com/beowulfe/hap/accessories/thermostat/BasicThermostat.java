@@ -1,6 +1,8 @@
 package com.beowulfe.hap.accessories.thermostat;
 
-import com.beowulfe.hap.*;
+import com.beowulfe.hap.HomekitAccessory;
+import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
+import com.beowulfe.hap.Service;
 import com.beowulfe.hap.accessories.TemperatureSensor;
 import com.beowulfe.hap.accessories.properties.ThermostatMode;
 import com.beowulfe.hap.impl.services.ThermostatService;
