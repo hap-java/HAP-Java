@@ -4,7 +4,6 @@ import com.beowulfe.hap.HomekitAccessory;
 
 public interface Bridge extends HomekitAccessory {
 
-	@Override
-	default void identify() {}
-	
+  @Override
+  default void identify() {}
 }

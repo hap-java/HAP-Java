@@ -1,10 +1,9 @@
 package com.beowulfe.hap.accessories.properties;
 
+import com.beowulfe.hap.accessories.Valve;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import com.beowulfe.hap.accessories.Valve;
 
 /**
  * The mode used by a {@link Valve}
@@ -12,28 +11,28 @@ import com.beowulfe.hap.accessories.Valve;
  * @author Tim Harper
  */
 public enum ValveType {
+  GENERIC(0),
+  IRRIGATION(1),
+  SHOWER(2),
+  WATER_FAUCET(3);
 
-    GENERIC(0),
-    IRRIGATION(1),
-    SHOWER(2),
-    WATER_FAUCET(3);
+  private static final Map<Integer, ValveType> reverse;
 
-    private final static Map<Integer, ValveType> reverse;
-    static {
-        reverse = Arrays.stream(ValveType.values()).collect(Collectors.toMap(t -> t.getCode(), t -> t));
-    }
+  static {
+    reverse = Arrays.stream(ValveType.values()).collect(Collectors.toMap(t -> t.getCode(), t -> t));
+  }
 
-    public static ValveType fromCode(Integer code) {
-        return reverse.get(code);
-    }
+  public static ValveType fromCode(Integer code) {
+    return reverse.get(code);
+  }
 
-    private final int code;
+  private final int code;
 
-    private ValveType(int code) {
-        this.code = code;
-    }
+  private ValveType(int code) {
+    this.code = code;
+  }
 
-    public int getCode() {
-        return code;
-    }
+  public int getCode() {
+    return code;
+  }
 }
