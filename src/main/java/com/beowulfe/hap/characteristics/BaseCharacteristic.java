@@ -22,6 +22,7 @@ public abstract class BaseCharacteristic<T> implements Characteristic {
   private final Logger logger = LoggerFactory.getLogger(BaseCharacteristic.class);
 
   private final String type;
+  private final String shortType;
   private final String format;
   private final boolean isWritable;
   private final boolean isReadable;
@@ -46,6 +47,7 @@ public abstract class BaseCharacteristic<T> implements Characteristic {
     }
 
     this.type = type;
+    this.shortType = this.type.replaceAll("^0*([0-9a-fA-F]+)-0000-1000-8000-0026BB765291$", "$1");
     this.format = format;
     this.isWritable = isWritable;
     this.isReadable = isReadable;
@@ -94,7 +96,7 @@ public abstract class BaseCharacteristic<T> implements Characteristic {
               JsonObjectBuilder builder =
                   Json.createObjectBuilder()
                       .add("iid", instanceId)
-                      .add("type", type)
+                      .add("type", shortType)
                       .add("perms", perms.build())
                       .add("format", format)
                       .add("ev", false)
