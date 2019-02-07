@@ -97,8 +97,7 @@ public abstract class BaseCharacteristic<T> implements Characteristic {
                       .add("type", type)
                       .add("perms", perms.build())
                       .add("format", format)
-                      .add("events", false)
-                      .add("bonjour", false)
+                      .add("ev", false)
                       .add("description", description);
               setJsonValue(builder, value);
               return builder;
