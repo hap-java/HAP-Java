@@ -2,11 +2,13 @@ package com.beowulfe.hap.impl.http.impl;
 
 import com.beowulfe.hap.impl.HomekitWebHandler;
 import com.beowulfe.hap.impl.http.HomekitClientConnectionFactory;
+import java.net.InetAddress;
 import java.util.concurrent.CompletableFuture;
 
 public class HomekitHttpServer implements HomekitWebHandler {
 
   private NettyHomekitHttpService service = null;
+  private final InetAddress localAddress;
   private final int port;
   private final int nThreads;
 
@@ -17,7 +19,8 @@ public class HomekitHttpServer implements HomekitWebHandler {
     }
   }
 
-  public HomekitHttpServer(int port, int nThreads) {
+  public HomekitHttpServer(InetAddress localAddress, int port, int nThreads) {
+    this.localAddress = localAddress;
     this.port = port;
     this.nThreads = nThreads;
   }
@@ -25,7 +28,7 @@ public class HomekitHttpServer implements HomekitWebHandler {
   @Override
   public CompletableFuture<Integer> start(HomekitClientConnectionFactory clientConnectionFactory) {
     if (service == null) {
-      this.service = NettyHomekitHttpService.create(port, nThreads);
+      this.service = NettyHomekitHttpService.create(localAddress, port, nThreads);
       return this.service.create(clientConnectionFactory);
     } else {
       throw new RuntimeException("HomekitHttpServer can only be started once");
