@@ -68,28 +68,34 @@ public class CharacteristicsController {
 
   public HttpResponse put(HttpRequest request, HomekitClientConnection connection)
       throws Exception {
-    try (ByteArrayInputStream bais = new ByteArrayInputStream(request.getBody())) {
-      JsonArray jsonCharacteristics =
-          Json.createReader(bais).readObject().getJsonArray("characteristics");
-      for (JsonValue value : jsonCharacteristics) {
-        JsonObject jsonCharacteristic = (JsonObject) value;
-        int aid = jsonCharacteristic.getInt("aid");
-        int iid = jsonCharacteristic.getInt("iid");
-        Characteristic characteristic = registry.getCharacteristics(aid).get(iid);
+    subscriptions.batchUpdate();
+    try {
+      try (ByteArrayInputStream bais = new ByteArrayInputStream(request.getBody())) {
+        JsonArray jsonCharacteristics =
+            Json.createReader(bais).readObject().getJsonArray("characteristics");
+        for (JsonValue value : jsonCharacteristics) {
+          JsonObject jsonCharacteristic = (JsonObject) value;
+          int aid = jsonCharacteristic.getInt("aid");
+          int iid = jsonCharacteristic.getInt("iid");
+          Characteristic characteristic = registry.getCharacteristics(aid).get(iid);
 
-        if (jsonCharacteristic.containsKey("value")) {
-          characteristic.setValue(jsonCharacteristic.get("value"));
-        }
-        if (jsonCharacteristic.containsKey("ev")
-            && characteristic instanceof EventableCharacteristic) {
-          if (jsonCharacteristic.getBoolean("ev")) {
-            subscriptions.addSubscription(
-                aid, iid, (EventableCharacteristic) characteristic, connection);
-          } else {
-            subscriptions.removeSubscription((EventableCharacteristic) characteristic, connection);
+          if (jsonCharacteristic.containsKey("value")) {
+            characteristic.setValue(jsonCharacteristic.get("value"));
+          }
+          if (jsonCharacteristic.containsKey("ev")
+              && characteristic instanceof EventableCharacteristic) {
+            if (jsonCharacteristic.getBoolean("ev")) {
+              subscriptions.addSubscription(
+                  aid, iid, (EventableCharacteristic) characteristic, connection);
+            } else {
+              subscriptions.removeSubscription(
+                  (EventableCharacteristic) characteristic, connection);
+            }
           }
         }
       }
+    } finally {
+      subscriptions.completeUpdateBatch();
     }
     return new HapJsonNoContentResponse();
   }
