@@ -74,7 +74,7 @@ class LengthPrefixedByteArrayProcessor {
       results.add(buffer.toByteArray());
       buffer.reset();
       targetLength = 0;
-      if (pos + toWrite > data.length) {
+      if (pos + toWrite < data.length) {
         step(data, pos + toWrite, results);
       }
     } else {
