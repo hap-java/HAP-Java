@@ -8,6 +8,7 @@ import com.beowulfe.hap.impl.connections.SubscriptionManager;
 import com.beowulfe.hap.impl.jmdns.JmdnsHomekitAdvertiser;
 import java.io.IOException;
 import java.net.InetAddress;
+import javax.jmdns.JmDNS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,6 +38,11 @@ public class HomekitRoot {
       String label, HomekitWebHandler webHandler, InetAddress localhost, HomekitAuthInfo authInfo)
       throws IOException {
     this(label, webHandler, authInfo, new JmdnsHomekitAdvertiser(localhost));
+  }
+
+  HomekitRoot(String label, HomekitWebHandler webHandler, JmDNS jmdns, HomekitAuthInfo authInfo)
+      throws IOException {
+    this(label, webHandler, authInfo, new JmdnsHomekitAdvertiser(jmdns));
   }
 
   HomekitRoot(

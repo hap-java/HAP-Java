@@ -4,6 +4,7 @@ import com.beowulfe.hap.impl.HomekitWebHandler;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import javax.jmdns.JmDNS;
 
 /**
  * A server for exposing standalone Homekit accessory (as opposed to a Bridge accessory which
@@ -24,6 +25,16 @@ public class HomekitStandaloneAccessoryServer {
       HomekitAuthInfo authInfo)
       throws UnknownHostException, IOException {
     root = new HomekitRoot(accessory.getLabel(), webHandler, localhost, authInfo);
+    root.addAccessory(accessory);
+  }
+
+  HomekitStandaloneAccessoryServer(
+      HomekitAccessory accessory,
+      HomekitWebHandler webHandler,
+      JmDNS jmdns,
+      HomekitAuthInfo authInfo)
+      throws UnknownHostException, IOException {
+    root = new HomekitRoot(accessory.getLabel(), webHandler, jmdns, authInfo);
     root.addAccessory(accessory);
   }
 
