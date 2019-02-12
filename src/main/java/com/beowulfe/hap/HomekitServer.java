@@ -40,7 +40,7 @@ public class HomekitServer {
    */
   public HomekitServer(InetAddress localAddress, int port, int nThreads) throws IOException {
     this.localAddress = localAddress;
-    http = new HomekitHttpServer(port, nThreads);
+    http = new HomekitHttpServer(localAddress, port, nThreads);
   }
 
   /**
