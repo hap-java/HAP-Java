@@ -149,4 +149,14 @@ public class HomekitServer {
   public static String generateMac() {
     return HomekitUtils.generateMac();
   }
+
+  /**
+   * Generates a value to supply in {@link HomekitAuthInfo#getPin() HomekitAuthInfo.getPin()}. This
+   * is used as the Pin a user enters into their Homekit device in order to confirm pairing.
+   *
+   * @return the generated Pin
+   */
+  public static String generatePin() {
+    return HomekitUtils.generatePin();
+  }
 }
