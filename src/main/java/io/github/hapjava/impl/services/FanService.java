@@ -19,7 +19,9 @@ public class FanService extends AbstractServiceImpl {
             v -> fan.setFanPower(v),
             c -> fan.subscribeFanPower(c),
             () -> fan.unsubscribeFanPower()));
-    addCharacteristic(new RotationDirectionCharacteristic(fan));
-    addCharacteristic(new RotationSpeedCharacteristic(fan));
+    fan.getRotationDirectionCharacteristic()
+        .ifPresent(rotation -> addCharacteristic(new RotationDirectionCharacteristic(rotation)));
+    fan.getRotationSpeedCharacteristic()
+        .ifPresent(speed -> addCharacteristic(new RotationSpeedCharacteristic(speed)));
   }
 }

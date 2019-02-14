@@ -1,7 +1,7 @@
 package io.github.hapjava.impl.characteristics.fan;
 
 import io.github.hapjava.HomekitCharacteristicChangeCallback;
-import io.github.hapjava.accessories.Fan;
+import io.github.hapjava.accessories.characteristics.RotationSpeed;
 import io.github.hapjava.characteristics.EventableCharacteristic;
 import io.github.hapjava.characteristics.IntegerCharacteristic;
 import java.util.concurrent.CompletableFuture;
@@ -9,9 +9,9 @@ import java.util.concurrent.CompletableFuture;
 public class RotationSpeedCharacteristic extends IntegerCharacteristic
     implements EventableCharacteristic {
 
-  private final Fan fan;
+  private final RotationSpeed fan;
 
-  public RotationSpeedCharacteristic(Fan fan) {
+  public RotationSpeedCharacteristic(RotationSpeed fan) {
     super("00000029-0000-1000-8000-0026BB765291", true, true, "Rotation speed", 0, 100, "%");
     this.fan = fan;
   }
