@@ -1,15 +1,9 @@
-package com.beowulfe.hap.accessories;
+package com.beowulfe.hap.accessories.characteristics;
 
 import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Extends {@link Lightbulb} with brightness values.
- *
- * @author Andy Lintner
- */
-public interface DimmableLightbulb extends Lightbulb {
-
+public interface Brightness {
   /**
    * Retrieves the current brightness of the light
    *

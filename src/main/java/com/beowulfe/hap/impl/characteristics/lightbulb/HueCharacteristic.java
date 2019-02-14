@@ -1,16 +1,16 @@
 package com.beowulfe.hap.impl.characteristics.lightbulb;
 
 import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
-import com.beowulfe.hap.accessories.ColorfulLightbulb;
+import com.beowulfe.hap.accessories.characteristics.Color;
 import com.beowulfe.hap.characteristics.EventableCharacteristic;
 import com.beowulfe.hap.characteristics.FloatCharacteristic;
 import java.util.concurrent.CompletableFuture;
 
 public class HueCharacteristic extends FloatCharacteristic implements EventableCharacteristic {
 
-  private final ColorfulLightbulb lightbulb;
+  private final Color lightbulb;
 
-  public HueCharacteristic(ColorfulLightbulb lightbulb) {
+  public HueCharacteristic(Color lightbulb) {
     super(
         "00000013-0000-1000-8000-0026BB765291",
         true,

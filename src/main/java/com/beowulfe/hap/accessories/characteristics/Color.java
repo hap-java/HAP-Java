@@ -1,16 +1,15 @@
-package com.beowulfe.hap.accessories;
+package com.beowulfe.hap.accessories.characteristics;
 
 import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Extends {@link Lightbulb} with color settings. This will usually be implemented along with {@link
- * DimmableLightbulb}, but not necessarily so.
+ * Extends a Lightbulb with color settings. This will usually be implemented along with {@link
+ * Brightness}, but not necessarily so.
  *
  * @author Andy Lintner
  */
-public interface ColorfulLightbulb extends Lightbulb {
-
+public interface Color {
   /**
    * Retrieves the current hue of the light.
    *

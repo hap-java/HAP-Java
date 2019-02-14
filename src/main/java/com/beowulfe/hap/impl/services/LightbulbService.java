@@ -1,7 +1,5 @@
 package com.beowulfe.hap.impl.services;
 
-import com.beowulfe.hap.accessories.ColorfulLightbulb;
-import com.beowulfe.hap.accessories.DimmableLightbulb;
 import com.beowulfe.hap.accessories.Lightbulb;
 import com.beowulfe.hap.impl.characteristics.common.PowerStateCharacteristic;
 import com.beowulfe.hap.impl.characteristics.lightbulb.BrightnessCharacteristic;
@@ -23,13 +21,16 @@ public class LightbulbService extends AbstractServiceImpl {
             c -> lightbulb.subscribeLightbulbPowerState(c),
             () -> lightbulb.unsubscribeLightbulbPowerState()));
 
-    if (lightbulb instanceof DimmableLightbulb) {
-      addCharacteristic(new BrightnessCharacteristic((DimmableLightbulb) lightbulb));
-    }
+    lightbulb
+        .getBrightnessCharacteristic()
+        .ifPresent(brightness -> addCharacteristic(new BrightnessCharacteristic(brightness)));
 
-    if (lightbulb instanceof ColorfulLightbulb) {
-      addCharacteristic(new HueCharacteristic((ColorfulLightbulb) lightbulb));
-      addCharacteristic(new SaturationCharacteristic((ColorfulLightbulb) lightbulb));
-    }
+    lightbulb
+        .getColorCharacteristics()
+        .ifPresent(
+            color -> {
+              addCharacteristic(new HueCharacteristic(color));
+              addCharacteristic(new SaturationCharacteristic(color));
+            });
   }
 }

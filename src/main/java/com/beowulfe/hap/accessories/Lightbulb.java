@@ -1,9 +1,12 @@
 package com.beowulfe.hap.accessories;
 
 import com.beowulfe.hap.*;
+import com.beowulfe.hap.accessories.characteristics.Brightness;
+import com.beowulfe.hap.accessories.characteristics.Color;
 import com.beowulfe.hap.impl.services.LightbulbService;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -43,4 +46,16 @@ public interface Lightbulb extends HomekitAccessory {
 
   /** Unsubscribes from changes in the binary state of the light. */
   void unsubscribeLightbulbPowerState();
+
+  /** returns the optional implementation of Brightness */
+  default Optional<Brightness> getBrightnessCharacteristic() {
+    Optional<Brightness> result = Optional.empty();
+    return result;
+  }
+
+  /** returns the optional implementation of Color */
+  default Optional<Color> getColorCharacteristics() {
+    Optional<Color> result = Optional.empty();
+    return result;
+  }
 }
