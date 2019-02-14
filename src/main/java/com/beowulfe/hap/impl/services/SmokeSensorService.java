@@ -3,7 +3,7 @@ package com.beowulfe.hap.impl.services;
 import com.beowulfe.hap.accessories.SmokeSensor;
 import com.beowulfe.hap.impl.characteristics.smokesensor.SmokeDetectedCharacteristic;
 
-public class SmokeSensorService extends AbstractServiceImpl {
+public class SmokeSensorService extends AbstractSensorServiceImpl {
 
   public SmokeSensorService(SmokeSensor smokeSensor) {
     this(smokeSensor, smokeSensor.getLabel());

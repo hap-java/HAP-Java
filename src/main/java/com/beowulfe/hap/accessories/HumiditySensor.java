@@ -11,7 +11,7 @@ import java.util.concurrent.CompletableFuture;
  *
  * @author Andy Lintner
  */
-public interface HumiditySensor extends HomekitAccessory {
+public interface HumiditySensor extends AbstractSensor {
 
   /**
    * Retrieves the current relative humidity.

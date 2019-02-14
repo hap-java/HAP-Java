@@ -1,6 +1,5 @@
 package com.beowulfe.hap.accessories;
 
-import com.beowulfe.hap.HomekitAccessory;
 import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
 import com.beowulfe.hap.Service;
 import com.beowulfe.hap.impl.services.MotionSensorService;
@@ -11,12 +10,9 @@ import java.util.concurrent.CompletableFuture;
 /**
  * A motion sensor that reports whether motion has been detected.
  *
- * <p>Motion sensors that run on batteries will need to implement this interface and also implement
- * {@link BatteryStatusAccessory}.
- *
  * @author Gaston Dombiak
  */
-public interface MotionSensor extends HomekitAccessory {
+public interface MotionSensor extends AbstractSensor {
 
   /**
    * Retrieves the state of the motion sensor. If true then motion has been detected.

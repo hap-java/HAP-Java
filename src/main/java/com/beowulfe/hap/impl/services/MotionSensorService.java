@@ -3,7 +3,7 @@ package com.beowulfe.hap.impl.services;
 import com.beowulfe.hap.accessories.MotionSensor;
 import com.beowulfe.hap.impl.characteristics.motionsensor.MotionDetectedStateCharacteristic;
 
-public class MotionSensorService extends AbstractServiceImpl {
+public class MotionSensorService extends AbstractSensorServiceImpl {
 
   public MotionSensorService(MotionSensor motionSensor) {
     this(motionSensor, motionSensor.getLabel());

@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture;
  *
  * @author Andy Lintner
  */
-public interface TemperatureSensor extends HomekitAccessory {
+public interface TemperatureSensor extends AbstractSensor {
 
   /**
    * Retrieves the current temperature, in celsius degrees.

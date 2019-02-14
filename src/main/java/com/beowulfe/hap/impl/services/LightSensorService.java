@@ -3,7 +3,7 @@ package com.beowulfe.hap.impl.services;
 import com.beowulfe.hap.accessories.LightSensor;
 import com.beowulfe.hap.impl.characteristics.light.AmbientLightLevelCharacteristic;
 
-public class LightSensorService extends AbstractServiceImpl {
+public class LightSensorService extends AbstractSensorServiceImpl {
 
   public LightSensorService(LightSensor lightSensor) {
     this(lightSensor, lightSensor.getLabel());

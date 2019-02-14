@@ -3,7 +3,7 @@ package com.beowulfe.hap.impl.services;
 import com.beowulfe.hap.accessories.LeakSensor;
 import com.beowulfe.hap.impl.characteristics.leaksensor.LeakDetectedStateCharacteristic;
 
-public class LeakSensorService extends AbstractServiceImpl {
+public class LeakSensorService extends AbstractSensorServiceImpl {
 
   public LeakSensorService(LeakSensor leakSensor) {
     this(leakSensor, leakSensor.getLabel());

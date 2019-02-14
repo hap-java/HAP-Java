@@ -1,6 +1,5 @@
 package com.beowulfe.hap.accessories;
 
-import com.beowulfe.hap.HomekitAccessory;
 import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
 import com.beowulfe.hap.Service;
 import com.beowulfe.hap.accessories.properties.SmokeDetectedState;
@@ -12,12 +11,9 @@ import java.util.concurrent.CompletableFuture;
 /**
  * A smoke sensor reports whether smoke has been detected or not.
  *
- * <p>Smoke sensors that run on batteries will need to implement this interface and also implement
- * {@link BatteryStatusAccessory}.
- *
  * @author Gaston Dombiak
  */
-public interface SmokeSensor extends HomekitAccessory {
+public interface SmokeSensor extends AbstractSensor {
 
   /**
    * Retrieves the state of the smoke sensor. This is whether smoke has been detected or not.

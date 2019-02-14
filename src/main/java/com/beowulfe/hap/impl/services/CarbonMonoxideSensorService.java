@@ -3,7 +3,7 @@ package com.beowulfe.hap.impl.services;
 import com.beowulfe.hap.accessories.CarbonMonoxideSensor;
 import com.beowulfe.hap.impl.characteristics.carbonmonoxide.CarbonMonoxideDetectedCharacteristic;
 
-public class CarbonMonoxideSensorService extends AbstractServiceImpl {
+public class CarbonMonoxideSensorService extends AbstractSensorServiceImpl {
 
   public CarbonMonoxideSensorService(CarbonMonoxideSensor carbonMonoxideSensor) {
     this(carbonMonoxideSensor, carbonMonoxideSensor.getLabel());

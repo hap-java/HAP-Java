@@ -1,6 +1,5 @@
 package com.beowulfe.hap.accessories;
 
-import com.beowulfe.hap.HomekitAccessory;
 import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
 import com.beowulfe.hap.Service;
 import com.beowulfe.hap.impl.services.LightSensorService;
@@ -13,7 +12,7 @@ import java.util.concurrent.CompletableFuture;
  *
  * @author Gaston Dombiak
  */
-public interface LightSensor extends HomekitAccessory {
+public interface LightSensor extends AbstractSensor {
 
   /**
    * Retrieves the current ambient light level.

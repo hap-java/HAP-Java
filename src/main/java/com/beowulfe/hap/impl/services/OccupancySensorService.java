@@ -3,7 +3,7 @@ package com.beowulfe.hap.impl.services;
 import com.beowulfe.hap.accessories.OccupancySensor;
 import com.beowulfe.hap.impl.characteristics.occupancysensor.OccupancyDetectedStateCharacteristic;
 
-public class OccupancySensorService extends AbstractServiceImpl {
+public class OccupancySensorService extends AbstractSensorServiceImpl {
 
   public OccupancySensorService(OccupancySensor occupancySensor) {
     this(occupancySensor, occupancySensor.getLabel());

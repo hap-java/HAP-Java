@@ -1,6 +1,5 @@
 package com.beowulfe.hap.accessories;
 
-import com.beowulfe.hap.HomekitAccessory;
 import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
 import com.beowulfe.hap.Service;
 import com.beowulfe.hap.impl.services.OccupancySensorService;
@@ -11,12 +10,9 @@ import java.util.concurrent.CompletableFuture;
 /**
  * An occupancy sensor that reports whether occupancy has been detected.
  *
- * <p>Occupancy sensors that run on batteries will need to implement this interface and also
- * implement {@link BatteryStatusAccessory}.
- *
  * @author Tim Harper
  */
-public interface OccupancySensor extends HomekitAccessory {
+public interface OccupancySensor extends AbstractSensor {
   /**
    * Retrieves the state of the occupancy sensor. If true then occupancy has been detected.
    *

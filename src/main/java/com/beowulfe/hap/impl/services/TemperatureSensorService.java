@@ -3,7 +3,7 @@ package com.beowulfe.hap.impl.services;
 import com.beowulfe.hap.accessories.TemperatureSensor;
 import com.beowulfe.hap.impl.characteristics.thermostat.CurrentTemperatureCharacteristic;
 
-public class TemperatureSensorService extends AbstractServiceImpl {
+public class TemperatureSensorService extends AbstractSensorServiceImpl {
 
   public TemperatureSensorService(TemperatureSensor sensor) {
     this(sensor, sensor.getLabel());

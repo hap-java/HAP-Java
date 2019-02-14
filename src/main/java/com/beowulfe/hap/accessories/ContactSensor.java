@@ -1,6 +1,5 @@
 package com.beowulfe.hap.accessories;
 
-import com.beowulfe.hap.HomekitAccessory;
 import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
 import com.beowulfe.hap.Service;
 import com.beowulfe.hap.accessories.properties.ContactState;
@@ -14,11 +13,11 @@ import java.util.concurrent.CompletableFuture;
  * window/door sensors. When contact is detected it means that the door/window is closed.
  *
  * <p>Contact sensors that run on batteries will need to implement this interface and also implement
- * {@link BatteryStatusAccessory}.
+ * LowBatteryStatus.
  *
  * @author Gaston Dombiak
  */
-public interface ContactSensor extends HomekitAccessory {
+public interface ContactSensor extends AbstractSensor {
 
   /**
    * Retrieves the state of the contact. This is whether the contact is detected or not. Detected

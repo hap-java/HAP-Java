@@ -1,6 +1,5 @@
 package com.beowulfe.hap.accessories;
 
-import com.beowulfe.hap.HomekitAccessory;
 import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
 import com.beowulfe.hap.Service;
 import com.beowulfe.hap.impl.services.LeakSensorService;
@@ -12,11 +11,11 @@ import java.util.concurrent.CompletableFuture;
  * A leak sensor that reports whether a leak has been detected.
  *
  * <p>Leak sensors that run on batteries will need to implement this interface and also implement
- * {@link BatteryStatusAccessory}.
+ * LowBatteryStatus.
  *
  * @author Tim Harper
  */
-public interface LeakSensor extends HomekitAccessory {
+public interface LeakSensor extends AbstractSensor {
 
   /**
    * Retrieves the state of the leak sensor. If true then leak has been detected.

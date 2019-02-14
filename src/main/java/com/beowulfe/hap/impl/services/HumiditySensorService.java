@@ -3,7 +3,7 @@ package com.beowulfe.hap.impl.services;
 import com.beowulfe.hap.accessories.HumiditySensor;
 import com.beowulfe.hap.impl.characteristics.humiditysensor.CurrentRelativeHumidityCharacteristic;
 
-public class HumiditySensorService extends AbstractServiceImpl {
+public class HumiditySensorService extends AbstractSensorServiceImpl {
 
   public HumiditySensorService(HumiditySensor sensor) {
     this(sensor, sensor.getLabel());

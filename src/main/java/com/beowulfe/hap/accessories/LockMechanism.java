@@ -13,9 +13,6 @@ import java.util.concurrent.CompletableFuture;
  * A lock capable of exposing its binary locked state. For a lock that can be locked/unlocked, use
  * {@link LockableLockMechanism}.
  *
- * <p>Locks that run on batteries will need to implement this interface and also implement {@link
- * BatteryStatusAccessory}.
- *
  * @author Andy Lintner
  */
 public interface LockMechanism extends HomekitAccessory {

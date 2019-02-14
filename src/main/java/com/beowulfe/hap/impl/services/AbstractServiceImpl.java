@@ -3,10 +3,7 @@ package com.beowulfe.hap.impl.services;
 import com.beowulfe.hap.HomekitAccessory;
 import com.beowulfe.hap.Service;
 import com.beowulfe.hap.accessories.BatteryAccessory;
-import com.beowulfe.hap.accessories.BatteryStatusAccessory;
 import com.beowulfe.hap.characteristics.Characteristic;
-import com.beowulfe.hap.impl.characteristics.common.BatteryLevelCharacteristic;
-import com.beowulfe.hap.impl.characteristics.common.LowBatteryStatusCharacteristic;
 import com.beowulfe.hap.impl.characteristics.common.Name;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -59,16 +56,6 @@ abstract class AbstractServiceImpl implements Service {
             "Accessory {} implements BatteryAccessory, which was incorrectly used to advertise battery state and is not recognized by HomeKit. "
                 + "Battery-powered devices should report their battery status using LowBatteryStatusAccessory",
             accessory.getClass());
-      }
-
-      // If battery operated accessory then add LowBatteryStatusAccessory
-      if (accessory instanceof BatteryStatusAccessory) {
-        BatteryStatusAccessory batteryStatusAccessory = (BatteryStatusAccessory) accessory;
-        addCharacteristic(
-            new LowBatteryStatusCharacteristic(
-                batteryStatusAccessory::getLowBatteryState,
-                batteryStatusAccessory::subscribeLowBatteryState,
-                batteryStatusAccessory::unsubscribeLowBatteryState));
       }
     }
   }

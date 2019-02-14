@@ -1,6 +1,5 @@
 package com.beowulfe.hap.accessories;
 
-import com.beowulfe.hap.HomekitAccessory;
 import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
 import com.beowulfe.hap.Service;
 import com.beowulfe.hap.accessories.properties.CarbonMonoxideDetectedState;
@@ -13,11 +12,11 @@ import java.util.concurrent.CompletableFuture;
  * A carbon monoxide sensor reports whether carbon monoxide has been detected or not.
  *
  * <p>Carbon monoxide sensors that run on batteries will need to implement this interface and also
- * implement {@link BatteryStatusAccessory}.
+ * implement LowBatteryStatus.
  *
  * @author Gaston Dombiak
  */
-public interface CarbonMonoxideSensor extends HomekitAccessory {
+public interface CarbonMonoxideSensor extends AbstractSensor {
 
   /**
    * Retrieves the state of the sensor that indicates if carbon monoxide has been detected.

@@ -4,7 +4,8 @@ import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Do not use. Devices that have battery levels should implement LowBatteryStatusAccessory.
+ * Do not use. Devices that have battery levels should implement Characteristic.LowBatteryStatus
+ * instead.
  *
  * @author Gaston Dombiak
  */
