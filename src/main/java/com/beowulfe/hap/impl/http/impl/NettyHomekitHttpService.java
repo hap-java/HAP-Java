@@ -10,6 +10,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.util.concurrent.*;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.util.concurrent.CompletableFuture;
@@ -23,16 +24,18 @@ class NettyHomekitHttpService {
 
   private static final Logger logger = LoggerFactory.getLogger(NettyHomekitHttpService.class);
   private final ChannelGroup allChannels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
+  private final InetAddress localAddress;
   private final int port;
   private final int nThreads;
 
-  public static NettyHomekitHttpService create(int port, int nThreads) {
-    return new NettyHomekitHttpService(port, nThreads);
+  public static NettyHomekitHttpService create(InetAddress localAddress, int port, int nThreads) {
+    return new NettyHomekitHttpService(localAddress, port, nThreads);
   }
 
-  private NettyHomekitHttpService(int port, int nThreads) {
+  private NettyHomekitHttpService(InetAddress localAddress, int port, int nThreads) {
     bossGroup = new NioEventLoopGroup();
     workerGroup = new NioEventLoopGroup();
+    this.localAddress = localAddress;
     this.port = port;
     this.nThreads = nThreads;
   }
@@ -46,7 +49,7 @@ class NettyHomekitHttpService {
         .childHandler(new ServerInitializer(connectionFactory, allChannels, nThreads))
         .option(ChannelOption.SO_BACKLOG, 128)
         .childOption(ChannelOption.SO_KEEPALIVE, true);
-    final ChannelFuture bindFuture = b.bind(port);
+    final ChannelFuture bindFuture = b.bind(localAddress, port);
     bindFuture.addListener(
         new GenericFutureListener<Future<? super Void>>() {
 

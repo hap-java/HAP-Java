@@ -65,8 +65,10 @@ public class AccessoryController {
   }
 
   private CompletableFuture<JsonObject> toJson(Service service, int interfaceId) throws Exception {
+    String shortType =
+        service.getType().replaceAll("^0*([0-9a-fA-F]+)-0000-1000-8000-0026BB765291$", "$1");
     JsonObjectBuilder builder =
-        Json.createObjectBuilder().add("iid", ++interfaceId).add("type", service.getType());
+        Json.createObjectBuilder().add("iid", ++interfaceId).add("type", shortType);
     List<Characteristic> characteristics = service.getCharacteristics();
     Collection<CompletableFuture<JsonObject>> characteristicFutures =
         new ArrayList<>(characteristics.size());
