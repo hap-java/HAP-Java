@@ -1,7 +1,7 @@
 package com.beowulfe.hap.impl.characteristics.windowcovering;
 
 import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
-import com.beowulfe.hap.accessories.WindowCovering;
+import com.beowulfe.hap.accessories.BasicWindowCovering;
 import com.beowulfe.hap.characteristics.EventableCharacteristic;
 import com.beowulfe.hap.characteristics.IntegerCharacteristic;
 import java.util.concurrent.CompletableFuture;
@@ -9,9 +9,9 @@ import java.util.concurrent.CompletableFuture;
 public class CurrentPositionCharacteristic extends IntegerCharacteristic
     implements EventableCharacteristic {
 
-  private final WindowCovering windowCovering;
+  private final BasicWindowCovering windowCovering;
 
-  public CurrentPositionCharacteristic(WindowCovering windowCovering) {
+  public CurrentPositionCharacteristic(BasicWindowCovering windowCovering) {
     super("0000006D-0000-1000-8000-0026BB765291", false, true, "The current position", 0, 100, "%");
     this.windowCovering = windowCovering;
   }

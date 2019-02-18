@@ -1,14 +1,14 @@
 package com.beowulfe.hap.impl.characteristics.windowcovering;
 
-import com.beowulfe.hap.accessories.WindowCovering;
+import com.beowulfe.hap.accessories.HoldPositionWindowCovering;
 import com.beowulfe.hap.characteristics.BooleanCharacteristic;
 import java.util.concurrent.CompletableFuture;
 
 public class HoldPositionCharacteristic extends BooleanCharacteristic {
 
-  private final WindowCovering windowCovering;
+  private final HoldPositionWindowCovering windowCovering;
 
-  public HoldPositionCharacteristic(WindowCovering windowCovering) {
+  public HoldPositionCharacteristic(HoldPositionWindowCovering windowCovering) {
     super("0000006F-0000-1000-8000-0026BB765291", true, false, "Whether or not to hold position");
     this.windowCovering = windowCovering;
   }
