@@ -35,6 +35,33 @@ public class HomekitUtils {
             .collect(Collectors.joining(":"));
   }
 
+  public static String generatePin() {
+    String pin =
+        String.format(
+            "%03d-%02d-%03d",
+            getSecureRandom().nextInt(1000),
+            getSecureRandom().nextInt(100),
+            getSecureRandom().nextInt(1000));
+
+    if (pin == "000-00-000"
+        || pin == "111-11-111"
+        || pin == "222-22-222"
+        || pin == "333-33-333"
+        || pin == "444-44-444"
+        || pin == "555-55-555"
+        || pin == "666-66-666"
+        || pin == "777-77-777"
+        || pin == "888-88-888"
+        || pin == "999-99-999"
+        || pin == "123-45-678"
+        || pin == "876-54-321") {
+      // disallowed Pin; just recurse and generate a new one
+      return generatePin();
+    }
+
+    return pin;
+  }
+
   private static SecureRandom getSecureRandom() {
     if (secureRandom == null) {
       synchronized (HomekitUtils.class) {
