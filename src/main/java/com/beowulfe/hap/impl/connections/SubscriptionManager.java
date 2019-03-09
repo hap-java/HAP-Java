@@ -4,7 +4,6 @@ import com.beowulfe.hap.characteristics.EventableCharacteristic;
 import com.beowulfe.hap.impl.http.HomekitClientConnection;
 import com.beowulfe.hap.impl.http.HttpResponse;
 import com.beowulfe.hap.impl.json.EventController;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Set;
@@ -21,9 +20,6 @@ public class SubscriptionManager {
       new ConcurrentHashMap<>();
   private final ConcurrentMap<HomekitClientConnection, Set<EventableCharacteristic>> reverse =
       new ConcurrentHashMap<>();
-  private final ConcurrentMap<HomekitClientConnection, ArrayList<PendingNotification>>
-      pendingNotifications = new ConcurrentHashMap<>();
-  private int nestedBatches = 0;
 
   public synchronized void addSubscription(
       int aid,
@@ -76,7 +72,6 @@ public class SubscriptionManager {
 
   public synchronized void removeConnection(HomekitClientConnection connection) {
     Set<EventableCharacteristic> characteristics = reverse.remove(connection);
-    pendingNotifications.remove(connection);
     if (characteristics != null) {
       for (EventableCharacteristic characteristic : characteristics) {
         Set<HomekitClientConnection> characteristicSubscriptions =
@@ -96,42 +91,10 @@ public class SubscriptionManager {
     return Collections.newSetFromMap(new ConcurrentHashMap<T, Boolean>());
   }
 
-  public synchronized void batchUpdate() {
-    ++this.nestedBatches;
-  }
-
-  public synchronized void completeUpdateBatch() {
-    if (--this.nestedBatches == 0 && !pendingNotifications.isEmpty()) {
-      LOGGER.info("Publishing batched changes");
-      for (ConcurrentMap.Entry<HomekitClientConnection, ArrayList<PendingNotification>> entry :
-          pendingNotifications.entrySet()) {
-        try {
-          HttpResponse message = new EventController().getMessage(entry.getValue());
-          entry.getKey().outOfBand(message);
-        } catch (Exception e) {
-          LOGGER.error("Faled to create new event message", e);
-        }
-      }
-      pendingNotifications.clear();
-    }
-  }
-
-  public synchronized void publish(int accessoryId, int iid, EventableCharacteristic changed) {
-    if (nestedBatches != 0) {
-      LOGGER.info("Batching change for " + accessoryId);
-      PendingNotification notification = new PendingNotification(accessoryId, iid, changed);
-      for (HomekitClientConnection connection : subscriptions.get(changed)) {
-        if (!pendingNotifications.containsKey(connection)) {
-          pendingNotifications.put(connection, new ArrayList<PendingNotification>());
-        }
-        pendingNotifications.get(connection).add(notification);
-      }
-      return;
-    }
-
+  public void publish(int accessoryId, int iid, EventableCharacteristic changed) {
     try {
       HttpResponse message = new EventController().getMessage(accessoryId, iid, changed);
-      LOGGER.info("Publishing change for " + accessoryId);
+      LOGGER.info("Publishing changes for " + accessoryId);
       for (HomekitClientConnection connection : subscriptions.get(changed)) {
         connection.outOfBand(message);
       }
