@@ -1,7 +1,7 @@
 package com.beowulfe.hap.impl.characteristics.windowcovering;
 
 import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
-import com.beowulfe.hap.accessories.WindowCovering;
+import com.beowulfe.hap.accessories.BasicWindowCovering;
 import com.beowulfe.hap.characteristics.EnumCharacteristic;
 import com.beowulfe.hap.characteristics.EventableCharacteristic;
 import java.util.concurrent.CompletableFuture;
@@ -9,9 +9,9 @@ import java.util.concurrent.CompletableFuture;
 public class PositionStateCharacteristic extends EnumCharacteristic
     implements EventableCharacteristic {
 
-  private final WindowCovering windowCovering;
+  private final BasicWindowCovering windowCovering;
 
-  public PositionStateCharacteristic(WindowCovering windowCovering) {
+  public PositionStateCharacteristic(BasicWindowCovering windowCovering) {
     super("00000072-0000-1000-8000-0026BB765291", false, true, "The position state", 2);
     this.windowCovering = windowCovering;
   }
