@@ -13,9 +13,9 @@ Usage
 Include HAP-Java in your project using maven:
 ```
 <dependency>
-	<groupId>com.beowulfe.hap</groupId>
+	<groupId>io.github.hap-java</groupId>
 	<artifactId>hap</artifactId>
-	<version>1.1.3</version>
+	<version>1.2.0-SNAPSHOT</version>
 </dependency>
 ```
 
