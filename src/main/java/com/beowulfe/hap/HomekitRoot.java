@@ -151,7 +151,7 @@ public class HomekitRoot {
 
   /**
    * By default, the bridge advertises itself at revision 1. If you make changes to the accessories
-   * you're including in the bridge after your first call to {@link start()}, you should increment
+   * you're including in the bridge after your first call to {@link #start()}, you should increment
    * this number. The behavior of the client if the configuration index were to decrement is
    * undefined, so this implementation will not manage the configuration index by automatically
    * incrementing - preserving this state across invocations should be handled externally.

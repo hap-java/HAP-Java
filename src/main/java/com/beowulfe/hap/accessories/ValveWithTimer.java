@@ -43,6 +43,7 @@ public interface ValveWithTimer extends Valve {
    * <p>If the valve is currently running, then Homekit assumes that changing this value affects the
    * current remaining duration.
    *
+   * @param value duration
    * @return a future with the value
    */
   CompletableFuture<Void> setSetDuration(int value);
