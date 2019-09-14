@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.beowulfe.hap</groupId>
+	<groupId>io.github.hap-java</groupId>
 	<artifactId>hap</artifactId>
 	<name>hap-java</name>
 	<description>Homekit Accessory Protocol for Java</description>
-	<version>1.1.5-SNAPSHOT</version>
+	<version>1.2.0-snapshot</version>
 	<packaging>jar</packaging>
-	<url>http://www.github.com/beowulfe/HAP-Java</url>
+	<url>https://github.com/hap-java/HAP-Java</url>
 
 	<properties>
     	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -22,9 +22,9 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:git:https://github.com/beowulfe/HAP-Java.git</connection>
-		<developerConnection>scm:git:git@github.com:beowulfe/HAP-Java.git</developerConnection>
-		<url>https://github.com/beowulfe/HAP-Java.git</url>
+		<connection>scm:git:https://github.com/hap-java/HAP-Java.git</connection>
+		<developerConnection>scm:git:git@github.com:hap-java/HAP-Java.git</developerConnection>
+		<url>https://github.com/hap-java/HAP-Java.git</url>
 		<tag>HEAD</tag>
 	</scm>
 
@@ -33,6 +33,16 @@
 			<name>Andy Lintner</name>
 			<email>dev@beowulfe.com</email>
 			<url>https://github.com/beowulfe</url>
+		</developer>
+		<developer>
+			<name>Cody Cutrer</name>
+			<email>cody@cutrer.us</email>
+			<url>https://github.com/ccutrer</url>
+		</developer>
+		<developer>
+			<name>Tim Harper</name>
+			<email>timcharper@gmail.com</email>
+			<url>https://github.com/timcharper</url>
 		</developer>
 	</developers>
 
@@ -155,7 +165,7 @@
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>3.0.1</version>
 				<configuration>
-					<excludePackageNames>com.beowulfe.hap.impl</excludePackageNames>
+					<excludePackageNames>io.github.hapjava.impl</excludePackageNames>
 				</configuration>
 				<executions>
 					<execution>
@@ -196,7 +206,7 @@
 							<goal>publish-scm</goal>
 						</goals>
 						<configuration>
-							<pubScmUrl>scm:git:git@github.com:beowulfe/HAP-Java.git</pubScmUrl>
+							<pubScmUrl>scm:git:git@github.com:hap-java/HAP-Java.git</pubScmUrl>
 							<scmBranch>gh-pages</scmBranch>
 						</configuration>
 					</execution>
@@ -238,7 +248,7 @@
 	<distributionManagement>
 		<site>
 			<id>website</id>
-			<url>https://github.com/beowulfe/hap-java</url>
+			<url>https://hap-java.github.io/</url>
 		</site>
 		<repository>
 			<id>ossrh</id>
@@ -262,7 +272,7 @@
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>3.0.1</version>
 				<configuration>
-					<excludePackageNames>com.beowulfe.hap.impl</excludePackageNames>
+					<excludePackageNames>io.github.hapjava.impl</excludePackageNames>
 				</configuration>
 				<reportSets>
 					<reportSet>
