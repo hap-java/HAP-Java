@@ -18,6 +18,7 @@ abstract class AbstractServiceImpl implements Service {
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
   private final String type;
   private final List<Characteristic> characteristics = new LinkedList<>();
+  private final List<Service> linkedServices = new LinkedList<>();
 
   /**
    * This constructor has been deprecated and replaced with {@link #AbstractServiceImpl(String,
@@ -86,4 +87,13 @@ abstract class AbstractServiceImpl implements Service {
   protected void addCharacteristic(Characteristic characteristic) {
     this.characteristics.add(characteristic);
   }
+
+  @Override
+  public List<Service> getLinkedServices() {
+    return Collections.unmodifiableList(linkedServices);
+  }
+
+  @Override
+  public void addLinkedService(Service service) { linkedServices.add(service);   }
+
 }
