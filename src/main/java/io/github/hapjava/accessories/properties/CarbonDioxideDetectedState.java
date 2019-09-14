@@ -1,4 +1,4 @@
-package com.beowulfe.hap.accessories.properties;
+package io.github.hapjava.accessories.properties;
 
 import java.util.Arrays;
 import java.util.Map;

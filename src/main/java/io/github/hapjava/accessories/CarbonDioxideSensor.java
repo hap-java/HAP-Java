@@ -1,9 +1,9 @@
 package io.github.hapjava.accessories;
 
-import com.beowulfe.hap.accessories.properties.CarbonDioxideDetectedState;
 import io.github.hapjava.HomekitAccessory;
 import io.github.hapjava.HomekitCharacteristicChangeCallback;
 import io.github.hapjava.Service;
+import io.github.hapjava.accessories.properties.CarbonDioxideDetectedState;
 import io.github.hapjava.impl.services.CarbonDioxideSensorService;
 import java.util.Collection;
 import java.util.Collections;

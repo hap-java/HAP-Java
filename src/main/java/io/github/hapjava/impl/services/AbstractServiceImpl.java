@@ -94,6 +94,7 @@ abstract class AbstractServiceImpl implements Service {
   }
 
   @Override
-  public void addLinkedService(Service service) { linkedServices.add(service);   }
-
+  public void addLinkedService(Service service) {
+    linkedServices.add(service);
+  }
 }
