@@ -1,8 +1,8 @@
-package com.beowulfe.hap.impl.services;
+package io.github.hapjava.impl.services;
 
-import com.beowulfe.hap.accessories.CarbonDioxideSensor;
-import com.beowulfe.hap.impl.characteristics.carbondioxide.CarbonDioxideDetectedCharacteristic;
-import com.beowulfe.hap.impl.characteristics.carbondioxide.CarbonDioxideLevelCharacteristic;
+import io.github.hapjava.accessories.CarbonDioxideSensor;
+import io.github.hapjava.impl.characteristics.carbondioxide.CarbonDioxideDetectedCharacteristic;
+import io.github.hapjava.impl.characteristics.carbondioxide.CarbonDioxideLevelCharacteristic;
 
 public class CarbonDioxideSensorService extends AbstractServiceImpl {
 

@@ -1,10 +1,10 @@
-package com.beowulfe.hap.impl.characteristics.carbondioxide;
+package io.github.hapjava.impl.characteristics.carbondioxide;
 
-import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
-import com.beowulfe.hap.accessories.CarbonDioxideSensor;
 import com.beowulfe.hap.accessories.properties.CarbonDioxideDetectedState;
-import com.beowulfe.hap.characteristics.EnumCharacteristic;
-import com.beowulfe.hap.characteristics.EventableCharacteristic;
+import io.github.hapjava.HomekitCharacteristicChangeCallback;
+import io.github.hapjava.accessories.CarbonDioxideSensor;
+import io.github.hapjava.characteristics.EnumCharacteristic;
+import io.github.hapjava.characteristics.EventableCharacteristic;
 import java.util.concurrent.CompletableFuture;
 
 public class CarbonDioxideDetectedCharacteristic extends EnumCharacteristic
