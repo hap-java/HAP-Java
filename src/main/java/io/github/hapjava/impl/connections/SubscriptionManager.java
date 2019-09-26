@@ -49,11 +49,6 @@ public class SubscriptionManager {
       LOGGER.info(
           "Added subscription to " + characteristic.getClass() + " for " + connection.hashCode());
     }
-    try {
-      connection.outOfBand(new EventController().getMessage(aid, iid, characteristic));
-    } catch (Exception e) {
-      LOGGER.error("Could not send initial state in response to subscribe event", e);
-    }
   }
 
   public synchronized void removeSubscription(
