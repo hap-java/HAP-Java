@@ -4,7 +4,6 @@ import io.github.hapjava.characteristics.EventableCharacteristic;
 import io.github.hapjava.impl.http.HomekitClientConnection;
 import io.github.hapjava.impl.http.HttpResponse;
 import io.github.hapjava.impl.json.EventController;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Set;
@@ -21,9 +20,6 @@ public class SubscriptionManager {
       new ConcurrentHashMap<>();
   private final ConcurrentMap<HomekitClientConnection, Set<EventableCharacteristic>> reverse =
       new ConcurrentHashMap<>();
-  private final ConcurrentMap<HomekitClientConnection, ArrayList<PendingNotification>>
-      pendingNotifications = new ConcurrentHashMap<>();
-  private int nestedBatches = 0;
 
   public synchronized void addSubscription(
       int aid,
@@ -46,14 +42,14 @@ public class SubscriptionManager {
         reverse.putIfAbsent(connection, newSet());
       }
       reverse.get(connection).add(characteristic);
-      LOGGER.info(
+      LOGGER.debug(
           "Added subscription to " + characteristic.getClass() + " for " + connection.hashCode());
     }
-    try {
-      connection.outOfBand(new EventController().getMessage(aid, iid, characteristic));
-    } catch (Exception e) {
-      LOGGER.error("Could not send initial state in response to subscribe event", e);
-    }
+    /**
+     * try { connection.outOfBand(new EventController().getMessage(aid, iid, characteristic)); }
+     * catch (Exception e) { LOGGER.error("Could not send initial state in response to subscribe
+     * event", e); }
+     */
   }
 
   public synchronized void removeSubscription(
@@ -70,13 +66,12 @@ public class SubscriptionManager {
     if (reverse != null) {
       reverse.remove(characteristic);
     }
-    LOGGER.info(
+    LOGGER.debug(
         "Removed subscription to " + characteristic.getClass() + " for " + connection.hashCode());
   }
 
   public synchronized void removeConnection(HomekitClientConnection connection) {
     Set<EventableCharacteristic> characteristics = reverse.remove(connection);
-    pendingNotifications.remove(connection);
     if (characteristics != null) {
       for (EventableCharacteristic characteristic : characteristics) {
         Set<HomekitClientConnection> characteristicSubscriptions =
@@ -96,42 +91,10 @@ public class SubscriptionManager {
     return Collections.newSetFromMap(new ConcurrentHashMap<T, Boolean>());
   }
 
-  public synchronized void batchUpdate() {
-    ++this.nestedBatches;
-  }
-
-  public synchronized void completeUpdateBatch() {
-    if (--this.nestedBatches == 0 && !pendingNotifications.isEmpty()) {
-      LOGGER.info("Publishing batched changes");
-      for (ConcurrentMap.Entry<HomekitClientConnection, ArrayList<PendingNotification>> entry :
-          pendingNotifications.entrySet()) {
-        try {
-          HttpResponse message = new EventController().getMessage(entry.getValue());
-          entry.getKey().outOfBand(message);
-        } catch (Exception e) {
-          LOGGER.error("Faled to create new event message", e);
-        }
-      }
-      pendingNotifications.clear();
-    }
-  }
-
-  public synchronized void publish(int accessoryId, int iid, EventableCharacteristic changed) {
-    if (nestedBatches != 0) {
-      LOGGER.info("Batching change for " + accessoryId);
-      PendingNotification notification = new PendingNotification(accessoryId, iid, changed);
-      for (HomekitClientConnection connection : subscriptions.get(changed)) {
-        if (!pendingNotifications.containsKey(connection)) {
-          pendingNotifications.put(connection, new ArrayList<PendingNotification>());
-        }
-        pendingNotifications.get(connection).add(notification);
-      }
-      return;
-    }
-
+  public void publish(int accessoryId, int iid, EventableCharacteristic changed) {
     try {
       HttpResponse message = new EventController().getMessage(accessoryId, iid, changed);
-      LOGGER.info("Publishing change for " + accessoryId);
+      LOGGER.debug("Publishing changes for " + accessoryId);
       for (HomekitClientConnection connection : subscriptions.get(changed)) {
         connection.outOfBand(message);
       }
