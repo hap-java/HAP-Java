@@ -1,5 +1,5 @@
 language: java
-jdk: openjdk9
+jdk: openjdk8
 after_success:
 - openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in deploy/pubring.gpg.enc -out
   deploy/pubring.gpg -d
