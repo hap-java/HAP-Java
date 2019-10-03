@@ -29,8 +29,12 @@ public class TemperatureUnitsCharacteristic extends EnumCharacteristic
   }
 
   @Override
-  public void subscribe(final HomekitCharacteristicChangeCallback callback) {}
+  public void subscribe(final HomekitCharacteristicChangeCallback callback) {
+    thermostat.subscribeTemperatureUnit(callback);
+  }
 
   @Override
-  public void unsubscribe() {}
+  public void unsubscribe() {
+    thermostat.unsubscribeTemperatureUnit();
+  }
 }

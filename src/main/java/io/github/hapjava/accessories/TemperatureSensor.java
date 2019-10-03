@@ -70,4 +70,14 @@ public interface TemperatureSensor extends HomekitAccessory {
   default void setTemperatureUnit(TemperatureUnit unit) {
     // override depending on the thermostat if required.
   }
+
+  /**
+   * subscribe to unit changes.
+   *
+   * @param callback callback
+   */
+  default void subscribeTemperatureUnit(final HomekitCharacteristicChangeCallback callback) {}
+
+  /** unsubscribe from unit changes. */
+  default void unsubscribeTemperatureUnit() {}
 }
