@@ -101,7 +101,7 @@ class HttpSession {
     if (pairingManager == null) {
       synchronized (HttpSession.class) {
         if (pairingManager == null) {
-          pairingManager = new PairingManager(authInfo, registry, advertiser);
+          pairingManager = new PairingManager(authInfo, registry);
         }
       }
     }

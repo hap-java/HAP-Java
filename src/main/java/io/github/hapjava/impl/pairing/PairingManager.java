@@ -4,7 +4,6 @@ import io.github.hapjava.HomekitAuthInfo;
 import io.github.hapjava.impl.HomekitRegistry;
 import io.github.hapjava.impl.http.HttpRequest;
 import io.github.hapjava.impl.http.HttpResponse;
-import io.github.hapjava.impl.jmdns.JmdnsHomekitAdvertiser;
 import io.github.hapjava.impl.responses.NotFoundResponse;
 import io.github.hapjava.impl.responses.UnauthorizedResponse;
 import org.slf4j.Logger;
@@ -16,15 +15,12 @@ public class PairingManager {
 
   private final HomekitAuthInfo authInfo;
   private final HomekitRegistry registry;
-  private final JmdnsHomekitAdvertiser advertiser;
 
   private SrpHandler srpHandler;
 
-  public PairingManager(
-      HomekitAuthInfo authInfo, HomekitRegistry registry, JmdnsHomekitAdvertiser advertiser) {
+  public PairingManager(HomekitAuthInfo authInfo, HomekitRegistry registry) {
     this.authInfo = authInfo;
     this.registry = registry;
-    this.advertiser = advertiser;
   }
 
   public HttpResponse handle(HttpRequest httpRequest) throws Exception {
@@ -54,7 +50,7 @@ public class PairingManager {
         logger.warn("Received unexpected stage 3 request for " + registry.getLabel());
         return new UnauthorizedResponse();
       } else {
-        FinalPairHandler handler = new FinalPairHandler(srpHandler.getK(), authInfo, advertiser);
+        FinalPairHandler handler = new FinalPairHandler(srpHandler.getK(), authInfo);
         try {
           return handler.handle(req);
         } catch (Exception e) {
