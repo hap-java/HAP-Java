@@ -81,7 +81,9 @@ public class JmdnsHomekitAdvertiser {
   private void registerService() throws IOException {
     logger.info("Registering " + SERVICE_TYPE + " on port " + port);
     Map<String, String> props = new HashMap<>();
-    props.put("sf", discoverable ? "1" : "0");
+    if (discoverable) { // HAP spec: required if non-zero
+      props.put("sf", "1");
+    }
     props.put("id", mac);
     props.put("md", label);
     props.put("c#", Integer.toString(configurationIndex));
