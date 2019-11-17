@@ -2,13 +2,13 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.beowulfe.hap</groupId>
   <artifactId>hap-sample</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.2.0-SNAPSHOT</version>
   <name>hap-java-sample</name>
   <dependencies>
   	<dependency>
-  		<groupId>com.beowulfe.hap</groupId>
+  		<groupId>io.github.hap-java</groupId>
   		<artifactId>hap</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>1.2.0-snapshot</version>
   	</dependency>
   	<dependency>
 		<groupId>ch.qos.logback</groupId>
