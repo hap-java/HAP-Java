@@ -1,9 +1,8 @@
 package com.beowulfe.hap.sample;
 
 import java.util.concurrent.CompletableFuture;
-
-import com.beowulfe.hap.HomekitCharacteristicChangeCallback;
-import com.beowulfe.hap.accessories.Lightbulb;
+import io.github.hapjava.HomekitCharacteristicChangeCallback;
+import io.github.hapjava.accessories.Lightbulb;
 
 public class MockSwitch implements Lightbulb {
 	
