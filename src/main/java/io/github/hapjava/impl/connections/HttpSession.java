@@ -66,6 +66,8 @@ class HttpSession {
   }
 
   public HttpResponse handleAuthenticatedRequest(HttpRequest request) throws IOException {
+    advertiser.setDiscoverable(
+        false); // brigde is already binded and should not be discoverable anymore
     try {
       switch (request.getUri()) {
         case "/accessories":
