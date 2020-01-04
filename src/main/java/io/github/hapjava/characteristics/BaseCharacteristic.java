@@ -41,8 +41,12 @@ public abstract class BaseCharacteristic<T> implements Characteristic {
    * @param description a description of the characteristic to be passed to the consuming device.
    */
   public BaseCharacteristic(
-      String type, String format, boolean isWritable, boolean isReadable, String description) {
-    if (type == null || format == null || description == null) {
+      final String type,
+      final String format,
+      final boolean isWritable,
+      final boolean isReadable,
+      final String description) {
+    if ((type == null) || (format == null) || (description == null)) {
       throw new NullPointerException();
     }
 
@@ -57,7 +61,7 @@ public abstract class BaseCharacteristic<T> implements Characteristic {
 
   @Override
   /** {@inheritDoc} */
-  public final CompletableFuture<JsonObject> toJson(int iid) {
+  public final CompletableFuture<JsonObject> toJson(final int iid) {
     return makeBuilder(iid).thenApply(builder -> builder.build());
   }
 
@@ -67,8 +71,8 @@ public abstract class BaseCharacteristic<T> implements Characteristic {
    * @param instanceId the static id of the accessory.
    * @return a future that will complete with the JSON builder for the object.
    */
-  protected CompletableFuture<JsonObjectBuilder> makeBuilder(int instanceId) {
-    CompletableFuture<T> futureValue = getValue();
+  protected CompletableFuture<JsonObjectBuilder> makeBuilder(final int instanceId) {
+    final CompletableFuture<T> futureValue = getValue();
 
     if (futureValue == null) {
       logger.error("Could not retrieve value " + this.getClass().getName());
@@ -83,7 +87,7 @@ public abstract class BaseCharacteristic<T> implements Characteristic {
             })
         .thenApply(
             value -> {
-              JsonArrayBuilder perms = Json.createArrayBuilder();
+              final JsonArrayBuilder perms = Json.createArrayBuilder();
               if (isWritable) {
                 perms.add("pw");
               }
@@ -93,7 +97,7 @@ public abstract class BaseCharacteristic<T> implements Characteristic {
               if (isEventable) {
                 perms.add("ev");
               }
-              JsonObjectBuilder builder =
+              final JsonObjectBuilder builder =
                   Json.createObjectBuilder()
                       .add("iid", instanceId)
                       .add("type", shortType)
@@ -101,24 +105,27 @@ public abstract class BaseCharacteristic<T> implements Characteristic {
                       .add("format", format)
                       .add("ev", false)
                       .add("description", description);
-              setJsonValue(builder, value);
+              // write only characteristics must not have a value
+              if (isReadable) {
+                setJsonValue(builder, value);
+              }
               return builder;
             });
   }
 
   /** {@inheritDoc} */
   @Override
-  public final void setValue(JsonValue jsonValue) {
+  public final void setValue(final JsonValue jsonValue) {
     try {
       this.setValue(convert(jsonValue));
-    } catch (Exception e) {
+    } catch (final Exception e) {
       logger.error("Error while setting JSON value", e);
     }
   }
 
   /** {@inheritDoc} */
   @Override
-  public void supplyValue(JsonObjectBuilder builder) {
+  public void supplyValue(final JsonObjectBuilder builder) {
     try {
       setJsonValue(builder, getValue().get());
     } catch (InterruptedException | ExecutionException e) {
@@ -164,8 +171,9 @@ public abstract class BaseCharacteristic<T> implements Characteristic {
    * @param builder The JSON builder to add the value to
    * @param value The value to add
    */
-  protected void setJsonValue(JsonObjectBuilder builder, T value) {
-    // I don't like this - there should really be a way to construct a disconnected JSONValue...
+  protected void setJsonValue(final JsonObjectBuilder builder, final T value) {
+    // I don't like this - there should really be a way to construct a disconnected
+    // JSONValue...
     if (value instanceof Boolean) {
       builder.add("value", (Boolean) value);
     } else if (value instanceof Double) {
