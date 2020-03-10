@@ -2,13 +2,18 @@ package io.github.hapjava;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import io.github.hapjava.impl.HomekitWebHandler;
 import io.github.hapjava.impl.http.HomekitClientConnectionFactory;
 import io.github.hapjava.impl.jmdns.JmdnsHomekitAdvertiser;
 import java.util.concurrent.CompletableFuture;
-import org.junit.*;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 public class HomekitRootTest {
 
@@ -64,7 +69,7 @@ public class HomekitRootTest {
 
   @Test
   public void testAdvertiserStarts() throws Exception {
-    String mac = "00:00:00:00:00:00";
+    final String mac = "00:00:00:00:00:00";
     when(authInfo.getMac()).thenReturn(mac);
     root.start();
     verify(advertiser).advertise(eq(LABEL), eq(mac), eq(PORT), eq(1));

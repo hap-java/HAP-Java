@@ -81,8 +81,7 @@ public class AccessoryController {
         .thenApply(
             v -> {
               JsonArrayBuilder jsonCharacteristics = Json.createArrayBuilder();
-              characteristicFutures
-                  .stream()
+              characteristicFutures.stream()
                   .map(future -> future.join())
                   .forEach(c -> jsonCharacteristics.add(c));
               builder.add("characteristics", jsonCharacteristics);
