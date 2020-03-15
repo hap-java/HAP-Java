@@ -1,0 +1,40 @@
+package io.github.hapjava.characteristics.impl.thermostat;
+
+import io.github.hapjava.characteristics.impl.base.EnumCharacteristic;
+import io.github.hapjava.characteristics.ExceptionalConsumer;
+import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
+/**
+ * This characteristic describes the target mode of an accessory that supports heating/cooling, e.g.
+ * a thermostat.
+ */
+public class TargetHeatingCoolingStateCharacteristic
+    extends EnumCharacteristic<TargetHeatingCoolingStateEnum> {
+
+  public TargetHeatingCoolingStateCharacteristic(
+      Supplier<CompletableFuture<TargetHeatingCoolingStateEnum>> getter,
+      ExceptionalConsumer<TargetHeatingCoolingStateEnum> setter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
+    super(
+        "00000033-0000-1000-8000-0026BB765291",
+        "Target heating cooling mode",
+        3,
+        Optional.of(getter),
+        Optional.of(setter),
+        Optional.of(subscriber),
+        Optional.of(unsubscriber));
+  }
+
+  @Override
+  protected void setValue(Integer value) throws Exception {
+    if (!setter.isPresent()) {
+      return;
+    }
+    setter.get().accept(TargetHeatingCoolingStateEnum.fromCode(value));
+  }
+}

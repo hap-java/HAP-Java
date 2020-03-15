@@ -5,7 +5,7 @@
 	<artifactId>hap</artifactId>
 	<name>hap-java</name>
 	<description>Homekit Accessory Protocol for Java</description>
-	<version>1.2.0-snapshot</version>
+	<version>2.0.0-snapshot</version>
 	<packaging>jar</packaging>
 	<url>https://github.com/hap-java/HAP-Java</url>
 
@@ -165,7 +165,7 @@
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>3.0.1</version>
 				<configuration>
-					<excludePackageNames>io.github.hapjava.impl</excludePackageNames>
+					<excludePackageNames>io.github.hapjava.server.impl</excludePackageNames>
 				</configuration>
 				<executions>
 					<execution>
@@ -272,7 +272,7 @@
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>3.0.1</version>
 				<configuration>
-					<excludePackageNames>io.github.hapjava.impl</excludePackageNames>
+					<excludePackageNames>io.github.hapjava.server.impl</excludePackageNames>
 				</configuration>
 				<reportSets>
 					<reportSet>

@@ -1,7 +1,5 @@
 package io.github.hapjava.characteristics;
 
-import io.github.hapjava.HomekitCharacteristicChangeCallback;
-
 /**
  * A characteristic that can be listened to by the connected iOS device.
  *
