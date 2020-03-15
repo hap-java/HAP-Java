@@ -3,9 +3,8 @@ package com.beowulfe.hap.sample;
 import java.math.BigInteger;
 import java.security.InvalidAlgorithmParameterException;
 import java.util.function.Consumer;
-
-import com.beowulfe.hap.HomekitAuthInfo;
-import com.beowulfe.hap.HomekitServer;
+import io.github.hapjava.server.HomekitAuthInfo;
+import io.github.hapjava.server.impl.HomekitServer;
 
 /**
  * This is a simple implementation that should never be used in actual production. The mac, salt, and privateKey
@@ -22,7 +21,7 @@ public class MockAuthInfo implements HomekitAuthInfo {
 
     public MockAuthInfo() throws InvalidAlgorithmParameterException {
         this(new AuthState("031-45-154", HomekitServer.generateMac(), HomekitServer.generateSalt(),
-                HomekitServer.generateKey()));
+                           HomekitServer.generateKey()));
     }
 
     public MockAuthInfo(AuthState _authState) {
