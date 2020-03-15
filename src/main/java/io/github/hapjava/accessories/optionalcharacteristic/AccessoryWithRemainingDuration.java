@@ -11,15 +11,15 @@ import java.util.concurrent.CompletableFuture;
 public interface AccessoryWithRemainingDuration {
 
   /**
-   * Retrieves the current duration for which the valve will run
+   * Retrieves the remaining duration
    *
-   * @return a future with the value
+   * @return a future with the duration in seconds
    */
   CompletableFuture<Integer> getRemainingDuration();
 
   /**
    * Subscribes to changes in the duration; note it is not necessary to emit a change every second,
-   * homekit infers the countdown progress clientside.
+   * homekit infers the countdown progress client side.
    *
    * @param callback the function when the existing duration has been replaced with a new one.
    */

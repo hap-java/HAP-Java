@@ -1,8 +1,11 @@
 package io.github.hapjava.services.impl;
 
 import io.github.hapjava.accessories.OccupancySensorAccessory;
-import io.github.hapjava.characteristics.impl.accessoryinformation.NameCharacteristic;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithName;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithStatusActive;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithStatusFault;
 import io.github.hapjava.characteristics.impl.battery.StatusLowBatteryCharacteristic;
+import io.github.hapjava.characteristics.impl.common.NameCharacteristic;
 import io.github.hapjava.characteristics.impl.common.StatusActiveCharacteristic;
 import io.github.hapjava.characteristics.impl.common.StatusFaultCharacteristic;
 import io.github.hapjava.characteristics.impl.common.StatusTamperedCharacteristic;
@@ -16,12 +19,29 @@ public class OccupancySensorService extends AbstractServiceImpl {
     addCharacteristic(occupancyDetectedCharacteristic);
   }
 
-  public OccupancySensorService(OccupancySensorAccessory occupancySensor) {
+  public OccupancySensorService(OccupancySensorAccessory accessory) {
     this(
         new OccupancyDetectedCharacteristic(
-            occupancySensor::getOccupancyDetected,
-            occupancySensor::subscribeOccupancyDetected,
-            occupancySensor::unsubscribeOccupancyDetected));
+            accessory::getOccupancyDetected,
+            accessory::subscribeOccupancyDetected,
+            accessory::unsubscribeOccupancyDetected));
+    if (accessory instanceof AccessoryWithName) {
+      addOptionalCharacteristic(new NameCharacteristic(((AccessoryWithName) accessory)::getName));
+    }
+    if (accessory instanceof AccessoryWithStatusActive) {
+      addOptionalCharacteristic(
+          new StatusActiveCharacteristic(
+              ((AccessoryWithStatusActive) accessory)::getStatusActive,
+              ((AccessoryWithStatusActive) accessory)::subscribeStatusActive,
+              ((AccessoryWithStatusActive) accessory)::unsubscribeStatusActive));
+    }
+    if (accessory instanceof AccessoryWithStatusFault) {
+      addOptionalCharacteristic(
+          new StatusFaultCharacteristic(
+              ((AccessoryWithStatusFault) accessory)::getStatusFault,
+              ((AccessoryWithStatusFault) accessory)::subscribeStatusFault,
+              ((AccessoryWithStatusFault) accessory)::unsubscribeStatusFault));
+    }
   }
 
   public void addOptionalCharacteristic(NameCharacteristic name) {

@@ -1,5 +1,7 @@
 package io.github.hapjava.characteristics.impl.base;
 
+import io.github.hapjava.characteristics.ExceptionalConsumer;
+import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -7,9 +9,6 @@ import java.util.function.Supplier;
 import javax.json.JsonNumber;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonValue;
-import io.github.hapjava.characteristics.ExceptionalConsumer;
-import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
-import io.github.hapjava.characteristics.impl.base.BaseCharacteristic;
 
 /**
  * A characteristic that provides an Integer data type.

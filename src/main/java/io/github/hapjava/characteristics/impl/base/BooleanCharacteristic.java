@@ -1,5 +1,7 @@
 package io.github.hapjava.characteristics.impl.base;
 
+import io.github.hapjava.characteristics.ExceptionalConsumer;
+import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -7,8 +9,6 @@ import java.util.function.Supplier;
 import javax.json.JsonNumber;
 import javax.json.JsonValue;
 import javax.json.JsonValue.ValueType;
-import io.github.hapjava.characteristics.ExceptionalConsumer;
-import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 
 /**
  * Characteristic that exposes a Boolean value.
@@ -26,6 +26,10 @@ public abstract class BooleanCharacteristic extends BaseCharacteristic<Boolean> 
    * @param type a string containing a UUID that indicates the type of characteristic. Apple defines
    *     a set of these, however implementors can create their own as well.
    * @param description a description of the characteristic to be passed to the consuming device.
+   * @param getter getter to retrieve the value
+   * @param setter setter to set value
+   * @param subscriber subscriber to subscribe to changes
+   * @param unsubscriber unsubscriber to unsubscribe from chnages
    */
   public BooleanCharacteristic(
       String type,

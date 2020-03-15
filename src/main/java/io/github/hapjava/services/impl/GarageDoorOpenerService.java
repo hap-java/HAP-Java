@@ -1,6 +1,8 @@
 package io.github.hapjava.services.impl;
 
 import io.github.hapjava.accessories.GarageDoorOpenerAccessory;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithName;
+import io.github.hapjava.characteristics.impl.common.NameCharacteristic;
 import io.github.hapjava.characteristics.impl.common.ObstructionDetectedCharacteristic;
 import io.github.hapjava.characteristics.impl.garagedoor.CurrentDoorStateCharacteristic;
 import io.github.hapjava.characteristics.impl.garagedoor.TargetDoorStateCharacteristic;
@@ -23,21 +25,28 @@ public class GarageDoorOpenerService extends AbstractServiceImpl {
     addCharacteristic(obstruction);
   }
 
-  public GarageDoorOpenerService(GarageDoorOpenerAccessory door) {
+  public GarageDoorOpenerService(GarageDoorOpenerAccessory accessory) {
     this(
         new CurrentDoorStateCharacteristic(
-            door::getCurrentDoorState,
-            door::subscribeCurrentDoorState,
-            door::unsubscribeCurrentDoorState),
+            accessory::getCurrentDoorState,
+            accessory::subscribeCurrentDoorState,
+            accessory::unsubscribeCurrentDoorState),
         new TargetDoorStateCharacteristic(
-            door::getTargetDoorState,
-            door::setTargetDoorState,
-            door::subscribeTargetDoorState,
-            door::unsubscribeTargetDoorState),
+            accessory::getTargetDoorState,
+            accessory::setTargetDoorState,
+            accessory::subscribeTargetDoorState,
+            accessory::unsubscribeTargetDoorState),
         new ObstructionDetectedCharacteristic(
-            door::getObstructionDetected,
-            door::subscribeObstructionDetected,
-            door::unsubscribeObstructionDetected));
+            accessory::getObstructionDetected,
+            accessory::subscribeObstructionDetected,
+            accessory::unsubscribeObstructionDetected));
+    if (accessory instanceof AccessoryWithName) {
+      addOptionalCharacteristic(new NameCharacteristic(((AccessoryWithName) accessory)::getName));
+    }
+  }
+
+  public void addOptionalCharacteristic(NameCharacteristic name) {
+    addCharacteristic(name);
   }
 
   public void addOptionalCharacteristic(LockCurrentStateCharacteristic lockState) {

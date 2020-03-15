@@ -1,7 +1,8 @@
 package io.github.hapjava.services.impl;
 
 import io.github.hapjava.accessories.OutletAccessory;
-import io.github.hapjava.characteristics.impl.accessoryinformation.NameCharacteristic;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithName;
+import io.github.hapjava.characteristics.impl.common.NameCharacteristic;
 import io.github.hapjava.characteristics.impl.common.OnCharacteristic;
 import io.github.hapjava.characteristics.impl.outlet.OutletInUseCharacteristic;
 
@@ -14,15 +15,20 @@ public class OutletService extends AbstractServiceImpl {
     addCharacteristic(outletInUse);
   }
 
-  public OutletService(OutletAccessory outlet) {
+  public OutletService(OutletAccessory accessory) {
     this(
         new OnCharacteristic(
-            outlet::getPowerState,
-            outlet::setPowerState,
-            outlet::subscribePowerState,
-            outlet::unsubscribePowerState),
+            accessory::getPowerState,
+            accessory::setPowerState,
+            accessory::subscribePowerState,
+            accessory::unsubscribePowerState),
         new OutletInUseCharacteristic(
-            outlet::getOutletInUse, outlet::subscribeOutletInUse, outlet::unsubscribeOutletInUse));
+            accessory::getOutletInUse,
+            accessory::subscribeOutletInUse,
+            accessory::unsubscribeOutletInUse));
+    if (accessory instanceof AccessoryWithName) {
+      addOptionalCharacteristic(new NameCharacteristic(((AccessoryWithName) accessory)::getName));
+    }
   }
 
   public void addOptionalCharacteristic(NameCharacteristic name) {

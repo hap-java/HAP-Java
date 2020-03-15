@@ -31,7 +31,7 @@ abstract class AbstractServiceImpl implements Service {
     return type;
   }
 
-  protected void addCharacteristic(Characteristic characteristic) {
+  public void addCharacteristic(Characteristic characteristic) {
     this.characteristics.add(characteristic);
   }
 }

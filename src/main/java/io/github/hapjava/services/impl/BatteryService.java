@@ -1,9 +1,11 @@
 package io.github.hapjava.services.impl;
 
 import io.github.hapjava.accessories.BatteryAccessory;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithName;
 import io.github.hapjava.characteristics.impl.battery.BatteryLevelCharacteristic;
 import io.github.hapjava.characteristics.impl.battery.ChargingStateCharacteristic;
 import io.github.hapjava.characteristics.impl.battery.StatusLowBatteryCharacteristic;
+import io.github.hapjava.characteristics.impl.common.NameCharacteristic;
 
 /** This service describes a battery service. */
 public class BatteryService extends AbstractServiceImpl {
@@ -18,19 +20,26 @@ public class BatteryService extends AbstractServiceImpl {
     addCharacteristic(statusLowBatteryCharacteristic);
   }
 
-  public BatteryService(BatteryAccessory batteryAccessory) {
+  public BatteryService(BatteryAccessory accessory) {
     this(
         new BatteryLevelCharacteristic(
-            batteryAccessory::getBatteryLevel,
-            batteryAccessory::subscribeBatteryLevel,
-            batteryAccessory::unsubscribeBatteryLevel),
+            accessory::getBatteryLevel,
+            accessory::subscribeBatteryLevel,
+            accessory::unsubscribeBatteryLevel),
         new ChargingStateCharacteristic(
-            batteryAccessory::getChargingState,
-            batteryAccessory::subscribeBatteryChargingState,
-            batteryAccessory::unsubscribeBatteryChargingState),
+            accessory::getChargingState,
+            accessory::subscribeBatteryChargingState,
+            accessory::unsubscribeBatteryChargingState),
         new StatusLowBatteryCharacteristic(
-            batteryAccessory::getLowBatteryState,
-            batteryAccessory::subscribeLowBatteryState,
-            batteryAccessory::unsubscribeLowBatteryState));
+            accessory::getLowBatteryState,
+            accessory::subscribeLowBatteryState,
+            accessory::unsubscribeLowBatteryState));
+    if (accessory instanceof AccessoryWithName) {
+      addOptionalCharacteristic(new NameCharacteristic(((AccessoryWithName) accessory)::getName));
+    }
+  }
+
+  public void addOptionalCharacteristic(NameCharacteristic name) {
+    addCharacteristic(name);
   }
 }

@@ -34,6 +34,7 @@ public interface LockMechanismAccessory extends HomekitAccessory {
    * set lock target state the lock trget state.
    *
    * @param state lock target state
+   * @return a future that completes when the change is made
    */
   CompletableFuture<Void> setLockTargetState(LockTargetStateEnum state);
 

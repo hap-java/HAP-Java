@@ -1,7 +1,9 @@
 package io.github.hapjava.services.impl;
 
 import io.github.hapjava.accessories.WindowAccessory;
-import io.github.hapjava.characteristics.impl.accessoryinformation.NameCharacteristic;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithName;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithObstructionDetection;
+import io.github.hapjava.characteristics.impl.common.NameCharacteristic;
 import io.github.hapjava.characteristics.impl.common.ObstructionDetectedCharacteristic;
 import io.github.hapjava.characteristics.impl.windowcovering.CurrentPositionCharacteristic;
 import io.github.hapjava.characteristics.impl.windowcovering.HoldPositionCharacteristic;
@@ -21,21 +23,31 @@ public class WindowService extends AbstractServiceImpl {
     addCharacteristic(positionStateCharacteristic);
   }
 
-  public WindowService(WindowAccessory window) {
+  public WindowService(WindowAccessory accessory) {
     this(
         new CurrentPositionCharacteristic(
-            window::getCurrentPosition,
-            window::subscribeCurrentPosition,
-            window::unsubscribeCurrentPosition),
+            accessory::getCurrentPosition,
+            accessory::subscribeCurrentPosition,
+            accessory::unsubscribeCurrentPosition),
         new TargetPositionCharacteristic(
-            window::getTargetPosition,
-            window::setTargetPosition,
-            window::subscribeTargetPosition,
-            window::unsubscribeTargetPosition),
+            accessory::getTargetPosition,
+            accessory::setTargetPosition,
+            accessory::subscribeTargetPosition,
+            accessory::unsubscribeTargetPosition),
         new PositionStateCharacteristic(
-            window::getPositionState,
-            window::subscribePositionState,
-            window::unsubscribePositionState));
+            accessory::getPositionState,
+            accessory::subscribePositionState,
+            accessory::unsubscribePositionState));
+    if (accessory instanceof AccessoryWithName) {
+      addOptionalCharacteristic(new NameCharacteristic(((AccessoryWithName) accessory)::getName));
+    }
+    if (accessory instanceof AccessoryWithObstructionDetection) {
+      addOptionalCharacteristic(
+          new ObstructionDetectedCharacteristic(
+              ((AccessoryWithObstructionDetection) accessory)::getObstructionDetected,
+              ((AccessoryWithObstructionDetection) accessory)::subscribeObstructionDetected,
+              ((AccessoryWithObstructionDetection) accessory)::unsubscribeObstructionDetected));
+    }
   }
 
   public void addOptionalCharacteristic(NameCharacteristic name) {

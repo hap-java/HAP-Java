@@ -7,8 +7,8 @@ import io.github.hapjava.characteristics.impl.accessoryinformation.HardwareRevis
 import io.github.hapjava.characteristics.impl.accessoryinformation.IdentifyCharacteristic;
 import io.github.hapjava.characteristics.impl.accessoryinformation.ManufacturerCharacteristic;
 import io.github.hapjava.characteristics.impl.accessoryinformation.ModelCharacteristic;
-import io.github.hapjava.characteristics.impl.accessoryinformation.NameCharacteristic;
 import io.github.hapjava.characteristics.impl.accessoryinformation.SerialNumberCharacteristic;
+import io.github.hapjava.characteristics.impl.common.NameCharacteristic;
 
 /** Every accessory must expose a single instance of the Accessory Information service. */
 public class AccessoryInformationService extends AbstractServiceImpl {

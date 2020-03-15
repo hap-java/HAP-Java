@@ -1,5 +1,7 @@
 package io.github.hapjava.characteristics.impl.base;
 
+import io.github.hapjava.characteristics.ExceptionalConsumer;
+import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -9,8 +11,6 @@ import javax.json.JsonObjectBuilder;
 import javax.json.JsonValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import io.github.hapjava.characteristics.ExceptionalConsumer;
-import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 
 /**
  * A characteristic that provides a Float value type.
@@ -38,6 +38,10 @@ public abstract class FloatCharacteristic extends BaseCharacteristic<Double> {
    * @param maxValue the maximum supported value
    * @param minStep the smallest supported step. Values will be rounded to a multiple of this.
    * @param unit a description of the unit this characteristic supports.
+   * @param getter getter to retrieve the value
+   * @param setter setter to set value
+   * @param subscriber subscriber to subscribe to changes
+   * @param unsubscriber unsubscriber to unsubscribe from chnages
    */
   public FloatCharacteristic(
       String type,

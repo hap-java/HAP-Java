@@ -1,10 +1,12 @@
 package io.github.hapjava.services.impl;
 
 import io.github.hapjava.accessories.ValveAccessory;
-import io.github.hapjava.characteristics.impl.accessoryinformation.NameCharacteristic;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithName;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithStatusFault;
 import io.github.hapjava.characteristics.impl.common.ActiveCharacteristic;
 import io.github.hapjava.characteristics.impl.common.InUseCharacteristic;
 import io.github.hapjava.characteristics.impl.common.IsConfiguredCharacteristic;
+import io.github.hapjava.characteristics.impl.common.NameCharacteristic;
 import io.github.hapjava.characteristics.impl.common.ServiceLabelIndexCharacteristic;
 import io.github.hapjava.characteristics.impl.common.StatusFaultCharacteristic;
 import io.github.hapjava.characteristics.impl.valve.SetDurationCharacteristic;
@@ -26,17 +28,31 @@ public class ValveService extends AbstractServiceImpl {
     addCharacteristic(valveTypeCharacteristic);
   }
 
-  public ValveService(ValveAccessory valve) {
+  public ValveService(ValveAccessory accessory) {
     this(
         new ActiveCharacteristic(
-            valve::getValveActive,
-            valve::setValveActive,
-            valve::subscribeValveActive,
-            valve::unsubscribeValveActive),
+            accessory::getValveActive,
+            accessory::setValveActive,
+            accessory::subscribeValveActive,
+            accessory::unsubscribeValveActive),
         new InUseCharacteristic(
-            valve::getValveInUse, valve::subscribeValveInUse, valve::unsubscribeValveInUse),
+            accessory::getValveInUse,
+            accessory::subscribeValveInUse,
+            accessory::unsubscribeValveInUse),
         new ValveTypeCharacteristic(
-            valve::getValveType, valve::subscribeValveType, valve::unsubscribeValveType));
+            accessory::getValveType,
+            accessory::subscribeValveType,
+            accessory::unsubscribeValveType));
+    if (accessory instanceof AccessoryWithName) {
+      addOptionalCharacteristic(new NameCharacteristic(((AccessoryWithName) accessory)::getName));
+    }
+    if (accessory instanceof AccessoryWithStatusFault) {
+      addOptionalCharacteristic(
+          new StatusFaultCharacteristic(
+              ((AccessoryWithStatusFault) accessory)::getStatusFault,
+              ((AccessoryWithStatusFault) accessory)::subscribeStatusFault,
+              ((AccessoryWithStatusFault) accessory)::unsubscribeStatusFault));
+    }
   }
 
   public void addOptionalCharacteristic(NameCharacteristic name) {

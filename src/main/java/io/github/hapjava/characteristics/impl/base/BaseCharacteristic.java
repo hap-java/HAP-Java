@@ -1,5 +1,8 @@
 package io.github.hapjava.characteristics.impl.base;
 
+import io.github.hapjava.characteristics.Characteristic;
+import io.github.hapjava.characteristics.EventableCharacteristic;
+import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Optional;
@@ -13,9 +16,6 @@ import javax.json.JsonObjectBuilder;
 import javax.json.JsonValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import io.github.hapjava.characteristics.Characteristic;
-import io.github.hapjava.characteristics.EventableCharacteristic;
-import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 
 /**
  * Base class for implementing {@link Characteristic}.

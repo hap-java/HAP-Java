@@ -11,28 +11,24 @@ import java.util.concurrent.CompletableFuture;
 public interface AccessoryWithDuration {
 
   /**
-   * Retrieves the current set duration for which the valve will be scheduled to run; this is
-   * usually used as the duration to use when the valve is set to active.
+   * Retrieves the current set duration;
    *
    * @return a future with the value
    */
   CompletableFuture<Integer> getSetDuration();
 
   /**
-   * Sets the duration for which the valve will be scheduled to run; this is usually used as the
-   * duration to use when the valve is set to active.
+   * Sets the duration for which the service should run.
    *
-   * <p>If the valve is currently running, then Homekit assumes that changing this value affects the
-   * current remaining duration.
-   *
-   * @return a future with the value
+   * @param value duration in seconds
+   * @return a future that completes when the change is made
    */
   CompletableFuture<Void> setSetDuration(int value);
 
   /**
    * Subscribes to changes in the set duration
    *
-   * @param callback the function when the value has changed
+   * @param callback the function when the duration has changed
    */
   void subscribeSetDuration(HomekitCharacteristicChangeCallback callback);
 

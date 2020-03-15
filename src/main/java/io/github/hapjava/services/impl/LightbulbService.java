@@ -1,7 +1,8 @@
 package io.github.hapjava.services.impl;
 
 import io.github.hapjava.accessories.LightbulbAccessory;
-import io.github.hapjava.characteristics.impl.accessoryinformation.NameCharacteristic;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithName;
+import io.github.hapjava.characteristics.impl.common.NameCharacteristic;
 import io.github.hapjava.characteristics.impl.common.OnCharacteristic;
 import io.github.hapjava.characteristics.impl.lightbulb.BrightnessCharacteristic;
 import io.github.hapjava.characteristics.impl.lightbulb.ColorTemperatureCharacteristic;
@@ -16,13 +17,16 @@ public class LightbulbService extends AbstractServiceImpl {
     addCharacteristic(onState);
   }
 
-  public LightbulbService(LightbulbAccessory lightbulb) {
+  public LightbulbService(LightbulbAccessory accessory) {
     this(
         new OnCharacteristic(
-            lightbulb::getLightbulbPowerState,
-            lightbulb::setLightbulbPowerState,
-            lightbulb::subscribeLightbulbPowerState,
-            lightbulb::unsubscribeLightbulbPowerState));
+            accessory::getLightbulbPowerState,
+            accessory::setLightbulbPowerState,
+            accessory::subscribeLightbulbPowerState,
+            accessory::unsubscribeLightbulbPowerState));
+    if (accessory instanceof AccessoryWithName) {
+      addOptionalCharacteristic(new NameCharacteristic(((AccessoryWithName) accessory)::getName));
+    }
   }
 
   public void addOptionalCharacteristic(NameCharacteristic name) {

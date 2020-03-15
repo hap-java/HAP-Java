@@ -1,7 +1,7 @@
 package io.github.hapjava.characteristics.impl.windowcovering;
 
-import io.github.hapjava.characteristics.impl.base.BooleanCharacteristic;
 import io.github.hapjava.characteristics.ExceptionalConsumer;
+import io.github.hapjava.characteristics.impl.base.BooleanCharacteristic;
 import java.util.Optional;
 
 /**

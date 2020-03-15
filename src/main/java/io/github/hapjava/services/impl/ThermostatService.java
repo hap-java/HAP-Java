@@ -1,7 +1,8 @@
 package io.github.hapjava.services.impl;
 
 import io.github.hapjava.accessories.ThermostatAccessory;
-import io.github.hapjava.characteristics.impl.accessoryinformation.NameCharacteristic;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithName;
+import io.github.hapjava.characteristics.impl.common.NameCharacteristic;
 import io.github.hapjava.characteristics.impl.humiditysensor.CurrentRelativeHumidityCharacteristic;
 import io.github.hapjava.characteristics.impl.humiditysensor.TargetRelativeHumidityCharacteristic;
 import io.github.hapjava.characteristics.impl.thermostat.CoolingThresholdTemperatureCharacteristic;
@@ -29,31 +30,34 @@ public class ThermostatService extends AbstractServiceImpl {
     addCharacteristic(temperatureUnitsCharacteristic);
   }
 
-  public ThermostatService(ThermostatAccessory thermostat) {
+  public ThermostatService(ThermostatAccessory accessory) {
     this(
         new CurrentHeatingCoolingStateCharacteristic(
-            thermostat::getCurrentState,
-            thermostat::subscribeCurrentState,
-            thermostat::unsubscribeCurrentState),
+            accessory::getCurrentState,
+            accessory::subscribeCurrentState,
+            accessory::unsubscribeCurrentState),
         new TargetHeatingCoolingStateCharacteristic(
-            thermostat::getTargetState,
-            thermostat::setTargetState,
-            thermostat::subscribeTargetState,
-            thermostat::unsubscribeTargetState),
+            accessory::getTargetState,
+            accessory::setTargetState,
+            accessory::subscribeTargetState,
+            accessory::unsubscribeTargetState),
         new CurrentTemperatureCharacteristic(
-            thermostat::getCurrentTemperature,
-            thermostat::subscribeCurrentTemperature,
-            thermostat::unsubscribeCurrentTemperature),
+            accessory::getCurrentTemperature,
+            accessory::subscribeCurrentTemperature,
+            accessory::unsubscribeCurrentTemperature),
         new TargetTemperatureCharacteristic(
-            thermostat::getTargetTemperature,
-            thermostat::setTargetTemperature,
-            thermostat::subscribeTargetTemperature,
-            thermostat::unsubscribeTargetTemperature),
+            accessory::getTargetTemperature,
+            accessory::setTargetTemperature,
+            accessory::subscribeTargetTemperature,
+            accessory::unsubscribeTargetTemperature),
         new TemperatureDisplayUnitCharacteristic(
-            thermostat::getTemperatureDisplayUnit,
-            thermostat::setTemperatureDisplayUnit,
-            thermostat::subscribeTemperatureDisplayUnit,
-            thermostat::unsubscribeTemperatureDisplayUnit));
+            accessory::getTemperatureDisplayUnit,
+            accessory::setTemperatureDisplayUnit,
+            accessory::subscribeTemperatureDisplayUnit,
+            accessory::unsubscribeTemperatureDisplayUnit));
+    if (accessory instanceof AccessoryWithName) {
+      addOptionalCharacteristic(new NameCharacteristic(((AccessoryWithName) accessory)::getName));
+    }
   }
 
   public void addOptionalCharacteristic(NameCharacteristic name) {

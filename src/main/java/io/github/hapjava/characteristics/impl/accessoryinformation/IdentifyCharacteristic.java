@@ -1,7 +1,7 @@
 package io.github.hapjava.characteristics.impl.accessoryinformation;
 
-import io.github.hapjava.characteristics.impl.base.BooleanCharacteristic;
 import io.github.hapjava.characteristics.ExceptionalConsumer;
+import io.github.hapjava.characteristics.impl.base.BooleanCharacteristic;
 import java.util.Optional;
 
 /** This characteristic enables accessory to run its identify routine. */

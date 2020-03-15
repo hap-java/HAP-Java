@@ -1,5 +1,8 @@
 package io.github.hapjava.characteristics.impl.base;
 
+import io.github.hapjava.characteristics.CharacteristicEnum;
+import io.github.hapjava.characteristics.ExceptionalConsumer;
+import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -8,10 +11,6 @@ import javax.json.JsonNumber;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonValue;
-import io.github.hapjava.characteristics.CharacteristicEnum;
-import io.github.hapjava.characteristics.ExceptionalConsumer;
-import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
-import io.github.hapjava.characteristics.impl.base.BaseCharacteristic;
 
 /**
  * Characteristic that exposes an Enum value. Enums are represented as an Integer value in the
@@ -34,6 +33,10 @@ public abstract class EnumCharacteristic<T extends CharacteristicEnum>
    *     a set of these, however implementors can create their own as well.
    * @param description a description of the characteristic to be passed to the consuming device.
    * @param maxValue the number of enum items.
+   * @param getter getter to retrieve the value
+   * @param setter setter to set value
+   * @param subscriber subscriber to subscribe to changes
+   * @param unsubscriber unsubscriber to unsubscribe from chnages
    */
   public EnumCharacteristic(
       String type,

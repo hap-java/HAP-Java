@@ -1,7 +1,8 @@
 package io.github.hapjava.services.impl;
 
 import io.github.hapjava.accessories.LockMechanismAccessory;
-import io.github.hapjava.characteristics.impl.accessoryinformation.NameCharacteristic;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithName;
+import io.github.hapjava.characteristics.impl.common.NameCharacteristic;
 import io.github.hapjava.characteristics.impl.lock.LockCurrentStateCharacteristic;
 import io.github.hapjava.characteristics.impl.lock.LockTargetStateCharacteristic;
 
@@ -19,17 +20,20 @@ public class LockMechanismService extends AbstractServiceImpl {
     addCharacteristic(lockTargetState);
   }
 
-  public LockMechanismService(LockMechanismAccessory lockMechanism) {
+  public LockMechanismService(LockMechanismAccessory accessory) {
     this(
         new LockCurrentStateCharacteristic(
-            lockMechanism::getLockCurrentState,
-            lockMechanism::subscribeLockCurrentState,
-            lockMechanism::unsubscribeLockCurrentState),
+            accessory::getLockCurrentState,
+            accessory::subscribeLockCurrentState,
+            accessory::unsubscribeLockCurrentState),
         new LockTargetStateCharacteristic(
-            lockMechanism::getLockTargetState,
-            lockMechanism::setLockTargetState,
-            lockMechanism::subscribeLockTargetState,
-            lockMechanism::unsubscribeLockTargetState));
+            accessory::getLockTargetState,
+            accessory::setLockTargetState,
+            accessory::subscribeLockTargetState,
+            accessory::unsubscribeLockTargetState));
+    if (accessory instanceof AccessoryWithName) {
+      addOptionalCharacteristic(new NameCharacteristic(((AccessoryWithName) accessory)::getName));
+    }
   }
 
   public void addOptionalCharacteristic(NameCharacteristic name) {

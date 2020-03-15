@@ -1,9 +1,9 @@
 package io.github.hapjava.characteristics.impl.fan;
 
-import io.github.hapjava.characteristics.impl.base.EnumCharacteristic;
 import io.github.hapjava.characteristics.EventableCharacteristic;
 import io.github.hapjava.characteristics.ExceptionalConsumer;
 import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
+import io.github.hapjava.characteristics.impl.base.EnumCharacteristic;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;

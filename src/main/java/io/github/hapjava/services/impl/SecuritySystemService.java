@@ -1,7 +1,9 @@
 package io.github.hapjava.services.impl;
 
 import io.github.hapjava.accessories.SecuritySystemAccessory;
-import io.github.hapjava.characteristics.impl.accessoryinformation.NameCharacteristic;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithName;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithStatusFault;
+import io.github.hapjava.characteristics.impl.common.NameCharacteristic;
 import io.github.hapjava.characteristics.impl.common.StatusFaultCharacteristic;
 import io.github.hapjava.characteristics.impl.common.StatusTamperedCharacteristic;
 import io.github.hapjava.characteristics.impl.securitysystem.CurrentSecuritySystemStateCharacteristic;
@@ -19,17 +21,27 @@ public class SecuritySystemService extends AbstractServiceImpl {
     addCharacteristic(targetState);
   }
 
-  public SecuritySystemService(SecuritySystemAccessory securitySystem) {
+  public SecuritySystemService(SecuritySystemAccessory accessory) {
     this(
         new CurrentSecuritySystemStateCharacteristic(
-            securitySystem::getCurrentSecuritySystemState,
-            securitySystem::subscribeCurrentSecuritySystemState,
-            securitySystem::unsubscribeCurrentSecuritySystemState),
+            accessory::getCurrentSecuritySystemState,
+            accessory::subscribeCurrentSecuritySystemState,
+            accessory::unsubscribeCurrentSecuritySystemState),
         new TargetSecuritySystemStateCharacteristic(
-            securitySystem::getTargetSecuritySystemState,
-            securitySystem::setTargetSecuritySystemState,
-            securitySystem::subscribeTargetSecuritySystemState,
-            securitySystem::unsubscribeTargetSecuritySystemState));
+            accessory::getTargetSecuritySystemState,
+            accessory::setTargetSecuritySystemState,
+            accessory::subscribeTargetSecuritySystemState,
+            accessory::unsubscribeTargetSecuritySystemState));
+    if (accessory instanceof AccessoryWithName) {
+      addOptionalCharacteristic(new NameCharacteristic(((AccessoryWithName) accessory)::getName));
+    }
+    if (accessory instanceof AccessoryWithStatusFault) {
+      addOptionalCharacteristic(
+          new StatusFaultCharacteristic(
+              ((AccessoryWithStatusFault) accessory)::getStatusFault,
+              ((AccessoryWithStatusFault) accessory)::subscribeStatusFault,
+              ((AccessoryWithStatusFault) accessory)::unsubscribeStatusFault));
+    }
   }
 
   public void addOptionalCharacteristic(NameCharacteristic name) {

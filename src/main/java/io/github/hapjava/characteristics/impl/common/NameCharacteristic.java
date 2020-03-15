@@ -1,4 +1,4 @@
-package io.github.hapjava.characteristics.impl.accessoryinformation;
+package io.github.hapjava.characteristics.impl.common;
 
 import io.github.hapjava.characteristics.impl.base.StaticStringCharacteristic;
 import java.util.Optional;

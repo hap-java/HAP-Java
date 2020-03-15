@@ -2,8 +2,8 @@ package io.github.hapjava.characteristics.impl.lightbulb;
 
 import io.github.hapjava.characteristics.EventableCharacteristic;
 import io.github.hapjava.characteristics.ExceptionalConsumer;
-import io.github.hapjava.characteristics.impl.base.FloatCharacteristic;
 import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
+import io.github.hapjava.characteristics.impl.base.FloatCharacteristic;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
