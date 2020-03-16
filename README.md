@@ -15,7 +15,7 @@ Include HAP-Java in your project using maven:
 <dependency>
 	<groupId>io.github.hap-java</groupId>
 	<artifactId>hap</artifactId>
-	<version>1.2.0-SNAPSHOT</version>
+	<version>2.0.0-SNAPSHOT</version>
 </dependency>
 ```
 
