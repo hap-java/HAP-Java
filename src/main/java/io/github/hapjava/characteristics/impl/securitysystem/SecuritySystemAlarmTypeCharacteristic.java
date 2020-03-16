@@ -12,10 +12,10 @@ import java.util.function.Supplier;
  * indicates an ʼunknownʼ cause. Value should revert to 0 when the alarm conditions are cleared.
  */
 public class SecuritySystemAlarmTypeCharacteristic
-    extends EnumCharacteristic<CurrentSecuritySystemStateEnum> {
+    extends EnumCharacteristic<SecuritySystemAlarmTypeEnum> {
 
   public SecuritySystemAlarmTypeCharacteristic(
-      Supplier<CompletableFuture<CurrentSecuritySystemStateEnum>> getter,
+      Supplier<CompletableFuture<SecuritySystemAlarmTypeEnum>> getter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
     super(

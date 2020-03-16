@@ -1,6 +1,7 @@
 package io.github.hapjava.services.impl;
 
 import io.github.hapjava.accessories.DoorAccessory;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithHoldPosition;
 import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithName;
 import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithObstructionDetection;
 import io.github.hapjava.characteristics.impl.common.NameCharacteristic;
@@ -40,6 +41,10 @@ public class DoorService extends AbstractServiceImpl {
             accessory::unsubscribePositionState));
     if (accessory instanceof AccessoryWithName) {
       addOptionalCharacteristic(new NameCharacteristic(((AccessoryWithName) accessory)::getName));
+    }
+    if (accessory instanceof AccessoryWithHoldPosition) {
+      addOptionalCharacteristic(
+          new HoldPositionCharacteristic(((AccessoryWithHoldPosition) accessory)::setHoldPosition));
     }
     if (accessory instanceof AccessoryWithObstructionDetection) {
       addOptionalCharacteristic(

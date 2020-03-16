@@ -3,7 +3,7 @@ package io.github.hapjava.accessories.optionalcharacteristic;
 import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import java.util.concurrent.CompletableFuture;
 
-public interface AccessoryWithHearingThresholdTemprature {
+public interface AccessoryWithHeatingThresholdTemprature {
 
   /**
    * Retrieves the temperature below which the thermostat should begin heating.

@@ -1,7 +1,9 @@
 package io.github.hapjava.services.impl;
 
 import io.github.hapjava.accessories.HomekitAccessory;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithAccessoryFlags;
 import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithHardwareRevision;
+import io.github.hapjava.characteristics.impl.accessoryinformation.AccessoryFlagsCharacteristic;
 import io.github.hapjava.characteristics.impl.accessoryinformation.FirmwareRevisionCharacteristic;
 import io.github.hapjava.characteristics.impl.accessoryinformation.HardwareRevisionCharacteristic;
 import io.github.hapjava.characteristics.impl.accessoryinformation.IdentifyCharacteristic;
@@ -48,9 +50,20 @@ public class AccessoryInformationService extends AbstractServiceImpl {
           new HardwareRevisionCharacteristic(
               ((AccessoryWithHardwareRevision) accessory)::getHardwareRevision));
     }
+    if (accessory instanceof AccessoryWithAccessoryFlags) {
+      addOptionalCharacteristic(
+          new AccessoryFlagsCharacteristic(
+              ((AccessoryWithAccessoryFlags) accessory)::getAccessoryFlags,
+              ((AccessoryWithAccessoryFlags) accessory)::subscribeAccessoryFlags,
+              ((AccessoryWithAccessoryFlags) accessory)::unsubscribeAccessoryFlags));
+    }
   }
 
   public void addOptionalCharacteristic(HardwareRevisionCharacteristic hardwareRevision) {
     addCharacteristic(hardwareRevision);
+  }
+
+  public void addOptionalCharacteristic(AccessoryFlagsCharacteristic accessoryFlagsCharacteristic) {
+    addCharacteristic(accessoryFlagsCharacteristic);
   }
 }

@@ -1,6 +1,7 @@
 package io.github.hapjava.services.impl;
 
 import io.github.hapjava.accessories.WindowAccessory;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithHoldPosition;
 import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithName;
 import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithObstructionDetection;
 import io.github.hapjava.characteristics.impl.common.NameCharacteristic;
@@ -41,6 +42,11 @@ public class WindowService extends AbstractServiceImpl {
     if (accessory instanceof AccessoryWithName) {
       addOptionalCharacteristic(new NameCharacteristic(((AccessoryWithName) accessory)::getName));
     }
+    if (accessory instanceof AccessoryWithHoldPosition) {
+      addOptionalCharacteristic(
+          new HoldPositionCharacteristic(((AccessoryWithHoldPosition) accessory)::setHoldPosition));
+    }
+
     if (accessory instanceof AccessoryWithObstructionDetection) {
       addOptionalCharacteristic(
           new ObstructionDetectedCharacteristic(

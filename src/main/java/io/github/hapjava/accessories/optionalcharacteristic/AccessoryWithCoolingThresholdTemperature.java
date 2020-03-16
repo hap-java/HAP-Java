@@ -3,7 +3,12 @@ package io.github.hapjava.accessories.optionalcharacteristic;
 import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import java.util.concurrent.CompletableFuture;
 
-public interface AccessoryWithCoolingThresholdTemprature {
+/**
+ * Accessory with cooling threshold temperature.
+ *
+ * @author Eugen Freiter
+ */
+public interface AccessoryWithCoolingThresholdTemperature {
 
   /**
    * Retrieves the temperature above which the thermostat should begin cooling.

@@ -2,7 +2,9 @@ package io.github.hapjava.services.impl;
 
 import io.github.hapjava.accessories.SecuritySystemAccessory;
 import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithName;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithSecurityAlarmType;
 import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithStatusFault;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithStatusTampered;
 import io.github.hapjava.characteristics.impl.common.NameCharacteristic;
 import io.github.hapjava.characteristics.impl.common.StatusFaultCharacteristic;
 import io.github.hapjava.characteristics.impl.common.StatusTamperedCharacteristic;
@@ -42,14 +44,28 @@ public class SecuritySystemService extends AbstractServiceImpl {
               ((AccessoryWithStatusFault) accessory)::subscribeStatusFault,
               ((AccessoryWithStatusFault) accessory)::unsubscribeStatusFault));
     }
+    if (accessory instanceof AccessoryWithStatusTampered) {
+      addOptionalCharacteristic(
+          new StatusTamperedCharacteristic(
+              ((AccessoryWithStatusTampered) accessory)::getStatusTampered,
+              ((AccessoryWithStatusTampered) accessory)::subscribeStatusTampered,
+              ((AccessoryWithStatusTampered) accessory)::unsubscribeStatusTampered));
+    }
+    if (accessory instanceof AccessoryWithSecurityAlarmType) {
+      addOptionalCharacteristic(
+          new SecuritySystemAlarmTypeCharacteristic(
+              ((AccessoryWithSecurityAlarmType) accessory)::getSecurityAlarmType,
+              ((AccessoryWithSecurityAlarmType) accessory)::subscribeSecurityAlarmType,
+              ((AccessoryWithSecurityAlarmType) accessory)::unsubscribeSecurityAlarmType));
+    }
   }
 
   public void addOptionalCharacteristic(NameCharacteristic name) {
     addCharacteristic(name);
   }
 
-  public void addOptionalCharacteristic(SecuritySystemAlarmTypeCharacteristic alermType) {
-    addCharacteristic(alermType);
+  public void addOptionalCharacteristic(SecuritySystemAlarmTypeCharacteristic alarmType) {
+    addCharacteristic(alarmType);
   }
 
   public void addOptionalCharacteristic(StatusFaultCharacteristic statusFault) {

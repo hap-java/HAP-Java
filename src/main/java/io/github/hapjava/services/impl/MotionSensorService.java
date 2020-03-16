@@ -4,6 +4,8 @@ import io.github.hapjava.accessories.MotionSensorAccessory;
 import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithName;
 import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithStatusActive;
 import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithStatusFault;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithStatusLowBattery;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithStatusTampered;
 import io.github.hapjava.characteristics.impl.battery.StatusLowBatteryCharacteristic;
 import io.github.hapjava.characteristics.impl.common.NameCharacteristic;
 import io.github.hapjava.characteristics.impl.common.StatusActiveCharacteristic;
@@ -41,6 +43,20 @@ public class MotionSensorService extends AbstractServiceImpl {
               ((AccessoryWithStatusFault) accessory)::getStatusFault,
               ((AccessoryWithStatusFault) accessory)::subscribeStatusFault,
               ((AccessoryWithStatusFault) accessory)::unsubscribeStatusFault));
+    }
+    if (accessory instanceof AccessoryWithStatusTampered) {
+      addOptionalCharacteristic(
+          new StatusTamperedCharacteristic(
+              ((AccessoryWithStatusTampered) accessory)::getStatusTampered,
+              ((AccessoryWithStatusTampered) accessory)::subscribeStatusTampered,
+              ((AccessoryWithStatusTampered) accessory)::unsubscribeStatusTampered));
+    }
+    if (accessory instanceof AccessoryWithStatusLowBattery) {
+      addOptionalCharacteristic(
+          new StatusLowBatteryCharacteristic(
+              ((AccessoryWithStatusLowBattery) accessory)::getStatusLowBattery,
+              ((AccessoryWithStatusLowBattery) accessory)::subscribeStatusLowBattery,
+              ((AccessoryWithStatusLowBattery) accessory)::unsubscribeStatusLowBattery));
     }
   }
 

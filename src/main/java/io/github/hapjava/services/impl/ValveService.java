@@ -1,7 +1,11 @@
 package io.github.hapjava.services.impl;
 
 import io.github.hapjava.accessories.ValveAccessory;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithDuration;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithIsConfigured;
 import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithName;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithRemainingDuration;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithServiceLabelIndex;
 import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithStatusFault;
 import io.github.hapjava.characteristics.impl.common.ActiveCharacteristic;
 import io.github.hapjava.characteristics.impl.common.InUseCharacteristic;
@@ -9,6 +13,7 @@ import io.github.hapjava.characteristics.impl.common.IsConfiguredCharacteristic;
 import io.github.hapjava.characteristics.impl.common.NameCharacteristic;
 import io.github.hapjava.characteristics.impl.common.ServiceLabelIndexCharacteristic;
 import io.github.hapjava.characteristics.impl.common.StatusFaultCharacteristic;
+import io.github.hapjava.characteristics.impl.valve.RemainingDurationCharacteristic;
 import io.github.hapjava.characteristics.impl.valve.SetDurationCharacteristic;
 import io.github.hapjava.characteristics.impl.valve.ValveTypeCharacteristic;
 
@@ -53,14 +58,51 @@ public class ValveService extends AbstractServiceImpl {
               ((AccessoryWithStatusFault) accessory)::subscribeStatusFault,
               ((AccessoryWithStatusFault) accessory)::unsubscribeStatusFault));
     }
+    if (accessory instanceof AccessoryWithDuration) {
+      addOptionalCharacteristic(
+          new SetDurationCharacteristic(
+              ((AccessoryWithDuration) accessory)::getSetDuration,
+              ((AccessoryWithDuration) accessory)::setSetDuration,
+              ((AccessoryWithDuration) accessory)::subscribeSetDuration,
+              ((AccessoryWithDuration) accessory)::unsubscribeSetDuration));
+    }
+    if (accessory instanceof AccessoryWithRemainingDuration) {
+      addOptionalCharacteristic(
+          new RemainingDurationCharacteristic(
+              ((AccessoryWithRemainingDuration) accessory)::getRemainingDuration,
+              ((AccessoryWithRemainingDuration) accessory)::subscribeRemainingDuration,
+              ((AccessoryWithRemainingDuration) accessory)::unsubscribeRemainingDuration));
+    }
+    if (accessory instanceof AccessoryWithIsConfigured) {
+      addOptionalCharacteristic(
+          new IsConfiguredCharacteristic(
+              ((AccessoryWithIsConfigured) accessory)::getIsConfigured,
+              ((AccessoryWithIsConfigured) accessory)::setIsConfigured,
+              ((AccessoryWithIsConfigured) accessory)::subscribeIsConfigured,
+              ((AccessoryWithIsConfigured) accessory)::unsubscribeIsConfigured));
+    }
+    if (accessory instanceof AccessoryWithServiceLabelIndex) {
+      addOptionalCharacteristic(
+          new ServiceLabelIndexCharacteristic(
+              ((AccessoryWithServiceLabelIndex) accessory)::getServiceLabelIndex));
+    }
   }
 
   public void addOptionalCharacteristic(NameCharacteristic name) {
     addCharacteristic(name);
   }
 
+  public void addOptionalCharacteristic(StatusFaultCharacteristic statusFaultCharacteristic) {
+    addCharacteristic(statusFaultCharacteristic);
+  }
+
   public void addOptionalCharacteristic(SetDurationCharacteristic setDurationCharacteristic) {
     addCharacteristic(setDurationCharacteristic);
+  }
+
+  public void addOptionalCharacteristic(
+      RemainingDurationCharacteristic remainingDurationCharacteristic) {
+    addCharacteristic(remainingDurationCharacteristic);
   }
 
   public void addOptionalCharacteristic(IsConfiguredCharacteristic isConfiguredCharacteristic) {
@@ -70,9 +112,5 @@ public class ValveService extends AbstractServiceImpl {
   public void addOptionalCharacteristic(
       ServiceLabelIndexCharacteristic serviceLabelIndexCharacteristic) {
     addCharacteristic(serviceLabelIndexCharacteristic);
-  }
-
-  public void addOptionalCharacteristic(StatusFaultCharacteristic statusFaultCharacteristic) {
-    addCharacteristic(statusFaultCharacteristic);
   }
 }
