@@ -3,6 +3,7 @@ package com.beowulfe.hap.sample;
 import java.math.BigInteger;
 import java.security.InvalidAlgorithmParameterException;
 import java.util.function.Consumer;
+
 import io.github.hapjava.server.HomekitAuthInfo;
 import io.github.hapjava.server.impl.HomekitServer;
 

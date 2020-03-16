@@ -34,6 +34,7 @@ public class Main {
             HomekitServer homekit = new HomekitServer(PORT);
             HomekitRoot bridge = homekit.createBridge(mockAuth, "Test Bridge", "TestBridge, Inc.", "G6", "111abe234", "1.1", "1.2");
 
+
             mockAuth.onChange(state -> {
                 try {
                     System.out.println("State has changed! Writing");

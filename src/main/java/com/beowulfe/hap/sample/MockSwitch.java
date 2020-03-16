@@ -1,6 +1,7 @@
 package com.beowulfe.hap.sample;
 
 import java.util.concurrent.CompletableFuture;
+
 import io.github.hapjava.accessories.LightbulbAccessory;
 import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithHardwareRevision;
 import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
