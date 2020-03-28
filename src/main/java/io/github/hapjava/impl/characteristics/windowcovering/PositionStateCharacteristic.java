@@ -1,38 +1,38 @@
 package io.github.hapjava.impl.characteristics.windowcovering;
 
-import io.github.hapjava.HomekitCharacteristicChangeCallback;
-import io.github.hapjava.accessories.BasicWindowCovering;
-import io.github.hapjava.characteristics.EnumCharacteristic;
-import io.github.hapjava.characteristics.EventableCharacteristic;
 import java.util.concurrent.CompletableFuture;
 
-public class PositionStateCharacteristic extends EnumCharacteristic
-    implements EventableCharacteristic {
+import io.github.hapjava.HomekitCharacteristicChangeCallback;
+import io.github.hapjava.accessories.Positionable;
+import io.github.hapjava.characteristics.EnumCharacteristic;
+import io.github.hapjava.characteristics.EventableCharacteristic;
 
-  private final BasicWindowCovering windowCovering;
+public class PositionStateCharacteristic extends EnumCharacteristic implements EventableCharacteristic {
 
-  public PositionStateCharacteristic(BasicWindowCovering windowCovering) {
-    super("00000072-0000-1000-8000-0026BB765291", false, true, "The position state", 2);
-    this.windowCovering = windowCovering;
-  }
+    private final Positionable positionable;
 
-  @Override
-  protected void setValue(Integer value) throws Exception {
-    // Read only
-  }
+    public PositionStateCharacteristic(Positionable positionable) {
+        super("00000072-0000-1000-8000-0026BB765291", false, true, "The position state", 2);
+        this.positionable = positionable;
+    }
 
-  @Override
-  protected CompletableFuture<Integer> getValue() {
-    return windowCovering.getPositionState().thenApply(v -> v.getCode());
-  }
+    @Override
+    protected void setValue(Integer value) throws Exception {
+        // Read only
+    }
 
-  @Override
-  public void subscribe(HomekitCharacteristicChangeCallback callback) {
-    windowCovering.subscribePositionState(callback);
-  }
+    @Override
+    protected CompletableFuture<Integer> getValue() {
+        return positionable.getPositionState().thenApply(v -> v.getCode());
+    }
 
-  @Override
-  public void unsubscribe() {
-    windowCovering.unsubscribePositionState();
-  }
+    @Override
+    public void subscribe(HomekitCharacteristicChangeCallback callback) {
+        positionable.subscribePositionState(callback);
+    }
+
+    @Override
+    public void unsubscribe() {
+        positionable.unsubscribePositionState();
+    }
 }
