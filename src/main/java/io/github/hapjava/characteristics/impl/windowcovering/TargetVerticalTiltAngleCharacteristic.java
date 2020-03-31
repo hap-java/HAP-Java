@@ -23,7 +23,7 @@ public class TargetVerticalTiltAngleCharacteristic extends IntegerCharacteristic
       Runnable unsubscriber) {
     super(
         "0000007D-0000-1000-8000-0026BB765291",
-        "target vertical tilt angel",
+        "target vertical tilt angle",
         -90,
         90,
         "arcdegrees",

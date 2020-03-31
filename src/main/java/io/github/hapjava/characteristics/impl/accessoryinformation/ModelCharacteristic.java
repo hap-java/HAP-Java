@@ -14,7 +14,7 @@ public class ModelCharacteristic extends StaticStringCharacteristic {
   public ModelCharacteristic(Supplier<CompletableFuture<String>> getter) {
     super(
         "00000021-0000-1000-8000-0026BB765291",
-        "name of the model",
+        "model",
         Optional.of(getter),
         Optional.empty(),
         Optional.empty());

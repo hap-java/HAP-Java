@@ -79,4 +79,13 @@ public interface HomekitAccessory {
   default Collection<Service> getServices() {
     return Collections.singleton(new AccessoryInformationService(this));
   };
+
+  /**
+   * default implementation which is sufficient if accessory has only one services
+   *
+   * @return primary service
+   */
+  default Service getPrimaryService() {
+    return getServices().iterator().next();
+  };
 }

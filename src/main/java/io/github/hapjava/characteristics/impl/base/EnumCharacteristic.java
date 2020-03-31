@@ -49,6 +49,8 @@ public abstract class EnumCharacteristic<T extends CharacteristicEnum>
     super(
         type, "int", description, getter.isPresent(), setter.isPresent(), subscriber, unsubscriber);
     this.maxValue = maxValue;
+    this.getter = getter;
+    this.setter = setter;
   }
 
   /** {@inheritDoc} */

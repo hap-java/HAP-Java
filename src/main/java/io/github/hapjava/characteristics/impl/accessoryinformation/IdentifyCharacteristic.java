@@ -10,7 +10,7 @@ public class IdentifyCharacteristic extends BooleanCharacteristic {
   public IdentifyCharacteristic(ExceptionalConsumer<Boolean> setter) {
     super(
         "00000014-0000-1000-8000-0026BB765291",
-        "identifies the accessory via a physical action on the accessory",
+        "identifies the accessory",
         Optional.empty(),
         Optional.of(setter),
         Optional.empty(),

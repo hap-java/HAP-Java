@@ -14,7 +14,7 @@ public class ManufacturerCharacteristic extends StaticStringCharacteristic {
   public ManufacturerCharacteristic(Supplier<CompletableFuture<String>> getter) {
     super(
         "00000020-0000-1000-8000-0026BB765291",
-        "ame of the manufacturer",
+        "manufacturer",
         Optional.of(getter),
         Optional.empty(),
         Optional.empty());

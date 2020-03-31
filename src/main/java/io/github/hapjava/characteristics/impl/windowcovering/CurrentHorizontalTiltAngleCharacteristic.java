@@ -24,7 +24,7 @@ public class CurrentHorizontalTiltAngleCharacteristic extends IntegerCharacteris
       Runnable unsubscriber) {
     super(
         "0000006C-0000-1000-8000-0026BB765291",
-        "current horizontal tilt angel",
+        "current horizontal tilt angle",
         -90,
         90,
         "arcdegrees",

@@ -14,7 +14,7 @@ public class SerialNumberCharacteristic extends StaticStringCharacteristic {
   public SerialNumberCharacteristic(Supplier<CompletableFuture<String>> getter) {
     super(
         "00000030-0000-1000-8000-0026BB765291",
-        "serial number of the accessory",
+        "serial number",
         Optional.of(getter),
         Optional.empty(),
         Optional.empty());
