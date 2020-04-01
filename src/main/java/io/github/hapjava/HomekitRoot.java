@@ -68,6 +68,15 @@ public class HomekitRoot {
     addAccessorySkipRangeCheck(accessory);
   }
 
+  public void addLinkedAccessory(
+      HomekitAccessory primaryAccessory, HomekitAccessory linkedAccessory) {
+    if (linkedAccessory.getId() <= 1 && !(linkedAccessory instanceof Bridge)) {
+      throw new IndexOutOfBoundsException(
+          "The ID of an linkedAccessory used in a bridge must be greater than 1");
+    }
+    addLinkedAccessorySkipRangeCheck(primaryAccessory, linkedAccessory);
+  }
+
   /**
    * Skips the range check. Used by {@link HomekitStandaloneAccessoryServer} as well as {@link
    * #addAccessory(HomekitAccessory)};
@@ -77,6 +86,16 @@ public class HomekitRoot {
   void addAccessorySkipRangeCheck(HomekitAccessory accessory) {
     this.registry.add(accessory);
     logger.info("Added accessory " + accessory.getLabel());
+    if (started) {
+      registry.reset();
+      webHandler.resetConnections();
+    }
+  }
+
+  void addLinkedAccessorySkipRangeCheck(
+      HomekitAccessory primaryAccessory, HomekitAccessory linkedAccessory) {
+    this.registry.addLinked(primaryAccessory, linkedAccessory);
+    logger.info("Added linked accessory " + linkedAccessory.getLabel());
     if (started) {
       registry.reset();
       webHandler.resetConnections();
