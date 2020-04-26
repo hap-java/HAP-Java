@@ -104,7 +104,7 @@ public class SubscriptionManager {
           HttpResponse message = new EventController().getMessage(entry.getValue());
           entry.getKey().outOfBand(message);
         } catch (Exception e) {
-          LOGGER.error("Faled to create new event message", e);
+          LOGGER.error("Failed to create new event message", e);
         }
       }
       pendingNotifications.clear();
@@ -113,7 +113,10 @@ public class SubscriptionManager {
 
   public synchronized void publish(int accessoryId, int iid, EventableCharacteristic changed) {
     final Set<HomekitClientConnection> subscribers = subscriptions.get(changed);
-    if ((subscribers == null) || (subscribers.isEmpty())) return; // no subscribers
+    if ((subscribers == null) || (subscribers.isEmpty())) {
+      LOGGER.debug("No subscribers to characteristic {} at accessory {} ", changed, accessoryId);
+      return; // no subscribers
+    }
     if (nestedBatches != 0) {
       LOGGER.debug("Batching change for " + accessoryId);
       PendingNotification notification = new PendingNotification(accessoryId, iid, changed);
