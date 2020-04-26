@@ -97,7 +97,7 @@ public class SubscriptionManager {
 
   public synchronized void completeUpdateBatch() {
     if (--this.nestedBatches == 0 && !pendingNotifications.isEmpty()) {
-      LOGGER.info("Publishing batched changes");
+      LOGGER.debug("Publishing batched changes");
       for (ConcurrentMap.Entry<HomekitClientConnection, ArrayList<PendingNotification>> entry :
           pendingNotifications.entrySet()) {
         try {
@@ -112,10 +112,12 @@ public class SubscriptionManager {
   }
 
   public synchronized void publish(int accessoryId, int iid, EventableCharacteristic changed) {
+    final Set<HomekitClientConnection> subscribers = subscriptions.get(changed);
+    if ((subscribers == null) || (subscribers.isEmpty())) return; // no subscribers
     if (nestedBatches != 0) {
-      LOGGER.info("Batching change for " + accessoryId);
+      LOGGER.debug("Batching change for " + accessoryId);
       PendingNotification notification = new PendingNotification(accessoryId, iid, changed);
-      for (HomekitClientConnection connection : subscriptions.get(changed)) {
+      for (HomekitClientConnection connection : subscribers) {
         if (!pendingNotifications.containsKey(connection)) {
           pendingNotifications.put(connection, new ArrayList<PendingNotification>());
         }
@@ -126,8 +128,8 @@ public class SubscriptionManager {
 
     try {
       HttpResponse message = new EventController().getMessage(accessoryId, iid, changed);
-      LOGGER.info("Publishing change for " + accessoryId);
-      for (HomekitClientConnection connection : subscriptions.get(changed)) {
+      LOGGER.debug("Publishing change for " + accessoryId);
+      for (HomekitClientConnection connection : subscribers) {
         connection.outOfBand(message);
       }
     } catch (Exception e) {
