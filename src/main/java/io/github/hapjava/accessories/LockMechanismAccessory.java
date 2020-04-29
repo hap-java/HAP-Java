@@ -24,14 +24,14 @@ public interface LockMechanismAccessory extends HomekitAccessory {
   CompletableFuture<LockCurrentStateEnum> getLockCurrentState();
 
   /**
-   * Retrieves the lock trget state.
+   * Retrieves the lock target state.
    *
    * @return a future that will contain the lock target state .
    */
   CompletableFuture<LockTargetStateEnum> getLockTargetState();
 
   /**
-   * set lock target state the lock trget state.
+   * set lock target state the lock target state.
    *
    * @param state lock target state
    * @return a future that completes when the change is made
