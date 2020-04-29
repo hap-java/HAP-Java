@@ -70,9 +70,7 @@ public interface ValveAccessory extends HomekitAccessory {
   /**
    * Retrieves the valve type.
    *
-   * <p>To communicate water is flowing through a valve, inUse should be used.
-   *
-   * @return a future that will contain the binary state
+   * @return a future that will contain the valve type.
    */
   CompletableFuture<ValveTypeEnum> getValveType();
 
