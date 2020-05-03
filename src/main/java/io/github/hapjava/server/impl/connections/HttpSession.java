@@ -59,7 +59,7 @@ class HttpSession {
         if (registry.isAllowUnauthenticatedRequests()) {
           return handleAuthenticatedRequest(request);
         } else {
-          logger.info("Unrecognized request for " + request.getUri());
+          logger.warn("Unrecognized request for " + request.getUri());
           return new NotFoundResponse();
         }
     }
@@ -79,7 +79,7 @@ class HttpSession {
               return getCharacteristicsController().put(request, connection);
 
             default:
-              logger.info("Unrecognized method for " + request.getUri());
+              logger.warn("Unrecognized method for " + request.getUri());
               return new NotFoundResponse();
           }
 
@@ -90,11 +90,11 @@ class HttpSession {
           if (request.getUri().startsWith("/characteristics?")) {
             return getCharacteristicsController().get(request);
           }
-          logger.info("Unrecognized request for " + request.getUri());
+          logger.warn("Unrecognized request for " + request.getUri());
           return new NotFoundResponse();
       }
     } catch (Exception e) {
-      logger.error("Could not handle request", e);
+      logger.warn("Could not handle request", e);
       return new InternalServerErrorResponse(e);
     }
   }
@@ -110,7 +110,7 @@ class HttpSession {
     try {
       return pairingManager.handle(request);
     } catch (Exception e) {
-      logger.error("Exception encountered during pairing", e);
+      logger.warn("Exception encountered during pairing", e);
       return new InternalServerErrorResponse(e);
     }
   }
@@ -126,7 +126,7 @@ class HttpSession {
     try {
       return pairVerificationManager.handle(request);
     } catch (Exception e) {
-      logger.error("Excepton encountered while verifying pairing", e);
+      logger.warn("Excepton encountered while verifying pairing", e);
       return new InternalServerErrorResponse(e);
     }
   }

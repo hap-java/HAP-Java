@@ -36,13 +36,13 @@ class AccessoryHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
               }
               channel.writeAndFlush(NettyResponseUtil.createResponse(response));
             });
-    LOGGER.info("New homekit connection from " + ctx.channel().remoteAddress().toString());
+    LOGGER.trace("New HomeKit connection from " + ctx.channel().remoteAddress().toString());
     super.channelActive(ctx);
   }
 
   @Override
   public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-    LOGGER.info("Terminated homekit connection from " + ctx.channel().remoteAddress().toString());
+    LOGGER.trace("Terminated HomeKit connection from " + ctx.channel().remoteAddress().toString());
     super.channelInactive(ctx);
   }
 
@@ -57,7 +57,7 @@ class AccessoryHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
       }
       sendResponse(response, ctx);
     } catch (Exception e) {
-      LOGGER.error("Error handling homekit http request", e);
+      LOGGER.warn("Error handling homekit http request", e);
       sendResponse(HttpResponseStatus.INTERNAL_SERVER_ERROR, "Error: " + e.getMessage(), ctx);
     }
   }
@@ -95,7 +95,7 @@ class AccessoryHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
   public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
     boolean errorLevel = !(cause instanceof IOException);
     if (errorLevel) {
-      LOGGER.error("Exception caught in web handler", cause);
+      LOGGER.warn("Exception caught in web handler", cause);
     } else {
       LOGGER.debug("Exception caught in web handler", cause);
     }

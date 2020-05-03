@@ -11,7 +11,7 @@ import java.math.BigInteger;
 
 /**
  * This is a slightly modified version of the SRP6ServerSession class included with nimbus. The only
- * change made for homekit compatability is a change to the size of the b key. Homekit pairing fails
+ * change made for homekit compatability is a change to the size of the b key. HomeKit pairing fails
  * if b is not 3072 bytes.
  *
  * <p>Stateful server-side Secure Remote Password (SRP-6a) authentication session. Handles the

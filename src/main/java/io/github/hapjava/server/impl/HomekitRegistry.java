@@ -37,7 +37,7 @@ public class HomekitRegistry {
         newServices.add(new AccessoryInformationService(accessory));
         newServices.addAll(accessory.getServices());
       } catch (Exception e) {
-        logger.error("Could not instantiate services for accessory " + accessory.getName(), e);
+        logger.warn("Could not instantiate services for accessory " + accessory.getName(), e);
         services.put(accessory, Collections.emptyList());
         continue;
       }

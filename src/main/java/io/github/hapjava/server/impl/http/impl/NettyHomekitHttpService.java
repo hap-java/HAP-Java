@@ -59,7 +59,7 @@ class NettyHomekitHttpService {
               future.get();
               SocketAddress socketAddress = bindFuture.channel().localAddress();
               if (socketAddress instanceof InetSocketAddress) {
-                logger.info("Bound homekit listener to " + socketAddress.toString());
+                logger.trace("Bound homekit listener to " + socketAddress.toString());
                 portFuture.complete(((InetSocketAddress) socketAddress).getPort());
               } else {
                 throw new RuntimeException(
@@ -79,7 +79,7 @@ class NettyHomekitHttpService {
   }
 
   public void resetConnections() {
-    logger.info("Resetting connections");
+    logger.trace("Resetting connections");
     allChannels.close();
   }
 }

@@ -5,7 +5,7 @@ import java.security.SecureRandom;
 
 /**
  * This class is modified from the nimbus SRP library to provide methods that are compatible with
- * some pecularities of Homekit. Namely, the need for a 3072 bit private value
+ * some pecularities of HomeKit. Namely, the need for a 3072 bit private value
  *
  * @author Vladimir Dzhuvinov
  */

@@ -36,7 +36,7 @@ public class CharacteristicsController {
     for (String id : ids) {
       String[] parts = id.split("\\.");
       if (parts.length != 2) {
-        logger.error("Unexpected characteristics request: " + uri);
+        logger.warn("Unexpected characteristics request: " + uri);
         return new NotFoundResponse();
       }
       int aid = Integer.parseInt(parts[0]);

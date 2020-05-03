@@ -31,14 +31,14 @@ public class JmdnsHomekitAdvertiser {
   public synchronized void advertise(String label, String mac, int port, int configurationIndex)
       throws Exception {
     if (isAdvertising) {
-      throw new IllegalStateException("Homekit advertiser is already running");
+      throw new IllegalStateException("HomeKit advertiser is already running");
     }
     this.label = label;
     this.mac = mac;
     this.port = port;
     this.configurationIndex = configurationIndex;
 
-    logger.info("Advertising accessory " + label);
+    logger.trace("Advertising accessory " + label);
 
     registerService();
 
@@ -46,7 +46,7 @@ public class JmdnsHomekitAdvertiser {
         .addShutdownHook(
             new Thread(
                 () -> {
-                  logger.info("Stopping advertising in response to shutdown.");
+                  logger.trace("Stopping advertising in response to shutdown.");
                   jmdns.unregisterAllServices();
                 }));
     isAdvertising = true;
@@ -60,7 +60,7 @@ public class JmdnsHomekitAdvertiser {
     if (this.discoverable != discoverable) {
       this.discoverable = discoverable;
       if (isAdvertising) {
-        logger.info("Re-creating service due to change in discoverability to " + discoverable);
+        logger.trace("Re-creating service due to change in discoverability to " + discoverable);
         jmdns.unregisterAllServices();
         registerService();
       }
@@ -71,7 +71,7 @@ public class JmdnsHomekitAdvertiser {
     if (this.configurationIndex != revision) {
       this.configurationIndex = revision;
       if (isAdvertising) {
-        logger.info("Re-creating service due to change in configuration index to " + revision);
+        logger.trace("Re-creating service due to change in configuration index to " + revision);
         jmdns.unregisterAllServices();
         registerService();
       }

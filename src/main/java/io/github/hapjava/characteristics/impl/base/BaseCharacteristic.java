@@ -77,7 +77,7 @@ public abstract class BaseCharacteristic<T> implements Characteristic, Eventable
   }
 
   /**
-   * Creates the JSON serialized form of the accessory for use over the Homekit Accessory Protocol.
+   * Creates the JSON serialized form of the accessory for use over the HomeKit Accessory Protocol.
    *
    * @param instanceId the static id of the accessory.
    * @return a future that will complete with the JSON builder for the object.
@@ -92,7 +92,7 @@ public abstract class BaseCharacteristic<T> implements Characteristic, Eventable
     return futureValue
         .exceptionally(
             t -> {
-              logger.error("Could not retrieve value " + this.getClass().getName(), t);
+              logger.warn("Could not retrieve value " + this.getClass().getName(), t);
               return null;
             })
         .thenApply(
@@ -126,7 +126,7 @@ public abstract class BaseCharacteristic<T> implements Characteristic, Eventable
     try {
       setValue(convert(jsonValue));
     } catch (Exception e) {
-      logger.error("Error while setting JSON value", e);
+      logger.warn("Error while setting JSON value", e);
     }
   }
 
@@ -136,7 +136,7 @@ public abstract class BaseCharacteristic<T> implements Characteristic, Eventable
     try {
       setJsonValue(builder, getValue().get());
     } catch (InterruptedException | ExecutionException e) {
-      logger.error("Error retrieving value", e);
+      logger.warn("Error retrieving value", e);
       setJsonValue(builder, getDefault());
     }
   }

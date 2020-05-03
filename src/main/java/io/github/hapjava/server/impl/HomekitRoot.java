@@ -13,8 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Provides advertising and handling for Homekit accessories. This class handles the advertising of
- * Homekit accessories and contains one or more accessories. When implementing a bridge accessory,
+ * Provides advertising and handling for HomeKit accessories. This class handles the advertising of
+ * HomeKit accessories and contains one or more accessories. When implementing a bridge accessory,
  * you will interact with this class directly. Instantiate it via {@link
  * HomekitServer#createBridge(HomekitAuthInfo, String, String, String, String, String, String)}. For
  * single accessories, this is composed by {@link HomekitStandaloneAccessoryServer}.
@@ -54,7 +54,7 @@ public class HomekitRoot {
   }
 
   /**
-   * Add an accessory to be handled and advertised by this root. Any existing Homekit connections
+   * Add an accessory to be handled and advertised by this root. Any existing HomeKit connections
    * will be terminated to allow the clients to reconnect and see the updated accessory list. When
    * using this for a bridge, the ID of the accessory must be greater than 1, as that ID is reserved
    * for the Bridge itself.
@@ -77,7 +77,7 @@ public class HomekitRoot {
    */
   void addAccessorySkipRangeCheck(HomekitAccessory accessory) {
     this.registry.add(accessory);
-    logger.info("Added accessory " + accessory.getName());
+    logger.trace("Added accessory " + accessory.getName());
     if (started) {
       registry.reset();
       webHandler.resetConnections();
@@ -85,7 +85,7 @@ public class HomekitRoot {
   }
 
   /**
-   * Removes an accessory from being handled or advertised by this root. Any existing Homekit
+   * Removes an accessory from being handled or advertised by this root. Any existing HomeKit
    * connections will be terminated to allow the clients to reconnect and see the updated accessory
    * list.
    *
@@ -93,7 +93,7 @@ public class HomekitRoot {
    */
   public void removeAccessory(HomekitAccessory accessory) {
     this.registry.remove(accessory);
-    logger.info("Removed accessory " + accessory.getName());
+    logger.trace("Removed accessory " + accessory.getName());
     if (started) {
       registry.reset();
       webHandler.resetConnections();
@@ -101,9 +101,9 @@ public class HomekitRoot {
   }
 
   /**
-   * Starts advertising and handling the previously added Homekit accessories. You should try to
+   * Starts advertising and handling the previously added HomeKit accessories. You should try to
    * call this after you have used the {@link #addAccessory(HomekitAccessory)} method to add all the
-   * initial accessories you plan on advertising, as any later additions will cause the Homekit
+   * initial accessories you plan on advertising, as any later additions will cause the HomeKit
    * clients to reconnect.
    */
   public void start() {
@@ -123,7 +123,7 @@ public class HomekitRoot {
             });
   }
 
-  /** Stops advertising and handling the Homekit accessories. */
+  /** Stops advertising and handling the HomeKit accessories. */
   public void stop() {
     advertiser.stop();
     webHandler.stop();

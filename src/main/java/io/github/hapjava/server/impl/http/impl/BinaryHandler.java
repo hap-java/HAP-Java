@@ -49,7 +49,7 @@ public class BinaryHandler extends ByteToMessageCodec<ByteBuf> {
   public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
     boolean errorLevel = !(cause instanceof IOException);
     if (errorLevel) {
-      logger.error("Exception in binary handler", cause);
+      logger.warn("Exception in binary handler", cause);
     } else {
       logger.debug("Exception in binary handler", cause);
     }
@@ -57,8 +57,8 @@ public class BinaryHandler extends ByteToMessageCodec<ByteBuf> {
   }
 
   private void debugData(String msg, ByteBuf b, ChannelHandlerContext ctx) throws Exception {
-    if (logger.isDebugEnabled()) {
-      logger.debug(
+    if (logger.isTraceEnabled()) {
+      logger.trace(
           String.format(
               "%s [%s]:%n%s",
               msg, ctx.channel().remoteAddress().toString(), b.toString(StandardCharsets.UTF_8)));

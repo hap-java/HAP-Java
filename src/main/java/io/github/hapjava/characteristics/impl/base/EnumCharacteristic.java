@@ -14,7 +14,7 @@ import javax.json.JsonValue;
 
 /**
  * Characteristic that exposes an Enum value. Enums are represented as an Integer value in the
- * Homekit protocol, and classes extending this one must handle the static mapping to an Integer
+ * HomeKit protocol, and classes extending this one must handle the static mapping to an Integer
  * value.
  *
  * @author Andy Lintner

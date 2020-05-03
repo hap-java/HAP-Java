@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Base interface for all Homekit Accessories. You can implement this interface directly, but most
+ * Base interface for all HomeKit Accessories. You can implement this interface directly, but most
  * users will prefer to use the more full featured interfaces in {@link
  * io.github.hapjava.accessories} which include a default implementation of {@link #getServices()}.
  *
@@ -67,7 +67,7 @@ public interface HomekitAccessory {
 
   /**
    * The collection of Services this accessory supports. Services are the primary way to interact
-   * with the accessory via Homekit. Besides the Services offered here, the accessory will
+   * with the accessory via HomeKit. Besides the Services offered here, the accessory will
    * automatically include the required information service.
    *
    * <p>This method will only be useful if you're implementing your own accessory type. For the

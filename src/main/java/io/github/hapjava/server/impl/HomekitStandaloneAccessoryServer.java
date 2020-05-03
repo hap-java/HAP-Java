@@ -9,7 +9,7 @@ import java.net.UnknownHostException;
 import java.util.concurrent.ExecutionException;
 
 /**
- * A server for exposing standalone Homekit accessory (as opposed to a Bridge accessory which
+ * A server for exposing standalone HomeKit accessory (as opposed to a Bridge accessory which
  * contains multiple accessories). Each standalone accessory will have its own pairing information,
  * port, and pin. Instantiate this class via {@link
  * HomekitServer#createStandaloneAccessory(HomekitAuthInfo, HomekitAccessory)}.

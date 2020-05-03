@@ -46,7 +46,7 @@ public class SubscriptionManager {
         reverse.putIfAbsent(connection, newSet());
       }
       reverse.get(connection).add(characteristic);
-      LOGGER.info(
+      LOGGER.trace(
           "Added subscription to " + characteristic.getClass() + " for " + connection.hashCode());
     }
   }
@@ -65,7 +65,7 @@ public class SubscriptionManager {
     if (reverse != null) {
       reverse.remove(characteristic);
     }
-    LOGGER.info(
+    LOGGER.trace(
         "Removed subscription to " + characteristic.getClass() + " for " + connection.hashCode());
   }
 
@@ -78,13 +78,13 @@ public class SubscriptionManager {
             subscriptions.get(characteristic);
         characteristicSubscriptions.remove(connection);
         if (characteristicSubscriptions.isEmpty()) {
-          LOGGER.debug("Unsubscribing from characteristic as all subscriptions are closed");
+          LOGGER.trace("Unsubscribing from characteristic as all subscriptions are closed");
           characteristic.unsubscribe();
           subscriptions.remove(characteristic);
         }
       }
     }
-    LOGGER.debug("Removed connection {}", connection.hashCode());
+    LOGGER.trace("Removed connection {}", connection.hashCode());
   }
 
   private <T> Set<T> newSet() {
@@ -97,14 +97,14 @@ public class SubscriptionManager {
 
   public synchronized void completeUpdateBatch() {
     if (--this.nestedBatches == 0 && !pendingNotifications.isEmpty()) {
-      LOGGER.debug("Publishing batched changes");
+      LOGGER.trace("Publishing batched changes");
       for (ConcurrentMap.Entry<HomekitClientConnection, ArrayList<PendingNotification>> entry :
           pendingNotifications.entrySet()) {
         try {
           HttpResponse message = new EventController().getMessage(entry.getValue());
           entry.getKey().outOfBand(message);
         } catch (Exception e) {
-          LOGGER.error("Failed to create new event message", e);
+          LOGGER.warn("Failed to create new event message", e);
         }
       }
       pendingNotifications.clear();
@@ -118,7 +118,7 @@ public class SubscriptionManager {
       return; // no subscribers
     }
     if (nestedBatches != 0) {
-      LOGGER.debug("Batching change for " + accessoryId);
+      LOGGER.trace("Batching change for accessory {} and characteristic {} " + accessoryId, iid);
       PendingNotification notification = new PendingNotification(accessoryId, iid, changed);
       for (HomekitClientConnection connection : subscribers) {
         if (!pendingNotifications.containsKey(connection)) {
@@ -131,24 +131,24 @@ public class SubscriptionManager {
 
     try {
       HttpResponse message = new EventController().getMessage(accessoryId, iid, changed);
-      LOGGER.debug("Publishing change for " + accessoryId);
+      LOGGER.trace("Publishing change for " + accessoryId);
       for (HomekitClientConnection connection : subscribers) {
         connection.outOfBand(message);
       }
     } catch (Exception e) {
-      LOGGER.error("Failed to create new event message", e);
+      LOGGER.warn("Failed to create new event message", e);
     }
   }
 
   /** Remove all existing subscriptions */
   public void removeAll() {
-    LOGGER.debug("Removing {} reverse connections from subscription manager", reverse.size());
+    LOGGER.trace("Removing {} reverse connections from subscription manager", reverse.size());
     Iterator<HomekitClientConnection> i = reverse.keySet().iterator();
     while (i.hasNext()) {
       HomekitClientConnection connection = i.next();
-      LOGGER.debug("Removing connection {}", connection.hashCode());
+      LOGGER.trace("Removing connection {}", connection.hashCode());
       removeConnection(connection);
     }
-    LOGGER.debug("Subscription sizes are {} and {}", reverse.size(), subscriptions.size());
+    LOGGER.trace("Subscription sizes are {} and {}", reverse.size(), subscriptions.size());
   }
 }

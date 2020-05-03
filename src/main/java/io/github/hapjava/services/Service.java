@@ -12,7 +12,7 @@ public interface Service {
 
   /**
    * Characteristics are the variables offered for reading, updating, and eventing by the Service
-   * over the Homekit protocol.
+   * over the HomeKit protocol.
    *
    * <p>It is important to maintain the order of this list and not change its contents between
    * invocations, or a pairing error will result.

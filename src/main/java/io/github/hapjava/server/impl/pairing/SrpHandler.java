@@ -53,7 +53,7 @@ class SrpHandler {
 
   private HttpResponse step1() throws Exception {
     if (session.getState() != State.INIT) {
-      logger.error("Session is not in state INIT when receiving step1");
+      logger.warn("Session is not in state INIT when receiving step1");
       return new ConflictResponse();
     }
 
@@ -70,7 +70,7 @@ class SrpHandler {
 
   private HttpResponse step2(Stage2Request request) throws Exception {
     if (session.getState() != State.STEP_1) {
-      logger.error("Session is not in state Stage 1 when receiving step2");
+      logger.warn("Session is not in state Stage 1 when receiving step2");
       return new ConflictResponse();
     }
     BigInteger m2 = session.step2(request.getA(), request.getM1());

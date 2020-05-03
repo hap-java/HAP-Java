@@ -10,7 +10,7 @@ import java.security.InvalidAlgorithmParameterException;
 import java.util.concurrent.ExecutionException;
 
 /**
- * The main entry point for hap-java. Creating an instance of this class will listen for Homekit
+ * The main entry point for hap-java. Creating an instance of this class will listen for HomeKit
  * connections on the supplied port. Only a single root accessory can be added for each unique
  * instance and port, however, that accessory may be a {@link #createBridge(HomekitAuthInfo, String,
  * String, String, String, String, String) bridge accessory} containing child accessories.
@@ -19,7 +19,7 @@ import java.util.concurrent.ExecutionException;
  * implementation supplied by your application. Several of the values needed for your implementation
  * are provided by this class, specifically {@link #generateKey() generateKey}, {@link
  * #generateMac() generateMac}, and {@link #generateSalt()}. It is important that you provide these
- * same values on each start of your application or Homekit will fail to recognize your device as
+ * same values on each start of your application or HomeKit will fail to recognize your device as
  * being the same.
  *
  * @author Andy Lintner
@@ -160,7 +160,7 @@ public class HomekitServer {
 
   /**
    * Generates a value to supply in {@link HomekitAuthInfo#getPin() HomekitAuthInfo.getPin()}. This
-   * is used as the Pin a user enters into their Homekit device in order to confirm pairing.
+   * is used as the Pin a user enters into their HomeKit device in order to confirm pairing.
    *
    * @return the generated Pin
    */

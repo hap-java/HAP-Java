@@ -59,7 +59,7 @@ class ConnectionImpl implements HomekitClientConnection {
       readKey = ((UpgradeResponse) response).getReadKey().array();
       writeKey = ((UpgradeResponse) response).getWriteKey().array();
     }
-    LOGGER.info(response.getStatusCode() + " " + request.getUri());
+    LOGGER.trace(response.getStatusCode() + " " + request.getUri());
     return response;
   }
 

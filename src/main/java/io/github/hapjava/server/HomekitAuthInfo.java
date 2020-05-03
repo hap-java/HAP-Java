@@ -22,7 +22,7 @@ public interface HomekitAuthInfo {
   String getPin();
 
   /**
-   * A unique MAC address to be advertised with the Homekit information. This does not have to be
+   * A unique MAC address to be advertised with the HomeKit information. This does not have to be
    * the MAC address of the network interface. You can generate this using {@link
    * HomekitServer#generateMac()}.
    *

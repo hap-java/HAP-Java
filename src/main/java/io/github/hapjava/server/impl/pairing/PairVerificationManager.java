@@ -56,7 +56,7 @@ public class PairVerificationManager {
   }
 
   private HttpResponse stage1(Stage1Request request) throws Exception {
-    logger.debug("Starting pair verification for " + registry.getLabel());
+    logger.trace("Starting pair verification for " + registry.getLabel());
     clientPublicKey = request.getClientPublicKey();
     publicKey = new byte[32];
     byte[] privateKey = new byte[32];
@@ -116,7 +116,7 @@ public class PairVerificationManager {
     Encoder encoder = TypeLengthValueUtils.getEncoder();
     if (new EdsaVerifier(clientLtpk).verify(material, clientSignature)) {
       encoder.add(MessageType.STATE, (short) 4);
-      logger.debug("Completed pair verification for " + registry.getLabel());
+      logger.trace("Completed pair verification for " + registry.getLabel());
       return new UpgradeResponse(
           encoder.toByteArray(),
           createKey("Control-Write-Encryption-Key"),
