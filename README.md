@@ -9,6 +9,7 @@ This library would not have been possible without [Tian Zhang](https://github.co
 Usage
 =========
 Include HAP-Java in your project using maven:
+
 ```
 <dependency>
 	<groupId>io.github.hap-java</groupId>
@@ -23,9 +24,9 @@ Supported HomeKit Accessories
 =========
 
 Current implementation is based on HAP specification Release R2 (published 2019-07-26) and
-fully supports 31 out of 48 HomeKit accessories defined there.
+fully supports 33 out of 45 HomeKit accessory services defined there.
 
-| HomeKit Accessory | Supported by Java-HAP |
+| HomeKit Accessory & Service type | Supported by Java-HAP |
 |--------------------|--------------------|
 |  Accessory Information            |     :white_check_mark:    |
 |  Air Purifier                     |     :white_check_mark:    |
@@ -43,7 +44,7 @@ fully supports 31 out of 48 HomeKit accessories defined there.
 |  Faucet                           |     :x:                   |
 |  Filter Maintenance               |     :x:                   |
 |  Garage Door Opener               |     :white_check_mark:    |
-|  HAP Protocol Information         |     :x:                   |
+|  HAP Protocol Information         |     :white_check_mark:    |
 |  Heater Cooler                    |     :x:                   |
 |  Humidifier Dehumidifier          |     :x:                   |
 |  Humidity Sensor                  |     :white_check_mark:    |
@@ -58,7 +59,7 @@ fully supports 31 out of 48 HomeKit accessories defined there.
 |  Occupancy Sensor                 |     :white_check_mark:    |
 |  Outlet                           |     :white_check_mark:    |
 |  Security System                  |     :white_check_mark:    |
-|  Service Label                    |     :x:                   |
+|  Service Label                    |     :white_check_mark:    |
 |  Siri                             |     :x:                   |
 |  Slat                             |     :white_check_mark:    |
 |  Smoke Sensor                     |     :white_check_mark:    |
@@ -69,6 +70,6 @@ fully supports 31 out of 48 HomeKit accessories defined there.
 |  Target Control Management        |     :x:                   |
 |  Temperature Sensor               |     :white_check_mark:    |
 |  Thermostat                       |     :white_check_mark:    |
-|  Valve                            |      :white_check_mark:   |
-|  Window                           |      :white_check_mark:   |
-|  Window Covering                  |      :white_check_mark:   |
+|  Valve                            |     :white_check_mark:   |
+|  Window                           |     :white_check_mark:   |
+|  Window Covering                  |     :white_check_mark:   |

@@ -4,7 +4,6 @@ import io.github.hapjava.accessories.SpeakerAccessory;
 import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithName;
 import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithVolume;
 import io.github.hapjava.characteristics.impl.audio.MuteCharacteristic;
-import io.github.hapjava.characteristics.impl.audio.MuteEnum;
 import io.github.hapjava.characteristics.impl.audio.VolumeCharacteristic;
 import io.github.hapjava.characteristics.impl.common.NameCharacteristic;
 
@@ -19,8 +18,8 @@ public class SpeakerService extends AbstractServiceImpl {
   public SpeakerService(SpeakerAccessory accessory) {
     this(
         new MuteCharacteristic(
-            () -> accessory.isMuted().thenApply(s -> s ? MuteEnum.ON : MuteEnum.OFF),
-            (v) -> accessory.setMute(v == MuteEnum.ON),
+            accessory::isMuted,
+            accessory::setMute,
             accessory::subscribeMuteState,
             accessory::unsubscribeMuteState));
     if (accessory instanceof AccessoryWithName) {
