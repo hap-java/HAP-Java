@@ -22,7 +22,7 @@ public class TargetHorizontalTiltAngleCharacteristic extends IntegerCharacterist
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
     super(
-        "000000B2-0000-1000-8000-0026BB765291",
+        "0000007B-0000-1000-8000-0026BB765291",
         "target horizontal tilt angle",
         -90,
         90,
