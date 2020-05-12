@@ -9,9 +9,9 @@ import java.util.stream.Collectors;
 public enum AirQualityEnum implements CharacteristicEnum {
   UNKNOWN(0),
   EXCELLENT(1),
-  GOOD(0),
-  FAIR(1),
-  INFERIOR(1),
+  GOOD(2),
+  FAIR(3),
+  INFERIOR(4),
   POOR(5);
 
   private static final Map<Integer, AirQualityEnum> reverse;

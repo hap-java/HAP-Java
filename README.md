@@ -24,7 +24,7 @@ Supported HomeKit Accessories
 =========
 
 Current implementation is based on HAP specification Release R2 (published 2019-07-26) and
-fully supports 33 out of 45 HomeKit accessory services defined there.
+fully supports 35 out of 45 HomeKit accessory services defined there.
 
 | HomeKit Accessory & Service type | Supported by Java-HAP |
 |--------------------|--------------------|
@@ -41,11 +41,11 @@ fully supports 33 out of 45 HomeKit accessory services defined there.
 |  Door                             |     :white_check_mark:    |
 |  Doorbell                         |     :white_check_mark:    |
 |  Fan                              |     :white_check_mark:    |
-|  Faucet                           |     :x:                   |
+|  Faucet                           |     :white_check_mark:    |
 |  Filter Maintenance               |     :x:                   |
 |  Garage Door Opener               |     :white_check_mark:    |
 |  HAP Protocol Information         |     :white_check_mark:    |
-|  Heater Cooler                    |     :x:                   |
+|  Heater Cooler                    |     :white_check_mark:    |
 |  Humidifier Dehumidifier          |     :x:                   |
 |  Humidity Sensor                  |     :white_check_mark:    |
 |  Irrigation System                |     :x:                   |

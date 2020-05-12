@@ -29,7 +29,7 @@ import io.github.hapjava.characteristics.impl.common.StatusTamperedCharacteristi
 public class AirQualityService extends AbstractServiceImpl {
 
   public AirQualityService(AirQualityCharacteristic airQuality) {
-    super("00000096-0000-1000-8000-0026BB765291");
+    super("0000008D-0000-1000-8000-0026BB765291");
     addCharacteristic(airQuality);
   }
 

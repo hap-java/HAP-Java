@@ -1,29 +1,29 @@
 package io.github.hapjava.accessories;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.concurrent.CompletableFuture;
 import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithFanState;
 import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import io.github.hapjava.services.Service;
 import io.github.hapjava.services.impl.FanService;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.concurrent.CompletableFuture;
+import io.github.hapjava.services.impl.FaucetService;
 
 /**
- * A fan with basic characteristics. User {@link AccessoryWithFanState} for Fan with more
- * characteristics.
+ * This service describes accessories like faucets or shower heads.
  *
- * @author Andy Lintner
+ * @author Eugen Freiter
  */
-public interface FanAccessory extends HomekitAccessory {
+public interface FaucetAccessory extends HomekitAccessory {
   /**
-   * Mandatory: Retrieves the current active state of the fan'.
+   * Mandatory: Retrieves the current active state of the faucet.
    *
    * @return a future that will contain the binary state
    */
   CompletableFuture<Boolean> isActive();
 
   /**
-   * Sets the active state of the fan
+   * Sets the active state of the faucet
    *
    * @param state the binary state to set
    * @return a future that completes when the change is made
@@ -32,17 +32,17 @@ public interface FanAccessory extends HomekitAccessory {
   CompletableFuture<Void> setActive(boolean state) throws Exception;
 
   /**
-   * Subscribes to changes in the active state of the fan.
+   * Subscribes to changes in the active state of the faucet.
    *
    * @param callback the function to call when the active state changes.
    */
   void subscribeActive(HomekitCharacteristicChangeCallback callback);
 
-  /** Unsubscribes from changes in the active state of the fan. */
+  /** Unsubscribes from changes in the active state of the faucet. */
   void unsubscribeActive();
 
   @Override
   default Collection<Service> getServices() {
-    return Collections.singleton(new FanService(this));
+    return Collections.singleton(new FaucetService(this));
   }
 }

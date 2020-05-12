@@ -15,7 +15,7 @@ public class CurrentTemperatureCharacteristic extends FloatCharacteristic {
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
     super(
-        "0000011-0000-1000-8000-0026BB765291",
+        "00000011-0000-1000-8000-0026BB765291",
         "current temperature",
         0,
         100,
