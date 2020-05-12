@@ -4,11 +4,7 @@ import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import io.github.hapjava.characteristics.impl.lock.LockCurrentStateEnum;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Accessory with current lock state.
- *
- * @author Eugen Freiter
- */
+/** Accessory with current lock state. */
 public interface AccessoryWithLockCurrentState {
 
   /**

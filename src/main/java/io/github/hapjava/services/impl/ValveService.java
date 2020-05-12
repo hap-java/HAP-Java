@@ -17,10 +17,7 @@ import io.github.hapjava.characteristics.impl.valve.RemainingDurationCharacteris
 import io.github.hapjava.characteristics.impl.valve.SetDurationCharacteristic;
 import io.github.hapjava.characteristics.impl.valve.ValveTypeCharacteristic;
 
-/**
- * This service describes accessories like irrigation valves or water outlets. A valve is set to In
- * Use when there are fluid flowing through the valve.
- */
+/** This service describes accessories valves. */
 public class ValveService extends AbstractServiceImpl {
 
   public ValveService(

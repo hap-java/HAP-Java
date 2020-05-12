@@ -9,7 +9,6 @@ import java.util.function.Supplier;
 
 /**
  * This characteristic describes the current mode of an accessory that supports cooling or heating
- * its environment, e.g. a thermostat is ”heating” a room to 75 degrees Fahrenheit.
  */
 public class CurrentHeatingCoolingStateCharacteristic
     extends EnumCharacteristic<CurrentHeatingCoolingStateEnum> {

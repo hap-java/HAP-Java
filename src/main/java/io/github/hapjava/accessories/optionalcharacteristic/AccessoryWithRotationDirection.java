@@ -4,11 +4,7 @@ import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import io.github.hapjava.characteristics.impl.fan.RotationDirectionEnum;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * accessoory with rotation direction characteristics.
- *
- * @author Eugen Freiter
- */
+/** accessory with rotation direction characteristics. */
 public interface AccessoryWithRotationDirection {
 
   /**

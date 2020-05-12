@@ -8,7 +8,10 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/** The Active characteristic indicates whether the service is currently active. */
+/**
+ * Active characteristic indicates whether the service is currently active. See {@link ActiveEnum}
+ * for possible values.
+ */
 public class ActiveCharacteristic extends EnumCharacteristic<ActiveEnum> {
 
   public ActiveCharacteristic(

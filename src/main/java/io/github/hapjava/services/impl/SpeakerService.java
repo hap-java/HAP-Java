@@ -7,7 +7,7 @@ import io.github.hapjava.characteristics.impl.audio.MuteCharacteristic;
 import io.github.hapjava.characteristics.impl.audio.VolumeCharacteristic;
 import io.github.hapjava.characteristics.impl.common.NameCharacteristic;
 
-/** A Speaker service is to use to control the audio output settings on a speaker device. */
+/** A Speaker service can be used to control the audio output settings on a speaker device. */
 public class SpeakerService extends AbstractServiceImpl {
 
   public SpeakerService(MuteCharacteristic muteCharacteristic) {

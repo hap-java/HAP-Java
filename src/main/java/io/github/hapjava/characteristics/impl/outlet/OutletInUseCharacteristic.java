@@ -8,8 +8,8 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
- * This characteristic describes if the power outlet has an appliance e.g., a floor lamp, physically
- * plugged in. This characteristic is set to True even if the plugged-in appliance is off.
+ * This characteristic describes if the power outlet has an appliance physically plugged in. This
+ * characteristic is set to True even if the plugged-in appliance is off.
  */
 public class OutletInUseCharacteristic extends BooleanCharacteristic {
 

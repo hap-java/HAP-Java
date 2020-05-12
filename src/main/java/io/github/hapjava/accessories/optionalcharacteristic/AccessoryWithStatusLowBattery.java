@@ -4,13 +4,7 @@ import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import io.github.hapjava.characteristics.impl.battery.StatusLowBatteryEnum;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * This characteristic describes an accessoryʼs battery status. A status of 1 indicates that the
- * battery level of the accessory is low. Value should return to 0 when the battery charges to a
- * level thats above the low threshold.
- *
- * @author Eugen Freiter
- */
+/** This characteristic describes an accessoryʼs battery status. */
 public interface AccessoryWithStatusLowBattery {
 
   /**

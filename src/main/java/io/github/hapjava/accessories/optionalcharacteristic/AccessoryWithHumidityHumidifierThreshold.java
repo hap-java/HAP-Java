@@ -3,11 +3,7 @@ package io.github.hapjava.accessories.optionalcharacteristic;
 import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Humidifier with humidity threshold.
- *
- * @author Eugen Freiter
- */
+/** Humidifier with humidity threshold. */
 public interface AccessoryWithHumidityHumidifierThreshold {
 
   /**

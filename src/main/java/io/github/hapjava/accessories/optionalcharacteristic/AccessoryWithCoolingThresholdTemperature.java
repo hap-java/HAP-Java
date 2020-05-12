@@ -3,11 +3,7 @@ package io.github.hapjava.accessories.optionalcharacteristic;
 import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Accessory with cooling threshold temperature.
- *
- * @author Eugen Freiter
- */
+/** Accessory with cooling threshold temperature. */
 public interface AccessoryWithCoolingThresholdTemperature {
 
   /**

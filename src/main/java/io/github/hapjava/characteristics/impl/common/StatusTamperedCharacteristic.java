@@ -8,9 +8,8 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
- * This characteristic describes an accessory which has been tampered with. A status of 1 indicates
- * that the accessory has been tampered with. Value should return to 0 when the accessory has been
- * reset to a non-tampered state.
+ * This characteristic describes tampered status. See {@link StatusTamperedEnum} for possible
+ * values.
  */
 public class StatusTamperedCharacteristic extends EnumCharacteristic<StatusTamperedEnum> {
 

@@ -5,9 +5,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * 0 ”Dots. For e.g ”.” ”..” ”...” ”....”” 1 ”Arabic numerals. For e.g. 0,1,2,3” 2-255 ”Reserved”
- */
+/** 0 ”Dots. For e.g ”.” ”..” ”...” ”....”” 1 ”Arabic numerals. For e.g. 0,1,2,3” */
 public enum ServiceLabelNamespaceEnum implements CharacteristicEnum {
   DOTS(0),
   ARABIC_NUMERALS(1);

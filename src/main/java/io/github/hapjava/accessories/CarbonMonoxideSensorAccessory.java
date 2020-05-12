@@ -11,9 +11,6 @@ import java.util.concurrent.CompletableFuture;
 /**
  * A carbon monoxide sensor reports whether carbon monoxide has been detected or not.
  *
- * <p>Carbon monoxide sensors that run on batteries will need to implement this interface and also
- * implement {@link BatteryAccessory}.
- *
  * @author Gaston Dombiak
  */
 public interface CarbonMonoxideSensorAccessory extends HomekitAccessory {

@@ -11,9 +11,6 @@ import java.util.concurrent.CompletableFuture;
 /**
  * An occupancy sensor that reports whether occupancy has been detected.
  *
- * <p>Occupancy sensors that run on batteries will need to implement this interface and also
- * implement {@link BatteryAccessory}.
- *
  * @author Tim Harper
  */
 public interface OccupancySensorAccessory extends HomekitAccessory {

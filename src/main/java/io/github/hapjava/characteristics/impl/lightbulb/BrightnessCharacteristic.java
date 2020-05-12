@@ -10,9 +10,8 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
- * This characteristic describes a perceived level of brightness, e.g. for lighting, and can be used
- * for backlights or color. The value is expressed as a percentage (%) of the maximum level of
- * supported brightness.
+ * This characteristic describes a perceived level of brightness, The value is a percentage (%) of
+ * the maximum level of supported brightness.
  */
 public class BrightnessCharacteristic extends IntegerCharacteristic
     implements EventableCharacteristic {

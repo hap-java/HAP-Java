@@ -3,11 +3,7 @@ package io.github.hapjava.accessories.optionalcharacteristic;
 import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Accessory with Ozone Density characteristic.
- *
- * @author Eugen Freiter
- */
+/** Accessory with Ozone Density characteristic. */
 public interface AccessoryWithOzoneDensity {
 
   /**

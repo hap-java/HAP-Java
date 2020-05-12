@@ -11,9 +11,6 @@ import java.util.concurrent.CompletableFuture;
 /**
  * A leak sensor that reports whether a leak has been detected.
  *
- * <p>Leak sensors that run on batteries will need to implement this interface and also implement
- * {@link BatteryAccessory}.
- *
  * @author Tim Harper
  */
 public interface LeakSensorAccessory extends HomekitAccessory {

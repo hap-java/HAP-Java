@@ -13,10 +13,7 @@ abstract class AbstractServiceImpl implements Service {
   private final String type;
   private final List<Characteristic> characteristics = new LinkedList<>();
 
-  /**
-   * @param type unique UUID of the service. This information can be obtained from HomeKit Accessory
-   *     Simulator.
-   */
+  /** @param type unique UUID of the service according to HAP specification. */
   public AbstractServiceImpl(String type) {
     this.type = type;
   }

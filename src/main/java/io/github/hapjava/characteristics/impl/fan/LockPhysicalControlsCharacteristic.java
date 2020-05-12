@@ -9,10 +9,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/**
- * This characteristic describes a way to lock a set of physical controls on an accessory (eg. child
- * lock).
- */
+/** This characteristic describes physical controls on an accessory (eg. child lock). */
 public class LockPhysicalControlsCharacteristic extends EnumCharacteristic<LockPhysicalControlsEnum>
     implements EventableCharacteristic {
 
@@ -23,7 +20,7 @@ public class LockPhysicalControlsCharacteristic extends EnumCharacteristic<LockP
       Runnable unsubscriber) {
     super(
         "000000A7-0000-1000-8000-0026BB765291",
-        "Lock Physical Locks",
+        "Physical Locks",
         1,
         Optional.of(getter),
         Optional.of(setter),

@@ -7,7 +7,10 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/** When set indicates accessory requires additional setup. */
+/**
+ * This characteristic indicates whether accessory requires additional setup. See {@link
+ * AccessoryFlagsEnum} for possible values.
+ */
 public class AccessoryFlagsCharacteristic extends EnumCharacteristic<AccessoryFlagsEnum> {
 
   public AccessoryFlagsCharacteristic(

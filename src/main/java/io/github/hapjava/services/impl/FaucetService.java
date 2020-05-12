@@ -9,11 +9,10 @@ import io.github.hapjava.characteristics.impl.common.NameCharacteristic;
 import io.github.hapjava.characteristics.impl.common.StatusFaultCharacteristic;
 
 /**
- * This service describes accessories like faucets or shower heads. This service must only be
- * included when an accessory has either a linked {@link HeaterCoolerService} ith single linked
- * {@link ValveService} or multiple linked {@link ValveService} (with/without {@link
- * HeaterCoolerService} to describe water outlets. This service serves as a top level service for
- * such accessories.
+ * This service describes accessories like faucets or shower heads and must only be included when an
+ * accessory has either a linked {@link HeaterCoolerService}, single linked {@link ValveService} or
+ * multiple linked {@link ValveService} (with/without {@link HeaterCoolerService} to describe water
+ * outlets. This service serves as a top level service for such accessories.
  */
 public class FaucetService extends AbstractServiceImpl {
 

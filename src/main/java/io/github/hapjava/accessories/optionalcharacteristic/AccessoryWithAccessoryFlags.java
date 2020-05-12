@@ -4,11 +4,7 @@ import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import io.github.hapjava.characteristics.impl.accessoryinformation.AccessoryFlagsEnum;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Accessory with accessory flags, which indicates that additional setup is required
- *
- * @author Eugen Freiter
- */
+/** Accessory with accessory flags, which indicates that additional setup is required */
 public interface AccessoryWithAccessoryFlags {
 
   /**

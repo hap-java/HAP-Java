@@ -9,9 +9,8 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
- * This characteristic describes the relative humidity humidifier threshold. The value of this
- * characteristic represents the ʼminimum relative humidityʼ that must be reached before humidifier
- * is turned on.
+ * This characteristic describes the relative humidity humidifier threshold on which humidifier
+ * turns on.
  */
 public class HumidityHumidifierThresholdCharacteristic extends FloatCharacteristic {
 

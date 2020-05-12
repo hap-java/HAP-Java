@@ -4,13 +4,7 @@ import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import io.github.hapjava.characteristics.impl.common.StatusFaultEnum;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Accessory with characteristic that describes an accessory which has a fault. A non-zero value
- * indicates that the accessory has experienced a fault that may be interfering with its intended
- * functionality. A value of 0 indicates that there is no fault.
- *
- * @author Eugen Freiter
- */
+/** Accessory with characteristic that describes an accessory which has a fault. */
 public interface AccessoryWithStatusFault {
 
   /**

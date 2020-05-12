@@ -3,11 +3,7 @@ package io.github.hapjava.accessories.optionalcharacteristic;
 import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Accessory with status active.
- *
- * @author Eugen Freiter
- */
+/** Accessory with status active. */
 public interface AccessoryWithStatusActive {
 
   /**

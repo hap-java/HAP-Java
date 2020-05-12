@@ -8,11 +8,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * A Window with status of a door
- *
- * @author Eugen Freiter
- */
+/** motorized window accessory. */
 public interface WindowAccessory extends HomekitAccessory {
 
   /**

@@ -11,10 +11,7 @@ import io.github.hapjava.characteristics.impl.garagedoor.TargetDoorStateCharacte
 import io.github.hapjava.characteristics.impl.lock.LockCurrentStateCharacteristic;
 import io.github.hapjava.characteristics.impl.lock.LockTargetStateCharacteristic;
 
-/**
- * This service describes a garage door opener that controls a single door. If a garage has more
- * than one door, then each door should have its own Garage Door Opener Service.
- */
+/** This service describes a garage door opener that controls a single door. */
 public class GarageDoorOpenerService extends AbstractServiceImpl {
 
   public GarageDoorOpenerService(

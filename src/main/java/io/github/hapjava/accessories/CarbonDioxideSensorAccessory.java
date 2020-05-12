@@ -8,14 +8,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * A carbon dioxide sensor reports whether carbon dioxide has been detected or not.
- *
- * <p>Carbon dioxide sensors that run on batteries will need to implement this interface and also
- * implement {@link BatteryAccessory}.
- *
- * @author Eugen Freiter
- */
+/** A carbon dioxide sensor reports carbon dioxide level. */
 public interface CarbonDioxideSensorAccessory extends HomekitAccessory {
 
   /**

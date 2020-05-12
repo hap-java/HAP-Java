@@ -5,10 +5,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
-/**
- * This characteristic contains the manufacturer-specific serial number of the accessory, e.g.
- * ”1A2B3C4D5E6F”. The length must be greater than 1.
- */
+/** This characteristic contains the manufacturer-specific serial number of the accessory. */
 public class SerialNumberCharacteristic extends StaticStringCharacteristic {
 
   public SerialNumberCharacteristic(Supplier<CompletableFuture<String>> getter) {

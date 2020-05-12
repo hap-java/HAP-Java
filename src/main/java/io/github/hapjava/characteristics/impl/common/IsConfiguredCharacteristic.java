@@ -9,10 +9,8 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
- * This characteristic describes if the service is configured for use. For example, all of the
- * valves in an irrigation system may not be configured depending on physical wire connection. If
- * the accessory supports updating through HAP, then it must also advertise Paired Write in the
- * permissions.
+ * This characteristic describes whether the service is configured for use. See {@link
+ * IsConfiguredEnum} for possible values.
  */
 public class IsConfiguredCharacteristic extends EnumCharacteristic<IsConfiguredEnum> {
   public IsConfiguredCharacteristic(

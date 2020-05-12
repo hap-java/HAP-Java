@@ -6,9 +6,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 /**
- * This characteristic describes the naming schema for an accessory. For example, this
- * characteristic can be used to describe the type of labels used to identify individual services of
- * an accessory.
+ * This characteristic describes the naming schema for an accessory. See {@link
+ * ServiceLabelNamespaceEnum} for possible values.
  */
 public class ServiceLabelNamespaceCharacteristic
     extends EnumCharacteristic<ServiceLabelNamespaceEnum> {

@@ -9,13 +9,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/**
- * This characteristic describes the target position of accessories. This characteristic can be used
- * with doors, windows, awnings or window coverings. For windows and doors, a value of 0 indicates
- * that a window (or door) is fully closed while a value of 100 indicates a fully open position. For
- * blinds/shades/awnings, a value of 0 indicates a position that permits the least light and a value
- * of 100 indicates a position that allows most light.
- */
+/** This characteristic describes the target position of accessories like door, window, blinds. */
 public class TargetPositionCharacteristic extends IntegerCharacteristic
     implements EventableCharacteristic {
 

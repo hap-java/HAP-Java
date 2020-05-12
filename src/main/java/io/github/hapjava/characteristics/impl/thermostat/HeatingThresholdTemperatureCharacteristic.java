@@ -8,11 +8,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/**
- * This characteristic describes the heating threshold in Celsius for accessories that support
- * simultaneous heating and cooling. The value of this characteristic represents the minimum
- * temperature that must be reached before heating is turned on.
- */
+/** This characteristic describes the heating threshold on which heating get turned on. */
 public class HeatingThresholdTemperatureCharacteristic extends FloatCharacteristic {
 
   public HeatingThresholdTemperatureCharacteristic(

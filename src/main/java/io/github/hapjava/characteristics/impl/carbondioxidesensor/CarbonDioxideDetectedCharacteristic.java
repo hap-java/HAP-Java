@@ -9,8 +9,8 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
- * This characteristic indicates if a sensor detects abnormal levels of Carbon Dioxide. Value should
- * revert to 0 after the Carbon Dioxide levels drop to normal levels.
+ * This characteristic indicates the levels of Carbon Dioxide. See {@link CarbonDioxideDetectedEnum}
+ * for possible values.
  */
 public class CarbonDioxideDetectedCharacteristic
     extends EnumCharacteristic<CarbonDioxideDetectedEnum> implements EventableCharacteristic {

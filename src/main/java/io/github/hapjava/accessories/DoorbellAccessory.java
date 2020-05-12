@@ -8,11 +8,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * The Doorbell accessory describes a doorbell.
- *
- * @author Eugen Freiter
- */
+/** doorbell accessory with a switch (button push) event. */
 public interface DoorbellAccessory extends HomekitAccessory {
 
   /**

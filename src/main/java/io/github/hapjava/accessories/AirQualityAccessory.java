@@ -8,11 +8,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * An air quality accessory which can include several sensors.
- *
- * @author Eugen Freiter
- */
+/** An air quality accessory which can include several sensors. */
 public interface AirQualityAccessory extends HomekitAccessory {
 
   /**

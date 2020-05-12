@@ -8,11 +8,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * A door with status
- *
- * @author Eugen Freiter
- */
+/** A motorized door with current and target position. */
 public interface DoorAccessory extends HomekitAccessory {
 
   /**

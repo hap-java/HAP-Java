@@ -81,7 +81,7 @@ public interface ValveAccessory extends HomekitAccessory {
    */
   void subscribeValveType(HomekitCharacteristicChangeCallback callback);
 
-  /** Unsubscribes from changes in the valveType state light. */
+  /** Unsubscribes from changes in the valveType state. */
   void unsubscribeValveType();
 
   @Override

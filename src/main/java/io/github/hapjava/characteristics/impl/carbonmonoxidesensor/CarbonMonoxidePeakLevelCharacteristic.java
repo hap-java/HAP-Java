@@ -7,10 +7,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/**
- * This characteristic indicates the highest detected level (ppm) of Carbon Monoxide detected by a
- * sensor.
- */
+/** This characteristic indicates the highest detected level (ppm) of Carbon Monoxide. */
 public class CarbonMonoxidePeakLevelCharacteristic extends FloatCharacteristic {
 
   public CarbonMonoxidePeakLevelCharacteristic(

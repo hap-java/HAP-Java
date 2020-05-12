@@ -7,7 +7,10 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/** This characteristic describes the charging state of a battery or an accessory. */
+/**
+ * This characteristic describes the charging state of a battery or an accessory. See {@link
+ * ChargingStateEnum} for possible values.
+ */
 public class ChargingStateCharacteristic extends EnumCharacteristic<ChargingStateEnum> {
 
   public ChargingStateCharacteristic(

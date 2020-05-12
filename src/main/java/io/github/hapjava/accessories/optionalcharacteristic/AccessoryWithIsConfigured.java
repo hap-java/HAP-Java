@@ -8,8 +8,6 @@ import java.util.concurrent.CompletableFuture;
  * Accessory with isConfigured characteristics. This characteristic describes if the service is
  * configured for use. For example, all of the valves in an irrigation system may not be configured
  * depending on physical wire connection.
- *
- * @author Eugen Freiter
  */
 public interface AccessoryWithIsConfigured {
 

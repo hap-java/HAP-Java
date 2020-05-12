@@ -8,8 +8,8 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
- * This characteristic describes the type of alarm triggered by a security system. A value of 1
- * indicates an ʼunknownʼ cause. Value should revert to 0 when the alarm conditions are cleared.
+ * This characteristic describes the type of alarm triggered by a security system. See {@link
+ * SecuritySystemAlarmTypeEnum} for possible values.
  */
 public class SecuritySystemAlarmTypeCharacteristic
     extends EnumCharacteristic<SecuritySystemAlarmTypeEnum> {

@@ -6,9 +6,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 /**
- * TThis characteristic describes the type of the slats. If the slats can tilt on a horizontal axis,
- * the value of this characteristic must be set to Horizontal. If the slats can tilt on a vertical
- * axis, the value of this characteristic must be set to Vertical.
+ * This characteristic describes the type of the slats. See {@link SlatTypeEnum} for possible values
  */
 public class SlatTypeCharacteristic extends EnumCharacteristic<SlatTypeEnum> {
 

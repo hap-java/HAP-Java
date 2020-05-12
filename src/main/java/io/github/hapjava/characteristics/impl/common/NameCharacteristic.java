@@ -11,7 +11,7 @@ public class NameCharacteristic extends StaticStringCharacteristic {
   public NameCharacteristic(Supplier<CompletableFuture<String>> getter) {
     super(
         "00000023-0000-1000-8000-0026BB765291",
-        "name of the accessory",
+        "name",
         Optional.of(getter),
         Optional.empty(),
         Optional.empty());

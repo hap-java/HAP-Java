@@ -8,13 +8,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/**
- * This characteristic describes the current angle of vertical slats for accessories such as
- * windows, fans, portable heater/coolers etc. This characteristic takes values between -90 and 90.
- * A value of 0 indicates that the slats are rotated to be fully open. A value of -90 indicates that
- * the slats are rotated all the way in a direction where the user-facing edge is to the left of the
- * window-facing edge.
- */
+/** This characteristic describes the current angle of vertical slats for accessory. */
 public class CurrentVerticalTiltAngleCharacteristic extends IntegerCharacteristic
     implements EventableCharacteristic {
 

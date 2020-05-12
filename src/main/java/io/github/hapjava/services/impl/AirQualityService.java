@@ -25,7 +25,7 @@ import io.github.hapjava.characteristics.impl.common.StatusActiveCharacteristic;
 import io.github.hapjava.characteristics.impl.common.StatusFaultCharacteristic;
 import io.github.hapjava.characteristics.impl.common.StatusTamperedCharacteristic;
 
-/** This characteristic describes the subject assessment of air quality by an accessory. */
+/** This service describes air quality sensor. */
 public class AirQualityService extends AbstractServiceImpl {
 
   public AirQualityService(AirQualityCharacteristic airQuality) {

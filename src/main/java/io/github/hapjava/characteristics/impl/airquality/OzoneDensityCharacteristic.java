@@ -7,7 +7,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/** This characteristic indicates the current ozone density in micrograms/m3. */
+/** This characteristic contains the current ozone density in micrograms/m3. */
 public class OzoneDensityCharacteristic extends FloatCharacteristic {
 
   public OzoneDensityCharacteristic(

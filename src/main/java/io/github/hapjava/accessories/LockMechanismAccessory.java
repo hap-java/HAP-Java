@@ -9,11 +9,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Lock mechanism
- *
- * @author Eugen Freiter
- */
+/** Lock mechanism with current and target state. */
 public interface LockMechanismAccessory extends HomekitAccessory {
 
   /**

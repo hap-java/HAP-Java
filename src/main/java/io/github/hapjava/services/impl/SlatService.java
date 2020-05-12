@@ -12,11 +12,7 @@ import io.github.hapjava.characteristics.impl.slat.CurrentTiltAngleCharacteristi
 import io.github.hapjava.characteristics.impl.slat.SlatTypeCharacteristic;
 import io.github.hapjava.characteristics.impl.slat.TargetTiltAngleCharacteristic;
 
-/**
- * This service describes a slat which tilts on a vertical or a horizontal axis. ”Current Tilt
- * Angle” and ”Target Tilt Angle”may be included in this service if the user can set the slats to a
- * particular tilt angle.
- */
+/** This service describes a slat */
 public class SlatService extends AbstractServiceImpl {
 
   public SlatService(

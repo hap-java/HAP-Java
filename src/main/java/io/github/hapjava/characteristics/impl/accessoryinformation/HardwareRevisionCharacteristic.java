@@ -5,7 +5,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
-/** This characteristic describes a hardware revision string x[.y[.z]] (e.g. ”100.1.1”) */
+/** This characteristic describes a hardware revision in a form x[.y[.z]] (e.g. ”100.1.1”) */
 public class HardwareRevisionCharacteristic extends StaticStringCharacteristic {
 
   public HardwareRevisionCharacteristic(Supplier<CompletableFuture<String>> getter) {

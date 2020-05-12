@@ -9,10 +9,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/**
- * This characteristic describes the target angle of slats for accessories such as windows, fans,
- * portable heater/coolers etc.
- */
+/** This characteristic describes the target angle of slats. */
 public class TargetTiltAngleCharacteristic extends IntegerCharacteristic
     implements EventableCharacteristic {
 

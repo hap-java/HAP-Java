@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * A garage door opener, with control and status of a garage door
+ * garage door opener accessory with control and status of a garage door
  *
  * @author Andy Lintner
  */

@@ -9,11 +9,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Heater Cooler accessory
- *
- * @author Eugen Freiter
- */
+/** Heater Cooler accessory */
 public interface HeaterCoolerAccessory extends HomekitAccessory {
   /**
    * Retrieves the current temperature, in celsius degrees.

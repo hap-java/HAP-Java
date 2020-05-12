@@ -9,13 +9,9 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
- * This characteristic describes the remaining duration on the accessory. Notifications on this
- * characteristic must only be used if the remaining duration increases/decreases from the
- * accessoryʼs usual countdown of remaining duration and when the duration reaches 0. e.g. It must
- * not send notifications when the remaining duration is ticking down from 100,99,98... if 100 was
- * the initial Set duration. However, if the remaining duration changes to 95 from 92 (increase) or
- * 85 from 92 (decrease which is not part of the usual duration countdown), it must send a
- * notification. This duration is defined in seconds.
+ * This characteristic describes the remaining duration of the active status of an accessory, e.g.
+ * {@link io.github.hapjava.accessories.ValveAccessory}. This characteristic should only notify
+ * about changes if it defers from normal countdown.
  */
 public class RemainingDurationCharacteristic extends IntegerCharacteristic
     implements EventableCharacteristic {

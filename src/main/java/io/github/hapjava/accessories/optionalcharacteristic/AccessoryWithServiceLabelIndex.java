@@ -2,12 +2,7 @@ package io.github.hapjava.accessories.optionalcharacteristic;
 
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Accessory with service label index. This characteristic should be used identify the index of the
- * label that maps to ”Service Label Namespace” used by the accessory.
- *
- * @author Eugen Freiter
- */
+/** Accessory with service label index. T */
 public interface AccessoryWithServiceLabelIndex {
 
   /**

@@ -8,11 +8,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * The Stateless Programmable Switch accessory describes a stateless programmable switch..
- *
- * @author Eugen Freiter
- */
+/** The Stateless Programmable Switch accessory */
 public interface StatelessProgrammableSwitchAccessory extends HomekitAccessory {
 
   /**

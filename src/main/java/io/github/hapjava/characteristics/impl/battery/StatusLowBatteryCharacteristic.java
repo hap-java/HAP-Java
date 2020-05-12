@@ -8,9 +8,8 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
- * This characteristic describes an accessoryʼs battery status. A status of 1 indicates that the
- * battery level of the accessory is low. Value should return to 0 when the battery charges to a
- * level thats above the low threshold.
+ * This characteristic describes an accessory battery status. See {@link StatusLowBatteryEnum} for
+ * possible values
  */
 public class StatusLowBatteryCharacteristic extends EnumCharacteristic<StatusLowBatteryEnum> {
 

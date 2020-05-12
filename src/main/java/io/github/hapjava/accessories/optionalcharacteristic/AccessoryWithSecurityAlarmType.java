@@ -4,17 +4,11 @@ import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import io.github.hapjava.characteristics.impl.securitysystem.SecuritySystemAlarmTypeEnum;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * This characteristic describes the type of alarm triggered by a security system. A value of 1
- * indicates an ʼunknownʼ cause. Value should revert to 0 when the alarm conditions are cleared.
- *
- * @author Eugen Freiter
- */
+/** This characteristic describes the type of alarm triggered by a security system. */
 public interface AccessoryWithSecurityAlarmType {
 
   /**
-   * A value of 1 indicates an ʼunknownʼ cause. Value should revert to 0 when the alarm conditions
-   * are cleared.
+   * return alarm type See {@link SecuritySystemAlarmTypeEnum} for possible values
    *
    * @return a future with the value
    */

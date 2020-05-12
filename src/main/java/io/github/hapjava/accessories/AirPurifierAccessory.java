@@ -9,11 +9,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * An air purifier.
- *
- * @author Eugen Freiter
- */
+/** An air purifier. */
 public interface AirPurifierAccessory extends HomekitAccessory {
   /**
    * Mandatory: Retrieves the current active state of the fan'.

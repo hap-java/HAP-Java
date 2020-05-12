@@ -3,11 +3,7 @@ package io.github.hapjava.accessories.optionalcharacteristic;
 import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * accessory with rotation speed characteristics.
- *
- * @author Eugen Freiter
- */
+/** accessory with rotation speed characteristics. */
 public interface AccessoryWithRotationSpeed {
 
   /**

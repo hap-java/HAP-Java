@@ -9,13 +9,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/**
- * A Volume characteristic allows the control of input or output volume of an audio input or output
- * accessory respectively. The value of this characteristic indicates the percentage of the maximum
- * volume supported by the service.
- *
- * @author Eugen Freiter
- */
+/** Volume characteristic to control audio volume. */
 public class VolumeCharacteristic extends IntegerCharacteristic implements EventableCharacteristic {
 
   public VolumeCharacteristic(

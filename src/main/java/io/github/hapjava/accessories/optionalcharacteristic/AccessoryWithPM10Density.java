@@ -3,11 +3,7 @@ package io.github.hapjava.accessories.optionalcharacteristic;
 import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Accessory with PM10 Density characteristic.
- *
- * @author Eugen Freiter
- */
+/** Accessory with PM10 Density characteristic. */
 public interface AccessoryWithPM10Density {
 
   /**

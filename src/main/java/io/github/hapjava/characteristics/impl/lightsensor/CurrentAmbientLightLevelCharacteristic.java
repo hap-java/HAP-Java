@@ -7,10 +7,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/**
- * This characteristic indicates the current light level. The value is expressed in Lux units
- * (lumens/m2)
- */
+/** This characteristic indicates the current light level in Lux */
 public class CurrentAmbientLightLevelCharacteristic extends FloatCharacteristic {
 
   public CurrentAmbientLightLevelCharacteristic(

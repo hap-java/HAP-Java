@@ -9,9 +9,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
- * This characteristic describes the cooling threshold in Celsius for accessories that support
- * simultaneous heating and cooling. The value of this characteristic represents the maximum
- * temperature that must be reached before cooling is turned on.
+ * This characteristic describes the cooling threshold on which accessories turns on the cooling.
  */
 public class CoolingThresholdTemperatureCharacteristic extends FloatCharacteristic {
 

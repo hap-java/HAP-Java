@@ -8,8 +8,8 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
- * This characteristic describes if the service is in use. The service must be Active before the
- * value of this characteristic can be set to in use.
+ * This characteristic indicates whether the service is in use. See {@link InUseEnum} for possible
+ * values.
  */
 public class InUseCharacteristic extends EnumCharacteristic<InUseEnum> {
   public InUseCharacteristic(

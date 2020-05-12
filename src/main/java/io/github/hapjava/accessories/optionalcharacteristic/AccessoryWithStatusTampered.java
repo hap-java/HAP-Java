@@ -4,18 +4,11 @@ import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import io.github.hapjava.characteristics.impl.common.StatusTamperedEnum;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * This characteristic describes an accessory which has been tampered with. A status of 1 indicates
- * that the accessory has been tampered with. Value should return to 0 when the accessory has been
- * reset to a non-tampered state,
- *
- * @author Eugen Freiter
- */
+/** This characteristic describes an accessory which has been tampered with. */
 public interface AccessoryWithStatusTampered {
 
   /**
-   * Retrieves the status tampered. A status of 1 indicates that the accessory has been tampered
-   * with. Value should return to 0 when the accessory has been reset to a non-tampered state,
+   * Retrieves the status tampered.
    *
    * @return a future with the value
    */

@@ -4,11 +4,7 @@ import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import io.github.hapjava.characteristics.impl.lock.LockTargetStateEnum;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Accessory with lock target state.
- *
- * @author Eugen Freiter
- */
+/** Accessory with lock target state. */
 public interface AccessoryWithLockTargetState {
 
   /**

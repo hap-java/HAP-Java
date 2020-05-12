@@ -9,8 +9,8 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
- * This characteristic indicates if a sensor detected a leak (e.g. water leak, gas leak). A value of
- * 1 indicates that a leak is detected. Value should return to 0 when leak stops.
+ * This characteristic indicates if a sensor detected a leak (e.g. water leak, gas leak). See {@link
+ * LeakDetectedStateEnum} for possible values
  */
 public class LeakDetectedStateCharacteristic extends EnumCharacteristic<LeakDetectedStateEnum>
     implements EventableCharacteristic {

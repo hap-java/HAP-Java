@@ -7,8 +7,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 /**
- * This characteristic should be used identify the index of the label that maps to "Service Label
- * Namespace” used by the accessory.
+ * This characteristic is used to identify the index of the label according to {@link
+ * ServiceLabelNamespaceCharacteristic}
  */
 public class ServiceLabelIndexCharacteristic extends IntegerCharacteristic
     implements EventableCharacteristic {

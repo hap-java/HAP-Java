@@ -7,10 +7,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/**
- * This characteristic describes the current relative humidity of the accessoryʼs environment. The
- * value is expressed as a percentage (%).
- */
+/** This characteristic describes the current relative humidity. */
 public class CurrentRelativeHumidityCharacteristic extends FloatCharacteristic {
 
   public CurrentRelativeHumidityCharacteristic(

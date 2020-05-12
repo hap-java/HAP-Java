@@ -19,10 +19,7 @@ import io.github.hapjava.characteristics.impl.windowcovering.TargetHorizontalTil
 import io.github.hapjava.characteristics.impl.windowcovering.TargetPositionCharacteristic;
 import io.github.hapjava.characteristics.impl.windowcovering.TargetVerticalTiltAngleCharacteristic;
 
-/**
- * This service describes motorized window coverings or shades - examples include shutters, blinds,
- * awnings etc.
- */
+/** This service describes motorized window coverings or shades */
 public class WindowCoveringService extends AbstractServiceImpl {
 
   public WindowCoveringService(

@@ -9,9 +9,8 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
- * This characteristic describes the relative humidity dehumidifier threshold. The value of this
- * characteristic represents the ʼmaximum relative humidityʼ that must be reached before
- * dehumidifier is turned on.
+ * This characteristic describes the relative humidity dehumidifier threshold on which dehumidifier
+ * turns on.
  */
 public class HumidityDehumidifierThresholdCharacteristic extends FloatCharacteristic {
 

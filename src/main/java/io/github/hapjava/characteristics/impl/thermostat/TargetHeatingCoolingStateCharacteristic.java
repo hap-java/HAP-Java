@@ -8,10 +8,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/**
- * This characteristic describes the target mode of an accessory that supports heating/cooling, e.g.
- * a thermostat.
- */
+/** This characteristic describes the target mode of an accessory that supports heating/cooling, */
 public class TargetHeatingCoolingStateCharacteristic
     extends EnumCharacteristic<TargetHeatingCoolingStateEnum> {
 

@@ -4,11 +4,7 @@ import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import io.github.hapjava.characteristics.impl.fan.LockPhysicalControlsEnum;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Accessory with physical controls which can be locked, e.g. child lock
- *
- * @author Eugen Freiter
- */
+/** Accessory with physical controls which can be locked, e.g. child lock */
 public interface AccessoryWithPhysicalControlsLock {
 
   /**

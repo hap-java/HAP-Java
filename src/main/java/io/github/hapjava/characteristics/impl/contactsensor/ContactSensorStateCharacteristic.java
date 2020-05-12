@@ -9,8 +9,8 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
- * This characteristic describes the state of a door/window contact sensor. A value of 0 indicates
- * that the contact is detected. A value of 1 indicates that the contact is not detected.
+ * This characteristic describes the state of a door/window contact sensor. See {@link
+ * ContactStateEnum} for possible values.
  */
 public class ContactSensorStateCharacteristic extends EnumCharacteristic<ContactStateEnum>
     implements EventableCharacteristic {
@@ -21,7 +21,7 @@ public class ContactSensorStateCharacteristic extends EnumCharacteristic<Contact
       Runnable unsubscriber) {
     super(
         "0000006A-0000-1000-8000-0026BB765291",
-        "Contact Sensor State",
+        "Contact Sensor",
         1,
         Optional.of(getter),
         Optional.empty(),

@@ -10,8 +10,7 @@ import java.util.function.Supplier;
 
 /**
  * This characteristic describes the target temperature in Celsius that the accessory is actively
- * attempting to reach. For example, a thermostat cooling a room to 75 degrees Fahrenheit would set
- * the target temperature value to 23.9 degrees Celsius.
+ * attempting to reach.
  */
 public class TargetTemperatureCharacteristic extends FloatCharacteristic {
 

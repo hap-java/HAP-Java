@@ -5,10 +5,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
-/**
- * This characteristic contains the name of the company whose brand will appear on the accessory,
- * e.g., ”Acme”.
- */
+/** This characteristic contains the name of the company whose brand will appear on the accessory */
 public class ManufacturerCharacteristic extends StaticStringCharacteristic {
 
   public ManufacturerCharacteristic(Supplier<CompletableFuture<String>> getter) {

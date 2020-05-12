@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 /**
  * 0 ”Going to the minimum value specified in metadata” 1 ”Going to the maximum value specified in
- * metadata” 2 ”Stopped” 3-255 ”Reserved”
+ * metadata” 2 ”Stopped”
  */
 public enum PositionStateEnum implements CharacteristicEnum {
   DECREASING(0),

@@ -7,11 +7,7 @@ import io.github.hapjava.characteristics.impl.common.NameCharacteristic;
 import io.github.hapjava.characteristics.impl.common.ProgrammableSwitchEventCharacteristic;
 import io.github.hapjava.characteristics.impl.common.ServiceLabelIndexCharacteristic;
 
-/**
- * This service describes a stateless programmable switch.
- *
- * @author Eugen Freiter
- */
+/** This service describes a stateless programmable switch. */
 public class StatelessProgrammableSwitchService extends AbstractServiceImpl {
 
   public StatelessProgrammableSwitchService(ProgrammableSwitchEventCharacteristic switchEvent) {

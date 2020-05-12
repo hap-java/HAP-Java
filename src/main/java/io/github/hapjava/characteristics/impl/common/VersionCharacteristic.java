@@ -5,7 +5,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
-/** This characteristic describes a name and must not be a null value. */
+/** This characteristic describes HAP version. */
 public class VersionCharacteristic extends StaticStringCharacteristic {
 
   public VersionCharacteristic(Supplier<CompletableFuture<String>> getter) {

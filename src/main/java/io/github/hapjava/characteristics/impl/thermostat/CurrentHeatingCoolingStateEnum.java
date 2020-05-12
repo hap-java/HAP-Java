@@ -5,9 +5,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * 0 ”Off.” 1 ”Heat. The Heater is currently on.” 2 ”Cool. Cooler is currently on.” 3-255 ”Reserved”
- */
+/** 0 ”Off.” 1 ”Heat. The Heater is currently on.” 2 ”Cool. Cooler is currently on.” */
 public enum CurrentHeatingCoolingStateEnum implements CharacteristicEnum {
   OFF(0),
   HEAT(1),

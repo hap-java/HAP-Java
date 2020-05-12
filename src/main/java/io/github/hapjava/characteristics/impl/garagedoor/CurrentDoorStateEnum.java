@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 /**
  * 0 ”Open. The door is fully open.” 1 ”Closed. The door is fully closed.” 2 ”Opening. The door is
  * actively opening.” 3 ”Closing. The door is actively closing.” 4 ”Stopped. The door is not moving,
- * and it is not fully open nor fully closed.” 5-255 ”Reserved”
+ * and it is not fully open nor fully closed.”
  */
 public enum CurrentDoorStateEnum implements CharacteristicEnum {
   OPEN(0),

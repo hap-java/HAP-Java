@@ -8,7 +8,10 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/** This characteristic describes the current state of the fan. */
+/**
+ * This characteristic describes the current state of the fan. See {@link CurrentFanStateEnum} for
+ * possible values.
+ */
 public class CurrentFanStateCharacteristic extends EnumCharacteristic<CurrentFanStateEnum>
     implements EventableCharacteristic {
 

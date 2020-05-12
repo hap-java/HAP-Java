@@ -5,10 +5,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
-/**
- * This characteristic contains the manufacturer-specific model of the accessory, e.g. ”A1234”. The
- * minimum length of this characteristic must be 1.
- */
+/** This characteristic contains the manufacturer-specific model of the accessory */
 public class ModelCharacteristic extends StaticStringCharacteristic {
 
   public ModelCharacteristic(Supplier<CompletableFuture<String>> getter) {

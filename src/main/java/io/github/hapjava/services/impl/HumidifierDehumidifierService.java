@@ -21,16 +21,7 @@ import io.github.hapjava.characteristics.impl.humidifier.HumidityHumidifierThres
 import io.github.hapjava.characteristics.impl.humidifier.TargetHumidifierDehumidifierStateCharacteristic;
 import io.github.hapjava.characteristics.impl.humiditysensor.CurrentRelativeHumidityCharacteristic;
 
-/**
- * This service can be used to describe either of the following: • an air humidifier • an air
- * dehumidifier • an air humidifier and an air dehumidifier An air humidifier/dehumidifier accessory
- * may have additional: • {@link FanService} service to describe a fan which can be independently
- * controlled • {@link SlatService}service to control vents A dehumidifier must include {@link
- * HumidityDehumidifierThresholdCharacteristic}. A humidifier must include {@link
- * HumidityHumidifierThresholdCharacteristic}. A humidifier/dehumidifier accessory service may
- * include {@link RotationSpeedCharacteristic} to control fan speed if the fan cannot be
- * independently controlled.
- */
+/** This service can be used to describe an air humidifier or/and an air dehumidifier. */
 public class HumidifierDehumidifierService extends AbstractServiceImpl {
 
   public HumidifierDehumidifierService(

@@ -8,11 +8,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/**
- * etc. This characteristic takes values between -90 and 90. A value of 0 indicates that the slats
- * are rotated to be fully open. At value 0 the user-facing edge and the window-facing edge are
- * perpendicular to the window.
- */
+/** This characteristic describe current tilt angle (between -90 and 90) */
 public class CurrentTiltAngleCharacteristic extends IntegerCharacteristic
     implements EventableCharacteristic {
 

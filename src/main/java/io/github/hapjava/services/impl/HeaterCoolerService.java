@@ -21,15 +21,7 @@ import io.github.hapjava.characteristics.impl.thermostat.CurrentTemperatureChara
 import io.github.hapjava.characteristics.impl.thermostat.HeatingThresholdTemperatureCharacteristic;
 import io.github.hapjava.characteristics.impl.thermostat.TemperatureDisplayUnitCharacteristic;
 
-/**
- * This service can be used to describe either of the following: • a heater • a cooler • a heater
- * and a cooler A heater/cooler accessory may have additional: • {@link FanService} service to
- * describe a fan which can be independently controlled • {@link SlatService} service to control
- * vents A heater must include {@link HeatingThresholdTemperatureCharacteristic}. A cooler must
- * include {@link CoolingThresholdTemperatureCharacteristic}. A heater/cooler accessory service may
- * include {@link RotationSpeedCharacteristic} to control fan speed if the fan cannot be
- * independently controlled.
- */
+/** This service can be used to describe a heater and/or a cooler */
 public class HeaterCoolerService extends AbstractServiceImpl {
 
   public HeaterCoolerService(

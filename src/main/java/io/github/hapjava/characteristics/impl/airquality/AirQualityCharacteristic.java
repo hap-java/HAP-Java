@@ -7,7 +7,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/** This characteristic describes the subject assessment of air quality by an accessory. */
+/**
+ * This characteristic describes the air quality. See {@link AirQualityEnum} for possible values.
+ */
 public class AirQualityCharacteristic extends EnumCharacteristic<AirQualityEnum> {
 
   public AirQualityCharacteristic(

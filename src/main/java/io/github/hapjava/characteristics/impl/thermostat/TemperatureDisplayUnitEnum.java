@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 /**
  * The temperature unit used by a {@link TemperatureSensorAccessory}.
  *
- * <p>0 ”Celsius” 1 ”Fahrenheit” 2-255 ”Reserved”
+ * <p>0 ”Celsius” 1 ”Fahrenheit”
  *
  * @author Andy Lintner
  */

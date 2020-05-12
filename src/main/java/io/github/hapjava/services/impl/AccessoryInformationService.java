@@ -12,7 +12,7 @@ import io.github.hapjava.characteristics.impl.accessoryinformation.ModelCharacte
 import io.github.hapjava.characteristics.impl.accessoryinformation.SerialNumberCharacteristic;
 import io.github.hapjava.characteristics.impl.common.NameCharacteristic;
 
-/** Every accessory must expose a single instance of the Accessory Information service. */
+/** Accessory Information service. */
 public class AccessoryInformationService extends AbstractServiceImpl {
 
   public AccessoryInformationService(

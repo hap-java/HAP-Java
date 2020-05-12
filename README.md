@@ -24,7 +24,7 @@ Supported HomeKit Accessories
 =========
 
 Current implementation is based on HAP specification Release R2 (published 2019-07-26) and
-fully supports 36 out of 45 HomeKit accessory services defined there.
+fully supports 37 out of 45 HomeKit accessory services defined there.
 
 | HomeKit Accessory & Service type | Supported by Java-HAP |
 |--------------------|--------------------|
@@ -48,7 +48,7 @@ fully supports 36 out of 45 HomeKit accessory services defined there.
 |  Heater Cooler                    |     :white_check_mark:    |
 |  Humidifier Dehumidifier          |     :white_check_mark:    |
 |  Humidity Sensor                  |     :white_check_mark:    |
-|  Irrigation System                |     :x:                   |
+|  Irrigation System                |     :white_check_mark:    |
 |  Leak Sensor                      |     :white_check_mark:    |
 |  Light Bulb                       |     :white_check_mark:    |
 |  Light Sensor                     |     :white_check_mark:    |

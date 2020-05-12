@@ -7,10 +7,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/**
- * This characteristic indicates if a sensor detects abnormal levels of smoke. A value of 1
- * indicates that smoke levels are abnormal. Value should return to 0 when smoke levels are normal.
- */
+/** This characteristic indicates if a sensor detects smoke. */
 public class SmokeDetectedCharacteristic extends EnumCharacteristic<SmokeDetectedStateEnum> {
 
   public SmokeDetectedCharacteristic(

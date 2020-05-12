@@ -9,12 +9,7 @@ import io.github.hapjava.characteristics.impl.common.NameCharacteristic;
 import io.github.hapjava.characteristics.impl.common.ProgrammableSwitchEventCharacteristic;
 import io.github.hapjava.characteristics.impl.lightbulb.BrightnessCharacteristic;
 
-/**
- * The Doorbell service describes a doorbell and is the primary service of the Video Doorbell
- * Profile.
- *
- * @author Eugen Freiter
- */
+/** The Doorbell service describes a doorbell. */
 public class DoorbellService extends AbstractServiceImpl {
 
   public DoorbellService(ProgrammableSwitchEventCharacteristic switchEvent) {

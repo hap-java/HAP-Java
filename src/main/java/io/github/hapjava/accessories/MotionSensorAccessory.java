@@ -10,9 +10,6 @@ import java.util.concurrent.CompletableFuture;
 /**
  * A motion sensor that reports whether motion has been detected.
  *
- * <p>Motion sensors that run on batteries will need to implement this interface and also implement
- * {@link BatteryAccessory}.
- *
  * @author Gaston Dombiak
  */
 public interface MotionSensorAccessory extends HomekitAccessory {

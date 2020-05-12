@@ -4,11 +4,7 @@ import io.github.hapjava.characteristics.ExceptionalConsumer;
 import io.github.hapjava.characteristics.impl.base.BooleanCharacteristic;
 import java.util.Optional;
 
-/**
- * This characteristic causes the service such as door or window covering to stop at its current
- * position. A value of 1 must hold the state of the accessory. For e.g, the window must stop moving
- * when this characteristic is written a value of 1. A value of 0 should be ignored.
- */
+/** This characteristic causes the accessories like window covering to stop at its current */
 public class HoldPositionCharacteristic extends BooleanCharacteristic {
 
   public HoldPositionCharacteristic(ExceptionalConsumer<Boolean> setter) {

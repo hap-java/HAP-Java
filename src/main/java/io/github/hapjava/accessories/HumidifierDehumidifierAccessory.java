@@ -9,11 +9,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Humidifier/Dehumidifier accessory
- *
- * @author Eugen Freiter
- */
+/** Humidifier/Dehumidifier accessory */
 public interface HumidifierDehumidifierAccessory extends HomekitAccessory {
   /**
    * Retrieves the current relative humidity.

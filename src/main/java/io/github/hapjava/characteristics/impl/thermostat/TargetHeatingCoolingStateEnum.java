@@ -6,10 +6,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * 0 ”Off” 1 ”Heat. If the current temperature is below the target temperature then turn on
- * heating.” 2 ”Cool. If the current temperature is above the target temperature then turn on
- * cooling.” 3 ”Auto. Turn on heating or cooling to maintain temperature within the heating and
- * cooling threshold of the target temperature.” 4-255 ”Reserved”
+ * 0 ”Off” 1 ”Heat.” 2 ”Cool." 3 ”Auto. Turn on heating or cooling to maintain depending on the
+ * temperature”
  *
  * @author Andy Lintner
  */

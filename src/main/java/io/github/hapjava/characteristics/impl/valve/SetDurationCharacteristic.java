@@ -9,11 +9,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/**
- * This characteristic describes the set duration. For a Valve” this duration defines how long a
- * valve should be set to ʼIn Useʼ. Once the valve is ʼIn Useʼ, any changes to this characteristic
- * take affect in the next operation when the Valve is Active. This duration is defined in seconds.
- */
+/** This characteristic describes the duration, how long an accessory should be set to "InUse". */
 public class SetDurationCharacteristic extends IntegerCharacteristic
     implements EventableCharacteristic {
 

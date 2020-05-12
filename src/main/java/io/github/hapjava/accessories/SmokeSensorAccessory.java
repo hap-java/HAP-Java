@@ -11,9 +11,6 @@ import java.util.concurrent.CompletableFuture;
 /**
  * A smoke sensor reports whether smoke has been detected or not.
  *
- * <p>Smoke sensors that run on batteries will need to implement this interface and also implement
- * {@link BatteryAccessory}.
- *
  * @author Gaston Dombiak
  */
 public interface SmokeSensorAccessory extends HomekitAccessory {

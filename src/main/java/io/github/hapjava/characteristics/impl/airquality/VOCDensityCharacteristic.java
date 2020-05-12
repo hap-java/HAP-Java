@@ -7,7 +7,10 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/** This characteristic indicates the current volatile organic compound density in micrograms/m3. */
+/**
+ * This characteristic indicates the current volatile organic compound (VOC) density in
+ * micrograms/m3.
+ */
 public class VOCDensityCharacteristic extends FloatCharacteristic {
 
   public VOCDensityCharacteristic(

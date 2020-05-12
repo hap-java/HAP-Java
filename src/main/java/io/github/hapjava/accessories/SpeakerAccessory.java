@@ -7,11 +7,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Speaker accessory.
- *
- * @author Eugen Freiter
- */
+/** Speaker accessory. */
 public interface SpeakerAccessory extends HomekitAccessory {
 
   /**

@@ -4,11 +4,7 @@ import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import io.github.hapjava.characteristics.impl.fan.SwingModeEnum;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Accessory with Swing Mode characteristics.
- *
- * @author Eugen Freiter
- */
+/** Accessory with Swing Mode characteristics. */
 public interface AccessoryWithSwingMode {
 
   /**

@@ -3,11 +3,7 @@ package io.github.hapjava.accessories.optionalcharacteristic;
 import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Accessory with carbon dioxide level and peak level characteristic.
- *
- * @author Eugen Freiter
- */
+/** Accessory with carbon dioxide level and peak level characteristic. */
 public interface AccessoryWithCarbonDioxideLevel {
 
   /**

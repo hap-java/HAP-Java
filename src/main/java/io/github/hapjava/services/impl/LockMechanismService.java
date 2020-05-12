@@ -6,10 +6,7 @@ import io.github.hapjava.characteristics.impl.common.NameCharacteristic;
 import io.github.hapjava.characteristics.impl.lock.LockCurrentStateCharacteristic;
 import io.github.hapjava.characteristics.impl.lock.LockTargetStateCharacteristic;
 
-/**
- * The HomeKit Lock Mechanism Service is designed to expose and control the physical lock mechanism
- * on a device.
- */
+/** The Lock Mechanism Service describes the physical lock mechanism on a device. */
 public class LockMechanismService extends AbstractServiceImpl {
 
   public LockMechanismService(

@@ -7,7 +7,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/** This characteristic indicates the Carbon Monoxide levels detected in parts per million (ppm). */
+/** This characteristic contains the Carbon Monoxide levels in parts per million (ppm). */
 public class CarbonMonoxideLevelCharacteristic extends FloatCharacteristic {
 
   public CarbonMonoxideLevelCharacteristic(

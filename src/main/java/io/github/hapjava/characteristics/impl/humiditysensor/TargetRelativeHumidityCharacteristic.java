@@ -8,10 +8,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/**
- * This characteristic describes the target relative humidity that the accessory is actively
- * attempting to reach. The value is expressed as a percentage (%).
- */
+/** This characteristic describes the target relative humidity. */
 public class TargetRelativeHumidityCharacteristic extends FloatCharacteristic {
 
   public TargetRelativeHumidityCharacteristic(

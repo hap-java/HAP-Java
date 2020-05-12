@@ -8,7 +8,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/** This characteristic describes the current water level. */
+/** This characteristic describes the water level. */
 public class WaterLavelCharacteristic extends FloatCharacteristic
     implements EventableCharacteristic {
 

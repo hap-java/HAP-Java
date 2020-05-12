@@ -7,11 +7,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * This service describes accessories like faucets or shower heads.
- *
- * @author Eugen Freiter
- */
+/** Faucets or shower heads accessory. */
 public interface FaucetAccessory extends HomekitAccessory {
   /**
    * Mandatory: Retrieves the current active state of the faucet.

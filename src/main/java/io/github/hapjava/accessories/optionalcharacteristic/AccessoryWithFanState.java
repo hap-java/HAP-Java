@@ -6,7 +6,7 @@ import io.github.hapjava.characteristics.impl.fan.TargetFanStateEnum;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * A fan, with power and rotational characteristics.
+ * An accessory with current and target fan states.
  *
  * @author Andy Lintner
  */

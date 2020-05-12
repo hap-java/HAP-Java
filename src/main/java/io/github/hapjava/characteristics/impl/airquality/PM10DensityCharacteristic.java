@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
- * This characteristic indicates the current PM10 micrometer particulate density in micrograms/m3.
+ * This characteristic contains the current PM10 micrometer particulate density in micrograms/m3.
  */
 public class PM10DensityCharacteristic extends FloatCharacteristic {
 

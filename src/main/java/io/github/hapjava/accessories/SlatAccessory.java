@@ -9,11 +9,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * A slat which tilts on a vertical or a horizontal axis.
- *
- * @author Eugen Freiter
- */
+/** A slat accessory which tilts on a vertical or a horizontal axis. */
 public interface SlatAccessory extends HomekitAccessory {
 
   /**

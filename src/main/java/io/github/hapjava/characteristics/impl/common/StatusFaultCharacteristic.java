@@ -7,11 +7,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/**
- * This characteristic describes an accessory which has a fault. A non-zero value indicates that the
- * accessory has experienced a fault that may be interfering with its intended functionality. A
- * value of 0 indicates that there is no fault.
- */
+/** This characteristic describes fault status. See {@link StatusFaultEnum} for possible values. */
 public class StatusFaultCharacteristic extends EnumCharacteristic<StatusFaultEnum> {
 
   public StatusFaultCharacteristic(

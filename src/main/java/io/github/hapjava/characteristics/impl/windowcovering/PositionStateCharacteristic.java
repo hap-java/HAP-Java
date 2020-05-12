@@ -7,10 +7,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/**
- * This characteristic describes the state of the position of accessories. This characteristic can
- * be used with doors, windows, awnings or window coverings for presentation purposes.
- */
+/** This characteristic describes the state of the position of accessories. */
 public class PositionStateCharacteristic extends EnumCharacteristic<PositionStateEnum> {
 
   public PositionStateCharacteristic(

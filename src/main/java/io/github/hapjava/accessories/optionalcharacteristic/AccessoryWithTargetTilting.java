@@ -3,11 +3,7 @@ package io.github.hapjava.accessories.optionalcharacteristic;
 import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Accessory with target tilting characteristic.
- *
- * @author Eugen Freiter
- */
+/** Accessory with target tilting characteristic. */
 public interface AccessoryWithTargetTilting {
 
   /**

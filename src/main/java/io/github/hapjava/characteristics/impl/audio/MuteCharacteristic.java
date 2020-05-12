@@ -8,7 +8,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/** A Mute characteristic allows the control of audio input or output accessory respectively. */
+/** Mute characteristic to control audio input or output accessory. */
 public class MuteCharacteristic extends BooleanCharacteristic {
   public MuteCharacteristic(
       Supplier<CompletableFuture<Boolean>> getter,

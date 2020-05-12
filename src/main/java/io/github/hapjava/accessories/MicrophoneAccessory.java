@@ -7,11 +7,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Microphone accessory.
- *
- * @author Eugen Freiter
- */
+/** Microphone accessory with mute state. */
 public interface MicrophoneAccessory extends HomekitAccessory {
 
   /**

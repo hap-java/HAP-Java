@@ -3,11 +3,7 @@ package io.github.hapjava.accessories.optionalcharacteristic;
 import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Accessory with VOC Density characteristic.
- *
- * @author Eugen Freiter
- */
+/** Accessory with VOC Density characteristic. */
 public interface AccessoryWithVOCDensity {
 
   /**
