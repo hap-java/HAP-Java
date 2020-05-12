@@ -1,8 +1,8 @@
 HAP-Java
 =========
-HAP-Java is a Java implementation of the Homekit Accessory Protocol.
+HAP-Java is a Java implementation of the HomeKit Accessory Protocol.
 
-Using this library, you can create your own Homekit Accessory or Homekit Accessory Bridge.
+Using this library, you can create your own HomeKit Accessory or HomeKit Accessory Bridge.
 
 This library would not have been possible without [Tian Zhang](https://github.com/KhaosT) who did a lot of the hard work of figuring out how the protocol works in his NodeJS implementation.
 
@@ -18,13 +18,13 @@ Include HAP-Java in your project using maven:
 </dependency>
 ```
 
-After that, read the [Javadoc](http://beowulfe.github.io/HAP-Java/apidocs/) and check out the [Sample](https://github.com/beowulfe/HAP-Java/tree/sample).
+After that, check out the [Sample](https://github.com/hap-java/HAP-Java/tree/sample).
 
 Supported HomeKit Accessories
 =========
 
 Current implementation is based on HAP specification Release R2 (published 2019-07-26) and
-fully supports 35 out of 45 HomeKit accessory services defined there.
+fully supports 36 out of 45 HomeKit accessory services defined there.
 
 | HomeKit Accessory & Service type | Supported by Java-HAP |
 |--------------------|--------------------|
@@ -46,7 +46,7 @@ fully supports 35 out of 45 HomeKit accessory services defined there.
 |  Garage Door Opener               |     :white_check_mark:    |
 |  HAP Protocol Information         |     :white_check_mark:    |
 |  Heater Cooler                    |     :white_check_mark:    |
-|  Humidifier Dehumidifier          |     :x:                   |
+|  Humidifier Dehumidifier          |     :white_check_mark:    |
 |  Humidity Sensor                  |     :white_check_mark:    |
 |  Irrigation System                |     :x:                   |
 |  Leak Sensor                      |     :white_check_mark:    |

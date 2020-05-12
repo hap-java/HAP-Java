@@ -22,16 +22,13 @@ import io.github.hapjava.characteristics.impl.thermostat.HeatingThresholdTempera
 import io.github.hapjava.characteristics.impl.thermostat.TemperatureDisplayUnitCharacteristic;
 
 /**
- * This service can be used to describe either of the following:
- * • a heater
- * • a cooler
- * • a heater and a cooler
- * A heater/cooler accessory may have additional:
- * • {@link FanService} service to describe a fan which can be independently controlled
- * • {@link SlatService}  service to control vents
- * A heater must include {@link HeatingThresholdTemperatureCharacteristic}. A cooler must include {@link CoolingThresholdTemperatureCharacteristic}.
- * A heater/cooler accessory service may include {@link RotationSpeedCharacteristic} to control fan speed if the fan cannot
- * be independently controlled.
+ * This service can be used to describe either of the following: • a heater • a cooler • a heater
+ * and a cooler A heater/cooler accessory may have additional: • {@link FanService} service to
+ * describe a fan which can be independently controlled • {@link SlatService} service to control
+ * vents A heater must include {@link HeatingThresholdTemperatureCharacteristic}. A cooler must
+ * include {@link CoolingThresholdTemperatureCharacteristic}. A heater/cooler accessory service may
+ * include {@link RotationSpeedCharacteristic} to control fan speed if the fan cannot be
+ * independently controlled.
  */
 public class HeaterCoolerService extends AbstractServiceImpl {
 
@@ -57,20 +54,16 @@ public class HeaterCoolerService extends AbstractServiceImpl {
         new CurrentTemperatureCharacteristic(
             accessory::getCurrentTemperature,
             accessory::subscribeCurrentTemperature,
-            accessory::unsubscribeCurrentTemperature
-        ),
+            accessory::unsubscribeCurrentTemperature),
         new CurrentHeaterCoolerStateCharacteristic(
             accessory::getCurrentHeaterCoolerState,
             accessory::subscribeCurrentHeaterCoolerState,
-            accessory::unsubscribeCurrentHeaterCoolerState
-        ),
+            accessory::unsubscribeCurrentHeaterCoolerState),
         new TargetHeaterCoolerStateCharacteristic(
             accessory::getTargetHeaterCoolerState,
             accessory::setTargetHeaterCoolerState,
             accessory::subscribeTargetHeaterCoolerState,
-            accessory::unsubscribeTargetHeaterCoolerState
-            )
-        );
+            accessory::unsubscribeTargetHeaterCoolerState));
     if (accessory instanceof AccessoryWithName) {
       addOptionalCharacteristic(new NameCharacteristic(((AccessoryWithName) accessory)::getName));
     }
@@ -122,30 +115,36 @@ public class HeaterCoolerService extends AbstractServiceImpl {
               ((AccessoryWithTemperatureDisplayUnits) accessory)::getTemperatureDisplayUnits,
               ((AccessoryWithTemperatureDisplayUnits) accessory)::setTemperatureDisplayUnits,
               ((AccessoryWithTemperatureDisplayUnits) accessory)::subscribeTemperatureDisplayUnits,
-              ((AccessoryWithTemperatureDisplayUnits) accessory)::unsubscribeTemperatureDisplayUnits));
+              ((AccessoryWithTemperatureDisplayUnits) accessory)
+                  ::unsubscribeTemperatureDisplayUnits));
     }
   }
 
   public void addOptionalCharacteristic(NameCharacteristic name) {
     addCharacteristic(name);
   }
+
   public void addOptionalCharacteristic(RotationSpeedCharacteristic speed) {
     addCharacteristic(speed);
   }
+
   public void addOptionalCharacteristic(SwingModeCharacteristic mode) {
     addCharacteristic(mode);
   }
+
   public void addOptionalCharacteristic(LockPhysicalControlsCharacteristic lock) {
     addCharacteristic(lock);
   }
+
   public void addOptionalCharacteristic(CoolingThresholdTemperatureCharacteristic threshold) {
     addCharacteristic(threshold);
   }
+
   public void addOptionalCharacteristic(HeatingThresholdTemperatureCharacteristic threshold) {
     addCharacteristic(threshold);
   }
+
   public void addOptionalCharacteristic(TemperatureDisplayUnitCharacteristic displayUnits) {
     addCharacteristic(displayUnits);
   }
-
 }

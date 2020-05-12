@@ -1,11 +1,13 @@
 package io.github.hapjava.accessories.optionalcharacteristic;
 
-import java.util.concurrent.CompletableFuture;
 import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import io.github.hapjava.characteristics.impl.thermostat.TemperatureDisplayUnitEnum;
+import java.util.concurrent.CompletableFuture;
 
-/** Accessory with characteristic that describes units of temperature used for presentation purposes (e.g. the units of temperature displayed on the
- screen). */
+/**
+ * Accessory with characteristic that describes units of temperature used for presentation purposes
+ * (e.g. the units of temperature displayed on the screen).
+ */
 public interface AccessoryWithTemperatureDisplayUnits {
 
   /**
@@ -15,7 +17,6 @@ public interface AccessoryWithTemperatureDisplayUnits {
    */
   CompletableFuture<TemperatureDisplayUnitEnum> getTemperatureDisplayUnits();
 
-
   /**
    * Sets the temperature display units
    *
@@ -23,7 +24,8 @@ public interface AccessoryWithTemperatureDisplayUnits {
    * @return a future that completes when the change is made
    * @throws Exception when the change cannot be made
    */
-  CompletableFuture<Void> setTemperatureDisplayUnits(TemperatureDisplayUnitEnum units) throws Exception;
+  CompletableFuture<Void> setTemperatureDisplayUnits(TemperatureDisplayUnitEnum units)
+      throws Exception;
 
   /**
    * Subscribes to changes in the temperature display units

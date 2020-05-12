@@ -1,14 +1,11 @@
 package io.github.hapjava.characteristics.impl.heatercooler;
 
+import io.github.hapjava.characteristics.CharacteristicEnum;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
-import io.github.hapjava.characteristics.CharacteristicEnum;
 
-/** 0 AUTO - ”Heat or Cool”
- 1 ”Heat”
- 2 ”Cool”
- */
+/** 0 AUTO - ”Heat or Cool” 1 ”Heat” 2 ”Cool” */
 public enum TargetHeaterCoolerStateEnum implements CharacteristicEnum {
   AUTO(0),
   HEAT(1),

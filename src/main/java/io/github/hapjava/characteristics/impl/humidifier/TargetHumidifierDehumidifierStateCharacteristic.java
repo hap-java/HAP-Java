@@ -1,4 +1,4 @@
-package io.github.hapjava.characteristics.impl.heatercooler;
+package io.github.hapjava.characteristics.impl.humidifier;
 
 import io.github.hapjava.characteristics.EventableCharacteristic;
 import io.github.hapjava.characteristics.ExceptionalConsumer;
@@ -9,18 +9,19 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/** This characteristic describes the target state of heater cooler. */
-public class TargetHeaterCoolerStateCharacteristic
-    extends EnumCharacteristic<TargetHeaterCoolerStateEnum> implements EventableCharacteristic {
+/** This characteristic describes the target state of a humidifier or/and a dehumidifier.. */
+public class TargetHumidifierDehumidifierStateCharacteristic
+    extends EnumCharacteristic<TargetHumidifierDehumidifierStateEnum>
+    implements EventableCharacteristic {
 
-  public TargetHeaterCoolerStateCharacteristic(
-      Supplier<CompletableFuture<TargetHeaterCoolerStateEnum>> getter,
-      ExceptionalConsumer<TargetHeaterCoolerStateEnum> setter,
+  public TargetHumidifierDehumidifierStateCharacteristic(
+      Supplier<CompletableFuture<TargetHumidifierDehumidifierStateEnum>> getter,
+      ExceptionalConsumer<TargetHumidifierDehumidifierStateEnum> setter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
     super(
-        "000000B2-0000-1000-8000-0026BB765291",
-        "target heater cooler state",
+        "000000B4-0000-1000-8000-0026BB765291",
+        "target humidifier state",
         2,
         Optional.of(getter),
         Optional.of(setter),
@@ -33,6 +34,6 @@ public class TargetHeaterCoolerStateCharacteristic
     if (!setter.isPresent()) {
       return;
     }
-    setter.get().accept(TargetHeaterCoolerStateEnum.fromCode(value));
+    setter.get().accept(TargetHumidifierDehumidifierStateEnum.fromCode(value));
   }
 }

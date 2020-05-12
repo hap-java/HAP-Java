@@ -1,13 +1,11 @@
 package io.github.hapjava.accessories;
 
+import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
+import io.github.hapjava.services.Service;
+import io.github.hapjava.services.impl.FaucetService;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
-import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithFanState;
-import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
-import io.github.hapjava.services.Service;
-import io.github.hapjava.services.impl.FanService;
-import io.github.hapjava.services.impl.FaucetService;
 
 /**
  * This service describes accessories like faucets or shower heads.

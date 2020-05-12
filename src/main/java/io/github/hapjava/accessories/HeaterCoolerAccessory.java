@@ -1,13 +1,13 @@
 package io.github.hapjava.accessories;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.concurrent.CompletableFuture;
 import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
 import io.github.hapjava.characteristics.impl.heatercooler.CurrentHeaterCoolerStateEnum;
 import io.github.hapjava.characteristics.impl.heatercooler.TargetHeaterCoolerStateEnum;
 import io.github.hapjava.services.Service;
 import io.github.hapjava.services.impl.HeaterCoolerService;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Heater Cooler accessory
@@ -22,16 +22,15 @@ public interface HeaterCoolerAccessory extends HomekitAccessory {
    */
   CompletableFuture<Double> getCurrentTemperature();
 
-
   /**
-   * Mandatory: Retrieves the current active state of the fan'.
+   * Mandatory: Retrieves the current active state of the Heater Cooler.
    *
    * @return a future that will contain the binary state
    */
   CompletableFuture<Boolean> isActive();
 
   /**
-   * Sets the active state of the fan
+   * Sets the active state of the Heater Cooler
    *
    * @param state the binary state to set
    * @return a future that completes when the change is made

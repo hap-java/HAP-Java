@@ -1,14 +1,11 @@
 package io.github.hapjava.characteristics.impl.heatercooler;
 
+import io.github.hapjava.characteristics.CharacteristicEnum;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
-import io.github.hapjava.characteristics.CharacteristicEnum;
 
-/** 0 ”Inactive”
- 1 ”Idle”
- 2 ”Heating”
- 3 ”Cooling” */
+/** 0 ”Inactive” 1 ”Idle” 2 ”Heating” 3 ”Cooling” */
 public enum CurrentHeaterCoolerStateEnum implements CharacteristicEnum {
   INACTIVE(0),
   IDLE(1),
