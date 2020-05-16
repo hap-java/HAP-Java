@@ -23,8 +23,7 @@ After that, check out the [Sample](https://github.com/hap-java/HAP-Java/tree/sam
 Supported HomeKit Accessories
 =========
 
-Current implementation is based on HAP specification Release R2 (published 2019-07-26) and
-fully supports 37 out of 45 HomeKit accessory services defined there.
+Current implementation fully supports 37 HomeKit accessory/services.
 
 | HomeKit Accessory & Service type | Supported by Java-HAP |
 |--------------------|--------------------|
