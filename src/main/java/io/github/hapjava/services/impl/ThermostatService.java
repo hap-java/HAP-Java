@@ -46,10 +46,16 @@ public class ThermostatService extends AbstractServiceImpl {
             accessory::subscribeTargetState,
             accessory::unsubscribeTargetState),
         new CurrentTemperatureCharacteristic(
+            accessory.getMinCurrentTemperature(),
+            accessory.getMaxCurrentTemperature(),
+            accessory.getMinStepCurrentTemperature(),
             accessory::getCurrentTemperature,
             accessory::subscribeCurrentTemperature,
             accessory::unsubscribeCurrentTemperature),
         new TargetTemperatureCharacteristic(
+            accessory.getMinTargetTemperature(),
+            accessory.getMaxTargetTemperature(),
+            accessory.getMinStepTargetTemperature(),
             accessory::getTargetTemperature,
             accessory::setTargetTemperature,
             accessory::subscribeTargetTemperature,

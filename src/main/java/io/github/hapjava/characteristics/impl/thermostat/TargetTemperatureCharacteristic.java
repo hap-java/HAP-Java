@@ -15,6 +15,9 @@ import java.util.function.Supplier;
 public class TargetTemperatureCharacteristic extends FloatCharacteristic {
 
   public TargetTemperatureCharacteristic(
+      double minValue,
+      double maxValue,
+      double minStep,
       Supplier<CompletableFuture<Double>> getter,
       ExceptionalConsumer<Double> setter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
@@ -22,13 +25,21 @@ public class TargetTemperatureCharacteristic extends FloatCharacteristic {
     super(
         "00000035-0000-1000-8000-0026BB765291",
         "target temperature",
-        10,
-        38,
-        0.1,
+        minValue,
+        maxValue,
+        minStep,
         "C",
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),
         Optional.of(unsubscriber));
+  }
+
+  public TargetTemperatureCharacteristic(
+      Supplier<CompletableFuture<Double>> getter,
+      ExceptionalConsumer<Double> setter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
+    this(10, 38, 0.1, getter, setter, subscriber, unsubscriber);
   }
 }

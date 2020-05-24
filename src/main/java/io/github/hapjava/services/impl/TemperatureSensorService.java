@@ -25,6 +25,9 @@ public class TemperatureSensorService extends AbstractServiceImpl {
   public TemperatureSensorService(TemperatureSensorAccessory accessory) {
     this(
         new CurrentTemperatureCharacteristic(
+            accessory.getMinCurrentTemperature(),
+            accessory.getMaxCurrentTemperature(),
+            accessory.getMinStepCurrentTemperature(),
             accessory::getCurrentTemperature,
             accessory::subscribeCurrentTemperature,
             accessory::unsubscribeCurrentTemperature));

@@ -25,6 +25,36 @@ public interface ThermostatAccessory extends HomekitAccessory {
   CompletableFuture<Double> getCurrentTemperature();
 
   /**
+   * return the min value for current temperature. overwrite if you want to change the default
+   * value.
+   *
+   * @return min current temperature
+   */
+  default double getMinCurrentTemperature() {
+    return 0;
+  }
+
+  /**
+   * return the max value for current temperature. overwrite if you want to change the default
+   * value.
+   *
+   * @return max current temperature
+   */
+  default double getMaxCurrentTemperature() {
+    return 100;
+  }
+
+  /**
+   * return the min step value for current temperature. overwrite if you want to change the default
+   * value.
+   *
+   * @return min step current temperature
+   */
+  default double getMinStepCurrentTemperature() {
+    return 0.1;
+  }
+
+  /**
    * Retrieves the target temperature, in celsius degrees.
    *
    * @return a future that will contain the target temperature.
@@ -38,6 +68,34 @@ public interface ThermostatAccessory extends HomekitAccessory {
    * @throws Exception when the temperature cannot be changed.
    */
   void setTargetTemperature(Double value) throws Exception;
+
+  /**
+   * return the min value for target temperature. overwrite if you want to change the default value.
+   *
+   * @return min target temperature
+   */
+  default double getMinTargetTemperature() {
+    return 10;
+  }
+
+  /**
+   * return the max value for target temperature. overwrite if you want to change the default value.
+   *
+   * @return max target temperature
+   */
+  default double getMaxTargetTemperature() {
+    return 38;
+  }
+
+  /**
+   * return the min step value for target temperature. overwrite if you want to change the default
+   * value.
+   *
+   * @return min step target temperature
+   */
+  default double getMinStepTargetTemperature() {
+    return 0.1;
+  }
 
   /**
    * Retrieves the current {@link CurrentHeatingCoolingStateEnum} of the thermostat.

@@ -22,6 +22,36 @@ public interface TemperatureSensorAccessory extends HomekitAccessory {
   CompletableFuture<Double> getCurrentTemperature();
 
   /**
+   * return the min value for current temperature. overwrite if you want to change the default
+   * value.
+   *
+   * @return min current temperature
+   */
+  default double getMinCurrentTemperature() {
+    return 0;
+  }
+
+  /**
+   * return the max value for current temperature. overwrite if you want to change the default
+   * value.
+   *
+   * @return max current temperature
+   */
+  default double getMaxCurrentTemperature() {
+    return 100;
+  }
+
+  /**
+   * return the min step value for current temperature. overwrite if you want to change the default
+   * value.
+   *
+   * @return min step current temperature
+   */
+  default double getMinStepCurrentTemperature() {
+    return 0.1;
+  }
+
+  /**
    * Subscribes to changes in the current temperature.
    *
    * @param callback the function to call when the state changes.

@@ -11,19 +11,29 @@ import java.util.function.Supplier;
 public class CurrentTemperatureCharacteristic extends FloatCharacteristic {
 
   public CurrentTemperatureCharacteristic(
+      double minValue,
+      double maxValue,
+      double minStep,
       Supplier<CompletableFuture<Double>> getter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
     super(
         "00000011-0000-1000-8000-0026BB765291",
         "current temperature",
-        0,
-        100,
-        0.1,
+        minValue,
+        maxValue,
+        minStep,
         "C",
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),
         Optional.of(unsubscriber));
+  }
+
+  public CurrentTemperatureCharacteristic(
+      Supplier<CompletableFuture<Double>> getter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
+    this(0, 100, 0.1, getter, subscriber, unsubscriber);
   }
 }
