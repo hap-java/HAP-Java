@@ -14,6 +14,9 @@ import java.util.function.Supplier;
 public class CoolingThresholdTemperatureCharacteristic extends FloatCharacteristic {
 
   public CoolingThresholdTemperatureCharacteristic(
+      double minValue,
+      double maxValue,
+      double step,
       Supplier<CompletableFuture<Double>> getter,
       ExceptionalConsumer<Double> setter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
@@ -21,13 +24,21 @@ public class CoolingThresholdTemperatureCharacteristic extends FloatCharacterist
     super(
         "0000000D-0000-1000-8000-0026BB765291",
         "cooling threshold",
-        10,
-        35,
-        0.1,
+        minValue,
+        maxValue,
+        step,
         "C",
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),
         Optional.of(unsubscriber));
+  }
+
+  public CoolingThresholdTemperatureCharacteristic(
+      Supplier<CompletableFuture<Double>> getter,
+      ExceptionalConsumer<Double> setter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
+    this(10, 35, 0.1, getter, setter, subscriber, unsubscriber);
   }
 }

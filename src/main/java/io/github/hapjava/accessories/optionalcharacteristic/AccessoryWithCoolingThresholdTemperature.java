@@ -22,6 +22,36 @@ public interface AccessoryWithCoolingThresholdTemperature {
   void setCoolingThresholdTemperature(Double value) throws Exception;
 
   /**
+   * return the min value for cooling threshold temperature. overwrite if you want to change the
+   * default value.
+   *
+   * @return min threshold temperature
+   */
+  default double getMinCoolingThresholdTemperature() {
+    return 10;
+  }
+
+  /**
+   * return the max value for cooling threshold temperature. overwrite if you want to change the
+   * default value.
+   *
+   * @return max threshold temperature
+   */
+  default double getMaxCoolingThresholdTemperature() {
+    return 35;
+  }
+
+  /**
+   * return the min step value for cooling threshold temperature. overwrite if you want to change
+   * the default value.
+   *
+   * @return step for threshold temperature
+   */
+  default double getStepCoolingThresholdTemperature() {
+    return 0.1;
+  }
+
+  /**
    * Subscribes to changes in the cooling threshold.
    *
    * @param callback the function to call when the state changes.

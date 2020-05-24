@@ -2,7 +2,7 @@ package io.github.hapjava.services.impl;
 
 import io.github.hapjava.accessories.HeaterCoolerAccessory;
 import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithCoolingThresholdTemperature;
-import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithHeatingThresholdTemprature;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithHeatingThresholdTemperature;
 import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithName;
 import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithPhysicalControlsLock;
 import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithRotationSpeed;
@@ -85,6 +85,12 @@ public class HeaterCoolerService extends AbstractServiceImpl {
     }
     if (accessory instanceof AccessoryWithCoolingThresholdTemperature) {
       new CoolingThresholdTemperatureCharacteristic(
+          ((AccessoryWithCoolingThresholdTemperature) accessory)
+              .getMinCoolingThresholdTemperature(),
+          ((AccessoryWithCoolingThresholdTemperature) accessory)
+              .getMaxCoolingThresholdTemperature(),
+          ((AccessoryWithCoolingThresholdTemperature) accessory)
+              .getStepCoolingThresholdTemperature(),
           ((AccessoryWithCoolingThresholdTemperature) accessory)::getCoolingThresholdTemperature,
           ((AccessoryWithCoolingThresholdTemperature) accessory)::setCoolingThresholdTemperature,
           ((AccessoryWithCoolingThresholdTemperature) accessory)
@@ -92,13 +98,19 @@ public class HeaterCoolerService extends AbstractServiceImpl {
           ((AccessoryWithCoolingThresholdTemperature) accessory)
               ::unsubscribeCoolingThresholdTemperature);
     }
-    if (accessory instanceof AccessoryWithHeatingThresholdTemprature) {
+    if (accessory instanceof AccessoryWithHeatingThresholdTemperature) {
       new HeatingThresholdTemperatureCharacteristic(
-          ((AccessoryWithHeatingThresholdTemprature) accessory)::getHeatingThresholdTemperature,
-          ((AccessoryWithHeatingThresholdTemprature) accessory)::setHeatingThresholdTemperature,
-          ((AccessoryWithHeatingThresholdTemprature) accessory)
+          ((AccessoryWithHeatingThresholdTemperature) accessory)
+              .getMinHeatingThresholdTemperature(),
+          ((AccessoryWithHeatingThresholdTemperature) accessory)
+              .getMaxHeatingThresholdTemperature(),
+          ((AccessoryWithHeatingThresholdTemperature) accessory)
+              .getStepHeatingThresholdTemperature(),
+          ((AccessoryWithHeatingThresholdTemperature) accessory)::getHeatingThresholdTemperature,
+          ((AccessoryWithHeatingThresholdTemperature) accessory)::setHeatingThresholdTemperature,
+          ((AccessoryWithHeatingThresholdTemperature) accessory)
               ::subscribeHeatingThresholdTemperature,
-          ((AccessoryWithHeatingThresholdTemprature) accessory)
+          ((AccessoryWithHeatingThresholdTemperature) accessory)
               ::unsubscribeHeatingThresholdTemperature);
     }
     if (accessory instanceof AccessoryWithTemperatureDisplayUnits) {

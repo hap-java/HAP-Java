@@ -126,7 +126,7 @@ class HttpSession {
     try {
       return pairVerificationManager.handle(request);
     } catch (Exception e) {
-      logger.warn("Excepton encountered while verifying pairing", e);
+      logger.warn("Exception encountered while verifying pairing", e);
       return new InternalServerErrorResponse(e);
     }
   }
