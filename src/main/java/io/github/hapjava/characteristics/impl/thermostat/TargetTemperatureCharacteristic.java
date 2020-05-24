@@ -13,6 +13,9 @@ import java.util.function.Supplier;
  * attempting to reach.
  */
 public class TargetTemperatureCharacteristic extends FloatCharacteristic {
+  public static final double DEFAULT_MIN_VALUE = 10;
+  public static final double DEFAULT_MAX_VALUE = 38;
+  public static final double DEFAULT_STEP = 0.1;
 
   public TargetTemperatureCharacteristic(
       double minValue,
@@ -40,6 +43,13 @@ public class TargetTemperatureCharacteristic extends FloatCharacteristic {
       ExceptionalConsumer<Double> setter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
-    this(10, 38, 0.1, getter, setter, subscriber, unsubscriber);
+    this(
+        DEFAULT_MIN_VALUE,
+        DEFAULT_MAX_VALUE,
+        DEFAULT_STEP,
+        getter,
+        setter,
+        subscriber,
+        unsubscriber);
   }
 }

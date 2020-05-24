@@ -9,6 +9,9 @@ import java.util.function.Supplier;
 
 /** characteristic describes the current temperature of the environment in Celsius */
 public class CurrentTemperatureCharacteristic extends FloatCharacteristic {
+  public static final double DEFAULT_MIN_VALUE = 0;
+  public static final double DEFAULT_MAX_VALUE = 100;
+  public static final double DEFAULT_STEP = 0.1;
 
   public CurrentTemperatureCharacteristic(
       double minValue,
@@ -34,6 +37,6 @@ public class CurrentTemperatureCharacteristic extends FloatCharacteristic {
       Supplier<CompletableFuture<Double>> getter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
-    this(0, 100, 0.1, getter, subscriber, unsubscriber);
+    this(DEFAULT_MIN_VALUE, DEFAULT_MAX_VALUE, DEFAULT_STEP, getter, subscriber, unsubscriber);
   }
 }

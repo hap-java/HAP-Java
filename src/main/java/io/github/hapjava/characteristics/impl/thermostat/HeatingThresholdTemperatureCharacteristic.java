@@ -10,6 +10,9 @@ import java.util.function.Supplier;
 
 /** This characteristic describes the heating threshold on which heating get turned on. */
 public class HeatingThresholdTemperatureCharacteristic extends FloatCharacteristic {
+  public static final double DEFAULT_MIN_VALUE = 0;
+  public static final double DEFAULT_MAX_VALUE = 25;
+  public static final double DEFAULT_STEP = 0.1;
 
   public HeatingThresholdTemperatureCharacteristic(
       double minValue,
@@ -37,6 +40,13 @@ public class HeatingThresholdTemperatureCharacteristic extends FloatCharacterist
       ExceptionalConsumer<Double> setter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
-    this(0, 25, 0.1, getter, setter, subscriber, unsubscriber);
+    this(
+        DEFAULT_MIN_VALUE,
+        DEFAULT_MAX_VALUE,
+        DEFAULT_STEP,
+        getter,
+        setter,
+        subscriber,
+        unsubscriber);
   }
 }
