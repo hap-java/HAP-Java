@@ -1,10 +1,12 @@
 package com.beowulfe.hap.sample;
 
 import java.util.concurrent.CompletableFuture;
-import io.github.hapjava.HomekitCharacteristicChangeCallback;
-import io.github.hapjava.accessories.Lightbulb;
 
-public class MockSwitch implements Lightbulb {
+import io.github.hapjava.accessories.LightbulbAccessory;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithHardwareRevision;
+import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
+
+public class MockSwitch implements LightbulbAccessory, AccessoryWithHardwareRevision {
 	
 	private boolean powerState = false;
 	private HomekitCharacteristicChangeCallback subscribeCallback = null;
@@ -15,8 +17,8 @@ public class MockSwitch implements Lightbulb {
 	}
 
 	@Override
-	public String getLabel() {
-		return "Test Lightbulb";
+	public CompletableFuture<String> getName() {
+		return CompletableFuture.completedFuture("Test Switch Name");
 	}
 
 	@Override
@@ -25,18 +27,23 @@ public class MockSwitch implements Lightbulb {
 	}
 
 	@Override
-	public String getSerialNumber() {
-		return "none";
+	public CompletableFuture<String> getSerialNumber() {
+		return CompletableFuture.completedFuture("Test SwitchSN");
 	}
 
 	@Override
-	public String getModel() {
-		return "none";
+	public CompletableFuture<String> getModel() {
+		return CompletableFuture.completedFuture("TestSwitch Model");
 	}
 
 	@Override
-	public String getManufacturer() {
-		return "none";
+	public CompletableFuture<String> getManufacturer() {
+		return CompletableFuture.completedFuture("Test SwitchManufacturer");
+	}
+
+	@Override
+	public CompletableFuture<String> getFirmwareRevision() {
+		return CompletableFuture.completedFuture("Test Switch Firmware");
 	}
 
 	@Override
@@ -66,4 +73,8 @@ public class MockSwitch implements Lightbulb {
 		this.subscribeCallback = null;
 	}
 
+	@Override
+	public CompletableFuture<String> getHardwareRevision() {
+		return CompletableFuture.completedFuture("Test Switch Hardware");
+	}
 }

@@ -21,7 +21,7 @@
 		</encoder>
 	</appender>
 	
-	<logger name="com.beowulfe.hap" level="DEBUG" />
+	<logger name="io.github.hapjava" level="DEBUG" />
 
 	<root level="info">
 		<appender-ref ref="STDOUT" />

@@ -6,8 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import io.github.hapjava.HomekitRoot;
-import io.github.hapjava.HomekitServer;
+import io.github.hapjava.server.impl.HomekitRoot;
+import io.github.hapjava.server.impl.HomekitServer;
 
 public class Main {
 
@@ -32,7 +32,8 @@ public class Main {
             }
 
             HomekitServer homekit = new HomekitServer(PORT);
-            HomekitRoot bridge = homekit.createBridge(mockAuth, "TestBridge", "TestBridge, Inc.", "G6", "111abe234");
+            HomekitRoot bridge = homekit.createBridge(mockAuth, "Test Bridge", "TestBridge, Inc.", "G6", "111abe234", "1.1", "1.2");
+
 
             mockAuth.onChange(state -> {
                 try {

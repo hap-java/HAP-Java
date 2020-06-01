@@ -3,8 +3,9 @@ package com.beowulfe.hap.sample;
 import java.math.BigInteger;
 import java.security.InvalidAlgorithmParameterException;
 import java.util.function.Consumer;
-import io.github.hapjava.HomekitAuthInfo;
-import io.github.hapjava.HomekitServer;
+
+import io.github.hapjava.server.HomekitAuthInfo;
+import io.github.hapjava.server.impl.HomekitServer;
 
 /**
  * This is a simple implementation that should never be used in actual production. The mac, salt, and privateKey
