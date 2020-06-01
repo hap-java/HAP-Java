@@ -8,7 +8,7 @@ import javax.json.JsonValue;
 /**
  * Interface for the characteristics provided by a Service.
  *
- * <p>Characteristics are the lowest level building block of the Homekit Accessory Protocol. They
+ * <p>Characteristics are the lowest level building block of the HomeKit Accessory Protocol. They
  * define variables that can be retrieved or set by the remote client. Most consumers of this
  * library will be better served by using one of the characteristic classes in {@link
  * io.github.hapjava.characteristics} when creating custom accessory types (the standard accessories
@@ -28,7 +28,7 @@ public interface Characteristic {
   void supplyValue(JsonObjectBuilder characteristicBuilder);
 
   /**
-   * Creates the JSON representation of the characteristic, in accordance with the Homekit Accessory
+   * Creates the JSON representation of the characteristic, in accordance with the HomeKit Accessory
    * Protocol.
    *
    * @param iid The instance ID of the characteristic to be included in the serialization.

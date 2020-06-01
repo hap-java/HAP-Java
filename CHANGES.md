@@ -1,3 +1,13 @@
+# HAP-Java 2.0.0
+* major refactoring to support optional characteristics
+* structure and names adapted to HAP spec structure and naming.
+* structure is following
+    * `accessory` package include basis accessory as the listed in HAP spec, plus interfaces for optional characteristics. clients should extend the accessory classes. e.g. `WindowCoveringAccessory` or `AccessoryWithBrightness`
+    * `characteristics` package consists of all characteristics, optional and mandatory. e.g. `TargetHorizontalTiltAngleCharacteristic`. The naming is done in accordance to HAP spec.
+    * `services` package consists of services, which grouping characteristics. e.g. `WindowCoveringService` defines mandatory and optional characteristics for a window covering service as it is defined in HAP spec.
+    * `server` package consists classes to run HomeKit server and handle communication
+* the process is following: client, e.g. openHAB bindings, extends accessory classes, e.g. `WindowCoveringAccessory` and implements all required methods. WindowCoveringAccessory is linked already to WindowCoveringService, that in turn is link to single characteristics. 
+
 # HAP-Java 1.1.5
 
 ## Fixes

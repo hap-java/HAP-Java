@@ -5,13 +5,15 @@
 	<artifactId>hap</artifactId>
 	<name>hap-java</name>
 	<description>Homekit Accessory Protocol for Java</description>
-	<version>1.2.0-snapshot</version>
+	<version>2.0.0-snapshot</version>
 	<packaging>jar</packaging>
 	<url>https://github.com/hap-java/HAP-Java</url>
 
 	<properties>
     	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  	</properties>
+		<netty.version>4.1.42.Final</netty.version>
+
+	</properties>
 
 	<licenses>
 		<license>
@@ -56,8 +58,44 @@
 
 		<dependency>
 			<groupId>io.netty</groupId>
-			<artifactId>netty-all</artifactId>
-			<version>4.0.32.Final</version>
+			<artifactId>netty-common</artifactId>
+			<version>${netty.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-buffer</artifactId>
+			<version>${netty.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-transport</artifactId>
+			<version>${netty.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-handler</artifactId>
+			<version>${netty.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-codec</artifactId>
+			<version>${netty.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-codec-http</artifactId>
+			<version>${netty.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-resolver</artifactId>
+			<version>${netty.version}</version>
 		</dependency>
 
 		<dependency>
@@ -100,12 +138,6 @@
 			<groupId>javax.jmdns</groupId>
 			<artifactId>jmdns</artifactId>
 			<version>3.4.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.4</version>
 		</dependency>
 
 		<dependency>
@@ -163,9 +195,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.0.1</version>
+				<version>3.2.0</version>
 				<configuration>
-					<excludePackageNames>io.github.hapjava.impl</excludePackageNames>
+					<excludePackageNames>io.github.hapjava.server.impl</excludePackageNames>
+					<source>8</source>
 				</configuration>
 				<executions>
 					<execution>
@@ -178,7 +211,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>3.1.0</version>
+				<version>3.1.1</version>
 				<configuration>
 					<descriptors>
 						<descriptor>deploy/distribution.xml</descriptor>
@@ -272,7 +305,7 @@
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>3.0.1</version>
 				<configuration>
-					<excludePackageNames>io.github.hapjava.impl</excludePackageNames>
+					<excludePackageNames>io.github.hapjava.server.impl</excludePackageNames>
 				</configuration>
 				<reportSets>
 					<reportSet>
