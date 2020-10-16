@@ -7,6 +7,7 @@
     * `services` package consists of services, which grouping characteristics. e.g. `WindowCoveringService` defines mandatory and optional characteristics for a window covering service as it is defined in HAP spec.
     * `server` package consists classes to run HomeKit server and handle communication
 * the process is following: client, e.g. openHAB bindings, extends accessory classes, e.g. `WindowCoveringAccessory` and implements all required methods. WindowCoveringAccessory is linked already to WindowCoveringService, that in turn is link to single characteristics. 
+* linked service support
 
 # HAP-Java 1.1.5
 

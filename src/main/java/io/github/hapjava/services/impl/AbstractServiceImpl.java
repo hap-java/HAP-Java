@@ -12,6 +12,7 @@ abstract class AbstractServiceImpl implements Service {
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
   private final String type;
   private final List<Characteristic> characteristics = new LinkedList<>();
+  private final List<Service> linkedServices = new LinkedList<>();
 
   /** @param type unique UUID of the service according to HAP specification. */
   public AbstractServiceImpl(String type) {
@@ -28,7 +29,16 @@ abstract class AbstractServiceImpl implements Service {
     return type;
   }
 
+  @Override
+  public List<Service> getLinkedServices() {
+    return Collections.unmodifiableList(linkedServices);
+  }
+
   public void addCharacteristic(Characteristic characteristic) {
     this.characteristics.add(characteristic);
+  }
+
+  public void addLinkedService(Service service) {
+    this.linkedServices.add(service);
   }
 }
