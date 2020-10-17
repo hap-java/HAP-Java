@@ -97,8 +97,8 @@ public class CarbonDioxideSensorService extends AbstractServiceImpl {
     addCharacteristic(statusLowBattery);
   }
 
-  public void addOptionalCharacteristic(CarbonDioxideLevelCharacteristic carbonMonoxideLevel) {
-    addCharacteristic(carbonMonoxideLevel);
+  public void addOptionalCharacteristic(CarbonDioxideLevelCharacteristic carbonDioxideLevel) {
+    addCharacteristic(carbonDioxideLevel);
   }
 
   public void addOptionalCharacteristic(
