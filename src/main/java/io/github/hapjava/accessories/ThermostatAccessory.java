@@ -189,6 +189,24 @@ public interface ThermostatAccessory extends HomekitAccessory {
   /** Unsubscribes from changes in the target temperature. */
   void unsubscribeTargetTemperature();
 
+  /**
+   * Valid values for current state.
+   *
+   * @return array of valid current states.
+   */
+  default CurrentHeatingCoolingStateEnum[] getCurrentHeatingCoolingStateValidValues() {
+    return CurrentHeatingCoolingStateEnum.values();
+  }
+
+  /**
+   * Valid values for target state.
+   *
+   * @return array of valid targe states.
+   */
+  default TargetHeatingCoolingStateEnum[] getTargetHeatingCoolingStateValidValues() {
+    return TargetHeatingCoolingStateEnum.values();
+  }
+
   @Override
   default Collection<Service> getServices() {
     return Collections.singleton(new ThermostatService(this));

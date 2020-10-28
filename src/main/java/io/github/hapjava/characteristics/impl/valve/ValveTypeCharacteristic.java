@@ -17,7 +17,7 @@ public class ValveTypeCharacteristic extends EnumCharacteristic<ValveTypeEnum> {
     super(
         "000000D5-0000-1000-8000-0026BB765291",
         "Valve type",
-        3,
+        ValveTypeEnum.values(),
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

@@ -22,7 +22,7 @@ public class CurrentFanStateCharacteristic extends EnumCharacteristic<CurrentFan
     super(
         "000000AF-0000-1000-8000-0026BB765291",
         "Current Fan State",
-        2,
+        CurrentFanStateEnum.values(),
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

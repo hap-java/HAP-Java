@@ -96,6 +96,24 @@ public interface HeaterCoolerAccessory extends HomekitAccessory {
   /** Unsubscribes from changes in the current temperature. */
   void unsubscribeCurrentTemperature();
 
+  /**
+   * Valid values for current state.
+   *
+   * @return array of valid current states
+   */
+  default CurrentHeaterCoolerStateEnum[] getCurrentHeaterCoolerStateValidValues() {
+    return CurrentHeaterCoolerStateEnum.values();
+  }
+
+  /**
+   * Valid values for target state.
+   *
+   * @return array of valid target states
+   */
+  default TargetHeaterCoolerStateEnum[] getTargetHeaterCoolerStateValidValues() {
+    return TargetHeaterCoolerStateEnum.values();
+  }
+
   @Override
   default Collection<Service> getServices() {
     return Collections.singleton(new HeaterCoolerService(this));

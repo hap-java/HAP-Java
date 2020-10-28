@@ -37,10 +37,12 @@ public class ThermostatService extends AbstractServiceImpl {
   public ThermostatService(ThermostatAccessory accessory) {
     this(
         new CurrentHeatingCoolingStateCharacteristic(
+            accessory.getCurrentHeatingCoolingStateValidValues(),
             accessory::getCurrentState,
             accessory::subscribeCurrentState,
             accessory::unsubscribeCurrentState),
         new TargetHeatingCoolingStateCharacteristic(
+            accessory.getTargetHeatingCoolingStateValidValues(),
             accessory::getTargetState,
             accessory::setTargetState,
             accessory::subscribeTargetState,
@@ -69,35 +71,45 @@ public class ThermostatService extends AbstractServiceImpl {
       addOptionalCharacteristic(new NameCharacteristic(((AccessoryWithName) accessory)::getName));
     }
     if (accessory instanceof AccessoryWithCoolingThresholdTemperature) {
-      new CoolingThresholdTemperatureCharacteristic(
-          ((AccessoryWithCoolingThresholdTemperature) accessory)::getCoolingThresholdTemperature,
-          ((AccessoryWithCoolingThresholdTemperature) accessory)::setCoolingThresholdTemperature,
-          ((AccessoryWithCoolingThresholdTemperature) accessory)
-              ::subscribeCoolingThresholdTemperature,
-          ((AccessoryWithCoolingThresholdTemperature) accessory)
-              ::unsubscribeCoolingThresholdTemperature);
+      addOptionalCharacteristic(
+          new CoolingThresholdTemperatureCharacteristic(
+              ((AccessoryWithCoolingThresholdTemperature) accessory)
+                  ::getCoolingThresholdTemperature,
+              ((AccessoryWithCoolingThresholdTemperature) accessory)
+                  ::setCoolingThresholdTemperature,
+              ((AccessoryWithCoolingThresholdTemperature) accessory)
+                  ::subscribeCoolingThresholdTemperature,
+              ((AccessoryWithCoolingThresholdTemperature) accessory)
+                  ::unsubscribeCoolingThresholdTemperature));
     }
     if (accessory instanceof AccessoryWithHeatingThresholdTemperature) {
-      new HeatingThresholdTemperatureCharacteristic(
-          ((AccessoryWithHeatingThresholdTemperature) accessory)::getHeatingThresholdTemperature,
-          ((AccessoryWithHeatingThresholdTemperature) accessory)::setHeatingThresholdTemperature,
-          ((AccessoryWithHeatingThresholdTemperature) accessory)
-              ::subscribeHeatingThresholdTemperature,
-          ((AccessoryWithHeatingThresholdTemperature) accessory)
-              ::unsubscribeHeatingThresholdTemperature);
+      addOptionalCharacteristic(
+          new HeatingThresholdTemperatureCharacteristic(
+              ((AccessoryWithHeatingThresholdTemperature) accessory)
+                  ::getHeatingThresholdTemperature,
+              ((AccessoryWithHeatingThresholdTemperature) accessory)
+                  ::setHeatingThresholdTemperature,
+              ((AccessoryWithHeatingThresholdTemperature) accessory)
+                  ::subscribeHeatingThresholdTemperature,
+              ((AccessoryWithHeatingThresholdTemperature) accessory)
+                  ::unsubscribeHeatingThresholdTemperature));
     }
     if (accessory instanceof AccessoryWithCurrentRelativeHumidity) {
-      new CurrentRelativeHumidityCharacteristic(
-          ((AccessoryWithCurrentRelativeHumidity) accessory)::getCurrentRelativeHumidity,
-          ((AccessoryWithCurrentRelativeHumidity) accessory)::subscribeCurrentRelativeHumidity,
-          ((AccessoryWithCurrentRelativeHumidity) accessory)::unsubscribeCurrentRelativeHumidity);
+      addOptionalCharacteristic(
+          new CurrentRelativeHumidityCharacteristic(
+              ((AccessoryWithCurrentRelativeHumidity) accessory)::getCurrentRelativeHumidity,
+              ((AccessoryWithCurrentRelativeHumidity) accessory)::subscribeCurrentRelativeHumidity,
+              ((AccessoryWithCurrentRelativeHumidity) accessory)
+                  ::unsubscribeCurrentRelativeHumidity));
     }
     if (accessory instanceof AccessoryWithTargetRelativeHumidity) {
-      new TargetRelativeHumidityCharacteristic(
-          ((AccessoryWithTargetRelativeHumidity) accessory)::getTargetRelativeHumidity,
-          ((AccessoryWithTargetRelativeHumidity) accessory)::setTargetRelativeHumidity,
-          ((AccessoryWithTargetRelativeHumidity) accessory)::subscribeTargetRelativeHumidity,
-          ((AccessoryWithTargetRelativeHumidity) accessory)::unsubscribeTargetRelativeHumidity);
+      addOptionalCharacteristic(
+          new TargetRelativeHumidityCharacteristic(
+              ((AccessoryWithTargetRelativeHumidity) accessory)::getTargetRelativeHumidity,
+              ((AccessoryWithTargetRelativeHumidity) accessory)::setTargetRelativeHumidity,
+              ((AccessoryWithTargetRelativeHumidity) accessory)::subscribeTargetRelativeHumidity,
+              ((AccessoryWithTargetRelativeHumidity) accessory)
+                  ::unsubscribeTargetRelativeHumidity));
     }
   }
 

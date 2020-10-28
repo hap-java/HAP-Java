@@ -26,10 +26,12 @@ public class SecuritySystemService extends AbstractServiceImpl {
   public SecuritySystemService(SecuritySystemAccessory accessory) {
     this(
         new CurrentSecuritySystemStateCharacteristic(
+            accessory.getCurrentSecuritySystemStateValidValues(),
             accessory::getCurrentSecuritySystemState,
             accessory::subscribeCurrentSecuritySystemState,
             accessory::unsubscribeCurrentSecuritySystemState),
         new TargetSecuritySystemStateCharacteristic(
+            accessory.getTargetSecuritySystemStateValidValues(),
             accessory::getTargetSecuritySystemState,
             accessory::setTargetSecuritySystemState,
             accessory::subscribeTargetSecuritySystemState,

@@ -20,7 +20,7 @@ public class ChargingStateCharacteristic extends EnumCharacteristic<ChargingStat
     super(
         "0000008F-0000-1000-8000-0026BB765291",
         "Charging state",
-        2,
+        ChargingStateEnum.values(),
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

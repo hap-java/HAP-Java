@@ -21,15 +21,10 @@ public class IsConfiguredCharacteristic extends EnumCharacteristic<IsConfiguredE
     super(
         "000000D6-0000-1000-8000-0026BB765291",
         "Is Configured",
-        1,
+        IsConfiguredEnum.values(),
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),
         Optional.of(unsubscriber));
-  }
-
-  @Override
-  protected void setValue(Integer value) throws Exception {
-    if (setter.isPresent()) setter.get().accept(IsConfiguredEnum.fromCode(value));
   }
 }

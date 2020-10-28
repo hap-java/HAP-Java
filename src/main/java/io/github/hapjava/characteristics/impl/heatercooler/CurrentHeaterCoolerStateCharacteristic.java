@@ -13,13 +13,14 @@ public class CurrentHeaterCoolerStateCharacteristic
     extends EnumCharacteristic<CurrentHeaterCoolerStateEnum> implements EventableCharacteristic {
 
   public CurrentHeaterCoolerStateCharacteristic(
+      CurrentHeaterCoolerStateEnum[] validValues,
       Supplier<CompletableFuture<CurrentHeaterCoolerStateEnum>> getter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
     super(
         "000000B1-0000-1000-8000-0026BB765291",
         "current heater cooler state",
-        3,
+        validValues,
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

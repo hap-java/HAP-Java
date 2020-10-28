@@ -13,6 +13,7 @@ public class TargetHeatingCoolingStateCharacteristic
     extends EnumCharacteristic<TargetHeatingCoolingStateEnum> {
 
   public TargetHeatingCoolingStateCharacteristic(
+      TargetHeatingCoolingStateEnum[] validValues,
       Supplier<CompletableFuture<TargetHeatingCoolingStateEnum>> getter,
       ExceptionalConsumer<TargetHeatingCoolingStateEnum> setter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
@@ -20,18 +21,10 @@ public class TargetHeatingCoolingStateCharacteristic
     super(
         "00000033-0000-1000-8000-0026BB765291",
         "Target heating cooling mode",
-        3,
+        validValues,
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),
         Optional.of(unsubscriber));
-  }
-
-  @Override
-  protected void setValue(Integer value) throws Exception {
-    if (!setter.isPresent()) {
-      return;
-    }
-    setter.get().accept(TargetHeatingCoolingStateEnum.fromCode(value));
   }
 }

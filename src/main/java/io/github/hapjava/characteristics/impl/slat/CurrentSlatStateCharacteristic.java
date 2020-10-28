@@ -17,7 +17,7 @@ public class CurrentSlatStateCharacteristic extends EnumCharacteristic<CurrentSl
     super(
         "000000AA-0000-1000-8000-0026BB765291",
         "current slat state",
-        2,
+        CurrentSlatStateEnum.values(),
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

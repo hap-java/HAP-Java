@@ -21,18 +21,10 @@ public class SwingModeCharacteristic extends EnumCharacteristic<SwingModeEnum>
     super(
         "000000B6-0000-1000-8000-0026BB765291",
         "Swing Mode",
-        1,
+        SwingModeEnum.values(),
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),
         Optional.of(unsubscriber));
-  }
-
-  @Override
-  protected void setValue(Integer value) throws Exception {
-    if (!setter.isPresent()) {
-      return;
-    }
-    setter.get().accept(SwingModeEnum.fromCode(value));
   }
 }

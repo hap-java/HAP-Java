@@ -12,13 +12,14 @@ public class CurrentSecuritySystemStateCharacteristic
     extends EnumCharacteristic<CurrentSecuritySystemStateEnum> {
 
   public CurrentSecuritySystemStateCharacteristic(
+      CurrentSecuritySystemStateEnum[] validValues,
       Supplier<CompletableFuture<CurrentSecuritySystemStateEnum>> getter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
     super(
         "00000066-0000-1000-8000-0026BB765291",
         "Current Security System State",
-        4,
+        validValues,
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

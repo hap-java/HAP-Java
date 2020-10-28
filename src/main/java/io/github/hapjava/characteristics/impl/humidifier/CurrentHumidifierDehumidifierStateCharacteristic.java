@@ -20,7 +20,7 @@ public class CurrentHumidifierDehumidifierStateCharacteristic
     super(
         "000000B3-0000-1000-8000-0026BB765291",
         "current humidifier state",
-        3,
+        CurrentHumidifierDehumidifierStateEnum.values(),
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

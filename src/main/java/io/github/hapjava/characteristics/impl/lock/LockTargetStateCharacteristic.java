@@ -19,18 +19,10 @@ public class LockTargetStateCharacteristic extends EnumCharacteristic<LockTarget
     super(
         "0000001E-0000-1000-8000-0026BB765291",
         "Target Lock State",
-        1,
+        LockTargetStateEnum.values(),
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),
         Optional.of(unsubscriber));
-  }
-
-  @Override
-  protected void setValue(Integer value) throws Exception {
-    if (!setter.isPresent()) {
-      return;
-    }
-    setter.get().accept(LockTargetStateEnum.fromCode(value));
   }
 }

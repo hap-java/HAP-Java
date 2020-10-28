@@ -14,6 +14,7 @@ public class TargetHeaterCoolerStateCharacteristic
     extends EnumCharacteristic<TargetHeaterCoolerStateEnum> implements EventableCharacteristic {
 
   public TargetHeaterCoolerStateCharacteristic(
+      TargetHeaterCoolerStateEnum[] validValues,
       Supplier<CompletableFuture<TargetHeaterCoolerStateEnum>> getter,
       ExceptionalConsumer<TargetHeaterCoolerStateEnum> setter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
@@ -21,18 +22,10 @@ public class TargetHeaterCoolerStateCharacteristic
     super(
         "000000B2-0000-1000-8000-0026BB765291",
         "target heater cooler state",
-        2,
+        validValues,
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),
         Optional.of(unsubscriber));
-  }
-
-  @Override
-  protected void setValue(Integer value) throws Exception {
-    if (!setter.isPresent()) {
-      return;
-    }
-    setter.get().accept(TargetHeaterCoolerStateEnum.fromCode(value));
   }
 }

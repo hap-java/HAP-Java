@@ -24,7 +24,7 @@ public class ProgrammableSwitchEventCharacteristic
     super(
         "00000073-0000-1000-8000-0026BB765291",
         "Switch Event",
-        2,
+        ProgrammableSwitchEnum.values(),
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

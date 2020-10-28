@@ -14,13 +14,14 @@ public class CurrentHeatingCoolingStateCharacteristic
     extends EnumCharacteristic<CurrentHeatingCoolingStateEnum> {
 
   public CurrentHeatingCoolingStateCharacteristic(
+      CurrentHeatingCoolingStateEnum[] validValues,
       Supplier<CompletableFuture<CurrentHeatingCoolingStateEnum>> getter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
     super(
         "0000000F-0000-1000-8000-0026BB765291",
         "Current heating cooling mode",
-        2,
+        validValues,
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

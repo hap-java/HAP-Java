@@ -21,18 +21,10 @@ public class LockPhysicalControlsCharacteristic extends EnumCharacteristic<LockP
     super(
         "000000A7-0000-1000-8000-0026BB765291",
         "Physical Locks",
-        1,
+        LockPhysicalControlsEnum.values(),
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),
         Optional.of(unsubscriber));
-  }
-
-  @Override
-  protected void setValue(Integer value) throws Exception {
-    if (!setter.isPresent()) {
-      return;
-    }
-    setter.get().accept(LockPhysicalControlsEnum.fromCode(value));
   }
 }

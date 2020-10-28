@@ -19,7 +19,7 @@ public class CurrentDoorStateCharacteristic extends EnumCharacteristic<CurrentDo
     super(
         "0000000E-0000-1000-8000-0026BB765291",
         "Current Door State",
-        4,
+        CurrentDoorStateEnum.values(),
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),
