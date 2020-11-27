@@ -1,6 +1,8 @@
 package io.github.hapjava.server.impl.json;
 
-class HapJsonNoContentResponse extends HapJsonResponse {
+import io.github.hapjava.server.impl.responses.OkResponse;
+
+class HapJsonNoContentResponse extends OkResponse {
 
   public HapJsonNoContentResponse() {
     super(new byte[0]);

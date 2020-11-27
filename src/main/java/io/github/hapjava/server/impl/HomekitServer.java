@@ -2,6 +2,7 @@ package io.github.hapjava.server.impl;
 
 import io.github.hapjava.accessories.HomekitAccessory;
 import io.github.hapjava.server.HomekitAuthInfo;
+import io.github.hapjava.server.HomekitWebHandler;
 import io.github.hapjava.server.impl.http.impl.HomekitHttpServer;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -26,7 +27,7 @@ import java.util.concurrent.ExecutionException;
  */
 public class HomekitServer {
 
-  private final HomekitHttpServer http;
+  private final HomekitWebHandler http;
   private final InetAddress localAddress;
 
   /**
@@ -63,6 +64,20 @@ public class HomekitServer {
    */
   public HomekitServer(int port) throws IOException {
     this(InetAddress.getLocalHost(), port);
+  }
+
+  /**
+   * Constructor. Contains an argument indicating the number of threads to use in the http server.
+   * The other constructors default this to the number of available processors, however you may
+   * increase this in an environment with many users and/or blocking accessory implementations.
+   *
+   * @param localAddress local address to bind to.
+   * @param http http service that
+   * @throws IOException when the server cannot bind to the supplied port
+   */
+  public HomekitServer(InetAddress localAddress, HomekitWebHandler http) throws IOException {
+    this.localAddress = localAddress;
+    this.http = http;
   }
 
   /** Stops the service, closing down existing connections and preventing new ones. */

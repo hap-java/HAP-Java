@@ -32,7 +32,7 @@ Current implementation fully supports 37 HomeKit accessory/services.
 |  Air Quality Sensor               |     :white_check_mark:    |
 |  Audio Stream Management          |     :x:                   |
 |  Battery Service                  |     :white_check_mark:    |
-|  Camera RTP Stream Management     |     :x:                   |
+|  Camera RTP Stream Management     |      :white_check_mark:   |
 |  Carbon Dioxide Sensor            |     :white_check_mark:    |
 |  Carbon Monoxide Sensor           |     :white_check_mark:    |
 |  Contact Sensor                   |     :white_check_mark:    |

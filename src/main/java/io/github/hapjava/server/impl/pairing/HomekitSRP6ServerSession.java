@@ -8,6 +8,7 @@ import com.nimbusds.srp6.SRP6ServerEvidenceContext;
 import com.nimbusds.srp6.SRP6Session;
 import com.nimbusds.srp6.URoutineContext;
 import java.math.BigInteger;
+import java.security.MessageDigest;
 
 /**
  * This is a slightly modified version of the SRP6ServerSession class included with nimbus. The only
@@ -37,6 +38,8 @@ import java.math.BigInteger;
  * @author Vladimir Dzhuvinov
  */
 public class HomekitSRP6ServerSession extends SRP6Session {
+  private SRP6Routines SRP6Routines = new SRP6Routines();
+  private MessageDigest digest;
 
   /** Enumerates the states of a server-side SRP-6a authentication session. */
   public static enum State {

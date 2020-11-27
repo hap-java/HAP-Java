@@ -27,3 +27,5 @@
 * Occupancy sensor support [#59](https://github.com/hap-java/HAP-Java/pull/59)
 * Leak sensors and valve support added [#52](https://github.com/hap-java/HAP-Java/pull/52)
 * Notifications are batched now, when possible [#66](https://github.com/hap-java/HAP-Java/pull/66)
+# Android Support
+# Camera Support

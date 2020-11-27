@@ -14,7 +14,7 @@ public class HomekitUtils {
   private static volatile SecureRandom secureRandom;
 
   public static BigInteger generateSalt() {
-    return new BigInteger(SRP6Routines.generateRandomSalt(16));
+    return new BigInteger(1, new SRP6Routines().generateRandomSalt(16));
   }
 
   public static byte[] generateKey() throws InvalidAlgorithmParameterException {

@@ -1,6 +1,7 @@
 package io.github.hapjava.server.impl.http;
 
 import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
 
 public interface HomekitClientConnection {
 
@@ -13,4 +14,6 @@ public interface HomekitClientConnection {
   void close();
 
   void outOfBand(HttpResponse message);
+
+  CompletableFuture<HttpResponse> handleRequestAsync(HttpRequest request);
 }

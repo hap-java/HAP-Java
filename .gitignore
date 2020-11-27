@@ -28,3 +28,6 @@ target/
 
 # Log files
 *.log
+build
+local.properties
+.gradle

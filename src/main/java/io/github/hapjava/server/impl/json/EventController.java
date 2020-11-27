@@ -9,6 +9,7 @@ import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.json.JsonWriter;
 
 public class EventController {
 
@@ -25,7 +26,9 @@ public class EventController {
     JsonObject data = Json.createObjectBuilder().add("characteristics", characteristics).build();
 
     try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-      Json.createWriter(baos).write(data);
+      JsonWriter writer = Json.createWriter(baos);
+      writer.write(data);
+      writer.close();
       byte[] dataBytes = baos.toByteArray();
 
       return new EventResponse(dataBytes);
@@ -46,7 +49,9 @@ public class EventController {
     JsonObject data = Json.createObjectBuilder().add("characteristics", characteristics).build();
 
     try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-      Json.createWriter(baos).write(data);
+      JsonWriter writer = Json.createWriter(baos);
+      writer.write(data);
+      writer.close();
       byte[] dataBytes = baos.toByteArray();
 
       return new EventResponse(dataBytes);

@@ -82,7 +82,7 @@ class SrpHandler {
 
   public byte[] getK() {
     MessageDigest digest = session.getCryptoParams().getMessageDigestInstance();
-    BigInteger S = session.getSessionKey(false);
+    BigInteger S = session.getSessionKey();
     byte[] sBytes = bigIntegerToUnsignedByteArray(S);
     return digest.digest(sBytes);
   }

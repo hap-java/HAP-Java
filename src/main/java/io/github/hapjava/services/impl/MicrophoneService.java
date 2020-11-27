@@ -18,6 +18,12 @@ public class MicrophoneService extends AbstractServiceImpl {
     addCharacteristic(muteCharacteristic);
   }
 
+  public MicrophoneService(
+      MuteCharacteristic muteCharacteristic, VolumeCharacteristic volumeCharacteristic) {
+    this(muteCharacteristic);
+    addCharacteristic(volumeCharacteristic);
+  }
+
   public MicrophoneService(MicrophoneAccessory accessory) {
     this(
         new MuteCharacteristic(

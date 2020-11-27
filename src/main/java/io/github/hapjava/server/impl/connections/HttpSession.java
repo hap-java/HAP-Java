@@ -9,6 +9,7 @@ import io.github.hapjava.server.impl.http.HttpResponse;
 import io.github.hapjava.server.impl.jmdns.JmdnsHomekitAdvertiser;
 import io.github.hapjava.server.impl.json.AccessoryController;
 import io.github.hapjava.server.impl.json.CharacteristicsController;
+import io.github.hapjava.server.impl.json.ResourceController;
 import io.github.hapjava.server.impl.pairing.PairVerificationManager;
 import io.github.hapjava.server.impl.pairing.PairingManager;
 import io.github.hapjava.server.impl.pairing.PairingUpdateController;
@@ -16,6 +17,7 @@ import io.github.hapjava.server.impl.responses.InternalServerErrorResponse;
 import io.github.hapjava.server.impl.responses.NotFoundResponse;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.concurrent.CompletableFuture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +27,7 @@ class HttpSession {
   private volatile PairVerificationManager pairVerificationManager;
   private volatile AccessoryController accessoryController;
   private volatile CharacteristicsController characteristicsController;
+  private volatile ResourceController resourceController;
 
   private final HomekitAuthInfo authInfo;
   private final HomekitRegistry registry;
@@ -63,6 +66,26 @@ class HttpSession {
           return new NotFoundResponse();
         }
     }
+  }
+
+  public CompletableFuture<HttpResponse> handleRequestAsync(HttpRequest request) {
+    if (!"/resource".equals(request.getUri())) {
+      return null;
+    }
+
+    try {
+      return getResourceController().handle(request, connection);
+    } catch (Exception e) {
+      logger.error("Could not handle request", e);
+      return CompletableFuture.completedFuture(new InternalServerErrorResponse(e));
+    }
+  }
+
+  private synchronized ResourceController getResourceController() {
+    if (resourceController == null) {
+      resourceController = new ResourceController(registry);
+    }
+    return resourceController;
   }
 
   public HttpResponse handleAuthenticatedRequest(HttpRequest request) throws IOException {

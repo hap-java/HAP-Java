@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Collection;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import org.bouncycastle.util.Pack;
 import org.slf4j.Logger;
@@ -47,6 +48,14 @@ class ConnectionImpl implements HomekitClientConnection {
   @Override
   public synchronized HttpResponse handleRequest(HttpRequest request) throws IOException {
     return doHandleRequest(request);
+  }
+
+  @Override
+  public CompletableFuture<HttpResponse> handleRequestAsync(HttpRequest request) {
+    if (!isUpgraded) {
+      return null;
+    }
+    return httpSession.handleRequestAsync(request);
   }
 
   private HttpResponse doHandleRequest(HttpRequest request) throws IOException {
