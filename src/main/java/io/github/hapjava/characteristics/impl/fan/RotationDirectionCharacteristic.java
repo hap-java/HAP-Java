@@ -21,18 +21,10 @@ public class RotationDirectionCharacteristic extends EnumCharacteristic<Rotation
     super(
         "00000028-0000-1000-8000-0026BB765291",
         "Rotation direction",
-        1,
+        RotationDirectionEnum.values(),
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),
         Optional.of(unsubscriber));
-  }
-
-  @Override
-  protected void setValue(Integer value) throws Exception {
-    if (!setter.isPresent()) {
-      return;
-    }
-    setter.get().accept(RotationDirectionEnum.fromCode(value));
   }
 }

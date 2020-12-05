@@ -19,7 +19,7 @@ public class AirQualityCharacteristic extends EnumCharacteristic<AirQualityEnum>
     super(
         "00000095-0000-1000-8000-0026BB765291",
         "air quality",
-        5,
+        AirQualityEnum.values(),
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

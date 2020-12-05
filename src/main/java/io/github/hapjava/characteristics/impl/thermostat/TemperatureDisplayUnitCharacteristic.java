@@ -23,18 +23,10 @@ public class TemperatureDisplayUnitCharacteristic
     super(
         "00000036-0000-1000-8000-0026BB765291",
         "Temperature units",
-        1,
+        TemperatureDisplayUnitEnum.values(),
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),
         Optional.of(unsubscriber));
-  }
-
-  @Override
-  protected void setValue(Integer value) throws Exception {
-    if (!setter.isPresent()) {
-      return;
-    }
-    setter.get().accept(TemperatureDisplayUnitEnum.fromCode(value));
   }
 }

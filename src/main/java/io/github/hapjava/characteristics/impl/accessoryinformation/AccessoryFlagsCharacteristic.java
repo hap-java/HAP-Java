@@ -20,7 +20,7 @@ public class AccessoryFlagsCharacteristic extends EnumCharacteristic<AccessoryFl
     super(
         "000000A6-0000-1000-8000-0026BB765291",
         "accessory flags",
-        1,
+        AccessoryFlagsEnum.values(),
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

@@ -17,7 +17,7 @@ public class SmokeDetectedCharacteristic extends EnumCharacteristic<SmokeDetecte
     super(
         "00000076-0000-1000-8000-0026BB765291",
         "Smoke Detected",
-        1,
+        SmokeDetectedStateEnum.values(),
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

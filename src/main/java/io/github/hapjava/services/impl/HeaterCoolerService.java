@@ -48,10 +48,12 @@ public class HeaterCoolerService extends AbstractServiceImpl {
             accessory::subscribeCurrentTemperature,
             accessory::unsubscribeCurrentTemperature),
         new CurrentHeaterCoolerStateCharacteristic(
+            accessory.getCurrentHeaterCoolerStateValidValues(),
             accessory::getCurrentHeaterCoolerState,
             accessory::subscribeCurrentHeaterCoolerState,
             accessory::unsubscribeCurrentHeaterCoolerState),
         new TargetHeaterCoolerStateCharacteristic(
+            accessory.getTargetHeaterCoolerStateValidValues(),
             accessory::getTargetHeaterCoolerState,
             accessory::setTargetHeaterCoolerState,
             accessory::subscribeTargetHeaterCoolerState,
@@ -84,34 +86,40 @@ public class HeaterCoolerService extends AbstractServiceImpl {
               ((AccessoryWithPhysicalControlsLock) accessory)::unsubscribeLockControls));
     }
     if (accessory instanceof AccessoryWithCoolingThresholdTemperature) {
-      new CoolingThresholdTemperatureCharacteristic(
-          ((AccessoryWithCoolingThresholdTemperature) accessory)
-              .getMinCoolingThresholdTemperature(),
-          ((AccessoryWithCoolingThresholdTemperature) accessory)
-              .getMaxCoolingThresholdTemperature(),
-          ((AccessoryWithCoolingThresholdTemperature) accessory)
-              .getStepCoolingThresholdTemperature(),
-          ((AccessoryWithCoolingThresholdTemperature) accessory)::getCoolingThresholdTemperature,
-          ((AccessoryWithCoolingThresholdTemperature) accessory)::setCoolingThresholdTemperature,
-          ((AccessoryWithCoolingThresholdTemperature) accessory)
-              ::subscribeCoolingThresholdTemperature,
-          ((AccessoryWithCoolingThresholdTemperature) accessory)
-              ::unsubscribeCoolingThresholdTemperature);
+      addOptionalCharacteristic(
+          new CoolingThresholdTemperatureCharacteristic(
+              ((AccessoryWithCoolingThresholdTemperature) accessory)
+                  .getMinCoolingThresholdTemperature(),
+              ((AccessoryWithCoolingThresholdTemperature) accessory)
+                  .getMaxCoolingThresholdTemperature(),
+              ((AccessoryWithCoolingThresholdTemperature) accessory)
+                  .getStepCoolingThresholdTemperature(),
+              ((AccessoryWithCoolingThresholdTemperature) accessory)
+                  ::getCoolingThresholdTemperature,
+              ((AccessoryWithCoolingThresholdTemperature) accessory)
+                  ::setCoolingThresholdTemperature,
+              ((AccessoryWithCoolingThresholdTemperature) accessory)
+                  ::subscribeCoolingThresholdTemperature,
+              ((AccessoryWithCoolingThresholdTemperature) accessory)
+                  ::unsubscribeCoolingThresholdTemperature));
     }
     if (accessory instanceof AccessoryWithHeatingThresholdTemperature) {
-      new HeatingThresholdTemperatureCharacteristic(
-          ((AccessoryWithHeatingThresholdTemperature) accessory)
-              .getMinHeatingThresholdTemperature(),
-          ((AccessoryWithHeatingThresholdTemperature) accessory)
-              .getMaxHeatingThresholdTemperature(),
-          ((AccessoryWithHeatingThresholdTemperature) accessory)
-              .getStepHeatingThresholdTemperature(),
-          ((AccessoryWithHeatingThresholdTemperature) accessory)::getHeatingThresholdTemperature,
-          ((AccessoryWithHeatingThresholdTemperature) accessory)::setHeatingThresholdTemperature,
-          ((AccessoryWithHeatingThresholdTemperature) accessory)
-              ::subscribeHeatingThresholdTemperature,
-          ((AccessoryWithHeatingThresholdTemperature) accessory)
-              ::unsubscribeHeatingThresholdTemperature);
+      addOptionalCharacteristic(
+          new HeatingThresholdTemperatureCharacteristic(
+              ((AccessoryWithHeatingThresholdTemperature) accessory)
+                  .getMinHeatingThresholdTemperature(),
+              ((AccessoryWithHeatingThresholdTemperature) accessory)
+                  .getMaxHeatingThresholdTemperature(),
+              ((AccessoryWithHeatingThresholdTemperature) accessory)
+                  .getStepHeatingThresholdTemperature(),
+              ((AccessoryWithHeatingThresholdTemperature) accessory)
+                  ::getHeatingThresholdTemperature,
+              ((AccessoryWithHeatingThresholdTemperature) accessory)
+                  ::setHeatingThresholdTemperature,
+              ((AccessoryWithHeatingThresholdTemperature) accessory)
+                  ::subscribeHeatingThresholdTemperature,
+              ((AccessoryWithHeatingThresholdTemperature) accessory)
+                  ::unsubscribeHeatingThresholdTemperature));
     }
     if (accessory instanceof AccessoryWithTemperatureDisplayUnits) {
       addOptionalCharacteristic(

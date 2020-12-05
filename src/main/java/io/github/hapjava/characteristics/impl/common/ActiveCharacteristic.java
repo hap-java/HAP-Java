@@ -22,15 +22,10 @@ public class ActiveCharacteristic extends EnumCharacteristic<ActiveEnum> {
     super(
         "000000B0-0000-1000-8000-0026BB765291",
         "Active",
-        1,
+        ActiveEnum.values(),
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),
         Optional.of(unsubscriber));
-  }
-
-  @Override
-  protected void setValue(Integer value) throws Exception {
-    if (setter.isPresent()) setter.get().accept(ActiveEnum.fromCode(value));
   }
 }

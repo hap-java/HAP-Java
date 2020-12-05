@@ -19,7 +19,7 @@ public class ProgramModeCharacteristic extends EnumCharacteristic<ProgramModeEnu
     super(
         "000000D1-0000-1000-8000-0026BB765291",
         "Program Mode",
-        2,
+        ProgramModeEnum.values(),
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

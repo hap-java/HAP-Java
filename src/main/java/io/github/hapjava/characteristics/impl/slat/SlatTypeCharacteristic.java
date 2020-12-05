@@ -14,7 +14,7 @@ public class SlatTypeCharacteristic extends EnumCharacteristic<SlatTypeEnum> {
     super(
         "000000C0-0000-1000-8000-0026BB765291",
         "slat type",
-        1,
+        SlatTypeEnum.values(),
         Optional.of(getter),
         Optional.empty(),
         Optional.empty(),

@@ -22,7 +22,7 @@ public class CarbonMonoxideDetectedCharacteristic
     super(
         "00000069-0000-1000-8000-0026BB765291",
         "Carbon Monoxide Detected",
-        1,
+        CarbonMonoxideDetectedEnum.values(),
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

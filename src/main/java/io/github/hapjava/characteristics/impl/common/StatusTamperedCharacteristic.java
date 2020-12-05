@@ -20,7 +20,7 @@ public class StatusTamperedCharacteristic extends EnumCharacteristic<StatusTampe
     super(
         "0000007A-0000-1000-8000-0026BB765291",
         "Status Tampered",
-        1,
+        StatusTamperedEnum.values(),
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

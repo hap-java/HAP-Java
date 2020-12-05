@@ -17,7 +17,7 @@ public class PositionStateCharacteristic extends EnumCharacteristic<PositionStat
     super(
         "00000072-0000-1000-8000-0026BB765291",
         "Position state",
-        2,
+        PositionStateEnum.values(),
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

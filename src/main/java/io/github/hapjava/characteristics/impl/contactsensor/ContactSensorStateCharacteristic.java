@@ -22,7 +22,7 @@ public class ContactSensorStateCharacteristic extends EnumCharacteristic<Contact
     super(
         "0000006A-0000-1000-8000-0026BB765291",
         "Contact Sensor",
-        1,
+        ContactStateEnum.values(),
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

@@ -21,7 +21,7 @@ public class CurrentAirPurifierCharacteristic
     super(
         "000000A9-0000-1000-8000-0026BB765291",
         "current air purifier state",
-        2,
+        CurrentAirPurifierStateEnum.values(),
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

@@ -21,7 +21,7 @@ public class SecuritySystemAlarmTypeCharacteristic
     super(
         "0000008E-0000-1000-8000-0026BB765291",
         "Alert Type",
-        1,
+        SecuritySystemAlarmTypeEnum.values(),
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

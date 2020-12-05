@@ -17,7 +17,7 @@ public class OccupancyDetectedCharacteristic extends EnumCharacteristic<Occupanc
     super(
         "00000071-0000-1000-8000-0026BB765291",
         "Occupancy Detected",
-        1,
+        OccupancyDetectedEnum.values(),
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

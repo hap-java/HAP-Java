@@ -16,7 +16,7 @@ public class ServiceLabelNamespaceCharacteristic
     super(
         "000000CD-0000-1000-8000-0026BB765291",
         "service label namespace",
-        1,
+        ServiceLabelNamespaceEnum.values(),
         Optional.of(getter),
         Optional.empty(),
         Optional.empty(),

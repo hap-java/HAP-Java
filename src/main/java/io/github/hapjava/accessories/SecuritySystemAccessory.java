@@ -64,6 +64,24 @@ public interface SecuritySystemAccessory extends HomekitAccessory {
    */
   void unsubscribeTargetSecuritySystemState();
 
+  /**
+   * Valid values for current state.
+   *
+   * @return array of valid current states.
+   */
+  default CurrentSecuritySystemStateEnum[] getCurrentSecuritySystemStateValidValues() {
+    return CurrentSecuritySystemStateEnum.values();
+  }
+
+  /**
+   * Valid values for target state.
+   *
+   * @return array of valid targe states.
+   */
+  default TargetSecuritySystemStateEnum[] getTargetSecuritySystemStateValidValues() {
+    return TargetSecuritySystemStateEnum.values();
+  }
+
   @Override
   default Collection<Service> getServices() {
     return Collections.singleton(new SecuritySystemService(this));

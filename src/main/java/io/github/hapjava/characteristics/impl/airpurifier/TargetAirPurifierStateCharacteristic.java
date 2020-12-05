@@ -23,18 +23,10 @@ public class TargetAirPurifierStateCharacteristic
     super(
         "000000A8-0000-1000-8000-0026BB765291",
         "Air purifier state",
-        1,
+        TargetAirPurifierStateEnum.values(),
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),
         Optional.of(unsubscriber));
-  }
-
-  @Override
-  protected void setValue(Integer value) throws Exception {
-    if (!setter.isPresent()) {
-      return;
-    }
-    setter.get().accept(TargetAirPurifierStateEnum.fromCode(value));
   }
 }

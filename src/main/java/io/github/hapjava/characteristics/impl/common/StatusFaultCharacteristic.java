@@ -17,7 +17,7 @@ public class StatusFaultCharacteristic extends EnumCharacteristic<StatusFaultEnu
     super(
         "00000077-0000-1000-8000-0026BB765291",
         "Status Fault",
-        1,
+        StatusFaultEnum.values(),
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

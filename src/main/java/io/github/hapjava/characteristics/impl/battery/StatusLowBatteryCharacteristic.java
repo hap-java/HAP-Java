@@ -20,7 +20,7 @@ public class StatusLowBatteryCharacteristic extends EnumCharacteristic<StatusLow
     super(
         "00000079-0000-1000-8000-0026BB765291",
         "Status Low Battery",
-        1,
+        StatusLowBatteryEnum.values(),
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

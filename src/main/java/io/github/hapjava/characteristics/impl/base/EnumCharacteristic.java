@@ -3,10 +3,13 @@ package io.github.hapjava.characteristics.impl.base;
 import io.github.hapjava.characteristics.CharacteristicEnum;
 import io.github.hapjava.characteristics.ExceptionalConsumer;
 import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonNumber;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
@@ -22,7 +25,7 @@ import javax.json.JsonValue;
 public abstract class EnumCharacteristic<T extends CharacteristicEnum>
     extends BaseCharacteristic<Integer> {
 
-  private final int maxValue;
+  private final T[] validValues;
   Optional<Supplier<CompletableFuture<T>>> getter;
   protected Optional<ExceptionalConsumer<T>> setter;
 
@@ -32,7 +35,7 @@ public abstract class EnumCharacteristic<T extends CharacteristicEnum>
    * @param type a string containing a UUID that indicates the type of characteristic. Apple defines
    *     a set of these, however implementors can create their own as well.
    * @param description a description of the characteristic to be passed to the consuming device.
-   * @param maxValue the number of enum items.
+   * @param validValues an array of valid values for enum.
    * @param getter getter to retrieve the value
    * @param setter setter to set value
    * @param subscriber subscriber to subscribe to changes
@@ -41,25 +44,29 @@ public abstract class EnumCharacteristic<T extends CharacteristicEnum>
   public EnumCharacteristic(
       String type,
       String description,
-      int maxValue,
+      T[] validValues,
       Optional<Supplier<CompletableFuture<T>>> getter,
       Optional<ExceptionalConsumer<T>> setter,
       Optional<Consumer<HomekitCharacteristicChangeCallback>> subscriber,
       Optional<Runnable> unsubscriber) {
     super(
         type, "int", description, getter.isPresent(), setter.isPresent(), subscriber, unsubscriber);
-    this.maxValue = maxValue;
     this.getter = getter;
     this.setter = setter;
+    this.validValues = validValues;
   }
 
   /** {@inheritDoc} */
   @Override
   protected CompletableFuture<JsonObjectBuilder> makeBuilder(int iid) {
+    JsonArrayBuilder validValuesBuilder = Json.createArrayBuilder();
+    if (validValues != null && validValues.length != 0) {
+      Arrays.stream(validValues).forEach((T value) -> validValuesBuilder.add(value.getCode()));
+    }
     return super.makeBuilder(iid)
         .thenApply(
             builder -> {
-              return builder.add("minValue", 0).add("maxValue", maxValue).add("minStep", 1);
+              return builder.add("valid-values", validValuesBuilder);
             });
   }
 
@@ -91,12 +98,24 @@ public abstract class EnumCharacteristic<T extends CharacteristicEnum>
       return;
     }
 
-    // TODO implement setter here?
+    // check if value is in valid values
+    if (validValues != null && value != null) {
+      for (T valid : validValues) {
+        if (valid.getCode() == value) {
+          setter.get().accept(valid);
+          return;
+        }
+      }
+    }
   }
 
   /** {@inheritDoc} */
   @Override
   protected Integer getDefault() {
+    // as default return first item from valid values
+    if (validValues != null && validValues.length > 0) {
+      return validValues[0].getCode();
+    }
     return 0;
   }
 }

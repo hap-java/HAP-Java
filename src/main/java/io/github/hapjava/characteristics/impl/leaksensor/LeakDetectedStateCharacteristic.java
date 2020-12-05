@@ -22,7 +22,7 @@ public class LeakDetectedStateCharacteristic extends EnumCharacteristic<LeakDete
     super(
         "00000070-0000-1000-8000-0026BB765291",
         "Leak Detected State",
-        3,
+        LeakDetectedStateEnum.values(),
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

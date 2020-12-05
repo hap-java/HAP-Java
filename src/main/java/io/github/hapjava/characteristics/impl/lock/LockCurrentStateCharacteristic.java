@@ -17,7 +17,7 @@ public class LockCurrentStateCharacteristic extends EnumCharacteristic<LockCurre
     super(
         "0000001D-0000-1000-8000-0026BB765291",
         "Current Lock State",
-        3,
+        LockCurrentStateEnum.values(),
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

@@ -21,18 +21,10 @@ public class TargetFanStateCharacteristic extends EnumCharacteristic<TargetFanSt
     super(
         "000000BF-0000-1000-8000-0026BB765291",
         "Target Fan State",
-        1,
+        TargetFanStateEnum.values(),
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),
         Optional.of(unsubscriber));
-  }
-
-  @Override
-  protected void setValue(Integer value) throws Exception {
-    if (!setter.isPresent()) {
-      return;
-    }
-    setter.get().accept(TargetFanStateEnum.fromCode(value));
   }
 }
