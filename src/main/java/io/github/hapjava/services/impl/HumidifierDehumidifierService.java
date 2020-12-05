@@ -54,6 +54,7 @@ public class HumidifierDehumidifierService extends AbstractServiceImpl {
             accessory::subscribeCurrentHumidifierDehumidifierState,
             accessory::unsubscribeCurrentHumidifierDehumidifierState),
         new TargetHumidifierDehumidifierStateCharacteristic(
+            accessory.getTargetHumidifierDehumidifierStateValidValues(),
             accessory::getTargetHumidifierDehumidifierState,
             accessory::setTargetHumidifierDehumidifierState,
             accessory::subscribeTargetHumidifierDehumidifierState,

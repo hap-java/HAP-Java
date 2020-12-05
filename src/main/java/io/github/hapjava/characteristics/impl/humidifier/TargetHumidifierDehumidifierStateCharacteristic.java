@@ -15,6 +15,7 @@ public class TargetHumidifierDehumidifierStateCharacteristic
     implements EventableCharacteristic {
 
   public TargetHumidifierDehumidifierStateCharacteristic(
+      TargetHumidifierDehumidifierStateEnum[] validValues,
       Supplier<CompletableFuture<TargetHumidifierDehumidifierStateEnum>> getter,
       ExceptionalConsumer<TargetHumidifierDehumidifierStateEnum> setter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
@@ -22,7 +23,7 @@ public class TargetHumidifierDehumidifierStateCharacteristic
     super(
         "000000B4-0000-1000-8000-0026BB765291",
         "target humidifier state",
-        TargetHumidifierDehumidifierStateEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),
