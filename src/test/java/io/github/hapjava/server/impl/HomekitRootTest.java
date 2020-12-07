@@ -26,6 +26,8 @@ public class HomekitRootTest {
   private HomekitAuthInfo authInfo;
 
   private static final int PORT = 12345;
+  private static final String SETUPID = "Gx12";
+
   private static final String LABEL = "Test Label";
 
   @Before
@@ -73,8 +75,10 @@ public class HomekitRootTest {
   public void testAdvertiserStarts() throws Exception {
     final String mac = "00:00:00:00:00:00";
     when(authInfo.getMac()).thenReturn(mac);
+    when(authInfo.getSetupId()).thenReturn(SETUPID);
+
     root.start();
-    verify(advertiser).advertise(eq(LABEL), eq(mac), eq(PORT), eq(1));
+    verify(advertiser).advertise(eq(LABEL), eq(mac), eq(PORT), eq(1), eq(SETUPID));
   }
 
   @Test

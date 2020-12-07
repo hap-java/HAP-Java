@@ -22,6 +22,14 @@ public interface HomekitAuthInfo {
   String getPin();
 
   /**
+   * A setup Id used for pairing the device using QR Code. It can be any alphanumeric combination of
+   * the length of 4.
+   *
+   * @return setup id
+   */
+  String getSetupId();
+
+  /**
    * A unique MAC address to be advertised with the HomeKit information. This does not have to be
    * the MAC address of the network interface. You can generate this using {@link
    * HomekitServer#generateMac()}.
