@@ -11,7 +11,7 @@
 ## New and improved
 
 * Valid values are supported for enum characteristics instead of min and max values
-* Supported valid states for Thermostat, SecuritySystem and HeaterCooler [#108]
+* Supported valid states for Thermostat, SecuritySystem, HeaterCooler and HumidifierDehumidifier [#108] [#120](https://github.com/hap-java/HAP-Java/pull/120)
 
 # HAP-Java 1.1.5
 

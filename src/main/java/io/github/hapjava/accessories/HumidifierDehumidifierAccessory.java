@@ -58,6 +58,16 @@ public interface HumidifierDehumidifierAccessory extends HomekitAccessory {
       TargetHumidifierDehumidifierStateEnum state);
 
   /**
+   * Valid values for target state.
+   *
+   * @return array of valid target states.
+   */
+  default TargetHumidifierDehumidifierStateEnum[]
+      getTargetHumidifierDehumidifierStateValidValues() {
+    return TargetHumidifierDehumidifierStateEnum.values();
+  }
+
+  /**
    * Subscribes to changes in the humidifier/dehumidifier current state.
    *
    * @param callback the function to call when the state changes.
