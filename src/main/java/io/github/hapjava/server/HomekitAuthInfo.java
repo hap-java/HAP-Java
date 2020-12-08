@@ -1,6 +1,7 @@
 package io.github.hapjava.server;
 
 import io.github.hapjava.server.impl.HomekitServer;
+import io.github.hapjava.server.impl.crypto.HAPSetupCodeUtils;
 import java.math.BigInteger;
 
 /**
@@ -27,7 +28,9 @@ public interface HomekitAuthInfo {
    *
    * @return setup id
    */
-  String getSetupId();
+  default String getSetupId() {
+    return HAPSetupCodeUtils.generateSetupId();
+  }
 
   /**
    * A unique MAC address to be advertised with the HomeKit information. This does not have to be
