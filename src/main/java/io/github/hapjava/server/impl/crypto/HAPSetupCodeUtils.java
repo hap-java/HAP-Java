@@ -17,13 +17,7 @@ public class HAPSetupCodeUtils {
   }
 
   public static String generateSetupId() {
-    String setupId =
-        ""
-            + ALPHA_NUMERIC_STRING.charAt((int) (Math.random() * ALPHA_NUMERIC_STRING.length()))
-            + ALPHA_NUMERIC_STRING.charAt((int) (Math.random() * ALPHA_NUMERIC_STRING.length()))
-            + ALPHA_NUMERIC_STRING.charAt((int) (Math.random() * ALPHA_NUMERIC_STRING.length()))
-            + ALPHA_NUMERIC_STRING.charAt((int) (Math.random() * ALPHA_NUMERIC_STRING.length()));
-    return setupId;
+    return randomAlphaNumeric(4);
   }
 
   private static byte[] calculateHash(final String input, final Digest digest) {
