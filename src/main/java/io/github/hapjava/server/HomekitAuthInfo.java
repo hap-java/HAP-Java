@@ -1,6 +1,7 @@
 package io.github.hapjava.server;
 
 import io.github.hapjava.server.impl.HomekitServer;
+import io.github.hapjava.server.impl.crypto.HAPSetupCodeUtils;
 import java.math.BigInteger;
 
 /**
@@ -20,6 +21,16 @@ public interface HomekitAuthInfo {
    * @return the pin code, in the form ###-##-###
    */
   String getPin();
+
+  /**
+   * A setup Id used for pairing the device using QR Code. It can be any alphanumeric combination of
+   * the length of 4.
+   *
+   * @return setup id
+   */
+  default String getSetupId() {
+    return HAPSetupCodeUtils.generateSetupId();
+  }
 
   /**
    * A unique MAC address to be advertised with the HomeKit information. This does not have to be
