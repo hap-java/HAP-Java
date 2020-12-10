@@ -79,8 +79,23 @@ public interface AirPurifierAccessory extends HomekitAccessory {
   /** Unsubscribes from changes in the target state of the air purifier. */
   void unsubscribeTargetState();
 
+  /**
+   * If a filter maintenance service is needed as a linked service to this AirPurifier, this is the
+   * place.
+   *
+   * @return an instance of FilterMaintenanceAccessory, null if not needed.
+   */
+  default FilterMaintenanceAccessory getFilterMaintenanceAccessory() {
+    return null;
+  };
+
   @Override
   default Collection<Service> getServices() {
-    return Collections.singleton(new AirPurifierService(this));
+    AirPurifierService service = new AirPurifierService(this);
+    FilterMaintenanceAccessory fmAccessory = this.getFilterMaintenanceAccessory();
+    if (fmAccessory != null) {
+      service.addLinkedService(fmAccessory.getPrimaryService());
+    }
+    return Collections.singleton(service);
   }
 }

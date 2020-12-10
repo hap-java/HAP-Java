@@ -13,6 +13,7 @@
 
 * Valid values are supported for enum characteristics instead of min and max values
 * Supported valid states for Thermostat, SecuritySystem, HeaterCooler and HumidifierDehumidifier [#108] [#120](https://github.com/hap-java/HAP-Java/pull/120)
+* Support for FilterMaintenance. Can be used as a linked service for a Air Purifier  [#124](https://github.com/hap-java/HAP-Java/pull/124)
 
 # HAP-Java 1.1.5
 

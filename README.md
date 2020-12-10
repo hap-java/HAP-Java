@@ -23,7 +23,7 @@ After that, check out the [Sample](https://github.com/hap-java/HAP-Java/tree/sam
 Supported HomeKit Accessories
 =========
 
-Current implementation fully supports 37 HomeKit accessory/services.
+Current implementation fully supports 38 HomeKit accessory/services.
 
 | HomeKit Accessory & Service type | Supported by Java-HAP |
 |--------------------|--------------------|
@@ -41,7 +41,7 @@ Current implementation fully supports 37 HomeKit accessory/services.
 |  Doorbell                         |     :white_check_mark:    |
 |  Fan                              |     :white_check_mark:    |
 |  Faucet                           |     :white_check_mark:    |
-|  Filter Maintenance               |     :x:                   |
+|  Filter Maintenance               |     :white_check_mark:    |
 |  Garage Door Opener               |     :white_check_mark:    |
 |  HAP Protocol Information         |     :white_check_mark:    |
 |  Heater Cooler                    |     :white_check_mark:    |

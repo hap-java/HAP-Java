@@ -62,17 +62,21 @@ public abstract class IntegerCharacteristic extends BaseCharacteristic<Integer> 
     return super.makeBuilder(iid)
         .thenApply(
             builder -> {
-              return builder
-                  .add("minValue", minValue)
-                  .add("maxValue", maxValue)
-                  .add("minStep", 1)
-                  .add("unit", unit);
+              builder.add("minValue", minValue).add("maxValue", maxValue).add("minStep", 1);
+              if (this.unit != null) {
+                builder.add("unit", unit);
+              }
+              return builder;
             });
   }
 
   @Override
   protected CompletableFuture<Integer> getValue() {
-    return getter.map(integerGetter -> integerGetter.get()).get();
+    if (getter.isPresent()) {
+      return getter.map(integerGetter -> integerGetter.get()).get();
+    } else {
+      return null;
+    }
   }
 
   @Override

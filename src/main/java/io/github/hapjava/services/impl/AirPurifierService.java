@@ -3,6 +3,7 @@ package io.github.hapjava.services.impl;
 import io.github.hapjava.accessories.AirPurifierAccessory;
 import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithName;
 import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithPhysicalControlsLock;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithRotationSpeed;
 import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithSwingMode;
 import io.github.hapjava.characteristics.impl.airpurifier.CurrentAirPurifierCharacteristic;
 import io.github.hapjava.characteristics.impl.airpurifier.TargetAirPurifierStateCharacteristic;
@@ -53,13 +54,13 @@ public class AirPurifierService extends AbstractServiceImpl {
               ((AccessoryWithSwingMode) accessory)::subscribeSwingMode,
               ((AccessoryWithSwingMode) accessory)::unsubscribeSwingMode));
     }
-    if (accessory instanceof AccessoryWithSwingMode) {
+    if (accessory instanceof AccessoryWithRotationSpeed) {
       addOptionalCharacteristic(
-          new SwingModeCharacteristic(
-              ((AccessoryWithSwingMode) accessory)::getSwingMode,
-              ((AccessoryWithSwingMode) accessory)::setSwingMode,
-              ((AccessoryWithSwingMode) accessory)::subscribeSwingMode,
-              ((AccessoryWithSwingMode) accessory)::unsubscribeSwingMode));
+          new RotationSpeedCharacteristic(
+              ((AccessoryWithRotationSpeed) accessory)::getRotationSpeed,
+              ((AccessoryWithRotationSpeed) accessory)::setRotationSpeed,
+              ((AccessoryWithRotationSpeed) accessory)::subscribeRotationSpeed,
+              ((AccessoryWithRotationSpeed) accessory)::unsubscribeRotationSpeed));
     }
     if (accessory instanceof AccessoryWithPhysicalControlsLock) {
       addOptionalCharacteristic(
