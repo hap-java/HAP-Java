@@ -5,8 +5,6 @@ import io.github.hapjava.services.Service;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 abstract class AbstractServiceImpl implements Service {
   private final String type;

@@ -39,6 +39,7 @@ public interface Service {
 
   /**
    * Add linked services
+   *
    * @param service linked service
    */
   void addLinkedService(Service service);
