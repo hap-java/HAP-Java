@@ -14,7 +14,6 @@ import java.util.concurrent.CompletableFuture;
  * <p>The HomeKit app doesn't support a separate FilterMaintenance, but as a linked service to
  * AirPurifier.
  *
- * @see AirPurifierAccessory#getFilterMaintenanceAccessory()
  */
 public interface FilterMaintenanceAccessory extends HomekitAccessory {
 
