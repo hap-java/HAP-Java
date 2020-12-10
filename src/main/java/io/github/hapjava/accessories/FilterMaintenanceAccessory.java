@@ -11,7 +11,7 @@ import java.util.concurrent.CompletableFuture;
 /**
  * A Filter maintenance with mandatory characteristics.
  *
- * <p>The HomeKit app doesn't support a seperate FilterMaintenance, but as a linked service to
+ * <p>The HomeKit app doesn't support a separate FilterMaintenance, but as a linked service to
  * AirPurifier.
  *
  * @see AirPurifierAccessory#getFilterMaintenanceAccessory()
