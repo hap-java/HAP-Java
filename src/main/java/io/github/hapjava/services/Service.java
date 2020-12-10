@@ -36,4 +36,10 @@ public interface Service {
    * @return the list of linked services.
    */
   List<Service> getLinkedServices();
+
+  /**
+   * Add linked services
+   * @param service linked service
+   */
+  void addLinkedService(Service service);
 }

@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 abstract class AbstractServiceImpl implements Service {
-  private final Logger logger = LoggerFactory.getLogger(this.getClass());
   private final String type;
   private final List<Characteristic> characteristics = new LinkedList<>();
   private final List<Service> linkedServices = new LinkedList<>();
@@ -38,6 +37,7 @@ abstract class AbstractServiceImpl implements Service {
     this.characteristics.add(characteristic);
   }
 
+  @Override
   public void addLinkedService(Service service) {
     this.linkedServices.add(service);
   }
