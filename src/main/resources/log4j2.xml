@@ -7,7 +7,7 @@
     </Console>
   </Appenders>
   <Loggers>
-    <Logger name="io.github" level="debug" additivity="false">
+    <Logger name="io.github" level="info" additivity="false">
       <AppenderRef ref="console"/>
     </Logger>
     <Root level="TRACE" additivity="false">

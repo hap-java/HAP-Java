@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import io.github.hapjava.server.impl.HomekitRoot;
 import io.github.hapjava.server.impl.HomekitServer;
+import io.github.hapjava.server.impl.crypto.HAPSetupCodeUtils;
 
 public class Main {
 
@@ -34,6 +35,9 @@ public class Main {
             HomekitServer homekit = new HomekitServer(PORT);
             HomekitRoot bridge = homekit.createBridge(mockAuth, "Test Bridge", "TestBridge, Inc.", "G6", "111abe234", "1.1", "1.2");
 
+            String setupURI = HAPSetupCodeUtils.getSetupURI(mockAuth.getPin().replace("-",""), mockAuth.getSetupId(), 2);
+            QRtoConsole.printQR(setupURI);
+
 
             mockAuth.onChange(state -> {
                 try {
@@ -49,6 +53,12 @@ public class Main {
             });
             bridge.addAccessory(new MockSwitch());
             bridge.start();
+
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                System.out.println("Stopping homekit server.");
+                homekit.stop();
+            }));
+
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -11,12 +11,14 @@ class AuthState implements Serializable {
     final String mac;
     final BigInteger salt;
     final byte[] privateKey;
+    final String setupId;
     final ConcurrentMap<String, byte[]> userKeyMap = new ConcurrentHashMap<>();
 
-    public AuthState(String _PIN, String _mac, BigInteger _salt, byte[] _privateKey) {
+    public AuthState(String _PIN, String _mac, BigInteger _salt, byte[] _privateKey, String _setupId) {
         PIN = _PIN;
         salt = _salt;
         privateKey = _privateKey;
         mac = _mac;
+        setupId = _setupId;
     }
 }
