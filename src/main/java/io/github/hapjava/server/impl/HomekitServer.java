@@ -8,6 +8,7 @@ import java.math.BigInteger;
 import java.net.InetAddress;
 import java.security.InvalidAlgorithmParameterException;
 import java.util.concurrent.ExecutionException;
+import javax.jmdns.JmDNS;
 
 /**
  * The main entry point for hap-java. Creating an instance of this class will listen for HomeKit
@@ -28,6 +29,7 @@ public class HomekitServer {
 
   private final HomekitHttpServer http;
   private final InetAddress localAddress;
+  private final JmDNS jmdns;
 
   /**
    * Constructor. Contains an argument indicating the number of threads to use in the http server.
@@ -41,7 +43,22 @@ public class HomekitServer {
    */
   public HomekitServer(InetAddress localAddress, int port, int nThreads) throws IOException {
     this.localAddress = localAddress;
+    this.jmdns = null;
     http = new HomekitHttpServer(localAddress, port, nThreads);
+  }
+
+  /**
+   * Constructor
+   *
+   * @param jmdns mdns service to register with
+   * @param port local port to bind to
+   * @param nThreads number of threads to use in the http server
+   * @throws IOException when the server cannot bind to the supplied port
+   */
+  public HomekitServer(JmDNS jmdns, int port, int nThreads) throws IOException {
+    this.jmdns = jmdns;
+    this.localAddress = null;
+    http = new HomekitHttpServer(jmdns.getInetAddress(), port, nThreads);
   }
 
   /**
@@ -55,6 +72,16 @@ public class HomekitServer {
     this(localAddress, port, Runtime.getRuntime().availableProcessors());
   }
 
+  /**
+   * Constructor
+   *
+   * @param jmdns mdns service to register with
+   * @param port local port to bind to
+   * @throws IOException when the server cannot bind to the supplied port
+   */
+  public HomekitServer(JmDNS jmdns, int port) throws IOException {
+    this(jmdns, port, Runtime.getRuntime().availableProcessors());
+  }
   /**
    * Constructor
    *
@@ -84,7 +111,11 @@ public class HomekitServer {
   public HomekitStandaloneAccessoryServer createStandaloneAccessory(
       HomekitAuthInfo authInfo, HomekitAccessory accessory)
       throws IOException, ExecutionException, InterruptedException {
-    return new HomekitStandaloneAccessoryServer(accessory, http, localAddress, authInfo);
+    if (jmdns != null) {
+      return new HomekitStandaloneAccessoryServer(accessory, http, jmdns, authInfo);
+    } else {
+      return new HomekitStandaloneAccessoryServer(accessory, http, localAddress, authInfo);
+    }
   }
 
   /**
@@ -114,7 +145,12 @@ public class HomekitServer {
       String firmwareRevision,
       String hardwareRevision)
       throws IOException {
-    HomekitRoot root = new HomekitRoot(label, http, localAddress, authInfo);
+    HomekitRoot root;
+    if (jmdns != null) {
+      root = new HomekitRoot(label, http, jmdns, authInfo);
+    } else {
+      root = new HomekitRoot(label, http, localAddress, authInfo);
+    }
     root.addAccessory(
         new HomekitBridge(
             label, serialNumber, model, manufacturer, firmwareRevision, hardwareRevision));

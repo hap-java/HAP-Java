@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.concurrent.ExecutionException;
+import javax.jmdns.JmDNS;
 
 /**
  * A server for exposing standalone HomeKit accessory (as opposed to a Bridge accessory which
@@ -27,6 +28,16 @@ public class HomekitStandaloneAccessoryServer {
       HomekitAuthInfo authInfo)
       throws UnknownHostException, IOException, ExecutionException, InterruptedException {
     root = new HomekitRoot(accessory.getName().get(), webHandler, localhost, authInfo);
+    root.addAccessory(accessory);
+  }
+
+  HomekitStandaloneAccessoryServer(
+      HomekitAccessory accessory,
+      HomekitWebHandler webHandler,
+      JmDNS jmdns,
+      HomekitAuthInfo authInfo)
+      throws UnknownHostException, IOException, ExecutionException, InterruptedException {
+    root = new HomekitRoot(accessory.getName().get(), webHandler, jmdns, authInfo);
     root.addAccessory(accessory);
   }
 

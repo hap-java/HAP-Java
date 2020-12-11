@@ -27,6 +27,10 @@ public class JmdnsHomekitAdvertiser {
   private int port;
   private int configurationIndex;
 
+  public JmdnsHomekitAdvertiser(JmDNS jmdns) {
+    this.jmdns = jmdns;
+  }
+
   public JmdnsHomekitAdvertiser(InetAddress localAddress) throws UnknownHostException, IOException {
     jmdns = JmDNS.create(localAddress);
   }
@@ -57,7 +61,7 @@ public class JmdnsHomekitAdvertiser {
   }
 
   public synchronized void stop() {
-    jmdns.unregisterAllServices();
+    unregisterService();
   }
 
   public synchronized void setDiscoverable(boolean discoverable) throws IOException {
@@ -65,7 +69,7 @@ public class JmdnsHomekitAdvertiser {
       this.discoverable = discoverable;
       if (isAdvertising) {
         logger.trace("Re-creating service due to change in discoverability to " + discoverable);
-        jmdns.unregisterAllServices();
+        unregisterService();
         registerService();
       }
     }
@@ -76,14 +80,22 @@ public class JmdnsHomekitAdvertiser {
       this.configurationIndex = revision;
       if (isAdvertising) {
         logger.trace("Re-creating service due to change in configuration index to " + revision);
-        jmdns.unregisterAllServices();
+        unregisterService();
         registerService();
       }
     }
   }
 
+  private void unregisterService() {
+    jmdns.unregisterService(buildServiceInfo());
+  }
+
   private void registerService() throws IOException {
     logger.info("Registering " + SERVICE_TYPE + " on port " + port);
+    jmdns.registerService(buildServiceInfo());
+  }
+
+  private ServiceInfo buildServiceInfo() {
     logger.trace("MAC:" + mac + " Setup Id:" + setupId);
     Map<String, String> props = new HashMap<>();
     props.put("sf", discoverable ? "1" : "0");
@@ -94,6 +106,6 @@ public class JmdnsHomekitAdvertiser {
     props.put("s#", "1");
     props.put("ff", "0");
     props.put("ci", "1");
-    jmdns.registerService(ServiceInfo.create(SERVICE_TYPE, label, port, 1, 1, props));
+    return ServiceInfo.create(SERVICE_TYPE, label, port, 1, 1, props);
   }
 }
