@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 
 import io.github.hapjava.server.HomekitAuthInfo;
 import io.github.hapjava.server.impl.HomekitServer;
+import io.github.hapjava.server.impl.crypto.HAPSetupCodeUtils;
 
 /**
  * This is a simple implementation that should never be used in actual production. The mac, salt, and privateKey
@@ -22,7 +23,7 @@ public class MockAuthInfo implements HomekitAuthInfo {
 
     public MockAuthInfo() throws InvalidAlgorithmParameterException {
         this(new AuthState("031-45-154", HomekitServer.generateMac(), HomekitServer.generateSalt(),
-                           HomekitServer.generateKey()));
+                           HomekitServer.generateKey(), HAPSetupCodeUtils.generateSetupId()));
     }
 
     public MockAuthInfo(AuthState _authState) {
@@ -48,6 +49,11 @@ public class MockAuthInfo implements HomekitAuthInfo {
     @Override
     public byte[] getPrivateKey() {
         return authState.privateKey;
+    }
+
+    @Override
+    public String getSetupId() {
+        return authState.setupId;
     }
 
     @Override
@@ -83,4 +89,10 @@ public class MockAuthInfo implements HomekitAuthInfo {
             callback.accept(authState);
         }
     }
+    @Override
+    public boolean hasUser() {
+        return !authState.userKeyMap.isEmpty();
+    }
+
+
 }
