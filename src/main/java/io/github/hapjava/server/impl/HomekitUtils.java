@@ -2,7 +2,6 @@ package io.github.hapjava.server.impl;
 
 import com.nimbusds.srp6.SRP6Routines;
 import java.math.BigInteger;
-import java.security.InvalidAlgorithmParameterException;
 import java.security.SecureRandom;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -17,8 +16,9 @@ public class HomekitUtils {
     return new BigInteger(new SRP6Routines().generateRandomSalt(16));
   }
 
-  public static byte[] generateKey() throws InvalidAlgorithmParameterException {
-    EdDSAParameterSpec spec = EdDSANamedCurveTable.getByName("ed25519-sha-512");
+  public static byte[] generateKey() {
+    EdDSAParameterSpec spec =
+        EdDSANamedCurveTable.getByName(EdDSANamedCurveTable.CURVE_ED25519_SHA512);
     byte[] seed = new byte[spec.getCurve().getField().getb() / 8];
     getSecureRandom().nextBytes(seed);
     return seed;

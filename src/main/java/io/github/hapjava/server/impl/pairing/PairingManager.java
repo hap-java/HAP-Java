@@ -29,7 +29,7 @@ public class PairingManager {
     if (req.getStage() == Stage.ONE) {
       logger.trace("Starting pair for " + registry.getLabel());
       srpHandler = new SrpHandler(authInfo.getPin(), authInfo.getSalt());
-      return srpHandler.handle(req);
+      return srpHandler.step1();
     } else if (req.getStage() == Stage.TWO) {
       logger.trace("Entering second stage of pair for " + registry.getLabel());
       if (srpHandler == null) {
@@ -37,7 +37,7 @@ public class PairingManager {
         return new UnauthorizedResponse();
       } else {
         try {
-          return srpHandler.handle(req);
+          return srpHandler.step2((PairSetupRequest.Stage2Request) req);
         } catch (Exception e) {
           srpHandler = null; // You don't get to try again - need a new key
           logger.warn("Exception encountered while processing pairing request", e);
