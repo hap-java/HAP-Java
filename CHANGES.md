@@ -14,6 +14,7 @@
 * Valid values are supported for enum characteristics instead of min and max values
 * Supported valid states for Thermostat, SecuritySystem, HeaterCooler and HumidifierDehumidifier [#108] [#120](https://github.com/hap-java/HAP-Java/pull/120)
 * Support for FilterMaintenance. Can be used as a linked service for an Air Purifier  [#124](https://github.com/hap-java/HAP-Java/pull/124)
+* Update crypto libs [#130](https://github.com/hap-java/HAP-Java/pull/130)
 
 ## Fixes
 

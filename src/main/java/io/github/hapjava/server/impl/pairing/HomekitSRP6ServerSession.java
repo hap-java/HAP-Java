@@ -8,6 +8,7 @@ import com.nimbusds.srp6.SRP6ServerEvidenceContext;
 import com.nimbusds.srp6.SRP6Session;
 import com.nimbusds.srp6.URoutineContext;
 import java.math.BigInteger;
+import java.security.MessageDigest;
 
 /**
  * This is a slightly modified version of the SRP6ServerSession class included with nimbus. The only
@@ -74,6 +75,8 @@ public class HomekitSRP6ServerSession extends SRP6Session {
   /** The current SRP-6a auth state. */
   private State state;
 
+  private MessageDigest digest;
+
   /**
    * Creates a new server-side SRP-6a authentication session and sets its state to {@link
    * State#INIT}.
@@ -92,7 +95,7 @@ public class HomekitSRP6ServerSession extends SRP6Session {
 
     this.config = config;
 
-    digest = config.getMessageDigestInstance();
+    this.digest = config.getMessageDigestInstance();
 
     if (digest == null)
       throw new IllegalArgumentException("Unsupported hash algorithm 'H': " + config.H);
@@ -151,13 +154,13 @@ public class HomekitSRP6ServerSession extends SRP6Session {
       throw new IllegalStateException("State violation: Session must be in INIT state");
 
     // Generate server private and public values
-    k = SRP6Routines.computeK(digest, config.N, config.g);
+    k = new SRP6Routines().computeK(digest, config.N, config.g);
     digest.reset();
 
     b = HomekitSRP6Routines.generatePrivateValue(config.N, random);
     digest.reset();
 
-    B = SRP6Routines.computePublicServerValue(config.N, config.g, k, v, b);
+    B = new SRP6Routines().computePublicServerValue(config.N, config.g, k, v, b);
 
     state = State.STEP_1;
 
@@ -234,7 +237,7 @@ public class HomekitSRP6ServerSession extends SRP6Session {
     if (hasTimedOut()) throw new SRP6Exception("Session timeout", SRP6Exception.CauseType.TIMEOUT);
 
     // Check A validity
-    if (!SRP6Routines.isValidPublicValue(config.N, A))
+    if (!new SRP6Routines().isValidPublicValue(config.N, A))
       throw new SRP6Exception(
           "Bad client public value 'A'", SRP6Exception.CauseType.BAD_PUBLIC_VALUE);
 
@@ -246,11 +249,11 @@ public class HomekitSRP6ServerSession extends SRP6Session {
       URoutineContext hashedKeysContext = new URoutineContext(A, B);
       u = hashedKeysRoutine.computeU(config, hashedKeysContext);
     } else {
-      u = SRP6Routines.computeU(digest, config.N, A, B);
+      u = new SRP6Routines().computeU(digest, config.N, A, B);
       digest.reset();
     }
 
-    S = SRP6Routines.computeSessionKey(config.N, v, u, A, b);
+    S = new SRP6Routines().computeSessionKey(config.N, v, u, A, b);
 
     // Compute the own client evidence message 'M1'
     BigInteger computedM1;
@@ -262,7 +265,7 @@ public class HomekitSRP6ServerSession extends SRP6Session {
       computedM1 = clientEvidenceRoutine.computeClientEvidence(config, ctx);
     } else {
       // With default routine
-      computedM1 = SRP6Routines.computeClientEvidence(digest, A, B, S);
+      computedM1 = new SRP6Routines().computeClientEvidence(digest, A, B, S);
       digest.reset();
     }
 

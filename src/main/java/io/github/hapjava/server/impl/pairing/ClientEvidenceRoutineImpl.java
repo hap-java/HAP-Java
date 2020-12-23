@@ -8,9 +8,7 @@ import java.security.NoSuchAlgorithmException;
 
 class ClientEvidenceRoutineImpl implements ClientEvidenceRoutine {
 
-  public ClientEvidenceRoutineImpl() {
-    // TODO Auto-generated constructor stub
-  }
+  public ClientEvidenceRoutineImpl() {}
 
   /**
    * Calculates M1 according to the following formula:
