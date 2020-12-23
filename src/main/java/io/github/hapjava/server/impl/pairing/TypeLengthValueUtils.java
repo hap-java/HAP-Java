@@ -38,7 +38,7 @@ public class TypeLengthValueUtils {
     }
 
     public void add(MessageType type, BigInteger i) throws IOException {
-      add(type, ByteUtils.toByteArray(i));
+      add(type, ByteUtils.toUnsignedByteArray(i));
     }
 
     public void add(MessageType type, short b) {

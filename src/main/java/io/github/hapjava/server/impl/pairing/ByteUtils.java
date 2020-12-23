@@ -22,7 +22,7 @@ class ByteUtils {
     return ret;
   }
 
-  public static byte[] toByteArray(BigInteger i) {
+  public static byte[] toUnsignedByteArray(BigInteger i) {
     byte[] array = i.toByteArray();
     if (array[0] == 0) {
       array = Arrays.copyOfRange(array, 1, array.length);
