@@ -15,7 +15,7 @@ public enum CurrentDoorStateEnum implements CharacteristicEnum {
   CLOSED(1),
   OPENING(2),
   CLOSING(3),
-  SOPPED(4);
+  STOPPED(4);
 
   private static final Map<Integer, CurrentDoorStateEnum> reverse;
 
