@@ -74,6 +74,12 @@ public class ThermostatService extends AbstractServiceImpl {
       addOptionalCharacteristic(
           new CoolingThresholdTemperatureCharacteristic(
               ((AccessoryWithCoolingThresholdTemperature) accessory)
+                  .getMinCoolingThresholdTemperature(),
+              ((AccessoryWithCoolingThresholdTemperature) accessory)
+                  .getMaxCoolingThresholdTemperature(),
+              ((AccessoryWithCoolingThresholdTemperature) accessory)
+                  .getStepCoolingThresholdTemperature(),
+              ((AccessoryWithCoolingThresholdTemperature) accessory)
                   ::getCoolingThresholdTemperature,
               ((AccessoryWithCoolingThresholdTemperature) accessory)
                   ::setCoolingThresholdTemperature,
@@ -85,6 +91,12 @@ public class ThermostatService extends AbstractServiceImpl {
     if (accessory instanceof AccessoryWithHeatingThresholdTemperature) {
       addOptionalCharacteristic(
           new HeatingThresholdTemperatureCharacteristic(
+              ((AccessoryWithHeatingThresholdTemperature) accessory)
+                  .getMinHeatingThresholdTemperature(),
+              ((AccessoryWithHeatingThresholdTemperature) accessory)
+                  .getMaxHeatingThresholdTemperature(),
+              ((AccessoryWithHeatingThresholdTemperature) accessory)
+                  .getStepHeatingThresholdTemperature(),
               ((AccessoryWithHeatingThresholdTemperature) accessory)
                   ::getHeatingThresholdTemperature,
               ((AccessoryWithHeatingThresholdTemperature) accessory)

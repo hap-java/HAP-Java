@@ -34,11 +34,17 @@ public class CarbonDioxideSensorService extends AbstractServiceImpl {
     if (accessory instanceof AccessoryWithCarbonDioxideLevel) {
       addOptionalCharacteristic(
           new CarbonDioxideLevelCharacteristic(
+              ((AccessoryWithCarbonDioxideLevel) accessory).getMinCarbonDioxideLevel(),
+              ((AccessoryWithCarbonDioxideLevel) accessory).getMaxCarbonDioxideLevel(),
+              ((AccessoryWithCarbonDioxideLevel) accessory).getMinStepCarbonDioxideLevel(),
               ((AccessoryWithCarbonDioxideLevel) accessory)::getCarbonDioxideLevel,
               ((AccessoryWithCarbonDioxideLevel) accessory)::subscribeCarbonDioxideLevel,
               ((AccessoryWithCarbonDioxideLevel) accessory)::unsubscribeCarbonDioxideLevel));
       addOptionalCharacteristic(
           new CarbonDioxidePeakLevelCharacteristic(
+              ((AccessoryWithCarbonDioxideLevel) accessory).getMinCarbonDioxidePeakLevel(),
+              ((AccessoryWithCarbonDioxideLevel) accessory).getMaxCarbonDioxidePeakLevel(),
+              ((AccessoryWithCarbonDioxideLevel) accessory).getMinStepCarbonDioxidePeakLevel(),
               ((AccessoryWithCarbonDioxideLevel) accessory)::getCarbonDioxidePeakLevel,
               ((AccessoryWithCarbonDioxideLevel) accessory)::subscribeCarbonDioxidePeakLevel,
               ((AccessoryWithCarbonDioxideLevel) accessory)::unsubscribeCarbonDioxidePeakLevel));

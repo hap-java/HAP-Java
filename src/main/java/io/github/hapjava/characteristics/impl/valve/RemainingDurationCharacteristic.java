@@ -15,20 +15,31 @@ import java.util.function.Supplier;
  */
 public class RemainingDurationCharacteristic extends IntegerCharacteristic
     implements EventableCharacteristic {
+  public static final int DEFAULT_MIN_VALUE = 0;
+  public static final int DEFAULT_MAX_VALUE = 3600;
 
   public RemainingDurationCharacteristic(
+      int minValue,
+      int maxValue,
       Supplier<CompletableFuture<Integer>> getter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
     super(
         "000000D4-0000-1000-8000-0026BB765291",
         "remaining duration",
-        0,
-        3600,
+        minValue,
+        maxValue,
         "s",
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),
         Optional.of(unsubscriber));
+  }
+
+  public RemainingDurationCharacteristic(
+      Supplier<CompletableFuture<Integer>> getter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
+    this(DEFAULT_MIN_VALUE, DEFAULT_MAX_VALUE, getter, subscriber, unsubscriber);
   }
 }

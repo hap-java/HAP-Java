@@ -24,6 +24,9 @@ public class LightSensorService extends AbstractServiceImpl {
   public LightSensorService(LightSensorAccessory accessory) {
     this(
         new CurrentAmbientLightLevelCharacteristic(
+            accessory.getMinCurrentAmbientLightLevel(),
+            accessory.getMaxCurrentAmbientLightLevel(),
+            accessory.getMinStepCurrentAmbientLightLevel(),
             accessory::getCurrentAmbientLightLevel,
             accessory::subscribeCurrentAmbientLightLevel,
             accessory::unsubscribeCurrentAmbientLightLevel));
