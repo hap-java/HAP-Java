@@ -1,7 +1,6 @@
 package io.github.hapjava.server.impl.pairing;
 
-import static io.github.hapjava.server.impl.pairing.ByteUtils.toUnsignedByteArray;
-
+import com.nimbusds.srp6.BigIntegerUtils;
 import com.nimbusds.srp6.SRP6CryptoParams;
 import com.nimbusds.srp6.SRP6ServerEvidenceContext;
 import com.nimbusds.srp6.ServerEvidenceRoutine;
@@ -22,10 +21,10 @@ class ServerEvidenceRoutineImpl implements ServerEvidenceRoutine {
       throw new RuntimeException("Could not locate requested algorithm", e);
     }
 
-    byte[] hS = digest.digest(toUnsignedByteArray(ctx.S));
+    byte[] hS = digest.digest(BigIntegerUtils.bigIntegerToBytes(ctx.S));
 
-    digest.update(toUnsignedByteArray(ctx.A));
-    digest.update(toUnsignedByteArray(ctx.M1));
+    digest.update(BigIntegerUtils.bigIntegerToBytes(ctx.A));
+    digest.update(BigIntegerUtils.bigIntegerToBytes(ctx.M1));
     digest.update(hS);
 
     return new BigInteger(1, digest.digest());

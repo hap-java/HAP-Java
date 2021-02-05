@@ -1,7 +1,5 @@
 package io.github.hapjava.server.impl.pairing;
 
-import static io.github.hapjava.server.impl.pairing.ByteUtils.toUnsignedByteArray;
-
 import com.nimbusds.srp6.*;
 import io.github.hapjava.server.impl.http.HttpResponse;
 import io.github.hapjava.server.impl.pairing.HomekitSRP6ServerSession.State;
@@ -67,7 +65,7 @@ class SrpHandler {
   byte[] getK() {
     MessageDigest digest = session.getCryptoParams().getMessageDigestInstance();
     BigInteger S = session.getSessionKey();
-    byte[] sBytes = toUnsignedByteArray(S);
+    byte[] sBytes = BigIntegerUtils.bigIntegerToBytes(S);
     return digest.digest(sBytes);
   }
 }

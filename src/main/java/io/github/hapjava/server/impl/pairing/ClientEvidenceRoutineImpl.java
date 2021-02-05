@@ -1,7 +1,5 @@
 package io.github.hapjava.server.impl.pairing;
 
-import static io.github.hapjava.server.impl.pairing.ByteUtils.toUnsignedByteArray;
-
 import com.nimbusds.srp6.*;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -27,10 +25,10 @@ class ClientEvidenceRoutineImpl implements ClientEvidenceRoutine {
     } catch (NoSuchAlgorithmException e) {
       throw new RuntimeException("Could not locate requested algorithm", e);
     }
-    digest.update(toUnsignedByteArray(cryptoParams.N));
+    digest.update(BigIntegerUtils.bigIntegerToBytes(cryptoParams.N));
     byte[] hN = digest.digest();
 
-    digest.update(toUnsignedByteArray(cryptoParams.g));
+    digest.update(BigIntegerUtils.bigIntegerToBytes(cryptoParams.g));
     byte[] hg = digest.digest();
 
     byte[] hNhg = xor(hN, hg);
@@ -38,14 +36,14 @@ class ClientEvidenceRoutineImpl implements ClientEvidenceRoutine {
     digest.update(ctx.userID.getBytes(StandardCharsets.UTF_8));
     byte[] hu = digest.digest();
 
-    digest.update(toUnsignedByteArray(ctx.S));
+    digest.update(BigIntegerUtils.bigIntegerToBytes(ctx.S));
     byte[] hS = digest.digest();
 
     digest.update(hNhg);
     digest.update(hu);
-    digest.update(toUnsignedByteArray(ctx.s));
-    digest.update(toUnsignedByteArray(ctx.A));
-    digest.update(toUnsignedByteArray(ctx.B));
+    digest.update(BigIntegerUtils.bigIntegerToBytes(ctx.s));
+    digest.update(BigIntegerUtils.bigIntegerToBytes(ctx.A));
+    digest.update(BigIntegerUtils.bigIntegerToBytes(ctx.B));
     digest.update(hS);
     BigInteger ret = new BigInteger(1, digest.digest());
     return ret;

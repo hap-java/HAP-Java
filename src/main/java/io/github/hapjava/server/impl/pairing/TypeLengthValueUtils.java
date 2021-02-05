@@ -1,5 +1,6 @@
 package io.github.hapjava.server.impl.pairing;
 
+import com.nimbusds.srp6.BigIntegerUtils;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -38,7 +39,7 @@ public class TypeLengthValueUtils {
     }
 
     public void add(MessageType type, BigInteger i) throws IOException {
-      add(type, ByteUtils.toUnsignedByteArray(i));
+      add(type, BigIntegerUtils.bigIntegerToBytes(i));
     }
 
     public void add(MessageType type, short b) {
