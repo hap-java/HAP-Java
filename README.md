@@ -1,5 +1,9 @@
 HAP-Java
 =========
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.hap-java/hap/badge.svg)](https://search.maven.org/search?q=g:io.github.hap-java%20a:hap)
+[![MIT License](https://img.shields.io/github/license/hap-java/HAP-Java)](https://github.com/hap-java/HAP-Java/blob/master/LICENSE)
+![Maven Build Status](https://github.com/andylintner/HAP-Java/actions/workflows/maven.yml/badge.svg)
+
 HAP-Java is a Java implementation of the HomeKit Accessory Protocol.
 
 Using this library, you can create your own HomeKit Accessory or HomeKit Accessory Bridge.

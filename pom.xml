@@ -24,7 +24,7 @@
 
 	<scm>
 		<connection>scm:git:https://github.com/hap-java/HAP-Java.git</connection>
-		<developerConnection>scm:git:git@github.com:hap-java/HAP-Java.git</developerConnection>
+		<developerConnection>scm:git:https://github.com/hap-java/HAP-Java.git</developerConnection>
 		<url>https://github.com/hap-java/HAP-Java.git</url>
 		<tag>HEAD</tag>
 	</scm>
@@ -284,11 +284,11 @@
 		</site>
 		<repository>
 			<id>ossrh</id>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+			<url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 		<snapshotRepository>
 			<id>ossrh</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 
@@ -325,20 +325,6 @@
 	<profiles>
 		<profile>
 			<id>ossrh</id>
-			<properties>
-					<gpg.executable>gpg</gpg.executable>
-					<gpg.keyname>${env.GPG_KEYNAME}</gpg.keyname>
-					<gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
-					<gpg.defaultKeyring>false</gpg.defaultKeyring>
-					<gpg.publicKeyring>deploy/pubring.gpg</gpg.publicKeyring>
-					<gpg.secretKeyring>deploy/secring.gpg</gpg.secretKeyring>
-			</properties>
-			<activation>
-					<property>
-							<name>performRelease</name>
-							<value>true</value>
-					</property>
-			</activation>
 			<build>
 				<plugins>
 					<plugin>
@@ -354,6 +340,12 @@
 								</goals>
 							</execution>
 						</executions>
+						<configuration>
+							<gpgArguments>
+								<arg>--pinentry-mode</arg>
+								<arg>loopback</arg>
+							</gpgArguments>
+						</configuration>
 					</plugin>
 					<plugin>
 						<groupId>org.sonatype.plugins</groupId>
@@ -362,17 +354,12 @@
 						<extensions>true</extensions>
 						<configuration>
 							<serverId>ossrh</serverId>
-							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
 							<autoReleaseAfterClose>true</autoReleaseAfterClose>
 						</configuration>
 					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-release-plugin</artifactId>
-						<version>2.5.3</version>
-					</plugin>
 				</plugins>
-			</build>
+			</build> 
 		</profile>
 	</profiles>
 
