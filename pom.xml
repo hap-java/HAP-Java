@@ -220,7 +220,7 @@
 							<goal>publish-scm</goal>
 						</goals>
 						<configuration>
-							<pubScmUrl>scm:git:git@github.com:hap-java/HAP-Java.git</pubScmUrl>
+							<pubScmUrl>scm:git:https://github.com/hap-java/HAP-Java.git</pubScmUrl>
 							<scmBranch>gh-pages</scmBranch>
 						</configuration>
 					</execution>
@@ -287,6 +287,8 @@
 				<version>3.0.1</version>
 				<configuration>
 					<excludePackageNames>io.github.hapjava.server.impl</excludePackageNames>
+					<source>8</source>
+    				<detectJavaApiLink>false</detectJavaApiLink>
 				</configuration>
 				<reportSets>
 					<reportSet>

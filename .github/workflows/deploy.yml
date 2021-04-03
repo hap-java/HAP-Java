@@ -30,3 +30,5 @@ jobs:
         MAVEN_USERNAME: hap-java-dev
         MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
         MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+    - name: Publish site
+      run: mvn deploy-site
