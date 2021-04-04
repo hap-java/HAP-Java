@@ -15,6 +15,10 @@
 * Supported valid states for Thermostat, SecuritySystem, HeaterCooler and HumidifierDehumidifier [#108] [#120](https://github.com/hap-java/HAP-Java/pull/120)
 * Support for FilterMaintenance. Can be used as a linked service for an Air Purifier  [#124](https://github.com/hap-java/HAP-Java/pull/124)
 
+## Fixes
+
+* Fix for re-advertising service when using alternative jMDNS implementations.
+
 # HAP-Java 1.1.5
 
 ## Fixes
