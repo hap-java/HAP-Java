@@ -325,6 +325,7 @@
 							</execution>
 						</executions>
 						<configuration>
+							<keyname>HAP-Java</keyname>
 							<gpgArguments>
 								<arg>--pinentry-mode</arg>
 								<arg>loopback</arg>
