@@ -22,7 +22,8 @@ Include HAP-Java in your project using maven:
 </dependency>
 ```
 
-After that, check out the [Sample](https://github.com/hap-java/HAP-Java/tree/sample).
+After that, check out the [Sample](https://github.com/hap-java/HAP-Java/tree/sample) and
+read the [Javadoc](https://hap-java.github.io/HAP-Java/apidocs/index.html)
 
 Supported HomeKit Accessories
 =========
