@@ -24,6 +24,10 @@ jobs:
         gpg-passphrase: MAVEN_GPG_PASSPHRASE
         server-username: MAVEN_USERNAME
         server-password: MAVEN_CENTRAL_TOKEN
+    - name: Setup git profile
+      run: |
+        git config --global user.name github-actions
+        git config --global user.email github-actions@github.com
     - name: Publish to Maven Central
       run: mvn deploy
       env:
@@ -31,4 +35,4 @@ jobs:
         MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
         MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
     - name: Publish site
-      run: mvn deploy-site
+      run: mvn -B site-deploy -Dusername=github-actions -Dpassword=${{ secrets.GITHUB_TOKEN }}
