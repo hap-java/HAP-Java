@@ -28,8 +28,8 @@ jobs:
       run: |
         git config --global user.name github-actions
         git config --global user.email github-actions@github.com
-    - name: Publish to Maven Central
-      run: mvn deploy
+    - name: Publish Snapshot to Maven Central
+      run: mvn deploy -B -Possrh
       env:
         MAVEN_USERNAME: hap-java-dev
         MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
