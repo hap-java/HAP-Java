@@ -1,6 +1,7 @@
 package io.github.hapjava.accessories.optionalcharacteristic;
 
 import io.github.hapjava.characteristics.HomekitCharacteristicChangeCallback;
+import io.github.hapjava.characteristics.impl.lightbulb.ColorTemperatureCharacteristic;
 import java.util.concurrent.CompletableFuture;
 
 /** Accessory with color temperature. */
@@ -21,6 +22,24 @@ public interface AccessoryWithColorTemperature {
    * @throws Exception when the brightness cannot be set
    */
   CompletableFuture<Void> setColorTemperature(Integer value) throws Exception;
+
+  /**
+   * return the min value for color temperature. overwrite if you want to change the default value.
+   *
+   * @return min color temperature
+   */
+  default int getMinColorTemperature() {
+    return ColorTemperatureCharacteristic.DEFAULT_MIN_VALUE;
+  }
+
+  /**
+   * return the max value for color temperature. overwrite if you want to change the default value.
+   *
+   * @return max color temperature
+   */
+  default int getMaxColorTemperature() {
+    return ColorTemperatureCharacteristic.DEFAULT_MAX_VALUE;
+  }
 
   /**
    * Subscribes to changes in color temperature.

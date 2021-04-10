@@ -58,6 +58,8 @@ public class ValveService extends AbstractServiceImpl {
     if (accessory instanceof AccessoryWithDuration) {
       addOptionalCharacteristic(
           new SetDurationCharacteristic(
+              ((AccessoryWithDuration) accessory).getMinDuration(),
+              ((AccessoryWithDuration) accessory).getMaxDuration(),
               ((AccessoryWithDuration) accessory)::getSetDuration,
               ((AccessoryWithDuration) accessory)::setSetDuration,
               ((AccessoryWithDuration) accessory)::subscribeSetDuration,
@@ -66,6 +68,8 @@ public class ValveService extends AbstractServiceImpl {
     if (accessory instanceof AccessoryWithRemainingDuration) {
       addOptionalCharacteristic(
           new RemainingDurationCharacteristic(
+              ((AccessoryWithRemainingDuration) accessory).getMinRemainingDuration(),
+              ((AccessoryWithRemainingDuration) accessory).getMaxRemainingDuration(),
               ((AccessoryWithRemainingDuration) accessory)::getRemainingDuration,
               ((AccessoryWithRemainingDuration) accessory)::subscribeRemainingDuration,
               ((AccessoryWithRemainingDuration) accessory)::unsubscribeRemainingDuration));

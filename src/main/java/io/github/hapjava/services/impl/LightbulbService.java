@@ -55,6 +55,8 @@ public class LightbulbService extends AbstractServiceImpl {
     if (accessory instanceof AccessoryWithColorTemperature) {
       addOptionalCharacteristic(
           new ColorTemperatureCharacteristic(
+              ((AccessoryWithColorTemperature) accessory).getMinColorTemperature(),
+              ((AccessoryWithColorTemperature) accessory).getMaxColorTemperature(),
               ((AccessoryWithColorTemperature) accessory)::getColorTemperature,
               ((AccessoryWithColorTemperature) accessory)::setColorTemperature,
               ((AccessoryWithColorTemperature) accessory)::subscribeColorTemperature,

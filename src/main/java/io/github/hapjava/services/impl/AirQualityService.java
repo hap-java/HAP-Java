@@ -53,6 +53,9 @@ public class AirQualityService extends AbstractServiceImpl {
     if (accessory instanceof AccessoryWithNitrogenDioxideDensity) {
       addOptionalCharacteristic(
           new NitrogenDioxideDensityCharacteristic(
+              ((AccessoryWithNitrogenDioxideDensity) accessory).getMinNitrogenDioxideDensity(),
+              ((AccessoryWithNitrogenDioxideDensity) accessory).getMaxNitrogenDioxideDensity(),
+              ((AccessoryWithNitrogenDioxideDensity) accessory).getMinStepNitrogenDioxideDensity(),
               ((AccessoryWithNitrogenDioxideDensity) accessory)::getNitrogenDioxideDensity,
               ((AccessoryWithNitrogenDioxideDensity) accessory)::subscribeNitrogenDioxideDensity,
               ((AccessoryWithNitrogenDioxideDensity) accessory)
@@ -62,6 +65,9 @@ public class AirQualityService extends AbstractServiceImpl {
     if (accessory instanceof AccessoryWithSulphurDioxideDensity) {
       addOptionalCharacteristic(
           new SulphurDioxideDensityCharacteristic(
+              ((AccessoryWithSulphurDioxideDensity) accessory).getMinSulphurDioxideDensity(),
+              ((AccessoryWithSulphurDioxideDensity) accessory).getMaxSulphurDioxideDensity(),
+              ((AccessoryWithSulphurDioxideDensity) accessory).getMinStepSulphurDioxideDensity(),
               ((AccessoryWithSulphurDioxideDensity) accessory)::getSulphurDioxideDensity,
               ((AccessoryWithSulphurDioxideDensity) accessory)::subscribeSulphurDioxideDensity,
               ((AccessoryWithSulphurDioxideDensity) accessory)::unsubscribeSulphurDioxideDensity));
@@ -69,6 +75,9 @@ public class AirQualityService extends AbstractServiceImpl {
     if (accessory instanceof AccessoryWithPM25Density) {
       addOptionalCharacteristic(
           new PM25DensityCharacteristic(
+              ((AccessoryWithPM25Density) accessory).getMinPM25Density(),
+              ((AccessoryWithPM25Density) accessory).getMaxPM25Density(),
+              ((AccessoryWithPM25Density) accessory).getMinStepPM25Density(),
               ((AccessoryWithPM25Density) accessory)::getPM25Density,
               ((AccessoryWithPM25Density) accessory)::subscribePM25Density,
               ((AccessoryWithPM25Density) accessory)::unsubscribePM25Density));
@@ -76,6 +85,9 @@ public class AirQualityService extends AbstractServiceImpl {
     if (accessory instanceof AccessoryWithPM10Density) {
       addOptionalCharacteristic(
           new PM10DensityCharacteristic(
+              ((AccessoryWithPM10Density) accessory).getMinPM10Density(),
+              ((AccessoryWithPM10Density) accessory).getMaxPM10Density(),
+              ((AccessoryWithPM10Density) accessory).getMinStepPM10Density(),
               ((AccessoryWithPM10Density) accessory)::getPM10Density,
               ((AccessoryWithPM10Density) accessory)::subscribePM10Density,
               ((AccessoryWithPM10Density) accessory)::unsubscribePM10Density));
@@ -83,6 +95,9 @@ public class AirQualityService extends AbstractServiceImpl {
     if (accessory instanceof AccessoryWithVOCDensity) {
       addOptionalCharacteristic(
           new VOCDensityCharacteristic(
+              ((AccessoryWithVOCDensity) accessory).getMinVOCDensity(),
+              ((AccessoryWithVOCDensity) accessory).getMaxVOCDensity(),
+              ((AccessoryWithVOCDensity) accessory).getMinStepVOCDensity(),
               ((AccessoryWithVOCDensity) accessory)::getVOCDensity,
               ((AccessoryWithVOCDensity) accessory)::subscribeVOCDensity,
               ((AccessoryWithVOCDensity) accessory)::unsubscribeVOCDensity));
