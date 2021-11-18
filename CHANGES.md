@@ -33,6 +33,7 @@
 * Fix a pairing issue in which HAP-Java could listen on a different interface than that which it advertises [#67](https://github.com/hap-java/HAP-Java/pull/67)
 * Allow window covering to be used without optional characteristics. The inclusion of `HoldPositionCharacteristic` did terrible things, and we're still not sure why. Addressed [#56](https://github.com/hap-java/HAP-Java/pull/56)
 * Air Purifier didn't support rotation speed characteristics. [#124](https://github.com/hap-java/HAP-Java/pull/124)
+* Close JsonWriters [#148](https://github.com/hap-java/HAP-Java/pull/148)
 
 ## New and improved
 

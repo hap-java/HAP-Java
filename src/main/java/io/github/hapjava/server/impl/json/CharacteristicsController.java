@@ -58,10 +58,10 @@ public class CharacteristicsController {
             "Accessory " + aid + " has no characteristics or does not exist. Request: " + uri);
       }
     }
-    try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-      Json.createWriter(baos)
-          .write(
-              Json.createObjectBuilder().add("characteristics", characteristics.build()).build());
+    try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        JsonWriter jsonWriter = Json.createWriter(baos)) {
+      jsonWriter.write(
+          Json.createObjectBuilder().add("characteristics", characteristics.build()).build());
       return new HapJsonResponse(baos.toByteArray());
     }
   }

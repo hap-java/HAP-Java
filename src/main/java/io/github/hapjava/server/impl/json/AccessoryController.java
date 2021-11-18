@@ -14,10 +14,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
+import javax.json.*;
 
 public class AccessoryController {
 
@@ -64,9 +61,9 @@ public class AccessoryController {
               .add("services", serviceArrayBuilders.get(accessory.getId())));
     }
 
-    try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-      Json.createWriter(baos)
-          .write(Json.createObjectBuilder().add("accessories", accessories).build());
+    try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        JsonWriter jsonWriter = Json.createWriter(baos)) {
+      jsonWriter.write(Json.createObjectBuilder().add("accessories", accessories).build());
       return new HapJsonResponse(baos.toByteArray());
     }
   }
