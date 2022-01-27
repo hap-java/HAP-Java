@@ -1,3 +1,7 @@
+# HAP-Java 2.0.1
+## Fixes
+* Log accessory names instead of futures. [#150](https://github.com/hap-java/HAP-Java/issues/150)
+
 # HAP-Java 2.0.0
 * major refactoring to support optional characteristics
 * structure and names adapted to HAP spec structure and naming.

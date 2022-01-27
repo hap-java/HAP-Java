@@ -83,7 +83,9 @@ public class HomekitRoot {
    */
   void addAccessorySkipRangeCheck(HomekitAccessory accessory) {
     this.registry.add(accessory);
-    logger.trace("Added accessory " + accessory.getName());
+    if (logger.isTraceEnabled()) {
+      accessory.getName().thenAccept(name -> logger.trace("Added accessory {}", name));
+    }
     if (started) {
       registry.reset();
       webHandler.resetConnections();
@@ -99,7 +101,9 @@ public class HomekitRoot {
    */
   public void removeAccessory(HomekitAccessory accessory) {
     this.registry.remove(accessory);
-    logger.trace("Removed accessory " + accessory.getName());
+    if (logger.isTraceEnabled()) {
+      accessory.getName().thenAccept(name -> logger.trace("Removed accessory {}", name));
+    }
     if (started) {
       registry.reset();
       webHandler.resetConnections();
