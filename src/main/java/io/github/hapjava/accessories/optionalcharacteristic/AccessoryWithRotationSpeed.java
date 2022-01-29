@@ -11,7 +11,7 @@ public interface AccessoryWithRotationSpeed {
    *
    * @return a future that will contain the speed, expressed as an integer between 0 and 100.
    */
-  CompletableFuture<Integer> getRotationSpeed();
+  CompletableFuture<Double> getRotationSpeed();
 
   /**
    * Sets the speed of the rotation
@@ -20,7 +20,7 @@ public interface AccessoryWithRotationSpeed {
    * @return a future that completes when the change is made
    * @throws Exception when the change cannot be made
    */
-  CompletableFuture<Void> setRotationSpeed(Integer speed) throws Exception;
+  CompletableFuture<Void> setRotationSpeed(Double speed) throws Exception;
 
   /**
    * Subscribes to changes in the rotation speed.
