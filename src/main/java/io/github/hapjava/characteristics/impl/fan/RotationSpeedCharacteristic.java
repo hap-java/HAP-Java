@@ -14,7 +14,7 @@ public class RotationSpeedCharacteristic extends FloatCharacteristic
     implements EventableCharacteristic {
   public static final double DEFAULT_MIN_VALUE = 0;
   public static final double DEFAULT_MAX_VALUE = 100;
-  public static final double DEFAULT_STEP = 25;
+  public static final double DEFAULT_STEP = 1;
 
   public RotationSpeedCharacteristic(
       double minValue,
