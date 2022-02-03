@@ -3,6 +3,31 @@
 * Log accessory names instead of futures. [#150](https://github.com/hap-java/HAP-Java/issues/150)
 * Fix rotation speed data type (BREAKING API CHANGE). According to HAP specification it must be float
 * Close JsonWriters [#149](https://github.com/hap-java/HAP-Java/issues/149)
+* Fix UUID of HAP Version characteristic
+
+## New  
+* New characteristics:
+  * Identifier
+  * Input Device Type 
+  * Input Source Type 
+  * Configured Name 
+  * Current Visibility State 
+  * Target Visibility State 
+  * Sleep Discovery Mode 
+  * Active Identifier 
+  * Closed Captions 
+  * Current Media State 
+  * Target Media State 
+  * Picture Mode
+  * Power Mode  
+  * Remote Key
+  * Volume Control Type
+  * Volume Selector
+  
+* New services
+  * Input Source
+  * Television
+  * Television Speaker
 
 # HAP-Java 2.0.0
 * major refactoring to support optional characteristics
