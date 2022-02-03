@@ -10,7 +10,7 @@ public class VersionCharacteristic extends StaticStringCharacteristic {
 
   public VersionCharacteristic(Supplier<CompletableFuture<String>> getter) {
     super(
-        "00000023-0000-1000-8000-0026BB765291",
+        "00000037-0000-1000-8000-0026BB765291",
         "HAP version",
         Optional.of(getter),
         Optional.empty(),
