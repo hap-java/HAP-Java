@@ -28,7 +28,7 @@ read the [Javadoc](https://hap-java.github.io/HAP-Java/apidocs/index.html)
 Supported HomeKit Accessories
 =========
 
-Current implementation fully supports 38 HomeKit accessory/services.
+Current implementation fully supports 41 HomeKit accessory/services.
 
 | HomeKit Accessory & Service type | Supported by Java-HAP |
 |--------------------|--------------------|
@@ -52,6 +52,7 @@ Current implementation fully supports 38 HomeKit accessory/services.
 |  Heater Cooler                    |     :white_check_mark:    |
 |  Humidifier Dehumidifier          |     :white_check_mark:    |
 |  Humidity Sensor                  |     :white_check_mark:    |
+|  Input Source                     |     :white_check_mark:    |
 |  Irrigation System                |     :white_check_mark:    |
 |  Leak Sensor                      |     :white_check_mark:    |
 |  Light Bulb                       |     :white_check_mark:    |
@@ -72,6 +73,8 @@ Current implementation fully supports 38 HomeKit accessory/services.
 |  Switch                           |     :white_check_mark:    |
 |  Target Control                   |     :x:                   |   
 |  Target Control Management        |     :x:                   |
+|  Television                       |     :white_check_mark:    |
+|  Television Speaker               |     :white_check_mark:    |
 |  Temperature Sensor               |     :white_check_mark:    |
 |  Thermostat                       |     :white_check_mark:    |
 |  Valve                            |     :white_check_mark:   |
