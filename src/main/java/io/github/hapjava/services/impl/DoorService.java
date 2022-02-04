@@ -2,8 +2,10 @@ package io.github.hapjava.services.impl;
 
 import io.github.hapjava.accessories.DoorAccessory;
 import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithHoldPosition;
+import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithMute;
 import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithName;
 import io.github.hapjava.accessories.optionalcharacteristic.AccessoryWithObstructionDetection;
+import io.github.hapjava.characteristics.impl.audio.MuteCharacteristic;
 import io.github.hapjava.characteristics.impl.common.NameCharacteristic;
 import io.github.hapjava.characteristics.impl.common.ObstructionDetectedCharacteristic;
 import io.github.hapjava.characteristics.impl.windowcovering.CurrentPositionCharacteristic;
@@ -53,6 +55,14 @@ public class DoorService extends AbstractServiceImpl {
               ((AccessoryWithObstructionDetection) accessory)::subscribeObstructionDetected,
               ((AccessoryWithObstructionDetection) accessory)::unsubscribeObstructionDetected));
     }
+    if (accessory instanceof AccessoryWithMute) {
+      addOptionalCharacteristic(
+          new MuteCharacteristic(
+              ((AccessoryWithMute) accessory)::isMuted,
+              ((AccessoryWithMute) accessory)::setMute,
+              ((AccessoryWithMute) accessory)::subscribeMuteState,
+              ((AccessoryWithMute) accessory)::unsubscribeMuteState));
+    }
   }
 
   public void addOptionalCharacteristic(NameCharacteristic name) {
@@ -66,5 +76,9 @@ public class DoorService extends AbstractServiceImpl {
   public void addOptionalCharacteristic(
       ObstructionDetectedCharacteristic obstructionDetectedCharacteristic) {
     addCharacteristic(obstructionDetectedCharacteristic);
+  }
+
+  public void addOptionalCharacteristic(MuteCharacteristic muteCharacteristic) {
+    addCharacteristic(muteCharacteristic);
   }
 }
