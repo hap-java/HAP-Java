@@ -72,7 +72,7 @@ public interface TelevisionAccessory extends HomekitAccessory {
   CompletableFuture<String> getConfiguredName();
 
   /**
-   * Sets the mute status
+   * Sets the configured name
    *
    * @param name configured name
    * @return a future that completes when the change is made
@@ -81,13 +81,13 @@ public interface TelevisionAccessory extends HomekitAccessory {
   CompletableFuture<Void> setConfiguredName(String name) throws Exception;
 
   /**
-   * Subscribes to changes in mute state.
+   * Subscribes to changes in configured name.
    *
-   * @param callback the function to call when the state changes.
+   * @param callback the function to call when the configureed name changes.
    */
   void subscribeConfiguredName(HomekitCharacteristicChangeCallback callback);
 
-  /** Unsubscribes from changes in the mute state. */
+  /** Unsubscribes from changes in the configured name state. */
   void unsubscribeConfiguredName();
 
   /**
