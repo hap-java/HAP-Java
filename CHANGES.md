@@ -4,6 +4,7 @@
 * Fix rotation speed data type (BREAKING API CHANGE). According to HAP specification it must be float
 * Close JsonWriters [#149](https://github.com/hap-java/HAP-Java/issues/149)
 * Fix UUID of HAP Version characteristic
+* Add Mute characteristic to Doorbell service
 
 ## New  
 * New characteristics:
@@ -23,11 +24,13 @@
   * Remote Key
   * Volume Control Type
   * Volume Selector
+  * AirPlay Enable
   
 * New services
   * Input Source
   * Television
   * Television Speaker
+  * Smart Speaker
 
 # HAP-Java 2.0.0
 * major refactoring to support optional characteristics

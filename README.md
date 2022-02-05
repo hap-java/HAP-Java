@@ -18,7 +18,7 @@ Include HAP-Java in your project using maven:
 <dependency>
 	<groupId>io.github.hap-java</groupId>
 	<artifactId>hap</artifactId>
-	<version>2.0.0-SNAPSHOT</version>
+	<version>2.0.1-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -28,7 +28,7 @@ read the [Javadoc](https://hap-java.github.io/HAP-Java/apidocs/index.html)
 Supported HomeKit Accessories
 =========
 
-Current implementation fully supports 41 HomeKit accessory/services.
+Current implementation fully supports 42 HomeKit accessory/services.
 
 | HomeKit Accessory & Service type | Supported by Java-HAP |
 |--------------------|--------------------|
@@ -67,6 +67,7 @@ Current implementation fully supports 41 HomeKit accessory/services.
 |  Service Label                    |     :white_check_mark:    |
 |  Siri                             |     :x:                   |
 |  Slat                             |     :white_check_mark:    |
+|  Smart Speaker                    |     :white_check_mark:    |
 |  Smoke Sensor                     |     :white_check_mark:    |
 |  Speaker                          |     :white_check_mark:    |
 |  Stateless Programmable Switch    |     :white_check_mark:    |
