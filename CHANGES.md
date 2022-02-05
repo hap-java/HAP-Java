@@ -3,6 +3,7 @@
 * Log accessory names instead of futures. [#150](https://github.com/hap-java/HAP-Java/issues/150)
 * Fix rotation speed data type (BREAKING API CHANGE). According to HAP specification it must be float
 * Fix UUID of HAP Version characteristic
+* Add Mute characteristic to Doorbell service
 
 ## New  
 * New characteristics:
@@ -22,11 +23,13 @@
   * Remote Key
   * Volume Control Type
   * Volume Selector
+  * AirPlay Enable
   
 * New services
   * Input Source
   * Television
   * Television Speaker
+  * Smart Speaker
 
 # HAP-Java 2.0.0
 * major refactoring to support optional characteristics
