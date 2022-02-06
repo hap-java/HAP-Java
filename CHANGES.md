@@ -2,6 +2,7 @@
 ## Fixes
 * Log accessory names instead of futures. [#150](https://github.com/hap-java/HAP-Java/issues/150)
 * Fix rotation speed data type (BREAKING API CHANGE). According to HAP specification it must be float
+* Close JsonWriters [#149](https://github.com/hap-java/HAP-Java/issues/149)
 
 # HAP-Java 2.0.0
 * major refactoring to support optional characteristics
