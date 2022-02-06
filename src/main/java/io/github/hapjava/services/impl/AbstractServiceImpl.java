@@ -16,7 +16,6 @@ abstract class AbstractServiceImpl implements Service {
 
   /** @param type unique UUID of the service according to HAP specification. */
   public AbstractServiceImpl(String type) {
-    logger.info("new service:" + type);
     this.type = type;
   }
 
@@ -32,7 +31,6 @@ abstract class AbstractServiceImpl implements Service {
 
   @Override
   public List<Service> getLinkedServices() {
-    logger.info(" all linked service" + this.linkedServices);
     return Collections.unmodifiableList(linkedServices);
   }
 
@@ -42,8 +40,6 @@ abstract class AbstractServiceImpl implements Service {
 
   @Override
   public void addLinkedService(Service service) {
-    logger.info("add linked service" + service);
     this.linkedServices.add(service);
-    logger.info(" all linked service" + this.linkedServices);
   }
 }
