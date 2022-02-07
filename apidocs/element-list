@@ -17,6 +17,7 @@ io.github.hapjava.characteristics.impl.garagedoor
 io.github.hapjava.characteristics.impl.heatercooler
 io.github.hapjava.characteristics.impl.humidifier
 io.github.hapjava.characteristics.impl.humiditysensor
+io.github.hapjava.characteristics.impl.inputsource
 io.github.hapjava.characteristics.impl.leaksensor
 io.github.hapjava.characteristics.impl.lightbulb
 io.github.hapjava.characteristics.impl.lightsensor
@@ -27,6 +28,8 @@ io.github.hapjava.characteristics.impl.outlet
 io.github.hapjava.characteristics.impl.securitysystem
 io.github.hapjava.characteristics.impl.slat
 io.github.hapjava.characteristics.impl.smokesensor
+io.github.hapjava.characteristics.impl.television
+io.github.hapjava.characteristics.impl.televisionspeaker
 io.github.hapjava.characteristics.impl.thermostat
 io.github.hapjava.characteristics.impl.valve
 io.github.hapjava.characteristics.impl.windowcovering
