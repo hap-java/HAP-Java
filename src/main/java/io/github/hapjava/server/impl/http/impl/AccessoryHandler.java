@@ -72,9 +72,9 @@ class AccessoryHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
             HttpVersion.HTTP_1_1,
             status,
             Unpooled.copiedBuffer(responseBody.getBytes(StandardCharsets.UTF_8)));
-    response.headers().set(HttpHeaders.Names.CONTENT_TYPE, "text/plain");
-    response.headers().set(HttpHeaders.Names.CONTENT_LENGTH, response.content().readableBytes());
-    response.headers().set(HttpHeaders.Names.CONNECTION, HttpHeaders.Values.KEEP_ALIVE);
+    response.headers().set(HttpHeaderNames.CONTENT_TYPE, "text/plain");
+    response.headers().set(HttpHeaderNames.CONTENT_LENGTH, response.content().readableBytes());
+    response.headers().set(HttpHeaderNames.CONNECTION, HttpHeaderValues.KEEP_ALIVE);
     ctx.write(response);
     ctx.flush();
   }

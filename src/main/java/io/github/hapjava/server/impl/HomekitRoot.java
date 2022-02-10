@@ -2,6 +2,7 @@ package io.github.hapjava.server.impl;
 
 import io.github.hapjava.accessories.Bridge;
 import io.github.hapjava.accessories.HomekitAccessory;
+import io.github.hapjava.server.HomekitAccessoryCategories;
 import io.github.hapjava.server.HomekitAuthInfo;
 import io.github.hapjava.server.HomekitWebHandler;
 import io.github.hapjava.server.impl.connections.HomekitClientConnectionFactoryImpl;
@@ -25,24 +26,36 @@ import org.slf4j.LoggerFactory;
 public class HomekitRoot {
 
   private static final Logger logger = LoggerFactory.getLogger(HomekitRoot.class);
-
+  private static final int DEFAULT_ACCESSORY_CATEGORY = HomekitAccessoryCategories.OTHER;
   private final JmdnsHomekitAdvertiser advertiser;
   private final HomekitWebHandler webHandler;
   private final HomekitAuthInfo authInfo;
   private final String label;
+  private final int category;
   private final HomekitRegistry registry;
   private final SubscriptionManager subscriptions = new SubscriptionManager();
   private boolean started = false;
   private int configurationIndex = 1;
 
   HomekitRoot(
-      String label, HomekitWebHandler webHandler, InetAddress localhost, HomekitAuthInfo authInfo)
+      String label, HomekitWebHandler webHandler, InetAddress host, HomekitAuthInfo authInfo)
       throws IOException {
-    this(label, webHandler, authInfo, new JmdnsHomekitAdvertiser(localhost));
+    this(label, DEFAULT_ACCESSORY_CATEGORY, webHandler, authInfo, new JmdnsHomekitAdvertiser(host));
   }
 
   HomekitRoot(
       String label,
+      int category,
+      HomekitWebHandler webHandler,
+      InetAddress host,
+      HomekitAuthInfo authInfo)
+      throws IOException {
+    this(label, category, webHandler, authInfo, new JmdnsHomekitAdvertiser(host));
+  }
+
+  HomekitRoot(
+      String label,
+      int category,
       HomekitWebHandler webHandler,
       HomekitAuthInfo authInfo,
       JmdnsHomekitAdvertiser advertiser)
@@ -51,14 +64,25 @@ public class HomekitRoot {
     this.webHandler = webHandler;
     this.authInfo = authInfo;
     this.label = label;
+    this.category = category;
     this.registry = new HomekitRegistry(label);
+  }
+
+  HomekitRoot(
+      String label,
+      int category,
+      HomekitWebHandler webHandler,
+      JmDNS jmdns,
+      HomekitAuthInfo authInfo)
+      throws IOException {
+    this(label, category, webHandler, authInfo, new JmdnsHomekitAdvertiser(jmdns));
   }
 
   HomekitRoot(String label, HomekitWebHandler webHandler, JmDNS jmdns, HomekitAuthInfo authInfo)
       throws IOException {
-    this(label, webHandler, authInfo, new JmdnsHomekitAdvertiser(jmdns));
+    this(
+        label, DEFAULT_ACCESSORY_CATEGORY, webHandler, authInfo, new JmdnsHomekitAdvertiser(jmdns));
   }
-
   /**
    * Add an accessory to be handled and advertised by this root. Any existing HomeKit connections
    * will be terminated to allow the clients to reconnect and see the updated accessory list. When
@@ -127,7 +151,12 @@ public class HomekitRoot {
               try {
                 refreshAuthInfo();
                 advertiser.advertise(
-                    label, authInfo.getMac(), port, configurationIndex, authInfo.getSetupId());
+                    label,
+                    category,
+                    authInfo.getMac(),
+                    port,
+                    configurationIndex,
+                    authInfo.getSetupId());
               } catch (Exception e) {
                 throw new RuntimeException(e);
               }

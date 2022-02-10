@@ -61,6 +61,6 @@ public class JmdnsHomekitAdvertiserTest {
   }
 
   private void advertise() throws Exception {
-    subject.advertise("test", "00:00:00:00:00:00", 1234, 1, "1");
+    subject.advertise("test", 1, "00:00:00:00:00:00", 1234, 1, "1");
   }
 }

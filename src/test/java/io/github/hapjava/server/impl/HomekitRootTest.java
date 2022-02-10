@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import io.github.hapjava.accessories.HomekitAccessory;
+import io.github.hapjava.server.HomekitAccessoryCategories;
 import io.github.hapjava.server.HomekitAuthInfo;
 import io.github.hapjava.server.HomekitWebHandler;
 import io.github.hapjava.server.impl.http.HomekitClientConnectionFactory;
@@ -38,7 +39,8 @@ public class HomekitRootTest {
     when(webHandler.start(any())).thenReturn(CompletableFuture.completedFuture(PORT));
     advertiser = mock(JmdnsHomekitAdvertiser.class);
     authInfo = mock(HomekitAuthInfo.class);
-    root = new HomekitRoot(LABEL, webHandler, authInfo, advertiser);
+    root =
+        new HomekitRoot(LABEL, HomekitAccessoryCategories.OTHER, webHandler, authInfo, advertiser);
   }
 
   @Test
@@ -78,7 +80,7 @@ public class HomekitRootTest {
     when(authInfo.getSetupId()).thenReturn(SETUPID);
 
     root.start();
-    verify(advertiser).advertise(eq(LABEL), eq(mac), eq(PORT), eq(1), eq(SETUPID));
+    verify(advertiser).advertise(eq(LABEL), eq(1), eq(mac), eq(PORT), eq(1), eq(SETUPID));
   }
 
   @Test

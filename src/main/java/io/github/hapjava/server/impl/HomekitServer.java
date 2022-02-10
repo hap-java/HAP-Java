@@ -139,6 +139,7 @@ public class HomekitServer {
   public HomekitRoot createBridge(
       HomekitAuthInfo authInfo,
       String label,
+      int category,
       String manufacturer,
       String model,
       String serialNumber,
@@ -147,9 +148,9 @@ public class HomekitServer {
       throws IOException {
     HomekitRoot root;
     if (jmdns != null) {
-      root = new HomekitRoot(label, http, jmdns, authInfo);
+      root = new HomekitRoot(label, category, http, jmdns, authInfo);
     } else {
-      root = new HomekitRoot(label, http, localAddress, authInfo);
+      root = new HomekitRoot(label, category, http, localAddress, authInfo);
     }
     root.addAccessory(
         new HomekitBridge(

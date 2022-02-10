@@ -4,7 +4,8 @@ import io.github.hapjava.server.impl.http.HttpResponse;
 import io.netty.buffer.Unpooled;
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
 import io.netty.handler.codec.http.FullHttpResponse;
-import io.netty.handler.codec.http.HttpHeaders;
+import io.netty.handler.codec.http.HttpHeaderNames;
+import io.netty.handler.codec.http.HttpHeaderValues;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.HttpVersion;
 import java.util.Map.Entry;
@@ -25,8 +26,8 @@ class NettyResponseUtil {
     for (Entry<String, String> header : homekitResponse.getHeaders().entrySet()) {
       response.headers().add(header.getKey(), header.getValue());
     }
-    response.headers().set(HttpHeaders.Names.CONTENT_LENGTH, response.content().readableBytes());
-    response.headers().set(HttpHeaders.Names.CONNECTION, HttpHeaders.Values.KEEP_ALIVE);
+    response.headers().set(HttpHeaderNames.CONTENT_LENGTH, response.content().readableBytes());
+    response.headers().set(HttpHeaderNames.CONNECTION, HttpHeaderValues.KEEP_ALIVE);
     return response;
   }
 }

@@ -27,6 +27,7 @@ public class JmdnsHomekitAdvertiser {
   private int port;
   private int configurationIndex;
   private ServiceInfo serviceInfo;
+  private int category;
 
   public JmdnsHomekitAdvertiser(JmDNS jmdns) {
     this.jmdns = jmdns;
@@ -37,7 +38,8 @@ public class JmdnsHomekitAdvertiser {
   }
 
   public synchronized void advertise(
-      String label, String mac, int port, int configurationIndex, String setupId) throws Exception {
+      String label, int category, String mac, int port, int configurationIndex, String setupId)
+      throws Exception {
     if (isAdvertising) {
       throw new IllegalStateException("HomeKit advertiser is already running");
     }
@@ -45,6 +47,7 @@ public class JmdnsHomekitAdvertiser {
     this.mac = mac;
     this.port = port;
     this.setupId = setupId;
+    this.category = category;
     this.configurationIndex = configurationIndex;
 
     logger.trace("Advertising accessory " + label);
@@ -114,7 +117,9 @@ public class JmdnsHomekitAdvertiser {
     props.put("c#", Integer.toString(configurationIndex));
     props.put("s#", "1");
     props.put("ff", "0");
-    props.put("ci", "1");
+    props.put("ci", Integer.toString(category));
+    props.put("pv", "1.1");
+
     return ServiceInfo.create(SERVICE_TYPE, label, port, 1, 1, props);
   }
 }
