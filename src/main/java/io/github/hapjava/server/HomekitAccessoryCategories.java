@@ -1,0 +1,40 @@
+package io.github.hapjava.server;
+
+public final class HomekitAccessoryCategories {
+  public static final int OTHER = 1;
+  public static final int BRIDGES = 2;
+  public static final int FANS = 3;
+  public static final int GARAGE_DOOR_OPENERS = 4;
+  public static final int LIGHTING = 5;
+  public static final int LOCKS = 6;
+  public static final int OUTLETS = 7;
+  public static final int SWITCHES = 8;
+  public static final int THERMOSTATS = 9;
+  public static final int SENSORS = 10;
+  public static final int SECURITY_SYSTEMS = 11;
+  public static final int DOORS = 12;
+  public static final int WINDOWS = 13;
+  public static final int WINDOW_COVERINGS = 14;
+  public static final int PROGRAMMABLE_SWITCHES = 15;
+  public static final int RANGE_EXTENDER = 16;
+  public static final int IP_CAMERAS = 17;
+  public static final int VIDEO_DOORBELLS = 18;
+  public static final int AIR_PURIFIERS = 19;
+  public static final int HEATERS = 20;
+  public static final int AIR_CONDITIONERS = 21;
+  public static final int HUMIDIFIERS = 22;
+  public static final int DEHUMIDIFIERS = 23;
+  public static final int APPLE_TV = 24;
+  public static final int HOMEPOD = 25;
+  public static final int SPEAKER = 26;
+  public static final int AIRPORT = 27;
+  public static final int SPRINKLERS = 28;
+  public static final int FAUCETS = 29;
+  public static final int SHOWER_SYSTEMS = 30;
+  public static final int TELEVISION = 31;
+  public static final int REMOTES = 32;
+  public static final int ROUTER = 33;
+  public static final int AUDIO_RECEIVER = 34;
+  public static final int TV_SET_TOP_BOX = 35;
+  public static final int TV_STREAMING_STICK = 36;
+}

@@ -13,7 +13,7 @@ class DefaultHttpRequestImpl implements HttpRequest {
 
   @Override
   public String getUri() {
-    return request.getUri();
+    return request.uri();
   }
 
   @Override
@@ -23,7 +23,7 @@ class DefaultHttpRequestImpl implements HttpRequest {
 
   @Override
   public HttpMethod getMethod() {
-    io.netty.handler.codec.http.HttpMethod method = request.getMethod();
+    io.netty.handler.codec.http.HttpMethod method = request.method();
     if (method.equals(io.netty.handler.codec.http.HttpMethod.GET)) {
       return HttpMethod.GET;
     } else if (method.equals(io.netty.handler.codec.http.HttpMethod.POST)) {
