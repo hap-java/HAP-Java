@@ -86,6 +86,6 @@ public interface HomekitAccessory {
    * @return primary service
    */
   default Service getPrimaryService() {
-    return getServices().iterator().next();
+    return getServices().isEmpty() ? null : getServices().iterator().next();
   };
 }
