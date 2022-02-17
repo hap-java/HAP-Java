@@ -42,7 +42,7 @@ public class AccessoryController {
       iidLookup.putAll(swapKeyAndValue(registry.getCharacteristics(accessory.getId())));
 
       for (Service service : servicesByInterfaceId.values()) {
-        serviceFutures.add(toJson(service, iidLookup));
+        serviceFutures.add(toJson(service, iidLookup, accessory.getPrimaryService() == service));
       }
 
       accessoryServiceFutures.put(accessory.getId(), serviceFutures);
@@ -72,8 +72,8 @@ public class AccessoryController {
     }
   }
 
-  private CompletableFuture<JsonObject> toJson(Service service, Map<Object, Integer> iidLookup)
-      throws Exception {
+  private CompletableFuture<JsonObject> toJson(
+      Service service, Map<Object, Integer> iidLookup, boolean isPrimary) throws Exception {
     String shortType =
         service.getType().replaceAll("^0*([0-9a-fA-F]+)-0000-1000-8000-0026BB765291$", "$1");
     JsonObjectBuilder builder =
@@ -103,7 +103,7 @@ public class AccessoryController {
                     .forEach(jsonLinkedServices::add);
                 builder.add("linked", jsonLinkedServices);
               }
-
+              builder.add("primary", isPrimary);
               return builder.build();
             });
   }
