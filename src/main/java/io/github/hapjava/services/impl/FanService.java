@@ -17,7 +17,12 @@ import io.github.hapjava.characteristics.impl.fan.RotationSpeedCharacteristic;
 import io.github.hapjava.characteristics.impl.fan.SwingModeCharacteristic;
 import io.github.hapjava.characteristics.impl.fan.TargetFanStateCharacteristic;
 
-/** This service describes a fan. */
+/**
+ * This service describes a fan.
+ *
+ * <p>In the R1 release of the HAP specification, this is described as Fan v2. In the R1 release of
+ * the HAP specification, this is simply described as Fan.
+ */
 public class FanService extends AbstractServiceImpl {
 
   public FanService(ActiveCharacteristic active) {
