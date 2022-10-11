@@ -125,15 +125,26 @@ public abstract class BaseCharacteristic<T> implements Characteristic, Eventable
     try {
       setValue(convert(jsonValue));
     } catch (Exception e) {
-      logger.warn("Error while setting JSON value", e);
+      logger.warn(
+          "Error while setting JSON value {} for characteristic {}",
+          jsonValue,
+          getClass().getName(),
+          e);
     }
   }
 
   /** {@inheritDoc} */
   @Override
   public void supplyValue(JsonObjectBuilder builder) {
+    CompletableFuture<T> futureValue = getValue();
+
+    if (futureValue == null) {
+      setJsonValue(builder, getDefault());
+      return;
+    }
+
     try {
-      setJsonValue(builder, getValue().get());
+      setJsonValue(builder, futureValue.get());
     } catch (InterruptedException | ExecutionException e) {
       logger.warn("Error retrieving value", e);
       setJsonValue(builder, getDefault());
@@ -143,13 +154,13 @@ public abstract class BaseCharacteristic<T> implements Characteristic, Eventable
   /** {@inheritDoc} */
   @Override
   public void subscribe(HomekitCharacteristicChangeCallback callback) {
-    subscriber.get().accept(callback);
+    subscriber.ifPresent(s -> s.accept(callback));
   }
 
   /** {@inheritDoc} */
   @Override
   public void unsubscribe() {
-    unsubscriber.get().run();
+    unsubscriber.ifPresent(u -> u.run());
   }
 
   /**

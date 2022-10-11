@@ -1,3 +1,6 @@
+# HAP-Java 2.0.2
+ * Various minor stability issues for after an accessory has been removed.
+
 # HAP-Java 2.0.1
 ## Fixes
 * Log accessory names instead of futures. [#150](https://github.com/hap-java/HAP-Java/issues/150)

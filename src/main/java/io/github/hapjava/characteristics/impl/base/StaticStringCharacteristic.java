@@ -60,7 +60,7 @@ public class StaticStringCharacteristic extends BaseCharacteristic<String> {
   /** {@inheritDoc} */
   @Override
   protected CompletableFuture<String> getValue() {
-    return getter.map(stringGetter -> stringGetter.get()).get();
+    return getter.map(stringGetter -> stringGetter.get()).orElse(null);
   }
 
   /** {@inheritDoc} */
