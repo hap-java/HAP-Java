@@ -74,7 +74,7 @@ public class StringCharacteristic extends BaseCharacteristic<String> {
 
   /** {@inheritDoc} */
   @Override
-  protected String getDefault() {
+  public String getDefault() {
     return "Unknown";
   }
 }

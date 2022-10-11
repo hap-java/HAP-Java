@@ -181,7 +181,7 @@ public abstract class BaseCharacteristic<T> implements Characteristic, Eventable
    *
    * @return a sensible default value.
    */
-  protected abstract T getDefault();
+  public abstract T getDefault();
 
   /**
    * Writes the value key to the serialized characteristic

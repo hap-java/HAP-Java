@@ -135,7 +135,7 @@ public abstract class FloatCharacteristic extends BaseCharacteristic<Double> {
 
   /** {@inheritDoc} */
   @Override
-  protected Double getDefault() {
+  public Double getDefault() {
     return minValue;
   }
 }

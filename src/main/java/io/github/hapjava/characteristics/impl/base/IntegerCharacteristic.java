@@ -82,7 +82,7 @@ public abstract class IntegerCharacteristic extends BaseCharacteristic<Integer> 
 
   /** {@inheritDoc} */
   @Override
-  protected Integer getDefault() {
+  public Integer getDefault() {
     return minValue;
   }
 
