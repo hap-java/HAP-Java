@@ -111,7 +111,7 @@ public abstract class EnumCharacteristic<T extends CharacteristicEnum>
 
   /** {@inheritDoc} */
   @Override
-  protected Integer getDefault() {
+  public Integer getDefault() {
     // as default return first item from valid values
     if (validValues != null && validValues.length > 0) {
       return validValues[0].getCode();

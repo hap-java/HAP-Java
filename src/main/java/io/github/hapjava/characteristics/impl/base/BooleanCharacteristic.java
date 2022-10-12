@@ -71,7 +71,7 @@ public abstract class BooleanCharacteristic extends BaseCharacteristic<Boolean> 
 
   /** {@inheritDoc} */
   @Override
-  protected Boolean getDefault() {
+  public Boolean getDefault() {
     return false;
   }
 }

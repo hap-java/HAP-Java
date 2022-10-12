@@ -9,7 +9,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/** This characteristic describes color temperature in Kelvin */
+/** This characteristic describes color temperature in mireds */
 public class ColorTemperatureCharacteristic extends IntegerCharacteristic
     implements EventableCharacteristic {
   public static final int DEFAULT_MIN_VALUE = 50;
@@ -27,7 +27,7 @@ public class ColorTemperatureCharacteristic extends IntegerCharacteristic
         "color temperature",
         minValue,
         maxValue,
-        "K",
+        "mired",
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),

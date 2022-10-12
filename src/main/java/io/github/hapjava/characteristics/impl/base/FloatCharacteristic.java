@@ -130,12 +130,12 @@ public abstract class FloatCharacteristic extends BaseCharacteristic<Double> {
 
   @Override
   protected void setValue(Double value) throws Exception {
-    setter.get().accept(value);
+    if (setter.isPresent()) setter.get().accept(value);
   }
 
   /** {@inheritDoc} */
   @Override
-  protected Double getDefault() {
+  public Double getDefault() {
     return minValue;
   }
 }

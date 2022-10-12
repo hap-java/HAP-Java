@@ -51,7 +51,7 @@ public class CharacteristicsController {
           characteristics.add(characteristic.add("aid", aid).add("iid", iid).build());
         } else {
           logger.warn(
-              "Accessory " + aid + " does not have characteristic " + iid + "Request: " + uri);
+              "Accessory " + aid + " does not have characteristic " + iid + ". Request: " + uri);
         }
       } else {
         logger.warn(
@@ -77,7 +77,16 @@ public class CharacteristicsController {
           JsonObject jsonCharacteristic = (JsonObject) value;
           int aid = jsonCharacteristic.getInt("aid");
           int iid = jsonCharacteristic.getInt("iid");
-          Characteristic characteristic = registry.getCharacteristics(aid).get(iid);
+          Map<Integer, Characteristic> accessory = registry.getCharacteristics(aid);
+          if (accessory.isEmpty()) {
+            logger.warn("Accessory {} has no characteristics or does not exist.", aid);
+            return new HapJsonNoContentResponse();
+          }
+          Characteristic characteristic = accessory.get(iid);
+          if (characteristic == null) {
+            logger.warn("Accessory {} does not have characteristic {}.", aid, iid);
+            return new HapJsonNoContentResponse();
+          }
 
           if (jsonCharacteristic.containsKey("value")) {
             characteristic.setValue(jsonCharacteristic.get("value"));
