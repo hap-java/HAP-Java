@@ -1,3 +1,6 @@
+# HAP-Java 2.0.3
+* Upgrade bouncycastle dependencies to 1.72
+
 # HAP-Java 2.0.2
  * Various minor stability issues for after an accessory has been removed.
 

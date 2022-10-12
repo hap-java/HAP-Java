@@ -105,9 +105,15 @@
 
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
-			<artifactId>bcprov-jdk15on</artifactId>
-			<version>1.51</version>
+			<artifactId>bcprov-jdk18on</artifactId>
+			<version>1.72</version>
 		</dependency>
+
+                <dependency>
+                        <groupId>org.bouncycastle</groupId>
+                        <artifactId>bctls-jdk18on</artifactId>
+                        <version>1.72</version>
+                </dependency>
 
 		<dependency>
 			<groupId>net.vrallev.ecc</groupId>
