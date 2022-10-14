@@ -91,20 +91,18 @@ public class HomekitRootTest {
   }
 
   @Test
-  public void testAddAccessoryResetsWeb() {
+  public void testAddAccessoryDoesntResetWeb() {
     root.start();
-    verify(webHandler, never()).resetConnections();
     root.addAccessory(accessory);
-    verify(webHandler).resetConnections();
+    verify(webHandler, never()).resetConnections();
   }
 
   @Test
-  public void testRemoveAccessoryResetsWeb() {
+  public void testRemoveAccessoryDoesntResetWeb() {
     root.addAccessory(accessory);
     root.start();
-    verify(webHandler, never()).resetConnections();
     root.removeAccessory(accessory);
-    verify(webHandler).resetConnections();
+    verify(webHandler, never()).resetConnections();
   }
 
   @Test(expected = IndexOutOfBoundsException.class)
