@@ -112,7 +112,6 @@ public class HomekitRoot {
     }
     if (started) {
       registry.reset();
-      webHandler.resetConnections();
     }
   }
 
@@ -130,7 +129,6 @@ public class HomekitRoot {
     }
     if (started) {
       registry.reset();
-      webHandler.resetConnections();
     }
   }
 

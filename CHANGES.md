@@ -1,3 +1,6 @@
+# HAP-Java 2.0.3
+* Avoid unnecessary forced disconnects. Library users should be updating the configuration index anyway.
+
 # HAP-Java 2.0.2
  * Various minor stability issues for after an accessory has been removed.
 
