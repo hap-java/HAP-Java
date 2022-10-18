@@ -112,8 +112,8 @@ public abstract class BaseCharacteristic<T> implements Characteristic, Eventable
                       .add("iid", instanceId)
                       .add("type", shortType)
                       .add("perms", perms.build())
-                      .add("format", format)
-                      .add("description", description);
+                      .add("format", format);
+              if (shortType.length() == type.length()) builder.add("description", description);
               if (isReadable) setJsonValue(builder, value);
               return builder;
             });
