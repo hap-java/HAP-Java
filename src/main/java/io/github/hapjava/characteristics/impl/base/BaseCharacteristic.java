@@ -72,6 +72,12 @@ public abstract class BaseCharacteristic<T> implements Characteristic, Eventable
 
   @Override
   /** {@inheritDoc} */
+  public String getType() {
+    return type;
+  }
+
+  @Override
+  /** {@inheritDoc} */
   public final CompletableFuture<JsonObject> toJson(int iid) {
     return makeBuilder(iid).thenApply(builder -> builder.build());
   }

@@ -4,7 +4,7 @@ import io.github.hapjava.characteristics.EventableCharacteristic;
 import io.github.hapjava.server.impl.connections.PendingNotification;
 import io.github.hapjava.server.impl.http.HttpResponse;
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
+import java.util.List;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
@@ -34,7 +34,7 @@ public class EventController {
     }
   }
 
-  public HttpResponse getMessage(ArrayList<PendingNotification> notifications) throws Exception {
+  public HttpResponse getMessage(List<PendingNotification> notifications) throws Exception {
     JsonArrayBuilder characteristics = Json.createArrayBuilder();
 
     for (PendingNotification notification : notifications) {
