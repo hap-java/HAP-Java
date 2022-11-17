@@ -86,11 +86,19 @@ public class HomekitRoot {
         label, DEFAULT_ACCESSORY_CATEGORY, webHandler, authInfo, new JmdnsHomekitAdvertiser(jmdns));
   }
 
+  /**
+   * Begin a batch update of accessories.
+   *
+   * <p>After calling this, you can call addAccessory() and removeAccessory() multiple times without
+   * causing HAP-Java to re-publishing the metadata to HomeKit. You'll need to call
+   * completeUpdateBatch in order to publish all accumulated changes.
+   */
   public synchronized void batchUpdate() {
     if (this.nestedBatches == 0) madeChanges = false;
     ++this.nestedBatches;
   }
 
+  /** Publish accumulated accessory changes since batchUpdate() was called. */
   public synchronized void completeUpdateBatch() {
     if (--this.nestedBatches == 0 && madeChanges) registry.reset();
   }

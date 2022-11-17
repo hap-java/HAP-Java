@@ -58,7 +58,7 @@ public class SubscriptionManager {
         reverse.put(connection, new HashSet<>());
       }
       reverse.get(connection).add(characteristic);
-      LOGGER.debug(
+      LOGGER.trace(
           "Added subscription to {}:{} ({}) for {}",
           aid,
           iid,
@@ -73,7 +73,7 @@ public class SubscriptionManager {
     if (subscribers != null) {
       subscribers.connections.remove(connection);
       if (subscribers.connections.isEmpty()) {
-        LOGGER.debug("Unsubscribing from characteristic as all subscriptions are closed");
+        LOGGER.trace("Unsubscribing from characteristic as all subscriptions are closed");
         characteristic.unsubscribe();
         subscriptions.remove(characteristic);
       }
@@ -85,7 +85,7 @@ public class SubscriptionManager {
         if (connectionNotifications.isEmpty()) pendingNotifications.remove(connection);
       }
 
-      LOGGER.debug(
+      LOGGER.trace(
           "Removed subscription from {}:{} ({}) for {}",
           subscribers.aid,
           subscribers.iid,
@@ -112,7 +112,7 @@ public class SubscriptionManager {
         removeSubscription(characteristic, connection);
       }
     }
-    LOGGER.debug("Removed connection {}", connection.hashCode());
+    LOGGER.trace("Removed connection {}", connection.hashCode());
   }
 
   public synchronized void batchUpdate() {
@@ -173,7 +173,7 @@ public class SubscriptionManager {
    * characteristics
    */
   public synchronized void resync(HomekitRegistry registry) {
-    LOGGER.debug("Resyncing subscriptions");
+    LOGGER.trace("Resyncing subscriptions");
     flushUpdateBatch();
 
     Map<EventableCharacteristic, ConnectionsWithIds> newSubscriptions = new HashMap<>();
@@ -187,7 +187,7 @@ public class SubscriptionManager {
           registry.getCharacteristics(subscribers.aid).get(subscribers.iid);
       if (newCharacteristic == null || newCharacteristic.getType() != oldCharacteristic.getType()) {
         // characteristic is gone or has completely changed; drop all subscriptions for it
-        LOGGER.debug(
+        LOGGER.trace(
             "{}:{} ({}) has gone missing; dropping subscriptions.",
             subscribers.aid,
             subscribers.iid,
@@ -199,7 +199,7 @@ public class SubscriptionManager {
       } else if (newCharacteristic != oldCharacteristic) {
         EventableCharacteristic newEventableCharacteristic =
             (EventableCharacteristic) newCharacteristic;
-        LOGGER.debug(
+        LOGGER.trace(
             "{}:{} has been replaced by a compatible characteristic; re-connecting subscriptions",
             subscribers.aid,
             subscribers.iid);
@@ -242,16 +242,16 @@ public class SubscriptionManager {
 
   /** Remove all existing subscriptions */
   public synchronized void removeAll() {
-    LOGGER.debug("Removing {} reverse connections from subscription manager", reverse.size());
+    LOGGER.trace("Removing {} reverse connections from subscription manager", reverse.size());
     Iterator<Map.Entry<HomekitClientConnection, Set<EventableCharacteristic>>> i =
         reverse.entrySet().iterator();
     while (i.hasNext()) {
       Map.Entry<HomekitClientConnection, Set<EventableCharacteristic>> entry = i.next();
       HomekitClientConnection connection = entry.getKey();
-      LOGGER.debug("Removing connection {}", connection.hashCode());
+      LOGGER.trace("Removing connection {}", connection.hashCode());
       i.remove();
       removeConnection(connection, entry.getValue());
     }
-    LOGGER.debug("Subscription sizes are {} and {}", reverse.size(), subscriptions.size());
+    LOGGER.trace("Subscription sizes are {} and {}", reverse.size(), subscriptions.size());
   }
 }
