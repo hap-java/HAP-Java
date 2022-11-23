@@ -18,6 +18,8 @@ import javax.json.JsonValue;
  * @author Andy Lintner
  */
 public interface Characteristic {
+  /** @return The UUID type for this characteristic. */
+  String getType();
 
   /**
    * Adds an attribute to the passed JsonObjectBuilder named "value" with the current value of the

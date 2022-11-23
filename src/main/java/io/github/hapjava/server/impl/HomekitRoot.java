@@ -36,6 +36,8 @@ public class HomekitRoot {
   private final SubscriptionManager subscriptions = new SubscriptionManager();
   private boolean started = false;
   private int configurationIndex = 1;
+  private int nestedBatches = 0;
+  private boolean madeChanges = false;
 
   HomekitRoot(
       String label, HomekitWebHandler webHandler, InetAddress host, HomekitAuthInfo authInfo)
@@ -65,7 +67,7 @@ public class HomekitRoot {
     this.authInfo = authInfo;
     this.label = label;
     this.category = category;
-    this.registry = new HomekitRegistry(label);
+    this.registry = new HomekitRegistry(label, subscriptions);
   }
 
   HomekitRoot(
@@ -83,11 +85,27 @@ public class HomekitRoot {
     this(
         label, DEFAULT_ACCESSORY_CATEGORY, webHandler, authInfo, new JmdnsHomekitAdvertiser(jmdns));
   }
+
   /**
-   * Add an accessory to be handled and advertised by this root. Any existing HomeKit connections
-   * will be terminated to allow the clients to reconnect and see the updated accessory list. When
-   * using this for a bridge, the ID of the accessory must be greater than 1, as that ID is reserved
-   * for the Bridge itself.
+   * Begin a batch update of accessories.
+   *
+   * <p>After calling this, you can call addAccessory() and removeAccessory() multiple times without
+   * causing HAP-Java to re-publishing the metadata to HomeKit. You'll need to call
+   * completeUpdateBatch in order to publish all accumulated changes.
+   */
+  public synchronized void batchUpdate() {
+    if (this.nestedBatches == 0) madeChanges = false;
+    ++this.nestedBatches;
+  }
+
+  /** Publish accumulated accessory changes since batchUpdate() was called. */
+  public synchronized void completeUpdateBatch() {
+    if (--this.nestedBatches == 0 && madeChanges) registry.reset();
+  }
+
+  /**
+   * Add an accessory to be handled and advertised by this root. When using this for a bridge, the
+   * ID of the accessory must be greater than 1, as that ID is reserved for the Bridge itself.
    *
    * @param accessory to advertise and handle.
    */
@@ -110,25 +128,28 @@ public class HomekitRoot {
     if (logger.isTraceEnabled()) {
       accessory.getName().thenAccept(name -> logger.trace("Added accessory {}", name));
     }
-    if (started) {
+    madeChanges = true;
+    if (started && nestedBatches == 0) {
       registry.reset();
     }
   }
 
   /**
-   * Removes an accessory from being handled or advertised by this root. Any existing HomeKit
-   * connections will be terminated to allow the clients to reconnect and see the updated accessory
-   * list.
+   * Removes an accessory from being handled or advertised by this root.
    *
    * @param accessory accessory to cease advertising and handling
    */
   public void removeAccessory(HomekitAccessory accessory) {
-    this.registry.remove(accessory);
-    if (logger.isTraceEnabled()) {
-      accessory.getName().thenAccept(name -> logger.trace("Removed accessory {}", name));
-    }
-    if (started) {
-      registry.reset();
+    if (this.registry.remove(accessory)) {
+      if (logger.isTraceEnabled()) {
+        accessory.getName().thenAccept(name -> logger.trace("Removed accessory {}", name));
+      }
+      madeChanges = true;
+      if (started && nestedBatches == 0) {
+        registry.reset();
+      }
+    } else {
+      accessory.getName().thenAccept(name -> logger.warn("Could not remove accessory {}", name));
     }
   }
 
@@ -140,6 +161,7 @@ public class HomekitRoot {
    */
   public void start() {
     started = true;
+    madeChanges = false;
     registry.reset();
     webHandler
         .start(

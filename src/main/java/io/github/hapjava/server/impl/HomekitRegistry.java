@@ -2,6 +2,7 @@ package io.github.hapjava.server.impl;
 
 import io.github.hapjava.accessories.HomekitAccessory;
 import io.github.hapjava.characteristics.Characteristic;
+import io.github.hapjava.server.impl.connections.SubscriptionManager;
 import io.github.hapjava.services.Service;
 import io.github.hapjava.services.impl.AccessoryInformationService;
 import java.util.ArrayList;
@@ -19,14 +20,16 @@ public class HomekitRegistry {
   private static final Logger logger = LoggerFactory.getLogger(HomekitRegistry.class);
 
   private final String label;
+  private final SubscriptionManager subscriptions;
   private final Map<Integer, HomekitAccessory> accessories;
   private final Map<HomekitAccessory, Map<Integer, Service>> services = new HashMap<>();
   private final Map<HomekitAccessory, Map<Integer, Characteristic>> characteristics =
       new HashMap<>();
   private boolean isAllowUnauthenticatedRequests = false;
 
-  public HomekitRegistry(String label) {
+  public HomekitRegistry(String label, SubscriptionManager subscriptions) {
     this.label = label;
+    this.subscriptions = subscriptions;
     this.accessories = new ConcurrentHashMap<>();
     reset();
   }
@@ -61,6 +64,7 @@ public class HomekitRegistry {
       services.put(accessory, newServicesByInterfaceId);
       characteristics.put(accessory, newCharacteristicsByInterfaceId);
     }
+    subscriptions.resync(this);
   }
 
   public String getLabel() {
@@ -87,8 +91,8 @@ public class HomekitRegistry {
     accessories.put(accessory.getId(), accessory);
   }
 
-  public void remove(HomekitAccessory accessory) {
-    accessories.remove(accessory.getId());
+  public boolean remove(HomekitAccessory accessory) {
+    return accessories.remove(accessory.getId()) != null;
   }
 
   public boolean isAllowUnauthenticatedRequests() {
