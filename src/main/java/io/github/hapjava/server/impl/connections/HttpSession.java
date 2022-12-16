@@ -67,7 +67,7 @@ class HttpSession {
 
   public HttpResponse handleAuthenticatedRequest(HttpRequest request) throws IOException {
     advertiser.setDiscoverable(
-        false); // brigde is already bound and should not be discoverable anymore
+        false); // bridge is already bound and should not be discoverable anymore
     try {
       switch (request.getUri()) {
         case "/accessories":

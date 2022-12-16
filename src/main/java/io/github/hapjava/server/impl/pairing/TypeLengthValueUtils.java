@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,6 +38,11 @@ public class TypeLengthValueUtils {
       baos = new ByteArrayOutputStream();
     }
 
+    public void add(MessageType type) {
+      baos.write(type.getKey());
+      baos.write(0);
+    }
+
     public void add(MessageType type, BigInteger i) throws IOException {
       add(type, ByteUtils.toByteArray(i));
     }
@@ -56,6 +62,10 @@ public class TypeLengthValueUtils {
         baos.write(toWrite);
         ByteUtils.copyStream(bais, baos, toWrite);
       }
+    }
+
+    public void add(MessageType type, String string) throws IOException {
+      add(type, string.getBytes(StandardCharsets.UTF_8));
     }
 
     public byte[] toByteArray() {

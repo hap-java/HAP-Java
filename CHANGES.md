@@ -1,3 +1,6 @@
+# HAP-Java 2.0.5
+* Implement List-Pairings method. Compatibility with new Home infrastructure from iOS 16.2?
+
 # HAP-Java 2.0.3
 * Avoid unnecessary forced disconnects. Library users should be updating the configuration index anyway.
 

@@ -3,6 +3,8 @@ package io.github.hapjava.server;
 import io.github.hapjava.server.impl.HomekitServer;
 import io.github.hapjava.server.impl.crypto.HAPSetupCodeUtils;
 import java.math.BigInteger;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Authentication info that must be provided when constructing a new {@link HomekitServer}. You will
@@ -65,8 +67,23 @@ public interface HomekitAuthInfo {
    * @param username the iOS device's username. The value will not be meaningful to anything but
    *     iOS.
    * @param publicKey the iOS device's public key.
+   * @param isAdmin if the user is an admin, authorized to and/remove other users
    */
-  void createUser(String username, byte[] publicKey);
+  default void createUser(String username, byte[] publicKey, boolean isAdmin) {
+    createUser(username, publicKey);
+  }
+
+  /**
+   * Deprecated method to add a user, assuming all users are admins.
+   *
+   * <p>At least one of the createUser methods must be implemented.
+   *
+   * @param username the iOS device's username.
+   * @param publicKey the iOS device's public key.
+   */
+  default void createUser(String username, byte[] publicKey) {
+    createUser(username, publicKey, true);
+  }
 
   /**
    * Called when an iOS device needs to remove an existing pairing. Subsequent calls to {@link
@@ -77,6 +94,15 @@ public interface HomekitAuthInfo {
   void removeUser(String username);
 
   /**
+   * List all users which have been authenticated.
+   *
+   * @return the previously stored list of users.
+   */
+  default Collection<String> listUsers() {
+    return List.of();
+  }
+
+  /**
    * Called when an already paired iOS device is re-connecting. The public key returned by this
    * method will be compared with the signature of the pair verification request to validate the
    * device.
@@ -85,6 +111,16 @@ public interface HomekitAuthInfo {
    * @return the previously stored public key for this user.
    */
   byte[] getUserPublicKey(String username);
+
+  /**
+   * Determine if the specified user is an admin.
+   *
+   * @param username the username of the iOS device to retrieve permissions for.
+   * @return the previously stored permissions.
+   */
+  default boolean userIsAdmin(String username) {
+    return true;
+  }
 
   /**
    * Called to check if a user has been created. The homekit accessory advertises whether the

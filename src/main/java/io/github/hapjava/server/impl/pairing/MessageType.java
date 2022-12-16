@@ -9,7 +9,12 @@ public enum MessageType {
   ENCRYPTED_DATA(5),
   STATE(6),
   ERROR(7),
-  SIGNATURE(10);
+  SIGNATURE(0x0a),
+  PERMISSIONS(0x0b),
+  FRAGMENT_DATA(0x0c),
+  FRAGMENT_LAST(0x0d),
+  FLAGS(0x13),
+  SEPARATOR(0xff);
 
   private final short key;
 

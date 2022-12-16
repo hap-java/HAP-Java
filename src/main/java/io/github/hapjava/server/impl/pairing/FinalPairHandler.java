@@ -65,7 +65,8 @@ class FinalPairHandler {
     if (!new EdsaVerifier(ltpk).verify(completeData, proof)) {
       throw new Exception("Invalid signature");
     }
-    authInfo.createUser(authInfo.getMac() + new String(username, StandardCharsets.UTF_8), ltpk);
+    authInfo.createUser(
+        authInfo.getMac() + new String(username, StandardCharsets.UTF_8), ltpk, true);
     return createResponse();
   }
 
