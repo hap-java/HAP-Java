@@ -42,6 +42,8 @@ public class PairingUpdateController {
       Collection<String> usernames = authInfo.listUsers();
       boolean first = true;
       Iterator<String> iterator = usernames.iterator();
+      String mac = authInfo.getMac();
+
       while (iterator.hasNext()) {
         String username = iterator.next();
         if (first) {
@@ -50,9 +52,14 @@ public class PairingUpdateController {
         } else {
           e.add(MessageType.SEPARATOR);
         }
+        byte[] publicKey = authInfo.getUserPublicKey(username);
+        boolean isAdmin = authInfo.userIsAdmin(username);
+        if (username.startsWith(mac)) {
+          username = username.substring(mac.length());
+        }
         e.add(MessageType.USERNAME, username);
-        e.add(MessageType.PUBLIC_KEY, authInfo.getUserPublicKey(username));
-        e.add(MessageType.PERMISSIONS, (short) (authInfo.userIsAdmin(username) ? 1 : 0));
+        e.add(MessageType.PUBLIC_KEY, publicKey);
+        e.add(MessageType.PERMISSIONS, (short) (isAdmin ? 1 : 0));
       }
       ;
 
