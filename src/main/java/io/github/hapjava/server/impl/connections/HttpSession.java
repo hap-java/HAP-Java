@@ -9,9 +9,9 @@ import io.github.hapjava.server.impl.http.HttpResponse;
 import io.github.hapjava.server.impl.jmdns.JmdnsHomekitAdvertiser;
 import io.github.hapjava.server.impl.json.AccessoryController;
 import io.github.hapjava.server.impl.json.CharacteristicsController;
-import io.github.hapjava.server.impl.pairing.PairVerificationManager;
-import io.github.hapjava.server.impl.pairing.PairingManager;
-import io.github.hapjava.server.impl.pairing.PairingUpdateController;
+import io.github.hapjava.server.impl.pairing.PairSetupManager;
+import io.github.hapjava.server.impl.pairing.PairVerifyManager;
+import io.github.hapjava.server.impl.pairing.PairingsManager;
 import io.github.hapjava.server.impl.responses.InternalServerErrorResponse;
 import io.github.hapjava.server.impl.responses.NotFoundResponse;
 import java.io.IOException;
@@ -21,8 +21,8 @@ import org.slf4j.LoggerFactory;
 
 class HttpSession {
 
-  private volatile PairingManager pairingManager;
-  private volatile PairVerificationManager pairVerificationManager;
+  private volatile PairSetupManager pairSetupManager;
+  private volatile PairVerifyManager pairVerifyManager;
   private volatile AccessoryController accessoryController;
   private volatile CharacteristicsController characteristicsController;
 
@@ -84,7 +84,7 @@ class HttpSession {
           }
 
         case "/pairings":
-          return new PairingUpdateController(authInfo, advertiser).handle(request);
+          return new PairingsManager(authInfo, advertiser).handle(request);
 
         default:
           if (request.getUri().startsWith("/characteristics?")) {
@@ -100,15 +100,15 @@ class HttpSession {
   }
 
   private HttpResponse handlePairSetup(HttpRequest request) {
-    if (pairingManager == null) {
+    if (pairSetupManager == null) {
       synchronized (HttpSession.class) {
-        if (pairingManager == null) {
-          pairingManager = new PairingManager(authInfo, registry);
+        if (pairSetupManager == null) {
+          pairSetupManager = new PairSetupManager(authInfo, registry);
         }
       }
     }
     try {
-      return pairingManager.handle(request);
+      return pairSetupManager.handle(request);
     } catch (Exception e) {
       logger.warn("Exception encountered during pairing", e);
       return new InternalServerErrorResponse(e);
@@ -116,15 +116,15 @@ class HttpSession {
   }
 
   private HttpResponse handlePairVerify(HttpRequest request) {
-    if (pairVerificationManager == null) {
+    if (pairVerifyManager == null) {
       synchronized (HttpSession.class) {
-        if (pairVerificationManager == null) {
-          pairVerificationManager = new PairVerificationManager(authInfo, registry);
+        if (pairVerifyManager == null) {
+          pairVerifyManager = new PairVerifyManager(authInfo, registry);
         }
       }
     }
     try {
-      return pairVerificationManager.handle(request);
+      return pairVerifyManager.handle(request);
     } catch (Exception e) {
       logger.warn("Exception encountered while verifying pairing", e);
       return new InternalServerErrorResponse(e);

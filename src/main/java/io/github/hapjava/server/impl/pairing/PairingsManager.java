@@ -9,13 +9,17 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Iterator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class PairingUpdateController {
+public class PairingsManager {
 
   private final HomekitAuthInfo authInfo;
   private final JmdnsHomekitAdvertiser advertiser;
 
-  public PairingUpdateController(HomekitAuthInfo authInfo, JmdnsHomekitAdvertiser advertiser) {
+  private static final Logger LOGGER = LoggerFactory.getLogger(PairingsManager.class);
+
+  public PairingsManager(HomekitAuthInfo authInfo, JmdnsHomekitAdvertiser advertiser) {
     this.authInfo = authInfo;
     this.advertiser = advertiser;
   }
@@ -24,6 +28,7 @@ public class PairingUpdateController {
     DecodeResult d = TypeLengthValueUtils.decode(request.getBody());
 
     int method = d.getByte(MessageType.METHOD);
+
     if (method == PairingMethod.ADD_PAIRING.getValue()) {
       byte[] username = d.getBytes(MessageType.USERNAME);
       byte[] ltpk = d.getBytes(MessageType.PUBLIC_KEY);
@@ -61,15 +66,12 @@ public class PairingUpdateController {
         e.add(MessageType.PUBLIC_KEY, publicKey);
         e.add(MessageType.PERMISSIONS, (short) (isAdmin ? 1 : 0));
       }
-      ;
 
       return new PairingResponse(e.toByteArray());
     } else {
       throw new RuntimeException("Unrecognized method: " + method);
     }
 
-    TypeLengthValueUtils.Encoder e = TypeLengthValueUtils.getEncoder();
-    e.add(MessageType.STATE, (byte) 2);
-    return new PairingResponse(e.toByteArray());
+    return new PairingResponse(2);
   }
 }

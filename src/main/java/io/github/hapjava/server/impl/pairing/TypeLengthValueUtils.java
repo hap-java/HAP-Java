@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
@@ -78,8 +79,21 @@ public class TypeLengthValueUtils {
 
     private DecodeResult() {}
 
+    public String toString() {
+      return result.toString();
+    }
+
+    public boolean hasMessage(MessageType type) {
+      return result.containsKey(type.getKey());
+    }
+
     public byte getByte(MessageType type) {
       return result.get(type.getKey())[0];
+    }
+
+    public int getInt(MessageType type) {
+      ByteBuffer wrapped = ByteBuffer.wrap(result.get(type.getKey()));
+      return wrapped.getInt();
     }
 
     public BigInteger getBigInt(MessageType type) {
