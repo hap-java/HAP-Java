@@ -197,6 +197,7 @@ public class HomekitRoot {
    * @throws IOException if there is an error in the underlying protocol, such as a TCP error
    */
   public void refreshAuthInfo() throws IOException {
+    advertiser.setMac(authInfo.getMac());
     advertiser.setDiscoverable(!authInfo.hasUser());
   }
 

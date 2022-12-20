@@ -6,22 +6,26 @@ import io.github.hapjava.server.impl.crypto.ChachaEncoder;
 import io.github.hapjava.server.impl.crypto.EdsaSigner;
 import io.github.hapjava.server.impl.crypto.EdsaVerifier;
 import io.github.hapjava.server.impl.http.HttpResponse;
-import io.github.hapjava.server.impl.pairing.PairSetupRequest.Stage3Request;
+import io.github.hapjava.server.impl.pairing.PairSetupRequest.ExchangeRequest;
 import io.github.hapjava.server.impl.pairing.TypeLengthValueUtils.DecodeResult;
 import io.github.hapjava.server.impl.pairing.TypeLengthValueUtils.Encoder;
 import java.nio.charset.StandardCharsets;
 import org.bouncycastle.crypto.digests.SHA512Digest;
 import org.bouncycastle.crypto.generators.HKDFBytesGenerator;
 import org.bouncycastle.crypto.params.HKDFParameters;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-class FinalPairHandler {
+class ExchangeHandler {
 
   private final byte[] k;
   private final HomekitAuthInfo authInfo;
 
   private byte[] hkdf_enc_key;
 
-  public FinalPairHandler(byte[] k, HomekitAuthInfo authInfo) {
+  private static final Logger LOGGER = LoggerFactory.getLogger(ExchangeHandler.class);
+
+  public ExchangeHandler(byte[] k, HomekitAuthInfo authInfo) {
     this.k = k;
     this.authInfo = authInfo;
   }
@@ -36,10 +40,10 @@ class FinalPairHandler {
     byte[] okm = hkdf_enc_key = new byte[32];
     hkdf.generateBytes(okm, 0, 32);
 
-    return decrypt((Stage3Request) req, okm);
+    return decrypt((ExchangeRequest) req, okm);
   }
 
-  private HttpResponse decrypt(Stage3Request req, byte[] key) throws Exception {
+  private HttpResponse decrypt(ExchangeRequest req, byte[] key) throws Exception {
     ChachaDecoder chacha = new ChachaDecoder(key, "PS-Msg05".getBytes(StandardCharsets.UTF_8));
     byte[] plaintext = chacha.decodeCiphertext(req.getAuthTagData(), req.getMessageData());
 
@@ -63,9 +67,11 @@ class FinalPairHandler {
     byte[] completeData = ByteUtils.joinBytes(okm, username, ltpk);
 
     if (!new EdsaVerifier(ltpk).verify(completeData, proof)) {
-      throw new Exception("Invalid signature");
+      return new PairingResponse(6, ErrorCode.AUTHENTICATION);
     }
-    authInfo.createUser(authInfo.getMac() + new String(username, StandardCharsets.UTF_8), ltpk);
+    String stringUsername = new String(username, StandardCharsets.UTF_8);
+    LOGGER.trace("Creating initial user {}", stringUsername);
+    authInfo.createUser(authInfo.getMac() + stringUsername, ltpk, true);
     return createResponse();
   }
 

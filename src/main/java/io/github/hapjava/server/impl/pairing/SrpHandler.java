@@ -3,7 +3,7 @@ package io.github.hapjava.server.impl.pairing;
 import com.nimbusds.srp6.*;
 import io.github.hapjava.server.impl.http.HttpResponse;
 import io.github.hapjava.server.impl.pairing.HomekitSRP6ServerSession.State;
-import io.github.hapjava.server.impl.pairing.PairSetupRequest.Stage2Request;
+import io.github.hapjava.server.impl.pairing.PairSetupRequest.SRPVerifyRequest;
 import io.github.hapjava.server.impl.pairing.TypeLengthValueUtils.Encoder;
 import io.github.hapjava.server.impl.responses.ConflictResponse;
 import io.github.hapjava.server.impl.responses.NotFoundResponse;
@@ -39,19 +39,19 @@ class SrpHandler {
   }
 
   public HttpResponse handle(PairSetupRequest request) throws Exception {
-    switch (request.getStage()) {
-      case ONE:
-        return step1();
+    switch (request.getState()) {
+      case 1:
+        return handleSrpStartRequest();
 
-      case TWO:
-        return step2((Stage2Request) request);
+      case 3:
+        return handleSrpVerifyRequest((SRPVerifyRequest) request);
 
       default:
         return new NotFoundResponse();
     }
   }
 
-  private HttpResponse step1() throws Exception {
+  private HttpResponse handleSrpStartRequest() throws Exception {
     if (session.getState() != State.INIT) {
       logger.warn("Session is not in state INIT when receiving step1");
       return new ConflictResponse();
@@ -68,7 +68,7 @@ class SrpHandler {
     return new PairingResponse(encoder.toByteArray());
   }
 
-  private HttpResponse step2(Stage2Request request) throws Exception {
+  private HttpResponse handleSrpVerifyRequest(SRPVerifyRequest request) throws Exception {
     if (session.getState() != State.STEP_1) {
       logger.warn("Session is not in state Stage 1 when receiving step2");
       return new ConflictResponse();

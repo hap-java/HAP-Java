@@ -79,6 +79,17 @@ public class JmdnsHomekitAdvertiser {
     }
   }
 
+  public synchronized void setMac(String mac) throws IOException {
+    if (this.mac != mac) {
+      this.mac = mac;
+      if (isAdvertising) {
+        logger.trace("Re-creating service due to change in mac to " + mac);
+        unregisterService();
+        registerService();
+      }
+    }
+  }
+
   public synchronized void setConfigurationIndex(int revision) throws IOException {
     if (this.configurationIndex != revision) {
       this.configurationIndex = revision;

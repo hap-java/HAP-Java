@@ -21,6 +21,27 @@ class PairingResponse extends OkResponse {
     super(body);
   }
 
+  public PairingResponse(int state) {
+    this(encodeSuccess(state));
+  }
+
+  public PairingResponse(int state, ErrorCode errorCode) {
+    this(encodeError(state, errorCode));
+  }
+
+  private static byte[] encodeSuccess(int state) {
+    TypeLengthValueUtils.Encoder encoder = TypeLengthValueUtils.getEncoder();
+    encoder.add(MessageType.STATE, (byte) state);
+    return encoder.toByteArray();
+  }
+
+  private static byte[] encodeError(int state, ErrorCode errorCode) {
+    TypeLengthValueUtils.Encoder encoder = TypeLengthValueUtils.getEncoder();
+    encoder.add(MessageType.STATE, (byte) state);
+    encoder.add(MessageType.ERROR, (byte) errorCode.getKey());
+    return encoder.toByteArray();
+  }
+
   @Override
   public Map<String, String> getHeaders() {
     return headers;

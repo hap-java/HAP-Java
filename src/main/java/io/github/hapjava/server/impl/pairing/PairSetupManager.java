@@ -9,48 +9,49 @@ import io.github.hapjava.server.impl.responses.UnauthorizedResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PairingManager {
+public class PairSetupManager {
 
-  private static final Logger logger = LoggerFactory.getLogger(PairingManager.class);
+  private static final Logger logger = LoggerFactory.getLogger(PairSetupManager.class);
 
   private final HomekitAuthInfo authInfo;
   private final HomekitRegistry registry;
 
   private SrpHandler srpHandler;
 
-  public PairingManager(HomekitAuthInfo authInfo, HomekitRegistry registry) {
+  public PairSetupManager(HomekitAuthInfo authInfo, HomekitRegistry registry) {
     this.authInfo = authInfo;
     this.registry = registry;
   }
 
   public HttpResponse handle(HttpRequest httpRequest) throws Exception {
     PairSetupRequest req = PairSetupRequest.of(httpRequest.getBody());
+    logger.trace("Handling pair-setup request {}", req);
 
-    if (req.getStage() == Stage.ONE) {
-      logger.trace("Starting pair for " + registry.getLabel());
+    if (req.getState() == 1) {
+      logger.trace("Received SRP Start Request " + registry.getLabel());
       srpHandler = new SrpHandler(authInfo.getPin(), authInfo.getSalt());
       return srpHandler.handle(req);
-    } else if (req.getStage() == Stage.TWO) {
-      logger.trace("Entering second stage of pair for " + registry.getLabel());
+    } else if (req.getState() == 3) {
+      logger.trace("Receive SRP Verify Request for " + registry.getLabel());
       if (srpHandler == null) {
-        logger.warn("Received unexpected stage 2 request for " + registry.getLabel());
+        logger.warn("Received unexpected SRP Verify Request for " + registry.getLabel());
         return new UnauthorizedResponse();
       } else {
         try {
           return srpHandler.handle(req);
         } catch (Exception e) {
           srpHandler = null; // You don't get to try again - need a new key
-          logger.warn("Exception encountered while processing pairing request", e);
+          logger.warn("Exception encountered while processing SRP Verify Request", e);
           return new UnauthorizedResponse();
         }
       }
-    } else if (req.getStage() == Stage.THREE) {
-      logger.trace("Entering third stage of pair for " + registry.getLabel());
+    } else if (req.getState() == 5) {
+      logger.trace("Received Exchange Request for " + registry.getLabel());
       if (srpHandler == null) {
-        logger.warn("Received unexpected stage 3 request for " + registry.getLabel());
+        logger.warn("Received unexpected Exchanged Request for " + registry.getLabel());
         return new UnauthorizedResponse();
       } else {
-        FinalPairHandler handler = new FinalPairHandler(srpHandler.getK(), authInfo);
+        ExchangeHandler handler = new ExchangeHandler(srpHandler.getK(), authInfo);
         try {
           return handler.handle(req);
         } catch (Exception e) {

@@ -2,33 +2,32 @@ package io.github.hapjava.server.impl.pairing;
 
 import io.github.hapjava.server.impl.pairing.TypeLengthValueUtils.DecodeResult;
 
-abstract class PairVerificationRequest {
+abstract class PairVerifyRequest {
 
-  private static final short VALUE_STAGE_1 = 1;
-  private static final short VALUE_STAGE_2 = 3;
-
-  static PairVerificationRequest of(byte[] content) throws Exception {
+  static PairVerifyRequest of(byte[] content) throws Exception {
     DecodeResult d = TypeLengthValueUtils.decode(content);
     short stage = d.getByte(MessageType.STATE);
     switch (stage) {
-      case VALUE_STAGE_1:
-        return new Stage1Request(d);
+      case 1:
+        return new VerifyStartRequest(d);
 
-      case VALUE_STAGE_2:
-        return new Stage2Request(d);
+      case 3:
+        return new VerifyFinishRequest(d);
 
       default:
         throw new Exception("Unknown pair process stage: " + stage);
     }
   }
 
-  abstract Stage getStage();
+  // Raw integer.
+  // State of the pairing process. 1=M1, 2=M2, etc.
+  abstract int getState();
 
-  static class Stage1Request extends PairVerificationRequest {
+  static class VerifyStartRequest extends PairVerifyRequest {
 
     private final byte[] clientPublicKey;
 
-    public Stage1Request(DecodeResult d) {
+    public VerifyStartRequest(DecodeResult d) {
       clientPublicKey = d.getBytes(MessageType.PUBLIC_KEY);
     }
 
@@ -37,17 +36,17 @@ abstract class PairVerificationRequest {
     }
 
     @Override
-    Stage getStage() {
-      return Stage.ONE;
+    int getState() {
+      return 1;
     }
   }
 
-  static class Stage2Request extends PairVerificationRequest {
+  static class VerifyFinishRequest extends PairVerifyRequest {
 
     private final byte[] messageData;
     private final byte[] authTagData;
 
-    public Stage2Request(DecodeResult d) {
+    public VerifyFinishRequest(DecodeResult d) {
       messageData = new byte[d.getLength(MessageType.ENCRYPTED_DATA) - 16];
       authTagData = new byte[16];
       d.getBytes(MessageType.ENCRYPTED_DATA, messageData, 0);
@@ -63,8 +62,8 @@ abstract class PairVerificationRequest {
     }
 
     @Override
-    public Stage getStage() {
-      return Stage.TWO;
+    public int getState() {
+      return 3;
     }
   }
 }
