@@ -67,8 +67,8 @@ hap-java
 <th>Errors</th>
 <th>Missing Classes</th></tr>
 <tr class="b">
-<td>419</td>
-<td>22</td>
+<td>418</td>
+<td>23</td>
 <td>0</td>
 <td>68</td></tr></table></div>
 <div class="section">
@@ -93,24 +93,27 @@ hap-java
 <td><a href="#io.github.hapjava.server.impl.crypto.HAPSetupCodeUtils">io.github.hapjava.server.impl.crypto.HAPSetupCodeUtils</a></td>
 <td>3</td></tr>
 <tr class="a">
-<td><a href="#io.github.hapjava.server.impl.json.AccessoryController">io.github.hapjava.server.impl.json.AccessoryController</a></td>
+<td><a href="#io.github.hapjava.server.impl.jmdns.JmdnsHomekitAdvertiser">io.github.hapjava.server.impl.jmdns.JmdnsHomekitAdvertiser</a></td>
 <td>1</td></tr>
 <tr class="b">
-<td><a href="#io.github.hapjava.server.impl.json.CharacteristicsController">io.github.hapjava.server.impl.json.CharacteristicsController</a></td>
+<td><a href="#io.github.hapjava.server.impl.json.AccessoryController">io.github.hapjava.server.impl.json.AccessoryController</a></td>
 <td>1</td></tr>
 <tr class="a">
+<td><a href="#io.github.hapjava.server.impl.json.CharacteristicsController">io.github.hapjava.server.impl.json.CharacteristicsController</a></td>
+<td>1</td></tr>
+<tr class="b">
 <td><a href="#io.github.hapjava.server.impl.json.EventController">io.github.hapjava.server.impl.json.EventController</a></td>
 <td>2</td></tr></table></div><a name="io.github.hapjava.characteristics.impl.base.EnumCharacteristic"></a>
 <div class="section">
 <h3><a name="io.github.hapjava.characteristics.impl.base.EnumCharacteristic"></a>io.github.hapjava.characteristics.impl.base.EnumCharacteristic</h3>
 <table border="0" class="bodyTable">
-<tr class="b">
+<tr class="a">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="a">
+<tr class="b">
 <td>new io.github.hapjava.characteristics.impl.base.EnumCharacteristic(String, String, CharacteristicEnum[], Optional, Optional, Optional, Optional) may expose internal representation by storing an externally mutable object into EnumCharacteristic.validValues</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
@@ -119,13 +122,13 @@ hap-java
 <div class="section">
 <h3><a name="io.github.hapjava.server.impl.HomekitRoot"></a>io.github.hapjava.server.impl.HomekitRoot</h3>
 <table border="0" class="bodyTable">
-<tr class="b">
+<tr class="a">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="a">
+<tr class="b">
 <td>Inconsistent synchronization of io.github.hapjava.server.impl.HomekitRoot.nestedBatches; locked 71% of time</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#IS2_INCONSISTENT_SYNC">IS2_INCONSISTENT_SYNC</a></td>
@@ -134,18 +137,12 @@ hap-java
 <div class="section">
 <h3><a name="io.github.hapjava.server.impl.HomekitUtils"></a>io.github.hapjava.server.impl.HomekitUtils</h3>
 <table border="0" class="bodyTable">
-<tr class="b">
+<tr class="a">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="a">
-<td>Comparison of String objects using == or != in io.github.hapjava.server.impl.HomekitUtils.generatePin() </td>
-<td>BAD_PRACTICE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#ES_COMPARING_STRINGS_WITH_EQ">ES_COMPARING_STRINGS_WITH_EQ</a></td>
-<td>46</td>
-<td>High</td></tr>
 <tr class="b">
 <td>Comparison of String objects using == or != in io.github.hapjava.server.impl.HomekitUtils.generatePin() </td>
 <td>BAD_PRACTICE</td>
@@ -207,6 +204,12 @@ hap-java
 <td>46</td>
 <td>High</td></tr>
 <tr class="b">
+<td>Comparison of String objects using == or != in io.github.hapjava.server.impl.HomekitUtils.generatePin() </td>
+<td>BAD_PRACTICE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#ES_COMPARING_STRINGS_WITH_EQ">ES_COMPARING_STRINGS_WITH_EQ</a></td>
+<td>46</td>
+<td>High</td></tr>
+<tr class="a">
 <td>Comparison of String objects using == or != in io.github.hapjava.server.impl.HomekitUtils.generatePin() </td>
 <td>BAD_PRACTICE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#ES_COMPARING_STRINGS_WITH_EQ">ES_COMPARING_STRINGS_WITH_EQ</a></td>
@@ -215,13 +218,13 @@ hap-java
 <div class="section">
 <h3><a name="io.github.hapjava.server.impl.connections.SubscriptionManager"></a>io.github.hapjava.server.impl.connections.SubscriptionManager</h3>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="b">
+<tr class="a">
 <td>Comparison of String objects using == or != in io.github.hapjava.server.impl.connections.SubscriptionManager.resync(HomekitRegistry) </td>
 <td>BAD_PRACTICE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#ES_COMPARING_STRINGS_WITH_EQ">ES_COMPARING_STRINGS_WITH_EQ</a></td>
@@ -230,40 +233,55 @@ hap-java
 <div class="section">
 <h3><a name="io.github.hapjava.server.impl.crypto.HAPSetupCodeUtils"></a>io.github.hapjava.server.impl.crypto.HAPSetupCodeUtils</h3>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="b">
+<tr class="a">
 <td>Boxing/unboxing to parse a primitive io.github.hapjava.server.impl.crypto.HAPSetupCodeUtils.getSetupURI(String, String, int)</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_BOXED_PRIMITIVE_FOR_PARSING">DM_BOXED_PRIMITIVE_FOR_PARSING</a></td>
 <td>61</td>
 <td>High</td></tr>
-<tr class="a">
+<tr class="b">
 <td>Found reliance on default encoding in io.github.hapjava.server.impl.crypto.HAPSetupCodeUtils.calculateHash(String, Digest): String.getBytes()</td>
 <td>I18N</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_DEFAULT_ENCODING">DM_DEFAULT_ENCODING</a></td>
 <td>24</td>
 <td>High</td></tr>
-<tr class="b">
+<tr class="a">
 <td>Vacuous lor operation on HAPSetupCodeUtils.java:[line 54] in io.github.hapjava.server.impl.crypto.HAPSetupCodeUtils.getSetupURI(String, String, int)</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#INT_VACUOUS_BIT_OPERATION">INT_VACUOUS_BIT_OPERATION</a></td>
 <td>54</td>
-<td>Medium</td></tr></table></div><a name="io.github.hapjava.server.impl.json.AccessoryController"></a>
+<td>Medium</td></tr></table></div><a name="io.github.hapjava.server.impl.jmdns.JmdnsHomekitAdvertiser"></a>
 <div class="section">
-<h3><a name="io.github.hapjava.server.impl.json.AccessoryController"></a>io.github.hapjava.server.impl.json.AccessoryController</h3>
+<h3><a name="io.github.hapjava.server.impl.jmdns.JmdnsHomekitAdvertiser"></a>io.github.hapjava.server.impl.jmdns.JmdnsHomekitAdvertiser</h3>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
+<tr class="a">
+<td>Comparison of String parameter using == or != in io.github.hapjava.server.impl.jmdns.JmdnsHomekitAdvertiser.setMac(String) </td>
+<td>BAD_PRACTICE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#ES_COMPARING_PARAMETER_STRING_WITH_EQ">ES_COMPARING_PARAMETER_STRING_WITH_EQ</a></td>
+<td>83</td>
+<td>High</td></tr></table></div><a name="io.github.hapjava.server.impl.json.AccessoryController"></a>
+<div class="section">
+<h3><a name="io.github.hapjava.server.impl.json.AccessoryController"></a>io.github.hapjava.server.impl.json.AccessoryController</h3>
+<table border="0" class="bodyTable">
 <tr class="b">
+<th>Bug</th>
+<th>Category</th>
+<th>Details</th>
+<th>Line</th>
+<th>Priority</th></tr>
+<tr class="a">
 <td>Nullcheck of jsonWriter at line 70 of value previously dereferenced in io.github.hapjava.server.impl.json.AccessoryController.listing()</td>
 <td>CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE">RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE</a></td>
@@ -272,13 +290,13 @@ hap-java
 <div class="section">
 <h3><a name="io.github.hapjava.server.impl.json.CharacteristicsController"></a>io.github.hapjava.server.impl.json.CharacteristicsController</h3>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="b">
+<tr class="a">
 <td>Nullcheck of jsonWriter at line 63 of value previously dereferenced in io.github.hapjava.server.impl.json.CharacteristicsController.get(HttpRequest)</td>
 <td>CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE">RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE</a></td>
@@ -287,19 +305,19 @@ hap-java
 <div class="section">
 <h3><a name="io.github.hapjava.server.impl.json.EventController"></a>io.github.hapjava.server.impl.json.EventController</h3>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="b">
+<tr class="a">
 <td>Nullcheck of jsonWriter at line 30 of value previously dereferenced in io.github.hapjava.server.impl.json.EventController.getMessage(int, int, EventableCharacteristic)</td>
 <td>CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE">RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE</a></td>
 <td>30</td>
 <td>Medium</td></tr>
-<tr class="a">
+<tr class="b">
 <td>Nullcheck of jsonWriter at line 51 of value previously dereferenced in io.github.hapjava.server.impl.json.EventController.getMessage(List)</td>
 <td>CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE">RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE</a></td>
