@@ -12,7 +12,9 @@ import io.github.hapjava.server.impl.json.CharacteristicsController;
 import io.github.hapjava.server.impl.pairing.PairSetupManager;
 import io.github.hapjava.server.impl.pairing.PairVerifyManager;
 import io.github.hapjava.server.impl.pairing.PairingsManager;
+import io.github.hapjava.server.impl.responses.BadRequestResponse;
 import io.github.hapjava.server.impl.responses.InternalServerErrorResponse;
+import io.github.hapjava.server.impl.responses.NoContentResponse;
 import io.github.hapjava.server.impl.responses.NotFoundResponse;
 import java.io.IOException;
 import java.net.InetAddress;
@@ -49,6 +51,13 @@ class HttpSession {
 
   public HttpResponse handleRequest(HttpRequest request) throws IOException {
     switch (request.getUri()) {
+      case "/identify":
+        HomekitAccessory accessory = registry.getPrimaryAccessory();
+        if (accessory != null) {
+          accessory.identify();
+        }
+        return new NoContentResponse();
+
       case "/pair-setup":
         return handlePairSetup(request);
 
@@ -82,6 +91,9 @@ class HttpSession {
               logger.warn("Unrecognized method for " + request.getUri());
               return new NotFoundResponse();
           }
+
+        case "/identify":
+          return new BadRequestResponse();
 
         case "/pairings":
           return new PairingsManager(authInfo, advertiser).handle(request);

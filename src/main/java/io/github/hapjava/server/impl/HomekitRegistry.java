@@ -22,6 +22,7 @@ public class HomekitRegistry {
   private final String label;
   private final SubscriptionManager subscriptions;
   private final Map<Integer, HomekitAccessory> accessories;
+  private HomekitAccessory primaryAccessory = null;
   private final Map<HomekitAccessory, Map<Integer, Service>> services = new HashMap<>();
   private final Map<HomekitAccessory, Map<Integer, Characteristic>> characteristics =
       new HashMap<>();
@@ -78,6 +79,10 @@ public class HomekitRegistry {
     return accessories.values();
   }
 
+  public HomekitAccessory getPrimaryAccessory() {
+    return primaryAccessory;
+  }
+
   public Map<Integer, Service> getServices(Integer aid) {
     return Collections.unmodifiableMap(services.get(accessories.get(aid)));
   }
@@ -91,10 +96,17 @@ public class HomekitRegistry {
   }
 
   public void add(HomekitAccessory accessory) {
+    if (accessories.isEmpty()) {
+      primaryAccessory = accessory;
+    }
     accessories.put(accessory.getId(), accessory);
   }
 
   public boolean remove(HomekitAccessory accessory) {
+    HomekitAccessory localPrimaryAccessory = primaryAccessory;
+    if (localPrimaryAccessory != null && localPrimaryAccessory.getId() == accessory.getId()) {
+      primaryAccessory = null;
+    }
     return accessories.remove(accessory.getId()) != null;
   }
 
