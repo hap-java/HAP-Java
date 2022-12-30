@@ -4,6 +4,7 @@ import io.github.hapjava.services.Service;
 import io.github.hapjava.services.impl.AccessoryInformationService;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -81,11 +82,18 @@ public interface HomekitAccessory {
   };
 
   /**
-   * default implementation which is sufficient if accessory has only one services
+   * default implementation which is sufficient if accessory has only one service
    *
    * @return primary service
    */
   default Service getPrimaryService() {
-    return getServices().isEmpty() ? null : getServices().iterator().next();
+    Iterator<Service> iterator = getServices().iterator();
+    while (iterator.hasNext()) {
+      Service service = iterator.next();
+      if (!(service instanceof AccessoryInformationService)) {
+        return service;
+      }
+    }
+    return null;
   };
 }
