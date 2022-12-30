@@ -84,8 +84,19 @@ public abstract class EnumCharacteristic<T extends CharacteristicEnum>
     }
   }
 
+  /**
+   * @return the current value of this characteristic, or null if it has no value or can't be
+   *     fetched
+   */
+  public CompletableFuture<T> getEnumValue() {
+    if (!getter.isPresent()) {
+      return null;
+    }
+    return getter.get().get();
+  }
+
   @Override
-  protected CompletableFuture<Integer> getValue() {
+  public CompletableFuture<Integer> getValue() {
     if (!getter.isPresent()) {
       return null;
     }

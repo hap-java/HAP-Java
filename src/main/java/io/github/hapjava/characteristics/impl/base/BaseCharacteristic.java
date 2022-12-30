@@ -190,7 +190,7 @@ public abstract class BaseCharacteristic<T> implements Characteristic, Eventable
    *
    * @return a future that will complete with the current value.
    */
-  protected abstract CompletableFuture<T> getValue();
+  public abstract CompletableFuture<T> getValue();
 
   /**
    * Supplies a default value for the characteristic to send to connected clients when the real

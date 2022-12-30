@@ -71,7 +71,7 @@ public abstract class IntegerCharacteristic extends BaseCharacteristic<Integer> 
   }
 
   @Override
-  protected CompletableFuture<Integer> getValue() {
+  public CompletableFuture<Integer> getValue() {
     return getter.map(integerGetter -> integerGetter.get()).orElse(null);
   }
 

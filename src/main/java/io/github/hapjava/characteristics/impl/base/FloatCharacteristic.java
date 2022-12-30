@@ -94,7 +94,7 @@ public abstract class FloatCharacteristic extends BaseCharacteristic<Double> {
    * the constructor.
    */
   @Override
-  protected final CompletableFuture<Double> getValue() {
+  public final CompletableFuture<Double> getValue() {
     if (!getter.isPresent()) {
       return null;
     }
