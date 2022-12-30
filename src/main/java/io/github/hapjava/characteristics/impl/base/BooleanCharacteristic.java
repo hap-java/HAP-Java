@@ -65,7 +65,7 @@ public abstract class BooleanCharacteristic extends BaseCharacteristic<Boolean> 
   }
 
   @Override
-  protected void setValue(Boolean value) throws Exception {
+  public void setValue(Boolean value) throws Exception {
     if (setter.isPresent()) setter.get().accept(value);
   }
 

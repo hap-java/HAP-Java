@@ -76,7 +76,7 @@ public abstract class IntegerCharacteristic extends BaseCharacteristic<Integer> 
   }
 
   @Override
-  protected void setValue(Integer value) throws Exception {
+  public void setValue(Integer value) throws Exception {
     if (setter.isPresent()) setter.get().accept(value);
   }
 

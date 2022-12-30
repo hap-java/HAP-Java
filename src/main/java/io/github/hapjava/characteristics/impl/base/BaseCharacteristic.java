@@ -183,7 +183,7 @@ public abstract class BaseCharacteristic<T> implements Characteristic, Eventable
    * @param value the new value to set.
    * @throws Exception if the value cannot be set.
    */
-  protected abstract void setValue(T value) throws Exception;
+  public abstract void setValue(T value) throws Exception;
 
   /**
    * Retrieves the current value of the characteristic.

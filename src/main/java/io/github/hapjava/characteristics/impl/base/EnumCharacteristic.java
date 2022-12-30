@@ -103,8 +103,16 @@ public abstract class EnumCharacteristic<T extends CharacteristicEnum>
     return getter.get().get().thenApply(T::getCode);
   }
 
+  public void setValue(T value) throws Exception {
+    if (!setter.isPresent()) {
+      return;
+    }
+
+    setter.get().accept(value);
+  }
+
   @Override
-  protected void setValue(Integer value) throws Exception {
+  public void setValue(Integer value) throws Exception {
     if (!setter.isPresent()) {
       return;
     }
@@ -113,7 +121,7 @@ public abstract class EnumCharacteristic<T extends CharacteristicEnum>
     if (validValues != null && value != null) {
       for (T valid : validValues) {
         if (valid.getCode() == value) {
-          setter.get().accept(valid);
+          setValue(valid);
           return;
         }
       }
