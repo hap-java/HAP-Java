@@ -1,3 +1,6 @@
+# HAP-Java 2.0.6
+* Implement unpaired identify.
+
 # HAP-Java 2.0.5
 * Implement List-Pairings method. Compatibility with new Home infrastructure from iOS 16.2?
 
