@@ -60,12 +60,12 @@ public abstract class BooleanCharacteristic extends BaseCharacteristic<Boolean> 
   }
 
   @Override
-  protected CompletableFuture<Boolean> getValue() {
+  public CompletableFuture<Boolean> getValue() {
     return getter.isPresent() ? getter.map(booleanGetter -> booleanGetter.get()).get() : null;
   }
 
   @Override
-  protected void setValue(Boolean value) throws Exception {
+  public void setValue(Boolean value) throws Exception {
     if (setter.isPresent()) setter.get().accept(value);
   }
 

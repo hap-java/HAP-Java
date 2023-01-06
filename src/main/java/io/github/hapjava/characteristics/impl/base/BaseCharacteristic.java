@@ -183,14 +183,14 @@ public abstract class BaseCharacteristic<T> implements Characteristic, Eventable
    * @param value the new value to set.
    * @throws Exception if the value cannot be set.
    */
-  protected abstract void setValue(T value) throws Exception;
+  public abstract void setValue(T value) throws Exception;
 
   /**
    * Retrieves the current value of the characteristic.
    *
    * @return a future that will complete with the current value.
    */
-  protected abstract CompletableFuture<T> getValue();
+  public abstract CompletableFuture<T> getValue();
 
   /**
    * Supplies a default value for the characteristic to send to connected clients when the real

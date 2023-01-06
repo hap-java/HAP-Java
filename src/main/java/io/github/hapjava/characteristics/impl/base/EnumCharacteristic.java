@@ -84,16 +84,35 @@ public abstract class EnumCharacteristic<T extends CharacteristicEnum>
     }
   }
 
+  /**
+   * @return the current value of this characteristic, or null if it has no value or can't be
+   *     fetched
+   */
+  public CompletableFuture<T> getEnumValue() {
+    if (!getter.isPresent()) {
+      return null;
+    }
+    return getter.get().get();
+  }
+
   @Override
-  protected CompletableFuture<Integer> getValue() {
+  public CompletableFuture<Integer> getValue() {
     if (!getter.isPresent()) {
       return null;
     }
     return getter.get().get().thenApply(T::getCode);
   }
 
+  public void setValue(T value) throws Exception {
+    if (!setter.isPresent()) {
+      return;
+    }
+
+    setter.get().accept(value);
+  }
+
   @Override
-  protected void setValue(Integer value) throws Exception {
+  public void setValue(Integer value) throws Exception {
     if (!setter.isPresent()) {
       return;
     }
@@ -102,7 +121,7 @@ public abstract class EnumCharacteristic<T extends CharacteristicEnum>
     if (validValues != null && value != null) {
       for (T valid : validValues) {
         if (valid.getCode() == value) {
-          setter.get().accept(valid);
+          setValue(valid);
           return;
         }
       }

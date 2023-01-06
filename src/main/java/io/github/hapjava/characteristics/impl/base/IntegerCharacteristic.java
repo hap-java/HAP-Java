@@ -71,12 +71,12 @@ public abstract class IntegerCharacteristic extends BaseCharacteristic<Integer> 
   }
 
   @Override
-  protected CompletableFuture<Integer> getValue() {
+  public CompletableFuture<Integer> getValue() {
     return getter.map(integerGetter -> integerGetter.get()).orElse(null);
   }
 
   @Override
-  protected void setValue(Integer value) throws Exception {
+  public void setValue(Integer value) throws Exception {
     if (setter.isPresent()) setter.get().accept(value);
   }
 
