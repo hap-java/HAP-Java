@@ -43,7 +43,8 @@ public class HomekitRegistry {
       try {
         newServices = new ArrayList<>(2);
         Collection<Service> services = accessory.getServices();
-        if (!services.stream().anyMatch(s -> s instanceof AccessoryInformationService)) {
+        if (!services.stream()
+            .anyMatch(s -> s.getType().equals(AccessoryInformationService.TYPE))) {
           newServices.add(new AccessoryInformationService(accessory));
         }
         for (Service service : services) {
