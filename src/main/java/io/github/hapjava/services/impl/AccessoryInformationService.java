@@ -14,6 +14,7 @@ import io.github.hapjava.characteristics.impl.common.NameCharacteristic;
 
 /** Accessory Information service. */
 public class AccessoryInformationService extends AbstractServiceImpl {
+  public static final String TYPE = "0000003E-0000-1000-8000-0026BB765291";
 
   public AccessoryInformationService(
       IdentifyCharacteristic identify,
@@ -22,7 +23,7 @@ public class AccessoryInformationService extends AbstractServiceImpl {
       NameCharacteristic name,
       SerialNumberCharacteristic serialNumber,
       FirmwareRevisionCharacteristic firmwareRevision) {
-    super("0000003E-0000-1000-8000-0026BB765291");
+    super(TYPE);
     addCharacteristic(identify);
     addCharacteristic(manufacturer);
     addCharacteristic(model);
