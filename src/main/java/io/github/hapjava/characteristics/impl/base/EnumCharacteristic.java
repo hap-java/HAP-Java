@@ -26,7 +26,7 @@ public abstract class EnumCharacteristic<T extends CharacteristicEnum>
     extends BaseCharacteristic<Integer> {
 
   private final T[] validValues;
-  Optional<Supplier<CompletableFuture<T>>> getter;
+  protected Optional<Supplier<CompletableFuture<T>>> getter;
   protected Optional<ExceptionalConsumer<T>> setter;
 
   /**
@@ -100,7 +100,16 @@ public abstract class EnumCharacteristic<T extends CharacteristicEnum>
     if (!getter.isPresent()) {
       return null;
     }
-    return getter.get().get().thenApply(T::getCode);
+    return getter
+        .get()
+        .get()
+        .thenApply(
+            e -> {
+              if (e == null) {
+                return null;
+              }
+              return e.getCode();
+            });
   }
 
   public void setValue(T value) throws Exception {
