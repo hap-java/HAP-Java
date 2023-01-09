@@ -138,4 +138,16 @@ public abstract class FloatCharacteristic extends BaseCharacteristic<Double> {
   public Double getDefault() {
     return minValue;
   }
+
+  public double getMinValue() {
+    return minValue;
+  }
+
+  public double getMaxValue() {
+    return maxValue;
+  }
+
+  public double getMinStep() {
+    return minStep;
+  }
 }
