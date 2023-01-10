@@ -1,3 +1,8 @@
+# HAP-Java 2.0.6
+* Several methods allowing library users to manipulate characteristics themselves
+* Allow library users to provider their own implementation of AccessoryInformationService
+* Fix ProgrammableSwitchEventEnum that has an incorrect value
+
 # HAP-Java 2.0.5
 * Implement List-Pairings method. Compatibility with new Home infrastructure from iOS 16.2?
 

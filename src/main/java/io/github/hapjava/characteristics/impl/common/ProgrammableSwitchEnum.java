@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public enum ProgrammableSwitchEnum implements CharacteristicEnum {
   SINGLE_PRESS(0),
   DOUBLE_PRESS(1),
-  LONG_PRESS(3);
+  LONG_PRESS(2);
 
   private static final Map<Integer, ProgrammableSwitchEnum> reverse;
 

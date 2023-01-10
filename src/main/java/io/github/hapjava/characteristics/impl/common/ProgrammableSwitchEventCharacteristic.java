@@ -21,10 +21,18 @@ public class ProgrammableSwitchEventCharacteristic
       Supplier<CompletableFuture<ProgrammableSwitchEnum>> getter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(ProgrammableSwitchEnum.values(), getter, subscriber, unsubscriber);
+  }
+
+  public ProgrammableSwitchEventCharacteristic(
+      ProgrammableSwitchEnum[] validValues,
+      Supplier<CompletableFuture<ProgrammableSwitchEnum>> getter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "00000073-0000-1000-8000-0026BB765291",
         "Switch Event",
-        ProgrammableSwitchEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),
