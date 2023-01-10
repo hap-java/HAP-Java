@@ -137,4 +137,8 @@ public abstract class EnumCharacteristic<T extends CharacteristicEnum>
     }
     return 0;
   }
+
+  public T[] getValidValues() {
+    return validValues;
+  }
 }
