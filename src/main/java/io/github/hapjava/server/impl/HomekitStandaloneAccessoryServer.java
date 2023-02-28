@@ -40,6 +40,28 @@ public class HomekitStandaloneAccessoryServer {
     root = new HomekitRoot(accessory.getName().get(), webHandler, jmdns, authInfo);
     root.addAccessory(accessory);
   }
+  
+  HomekitStandaloneAccessoryServer(
+      HomekitAccessory accessory,
+      HomekitWebHandler webHandler,
+      InetAddress localhost,
+      HomekitAuthInfo authInfo,
+      int category)
+      throws UnknownHostException, IOException, ExecutionException, InterruptedException {
+    root = new HomekitRoot(accessory.getName().get(), category, webHandler, localhost, authInfo);
+    root.addAccessory(accessory);
+  }
+
+  HomekitStandaloneAccessoryServer(
+      HomekitAccessory accessory,
+      HomekitWebHandler webHandler,
+      JmDNS jmdns,
+      HomekitAuthInfo authInfo,
+      int category)
+      throws UnknownHostException, IOException, ExecutionException, InterruptedException {
+    root = new HomekitRoot(accessory.getName().get(), category, webHandler, jmdns, authInfo);
+    root.addAccessory(accessory);
+  }
 
   /** Begins advertising and handling requests for this accessory. */
   public void start() {
