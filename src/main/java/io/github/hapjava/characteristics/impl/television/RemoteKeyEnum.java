@@ -18,7 +18,7 @@ public enum RemoteKeyEnum implements CharacteristicEnum {
   BACK(9),
   EXIT(10),
   PLAY_PAUSE(11),
-  INFO(115);
+  INFO(15);
 
   private static final Map<Integer, RemoteKeyEnum> reverse;
 
