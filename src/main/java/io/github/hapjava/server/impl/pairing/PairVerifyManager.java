@@ -105,11 +105,10 @@ public class PairVerifyManager {
 
     byte[] material = ByteUtils.joinBytes(clientPublicKey, clientUsername, publicKey);
 
-    byte[] clientLtpk =
-        authInfo.getUserPublicKey(
-            authInfo.getMac() + new String(clientUsername, StandardCharsets.UTF_8));
+    String username = new String(clientUsername, StandardCharsets.UTF_8);
+    byte[] clientLtpk = authInfo.getUserPublicKey(authInfo.getMac() + username);
     if (clientLtpk == null) {
-      logger.warn("Unknown user: {}", new String(clientUsername, StandardCharsets.UTF_8));
+      logger.warn("Unknown user: {}", username);
       return new PairingResponse(4, ErrorCode.AUTHENTICATION);
     }
 
@@ -120,7 +119,8 @@ public class PairVerifyManager {
       return new UpgradeResponse(
           encoder.toByteArray(),
           createKey("Control-Write-Encryption-Key"),
-          createKey("Control-Read-Encryption-Key"));
+          createKey("Control-Read-Encryption-Key"),
+          username);
     } else {
       logger.warn("Invalid signature. Could not pair " + registry.getLabel());
       return new PairingResponse(4, ErrorCode.AUTHENTICATION);

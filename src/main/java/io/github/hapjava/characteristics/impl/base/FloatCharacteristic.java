@@ -130,7 +130,12 @@ public abstract class FloatCharacteristic extends BaseCharacteristic<Double> {
 
   @Override
   public void setValue(Double value) throws Exception {
-    if (setter.isPresent()) setter.get().accept(value);
+    setValue(value, null);
+  }
+
+  @Override
+  public void setValue(Double value, String username) throws Exception {
+    if (setter.isPresent()) setter.get().accept(value, username);
   }
 
   /** {@inheritDoc} */

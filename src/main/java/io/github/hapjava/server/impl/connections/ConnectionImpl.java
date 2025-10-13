@@ -27,6 +27,7 @@ class ConnectionImpl implements HomekitClientConnection {
   private int outboundBinaryMessageCount = 0;
   private byte[] readKey;
   private byte[] writeKey;
+  private String username;
   private boolean isUpgraded = false;
   private final Consumer<HttpResponse> outOfBandMessageCallback;
   private final SubscriptionManager subscriptions;
@@ -58,6 +59,7 @@ class ConnectionImpl implements HomekitClientConnection {
       isUpgraded = true;
       readKey = ((UpgradeResponse) response).getReadKey().array();
       writeKey = ((UpgradeResponse) response).getWriteKey().array();
+      username = ((UpgradeResponse) response).getUsername();
     }
     LOGGER.trace("{} {} {}", response.getStatusCode(), request.getMethod(), request.getUri());
     return response;
@@ -144,5 +146,10 @@ class ConnectionImpl implements HomekitClientConnection {
   @Override
   public void outOfBand(HttpResponse message) {
     outOfBandMessageCallback.accept(message);
+  }
+
+  @Override
+  public String getUsername() {
+    return username;
   }
 }

@@ -117,13 +117,15 @@ public class HomekitServer {
       return new HomekitStandaloneAccessoryServer(accessory, http, localAddress, authInfo);
     }
   }
+
   public HomekitStandaloneAccessoryServer createStandaloneAccessory(
       HomekitAuthInfo authInfo, HomekitAccessory accessory, int category)
       throws IOException, ExecutionException, InterruptedException {
     if (jmdns != null) {
       return new HomekitStandaloneAccessoryServer(accessory, http, jmdns, authInfo, category);
     } else {
-      return new HomekitStandaloneAccessoryServer(accessory, http, localAddress, authInfo, category);
+      return new HomekitStandaloneAccessoryServer(
+          accessory, http, localAddress, authInfo, category);
     }
   }
 

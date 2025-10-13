@@ -89,7 +89,7 @@ public class CharacteristicsController {
           }
 
           if (jsonCharacteristic.containsKey("value")) {
-            characteristic.setValue(jsonCharacteristic.get("value"));
+            characteristic.setValue(jsonCharacteristic.get("value"), connection.getUsername());
           }
           if (jsonCharacteristic.containsKey("ev")
               && characteristic instanceof EventableCharacteristic) {

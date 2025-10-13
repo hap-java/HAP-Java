@@ -44,4 +44,14 @@ public interface Characteristic {
    * @param jsonValue the JSON serialized value to set.
    */
   void setValue(JsonValue jsonValue);
+
+  /**
+   * Invoked by the remote client, this updates the current value of the characteristic.
+   *
+   * @param jsonValue the JSON serialized value to set.
+   * @param username the authenticated username making the request
+   */
+  default void setValue(JsonValue jsonValue, String username) {
+    setValue(jsonValue);
+  }
 }

@@ -128,13 +128,20 @@ public abstract class BaseCharacteristic<T> implements Characteristic, Eventable
   /** {@inheritDoc} */
   @Override
   public final void setValue(JsonValue jsonValue) {
+    setValue(jsonValue, null);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public final void setValue(JsonValue jsonValue, String username) {
     try {
-      setValue(convert(jsonValue));
+      setValue(convert(jsonValue), username);
     } catch (Exception e) {
       logger.warn(
-          "Error while setting JSON value {} for characteristic {}",
+          "Error while setting JSON value {} for characteristic {} from user {}",
           jsonValue,
           getClass().getName(),
+          username,
           e);
     }
   }
@@ -184,6 +191,17 @@ public abstract class BaseCharacteristic<T> implements Characteristic, Eventable
    * @throws Exception if the value cannot be set.
    */
   public abstract void setValue(T value) throws Exception;
+
+  /**
+   * Update the characteristic value using a new value supplied by the connected client.
+   *
+   * @param value the new value to set.
+   * @param username the authenticated username making the request
+   * @throws Exception if the value cannot be set.
+   */
+  public void setValue(T value, String username) throws Exception {
+    setValue(value);
+  }
 
   /**
    * Retrieves the current value of the characteristic.
