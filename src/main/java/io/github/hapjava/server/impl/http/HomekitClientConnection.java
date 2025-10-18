@@ -13,4 +13,8 @@ public interface HomekitClientConnection {
   void close();
 
   void outOfBand(HttpResponse message);
+
+  default String getUsername() {
+    return null;
+  }
 }

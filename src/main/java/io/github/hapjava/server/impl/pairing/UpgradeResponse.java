@@ -6,11 +6,13 @@ public class UpgradeResponse extends PairingResponse {
 
   private final byte[] readKey;
   private final byte[] writeKey;
+  private final String username;
 
-  UpgradeResponse(byte[] body, byte[] readKey, byte[] writeKey) {
+  UpgradeResponse(byte[] body, byte[] readKey, byte[] writeKey, String username) {
     super(body);
     this.readKey = readKey;
     this.writeKey = writeKey;
+    this.username = username;
   }
 
   @Override
@@ -24,5 +26,9 @@ public class UpgradeResponse extends PairingResponse {
 
   public ByteBuffer getWriteKey() {
     return ByteBuffer.wrap(writeKey);
+  }
+
+  public String getUsername() {
+    return username;
   }
 }

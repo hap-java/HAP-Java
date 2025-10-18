@@ -40,7 +40,7 @@ public class HomekitStandaloneAccessoryServer {
     root = new HomekitRoot(accessory.getName().get(), webHandler, jmdns, authInfo);
     root.addAccessory(accessory);
   }
-  
+
   HomekitStandaloneAccessoryServer(
       HomekitAccessory accessory,
       HomekitWebHandler webHandler,

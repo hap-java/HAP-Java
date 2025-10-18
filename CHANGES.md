@@ -1,3 +1,6 @@
+# HAP-Java 2.0.7
+* Add overloads to characteristics so that the username can be passed through.
+
 # HAP-Java 2.0.6
 * Several methods allowing library users to manipulate characteristics themselves
 * Allow library users to provider their own implementation of AccessoryInformationService

@@ -63,7 +63,13 @@ public class StringCharacteristic extends BaseCharacteristic<String> {
   /** {@inheritDoc} */
   @Override
   public void setValue(String value) throws Exception {
-    if (setter.isPresent()) setter.get().accept(value);
+    setValue(value, null);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public void setValue(String value, String username) throws Exception {
+    if (setter.isPresent()) setter.get().accept(value, username);
   }
 
   /** {@inheritDoc} */
