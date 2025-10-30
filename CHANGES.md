@@ -1,3 +1,6 @@
+# HAP-Java 2.0.8
+* Updated bouncy castle to 1.82
+
 # HAP-Java 2.0.7
 * Add overloads to characteristics so that the username can be passed through.
 
