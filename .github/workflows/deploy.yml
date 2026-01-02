@@ -7,6 +7,9 @@ on:
   push:
     branches: [ master ]
 
+permissions:
+  packages: write
+
 jobs:
   build:
 
@@ -14,26 +17,19 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set up JDK 11 for Maven Central
+    - name: Set up JDK 11
       uses: actions/setup-java@v3
       with:
         distribution: 'zulu'
         java-version: '11'
         architecture: x64
-        server-id: ossrh
-        gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
-        gpg-passphrase: MAVEN_GPG_PASSPHRASE
-        server-username: MAVEN_USERNAME
-        server-password: MAVEN_CENTRAL_TOKEN
     - name: Setup git profile
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-    - name: Publish Snapshot to Maven Central
-      run: mvn deploy -B -Possrh
+    - name: Publish Snapshot to GitHub Packages
+      run: mvn deploy -B
       env:
-        MAVEN_USERNAME: hap-java-dev
-        MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
-        MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Publish site
       run: mvn -B site-deploy -Dusername=github-actions -Dpassword=${{ secrets.GITHUB_TOKEN }}

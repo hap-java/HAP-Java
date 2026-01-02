@@ -12,6 +12,7 @@ on:
 
 permissions:
   contents: write
+  packages: write
 
 jobs:
   build:
@@ -27,14 +28,11 @@ jobs:
         distribution: 'zulu'
         java-version: '11'
         architecture: x64
-        server-id: ossrh
-        gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
-        gpg-passphrase: MAVEN_GPG_PASSPHRASE
-        server-username: MAVEN_USERNAME
-        server-password: MAVEN_CENTRAL_TOKEN
+    - name: Setup git profile
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
     - name: Maven release
-      run: mvn release:prepare release:perform -B -DreleaseVersion=${{ github.event.inputs.releaseVersion }} -Possrh
+      run: mvn release:prepare release:perform -B -DreleaseVersion=${{ github.event.inputs.releaseVersion }}
       env:
-        MAVEN_USERNAME: hap-java-dev
-        MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
-        MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
