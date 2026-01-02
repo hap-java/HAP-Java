@@ -85,10 +85,38 @@ abstract class PairSetupRequest {
     private final byte[] authTagData;
 
     public ExchangeRequest(DecodeResult d) {
-      messageData = new byte[d.getLength(MessageType.ENCRYPTED_DATA) - 16];
+      // Get the complete encrypted data field
+      byte[] encryptedData = d.getBytes(MessageType.ENCRYPTED_DATA);
+      logger.debug("ExchangeRequest: Total encrypted data length: {}", encryptedData.length);
+      logger.debug("ExchangeRequest: Raw encrypted data: {}", bytesToHex(encryptedData));
+
+      // For HomeKit M5, the encrypted data contains ciphertext + 16-byte auth tag
+      // The auth tag is the LAST 16 bytes
+      if (encryptedData.length < 16) {
+        throw new RuntimeException(
+            "Encrypted data too short, expected at least 16 bytes for auth tag");
+      }
+
+      int ciphertextLength = encryptedData.length - 16;
+      messageData = new byte[ciphertextLength];
       authTagData = new byte[16];
-      d.getBytes(MessageType.ENCRYPTED_DATA, messageData, 0);
-      d.getBytes(MessageType.ENCRYPTED_DATA, authTagData, messageData.length);
+
+      // Copy ciphertext (everything except last 16 bytes)
+      System.arraycopy(encryptedData, 0, messageData, 0, ciphertextLength);
+      // Copy auth tag (last 16 bytes)
+      System.arraycopy(encryptedData, ciphertextLength, authTagData, 0, 16);
+
+      logger.debug("ExchangeRequest: Parsed ciphertext length: {}", messageData.length);
+      logger.debug("ExchangeRequest: Parsed ciphertext: {}", bytesToHex(messageData));
+      logger.debug("ExchangeRequest: Parsed auth tag: {}", bytesToHex(authTagData));
+    }
+
+    private static String bytesToHex(byte[] bytes) {
+      StringBuilder result = new StringBuilder();
+      for (byte b : bytes) {
+        result.append(String.format("%02x", b));
+      }
+      return result.toString();
     }
 
     public byte[] getMessageData() {

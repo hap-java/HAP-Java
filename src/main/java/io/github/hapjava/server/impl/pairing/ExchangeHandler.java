@@ -31,6 +31,8 @@ class ExchangeHandler {
   }
 
   public HttpResponse handle(PairSetupRequest req) throws Exception {
+    LOGGER.debug("ExchangeHandler: Starting M5 exchange with shared secret K: {}", bytesToHex(k));
+
     HKDFBytesGenerator hkdf = new HKDFBytesGenerator(new SHA512Digest());
     hkdf.init(
         new HKDFParameters(
@@ -40,18 +42,40 @@ class ExchangeHandler {
     byte[] okm = hkdf_enc_key = new byte[32];
     hkdf.generateBytes(okm, 0, 32);
 
+    LOGGER.debug("ExchangeHandler: HKDF encryption key: {}", bytesToHex(okm));
+
     return decrypt((ExchangeRequest) req, okm);
   }
 
   private HttpResponse decrypt(ExchangeRequest req, byte[] key) throws Exception {
-    ChachaDecoder chacha = new ChachaDecoder(key, "PS-Msg05".getBytes(StandardCharsets.UTF_8));
-    byte[] plaintext = chacha.decodeCiphertext(req.getAuthTagData(), req.getMessageData());
+    LOGGER.debug("ExchangeHandler: Received AuthTag: {}", bytesToHex(req.getAuthTagData()));
+    LOGGER.debug("ExchangeHandler: Received MessageData: {}", bytesToHex(req.getMessageData()));
+
+    try {
+      ChachaDecoder chacha = new ChachaDecoder(key, "PS-Msg05".getBytes(StandardCharsets.UTF_8));
+      byte[] plaintext = chacha.decodeCiphertext(req.getAuthTagData(), req.getMessageData());
+      return processDecryptedData(plaintext);
+    } catch (Exception e) {
+      LOGGER.error("ExchangeHandler: M5 decryption failed: {}", e.getMessage());
+      throw new RuntimeException("HomeKit M5 message decryption failed", e);
+    }
+  }
+
+  private HttpResponse processDecryptedData(byte[] plaintext) throws Exception {
 
     DecodeResult d = TypeLengthValueUtils.decode(plaintext);
     byte[] username = d.getBytes(MessageType.USERNAME);
     byte[] ltpk = d.getBytes(MessageType.PUBLIC_KEY);
     byte[] proof = d.getBytes(MessageType.SIGNATURE);
     return createUser(username, ltpk, proof);
+  }
+
+  private static String bytesToHex(byte[] bytes) {
+    StringBuilder result = new StringBuilder();
+    for (byte b : bytes) {
+      result.append(String.format("%02x", b));
+    }
+    return result.toString();
   }
 
   private HttpResponse createUser(byte[] username, byte[] ltpk, byte[] proof) throws Exception {
