@@ -47,8 +47,55 @@ public abstract class IntegerCharacteristic extends BaseCharacteristic<Integer> 
       Optional<ExceptionalConsumer<Integer>> setter,
       Optional<Consumer<HomekitCharacteristicChangeCallback>> subscriber,
       Optional<Runnable> unsubscriber) {
+    this(
+        type,
+        "int",
+        description,
+        minValue,
+        maxValue,
+        unit,
+        getter,
+        setter,
+        subscriber,
+        unsubscriber);
+  }
+
+  /**
+   * Constructor for characteristics whose HAP format differs from the default "int", e.g. "uint8",
+   * "uint16" or "uint32". Values are still handled as Java {@link Integer}, so the supported range
+   * must fit into a signed 32-bit integer.
+   *
+   * @param type a string containing a UUID that indicates the type of characteristic. Apple defines
+   *     a set of these, however implementors can create their own as well.
+   * @param format the HAP format to advertise, e.g. "int" or "uint32".
+   * @param description a description of the characteristic to be passed to the consuming device.
+   * @param minValue the minimum supported value.
+   * @param maxValue the maximum supported value
+   * @param unit a description of the unit this characteristic supports.
+   * @param getter getter for value
+   * @param setter setter for value
+   * @param subscriber subscribers to changes
+   * @param unsubscriber unsubscribers to changes
+   */
+  protected IntegerCharacteristic(
+      String type,
+      String format,
+      String description,
+      int minValue,
+      int maxValue,
+      String unit,
+      Optional<Supplier<CompletableFuture<Integer>>> getter,
+      Optional<ExceptionalConsumer<Integer>> setter,
+      Optional<Consumer<HomekitCharacteristicChangeCallback>> subscriber,
+      Optional<Runnable> unsubscriber) {
     super(
-        type, "int", description, getter.isPresent(), setter.isPresent(), subscriber, unsubscriber);
+        type,
+        format,
+        description,
+        getter.isPresent(),
+        setter.isPresent(),
+        subscriber,
+        unsubscriber);
     this.minValue = minValue;
     this.maxValue = maxValue;
     this.unit = unit;

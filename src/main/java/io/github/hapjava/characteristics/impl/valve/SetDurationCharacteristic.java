@@ -24,6 +24,7 @@ public class SetDurationCharacteristic extends IntegerCharacteristic
       Runnable unsubscriber) {
     super(
         "000000D3-0000-1000-8000-0026BB765291",
+        "uint32",
         "set duration",
         minValue,
         maxValue,
