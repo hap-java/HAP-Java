@@ -12,8 +12,14 @@ import java.util.function.Supplier;
 /** This characteristic describes color saturation. */
 public class SaturationCharacteristic extends FloatCharacteristic
     implements EventableCharacteristic {
+  public static final double DEFAULT_MIN_VALUE = 0;
+  public static final double DEFAULT_MAX_VALUE = 100;
+  public static final double DEFAULT_STEP = 1;
 
   public SaturationCharacteristic(
+      double minValue,
+      double maxValue,
+      double minStep,
       Supplier<CompletableFuture<Double>> getter,
       ExceptionalConsumer<Double> setter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
@@ -21,13 +27,28 @@ public class SaturationCharacteristic extends FloatCharacteristic
     super(
         "0000002F-0000-1000-8000-0026BB765291",
         "color saturation",
-        0,
-        100,
-        1,
+        minValue,
+        maxValue,
+        minStep,
         "%",
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),
         Optional.of(unsubscriber));
+  }
+
+  public SaturationCharacteristic(
+      Supplier<CompletableFuture<Double>> getter,
+      ExceptionalConsumer<Double> setter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
+    this(
+        DEFAULT_MIN_VALUE,
+        DEFAULT_MAX_VALUE,
+        DEFAULT_STEP,
+        getter,
+        setter,
+        subscriber,
+        unsubscriber);
   }
 }
