@@ -21,9 +21,9 @@ class LengthPrefixedByteArrayProcessor {
     int pos = 0;
     LOGGER.trace(
         "Received message of length {}. Existing buffer is {}", data.length, buffer.size());
-    if (buffer.size() == 0) {
+    if (buffer.size() == 0 && firstLengthByteBuffer == null) {
       while (data.length - pos > 18) {
-        int targetLength = (data[0] & 0xFF) + (data[1] & 0xFF) * 256 + 16 + 2;
+        int targetLength = (data[pos] & 0xFF) + (data[pos + 1] & 0xFF) * 256 + 16 + 2;
         LOGGER.trace("Attempting to read message of length {}", targetLength);
         if (data.length >= pos + targetLength) {
           byte[] b = new byte[targetLength - 2];
@@ -56,6 +56,7 @@ class LengthPrefixedByteArrayProcessor {
     if (targetLength == 0) {
       if (firstLengthByteBuffer != null) {
         targetLength = (firstLengthByteBuffer & 0xFF) + (data[pos] & 0xFF) * 256 + 16;
+        firstLengthByteBuffer = null;
         pos += 1;
         LOGGER.trace(
             "Received the second byte after storing the first byte. New length is {}",

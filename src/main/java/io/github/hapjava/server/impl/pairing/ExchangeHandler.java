@@ -31,8 +31,6 @@ class ExchangeHandler {
   }
 
   public HttpResponse handle(PairSetupRequest req) throws Exception {
-    LOGGER.debug("ExchangeHandler: Starting M5 exchange with shared secret K: {}", bytesToHex(k));
-
     HKDFBytesGenerator hkdf = new HKDFBytesGenerator(new SHA512Digest());
     hkdf.init(
         new HKDFParameters(
@@ -42,15 +40,10 @@ class ExchangeHandler {
     byte[] okm = hkdf_enc_key = new byte[32];
     hkdf.generateBytes(okm, 0, 32);
 
-    LOGGER.debug("ExchangeHandler: HKDF encryption key: {}", bytesToHex(okm));
-
     return decrypt((ExchangeRequest) req, okm);
   }
 
   private HttpResponse decrypt(ExchangeRequest req, byte[] key) throws Exception {
-    LOGGER.debug("ExchangeHandler: Received AuthTag: {}", bytesToHex(req.getAuthTagData()));
-    LOGGER.debug("ExchangeHandler: Received MessageData: {}", bytesToHex(req.getMessageData()));
-
     try {
       ChachaDecoder chacha = new ChachaDecoder(key, "PS-Msg05".getBytes(StandardCharsets.UTF_8));
       byte[] plaintext = chacha.decodeCiphertext(req.getAuthTagData(), req.getMessageData());
