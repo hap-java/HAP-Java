@@ -1,3 +1,6 @@
+# HAP-Java 2.0.10
+* Add constructors with custom min/max (and step for float values) to the remaining range characteristics [#162](https://github.com/hap-java/HAP-Java/issues/162)
+
 # HAP-Java 2.0.9
 * Fix Set Duration and Remaining Duration characteristics to advertise format `uint32` instead of `int` [#202](https://github.com/hap-java/HAP-Java/issues/202)
 * Stop logging the SRP shared secret, derived key and M5 message data during pairing at DEBUG level

@@ -15,8 +15,12 @@ import java.util.function.Supplier;
  */
 public class BrightnessCharacteristic extends IntegerCharacteristic
     implements EventableCharacteristic {
+  public static final int DEFAULT_MIN_VALUE = 0;
+  public static final int DEFAULT_MAX_VALUE = 100;
 
   public BrightnessCharacteristic(
+      int minValue,
+      int maxValue,
       Supplier<CompletableFuture<Integer>> getter,
       ExceptionalConsumer<Integer> setter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
@@ -24,12 +28,20 @@ public class BrightnessCharacteristic extends IntegerCharacteristic
     super(
         "00000008-0000-1000-8000-0026BB765291",
         "level of brightness",
-        0,
-        100,
+        minValue,
+        maxValue,
         "%",
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),
         Optional.of(unsubscriber));
+  }
+
+  public BrightnessCharacteristic(
+      Supplier<CompletableFuture<Integer>> getter,
+      ExceptionalConsumer<Integer> setter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
+    this(DEFAULT_MIN_VALUE, DEFAULT_MAX_VALUE, getter, setter, subscriber, unsubscriber);
   }
 }
