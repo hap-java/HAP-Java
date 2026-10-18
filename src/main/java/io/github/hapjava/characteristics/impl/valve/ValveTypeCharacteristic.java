@@ -14,10 +14,18 @@ public class ValveTypeCharacteristic extends EnumCharacteristic<ValveTypeEnum> {
       Supplier<CompletableFuture<ValveTypeEnum>> getter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(ValveTypeEnum.values(), getter, subscriber, unsubscriber);
+  }
+
+  public ValveTypeCharacteristic(
+      ValveTypeEnum[] validValues,
+      Supplier<CompletableFuture<ValveTypeEnum>> getter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "000000D5-0000-1000-8000-0026BB765291",
         "Valve type",
-        ValveTypeEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

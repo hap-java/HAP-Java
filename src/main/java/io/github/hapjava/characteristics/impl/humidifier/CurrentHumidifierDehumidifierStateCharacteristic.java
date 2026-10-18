@@ -17,10 +17,18 @@ public class CurrentHumidifierDehumidifierStateCharacteristic
       Supplier<CompletableFuture<CurrentHumidifierDehumidifierStateEnum>> getter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(CurrentHumidifierDehumidifierStateEnum.values(), getter, subscriber, unsubscriber);
+  }
+
+  public CurrentHumidifierDehumidifierStateCharacteristic(
+      CurrentHumidifierDehumidifierStateEnum[] validValues,
+      Supplier<CompletableFuture<CurrentHumidifierDehumidifierStateEnum>> getter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "000000B3-0000-1000-8000-0026BB765291",
         "current humidifier state",
-        CurrentHumidifierDehumidifierStateEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

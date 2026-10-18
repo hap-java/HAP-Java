@@ -13,10 +13,16 @@ public class ServiceLabelNamespaceCharacteristic
     extends EnumCharacteristic<ServiceLabelNamespaceEnum> {
   public ServiceLabelNamespaceCharacteristic(
       Supplier<CompletableFuture<ServiceLabelNamespaceEnum>> getter) {
+    this(ServiceLabelNamespaceEnum.values(), getter);
+  }
+
+  public ServiceLabelNamespaceCharacteristic(
+      ServiceLabelNamespaceEnum[] validValues,
+      Supplier<CompletableFuture<ServiceLabelNamespaceEnum>> getter) {
     super(
         "000000CD-0000-1000-8000-0026BB765291",
         "service label namespace",
-        ServiceLabelNamespaceEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.empty(),
         Optional.empty(),

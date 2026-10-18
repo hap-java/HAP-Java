@@ -14,10 +14,18 @@ public class InputDeviceTypeCharacteristic extends EnumCharacteristic<InputDevic
       Supplier<CompletableFuture<InputDeviceTypeEnum>> getter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(InputDeviceTypeEnum.values(), getter, subscriber, unsubscriber);
+  }
+
+  public InputDeviceTypeCharacteristic(
+      InputDeviceTypeEnum[] validValues,
+      Supplier<CompletableFuture<InputDeviceTypeEnum>> getter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "000000DC-0000-1000-8000-0026BB765291",
         "input device type",
-        InputDeviceTypeEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

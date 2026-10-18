@@ -14,10 +14,18 @@ public class InputSourceTypeCharacteristic extends EnumCharacteristic<InputSourc
       Supplier<CompletableFuture<InputSourceTypeEnum>> getter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(InputSourceTypeEnum.values(), getter, subscriber, unsubscriber);
+  }
+
+  public InputSourceTypeCharacteristic(
+      InputSourceTypeEnum[] validValues,
+      Supplier<CompletableFuture<InputSourceTypeEnum>> getter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "000000DB-0000-1000-8000-0026BB765291",
         "input source type",
-        InputSourceTypeEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

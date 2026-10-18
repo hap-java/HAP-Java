@@ -10,10 +10,15 @@ import java.util.Optional;
  */
 public class VolumeSelectorCharacteristic extends EnumCharacteristic<VolumeSelectorEnum> {
   public VolumeSelectorCharacteristic(ExceptionalConsumer<VolumeSelectorEnum> setter) {
+    this(VolumeSelectorEnum.values(), setter);
+  }
+
+  public VolumeSelectorCharacteristic(
+      VolumeSelectorEnum[] validValues, ExceptionalConsumer<VolumeSelectorEnum> setter) {
     super(
         "000000EA-0000-1000-8000-0026BB765291",
         "volume selector",
-        VolumeSelectorEnum.values(),
+        validValues,
         Optional.empty(),
         Optional.of(setter),
         Optional.empty(),

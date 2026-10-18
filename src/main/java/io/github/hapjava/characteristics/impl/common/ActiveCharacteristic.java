@@ -19,10 +19,19 @@ public class ActiveCharacteristic extends EnumCharacteristic<ActiveEnum> {
       ExceptionalConsumer<ActiveEnum> setter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(ActiveEnum.values(), getter, setter, subscriber, unsubscriber);
+  }
+
+  public ActiveCharacteristic(
+      ActiveEnum[] validValues,
+      Supplier<CompletableFuture<ActiveEnum>> getter,
+      ExceptionalConsumer<ActiveEnum> setter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "000000B0-0000-1000-8000-0026BB765291",
         "Active",
-        ActiveEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),

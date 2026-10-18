@@ -17,10 +17,19 @@ public class TargetVisibilityStateCharacteristic
       ExceptionalConsumer<TargetVisibilityStateEnum> setter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(TargetVisibilityStateEnum.values(), getter, setter, subscriber, unsubscriber);
+  }
+
+  public TargetVisibilityStateCharacteristic(
+      TargetVisibilityStateEnum[] validValues,
+      Supplier<CompletableFuture<TargetVisibilityStateEnum>> getter,
+      ExceptionalConsumer<TargetVisibilityStateEnum> setter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "00000134-0000-1000-8000-0026BB765291",
         "target visibility state",
-        TargetVisibilityStateEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),

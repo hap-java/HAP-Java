@@ -14,10 +14,18 @@ public class CurrentSlatStateCharacteristic extends EnumCharacteristic<CurrentSl
       Supplier<CompletableFuture<CurrentSlatStateEnum>> getter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(CurrentSlatStateEnum.values(), getter, subscriber, unsubscriber);
+  }
+
+  public CurrentSlatStateCharacteristic(
+      CurrentSlatStateEnum[] validValues,
+      Supplier<CompletableFuture<CurrentSlatStateEnum>> getter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "000000AA-0000-1000-8000-0026BB765291",
         "current slat state",
-        CurrentSlatStateEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

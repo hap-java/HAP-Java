@@ -8,10 +8,15 @@ import java.util.Optional;
 public class PowerModeCharacteristic extends EnumCharacteristic<PowerModeEnum> {
 
   public PowerModeCharacteristic(ExceptionalConsumer<PowerModeEnum> setter) {
+    this(PowerModeEnum.values(), setter);
+  }
+
+  public PowerModeCharacteristic(
+      PowerModeEnum[] validValues, ExceptionalConsumer<PowerModeEnum> setter) {
     super(
         "000000DF-0000-1000-8000-0026BB765291",
         "power mode selection",
-        PowerModeEnum.values(),
+        validValues,
         Optional.empty(),
         Optional.of(setter),
         Optional.empty(),

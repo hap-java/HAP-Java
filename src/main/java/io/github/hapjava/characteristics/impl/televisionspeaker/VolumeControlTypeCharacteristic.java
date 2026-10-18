@@ -16,10 +16,18 @@ public class VolumeControlTypeCharacteristic extends EnumCharacteristic<VolumeCo
       Supplier<CompletableFuture<VolumeControlTypeEnum>> getter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(VolumeControlTypeEnum.values(), getter, subscriber, unsubscriber);
+  }
+
+  public VolumeControlTypeCharacteristic(
+      VolumeControlTypeEnum[] validValues,
+      Supplier<CompletableFuture<VolumeControlTypeEnum>> getter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "000000E9-0000-1000-8000-0026BB765291",
         "volume control type",
-        VolumeControlTypeEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

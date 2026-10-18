@@ -18,10 +18,19 @@ public class TargetDoorStateCharacteristic extends EnumCharacteristic<TargetDoor
       ExceptionalConsumer<TargetDoorStateEnum> setter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(TargetDoorStateEnum.values(), getter, setter, subscriber, unsubscriber);
+  }
+
+  public TargetDoorStateCharacteristic(
+      TargetDoorStateEnum[] validValues,
+      Supplier<CompletableFuture<TargetDoorStateEnum>> getter,
+      ExceptionalConsumer<TargetDoorStateEnum> setter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "00000032-0000-1000-8000-0026BB765291",
         "Target Door State",
-        TargetDoorStateEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),

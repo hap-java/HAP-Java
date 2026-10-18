@@ -16,10 +16,18 @@ public class CurrentDoorStateCharacteristic extends EnumCharacteristic<CurrentDo
       Supplier<CompletableFuture<CurrentDoorStateEnum>> getter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(CurrentDoorStateEnum.values(), getter, subscriber, unsubscriber);
+  }
+
+  public CurrentDoorStateCharacteristic(
+      CurrentDoorStateEnum[] validValues,
+      Supplier<CompletableFuture<CurrentDoorStateEnum>> getter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "0000000E-0000-1000-8000-0026BB765291",
         "Current Door State",
-        CurrentDoorStateEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

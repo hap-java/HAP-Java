@@ -18,10 +18,19 @@ public class PictureModeCharacteristic extends EnumCharacteristic<PictureModeEnu
       ExceptionalConsumer<PictureModeEnum> setter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(PictureModeEnum.values(), getter, setter, subscriber, unsubscriber);
+  }
+
+  public PictureModeCharacteristic(
+      PictureModeEnum[] validValues,
+      Supplier<CompletableFuture<PictureModeEnum>> getter,
+      ExceptionalConsumer<PictureModeEnum> setter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "000000E2-0000-1000-8000-0026BB765291",
         "picture mode",
-        PictureModeEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),

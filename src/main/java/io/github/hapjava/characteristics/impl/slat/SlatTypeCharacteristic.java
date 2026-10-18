@@ -11,10 +11,15 @@ import java.util.function.Supplier;
 public class SlatTypeCharacteristic extends EnumCharacteristic<SlatTypeEnum> {
 
   public SlatTypeCharacteristic(Supplier<CompletableFuture<SlatTypeEnum>> getter) {
+    this(SlatTypeEnum.values(), getter);
+  }
+
+  public SlatTypeCharacteristic(
+      SlatTypeEnum[] validValues, Supplier<CompletableFuture<SlatTypeEnum>> getter) {
     super(
         "000000C0-0000-1000-8000-0026BB765291",
         "slat type",
-        SlatTypeEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.empty(),
         Optional.empty(),

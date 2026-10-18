@@ -16,10 +16,19 @@ public class LockTargetStateCharacteristic extends EnumCharacteristic<LockTarget
       ExceptionalConsumer<LockTargetStateEnum> setter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(LockTargetStateEnum.values(), getter, setter, subscriber, unsubscriber);
+  }
+
+  public LockTargetStateCharacteristic(
+      LockTargetStateEnum[] validValues,
+      Supplier<CompletableFuture<LockTargetStateEnum>> getter,
+      ExceptionalConsumer<LockTargetStateEnum> setter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "0000001E-0000-1000-8000-0026BB765291",
         "Target Lock State",
-        LockTargetStateEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),

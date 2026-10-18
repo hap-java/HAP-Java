@@ -14,10 +14,18 @@ public class LockCurrentStateCharacteristic extends EnumCharacteristic<LockCurre
       Supplier<CompletableFuture<LockCurrentStateEnum>> getter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(LockCurrentStateEnum.values(), getter, subscriber, unsubscriber);
+  }
+
+  public LockCurrentStateCharacteristic(
+      LockCurrentStateEnum[] validValues,
+      Supplier<CompletableFuture<LockCurrentStateEnum>> getter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "0000001D-0000-1000-8000-0026BB765291",
         "Current Lock State",
-        LockCurrentStateEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

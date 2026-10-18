@@ -20,10 +20,19 @@ public class TargetAirPurifierStateCharacteristic
       ExceptionalConsumer<TargetAirPurifierStateEnum> setter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(TargetAirPurifierStateEnum.values(), getter, setter, subscriber, unsubscriber);
+  }
+
+  public TargetAirPurifierStateCharacteristic(
+      TargetAirPurifierStateEnum[] validValues,
+      Supplier<CompletableFuture<TargetAirPurifierStateEnum>> getter,
+      ExceptionalConsumer<TargetAirPurifierStateEnum> setter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "000000A8-0000-1000-8000-0026BB765291",
         "Air purifier state",
-        TargetAirPurifierStateEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),

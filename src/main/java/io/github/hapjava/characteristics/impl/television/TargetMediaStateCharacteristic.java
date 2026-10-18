@@ -15,10 +15,19 @@ public class TargetMediaStateCharacteristic extends EnumCharacteristic<TargetMed
       ExceptionalConsumer<TargetMediaStateEnum> setter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(TargetMediaStateEnum.values(), getter, setter, subscriber, unsubscriber);
+  }
+
+  public TargetMediaStateCharacteristic(
+      TargetMediaStateEnum[] validValues,
+      Supplier<CompletableFuture<TargetMediaStateEnum>> getter,
+      ExceptionalConsumer<TargetMediaStateEnum> setter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "00000137-0000-1000-8000-0026BB765291",
         "current media state",
-        TargetMediaStateEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),

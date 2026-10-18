@@ -1,3 +1,6 @@
+# HAP-Java 2.0.10
+* Add constructors with a custom list of valid values to the remaining enum characteristics (except two-value sensor and status flags) [#163](https://github.com/hap-java/HAP-Java/issues/163)
+
 # HAP-Java 2.0.9
 * Fix Set Duration and Remaining Duration characteristics to advertise format `uint32` instead of `int` [#202](https://github.com/hap-java/HAP-Java/issues/202)
 * Stop logging the SRP shared secret, derived key and M5 message data during pairing at DEBUG level

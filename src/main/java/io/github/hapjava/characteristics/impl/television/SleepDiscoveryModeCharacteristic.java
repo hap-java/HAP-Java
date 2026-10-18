@@ -16,10 +16,18 @@ public class SleepDiscoveryModeCharacteristic extends EnumCharacteristic<SleepDi
       Supplier<CompletableFuture<SleepDiscoveryModeEnum>> getter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(SleepDiscoveryModeEnum.values(), getter, subscriber, unsubscriber);
+  }
+
+  public SleepDiscoveryModeCharacteristic(
+      SleepDiscoveryModeEnum[] validValues,
+      Supplier<CompletableFuture<SleepDiscoveryModeEnum>> getter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "000000E8-0000-1000-8000-0026BB765291",
         "sleep discovery mode",
-        SleepDiscoveryModeEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

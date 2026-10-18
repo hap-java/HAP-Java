@@ -14,10 +14,18 @@ public class PositionStateCharacteristic extends EnumCharacteristic<PositionStat
       Supplier<CompletableFuture<PositionStateEnum>> getter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(PositionStateEnum.values(), getter, subscriber, unsubscriber);
+  }
+
+  public PositionStateCharacteristic(
+      PositionStateEnum[] validValues,
+      Supplier<CompletableFuture<PositionStateEnum>> getter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "00000072-0000-1000-8000-0026BB765291",
         "Position state",
-        PositionStateEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),
