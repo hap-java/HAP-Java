@@ -26,6 +26,7 @@ public class RemainingDurationCharacteristic extends IntegerCharacteristic
       Runnable unsubscriber) {
     super(
         "000000D4-0000-1000-8000-0026BB765291",
+        "uint32",
         "remaining duration",
         minValue,
         maxValue,
