@@ -16,10 +16,18 @@ public class AirQualityCharacteristic extends EnumCharacteristic<AirQualityEnum>
       Supplier<CompletableFuture<AirQualityEnum>> getter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(AirQualityEnum.values(), getter, subscriber, unsubscriber);
+  }
+
+  public AirQualityCharacteristic(
+      AirQualityEnum[] validValues,
+      Supplier<CompletableFuture<AirQualityEnum>> getter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "00000095-0000-1000-8000-0026BB765291",
         "air quality",
-        AirQualityEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

@@ -16,10 +16,18 @@ public class CurrentMediaStateCharacteristic extends EnumCharacteristic<CurrentM
       Supplier<CompletableFuture<CurrentMediaStateEnum>> getter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(CurrentMediaStateEnum.values(), getter, subscriber, unsubscriber);
+  }
+
+  public CurrentMediaStateCharacteristic(
+      CurrentMediaStateEnum[] validValues,
+      Supplier<CompletableFuture<CurrentMediaStateEnum>> getter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "000000E0-0000-1000-8000-0026BB765291",
         "current media state",
-        CurrentMediaStateEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

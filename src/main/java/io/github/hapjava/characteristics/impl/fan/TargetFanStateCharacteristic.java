@@ -18,10 +18,19 @@ public class TargetFanStateCharacteristic extends EnumCharacteristic<TargetFanSt
       ExceptionalConsumer<TargetFanStateEnum> setter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(TargetFanStateEnum.values(), getter, setter, subscriber, unsubscriber);
+  }
+
+  public TargetFanStateCharacteristic(
+      TargetFanStateEnum[] validValues,
+      Supplier<CompletableFuture<TargetFanStateEnum>> getter,
+      ExceptionalConsumer<TargetFanStateEnum> setter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "000000BF-0000-1000-8000-0026BB765291",
         "Target Fan State",
-        TargetFanStateEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),

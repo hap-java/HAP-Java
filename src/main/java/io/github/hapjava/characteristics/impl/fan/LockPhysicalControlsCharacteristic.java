@@ -18,10 +18,19 @@ public class LockPhysicalControlsCharacteristic extends EnumCharacteristic<LockP
       ExceptionalConsumer<LockPhysicalControlsEnum> setter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(LockPhysicalControlsEnum.values(), getter, setter, subscriber, unsubscriber);
+  }
+
+  public LockPhysicalControlsCharacteristic(
+      LockPhysicalControlsEnum[] validValues,
+      Supplier<CompletableFuture<LockPhysicalControlsEnum>> getter,
+      ExceptionalConsumer<LockPhysicalControlsEnum> setter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "000000A7-0000-1000-8000-0026BB765291",
         "Physical Locks",
-        LockPhysicalControlsEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),

@@ -15,10 +15,18 @@ public class CurrentVisibilityStateCharacteristic
       Supplier<CompletableFuture<CurrentVisibilityStateEnum>> getter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(CurrentVisibilityStateEnum.values(), getter, subscriber, unsubscriber);
+  }
+
+  public CurrentVisibilityStateCharacteristic(
+      CurrentVisibilityStateEnum[] validValues,
+      Supplier<CompletableFuture<CurrentVisibilityStateEnum>> getter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "00000135-0000-1000-8000-0026BB765291",
         "current visibility state",
-        CurrentVisibilityStateEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

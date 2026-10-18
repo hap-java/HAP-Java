@@ -19,10 +19,18 @@ public class CurrentFanStateCharacteristic extends EnumCharacteristic<CurrentFan
       Supplier<CompletableFuture<CurrentFanStateEnum>> getter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(CurrentFanStateEnum.values(), getter, subscriber, unsubscriber);
+  }
+
+  public CurrentFanStateCharacteristic(
+      CurrentFanStateEnum[] validValues,
+      Supplier<CompletableFuture<CurrentFanStateEnum>> getter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "000000AF-0000-1000-8000-0026BB765291",
         "Current Fan State",
-        CurrentFanStateEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

@@ -16,10 +16,18 @@ public class ProgramModeCharacteristic extends EnumCharacteristic<ProgramModeEnu
       Supplier<CompletableFuture<ProgramModeEnum>> getter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(ProgramModeEnum.values(), getter, subscriber, unsubscriber);
+  }
+
+  public ProgramModeCharacteristic(
+      ProgramModeEnum[] validValues,
+      Supplier<CompletableFuture<ProgramModeEnum>> getter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "000000D1-0000-1000-8000-0026BB765291",
         "Program Mode",
-        ProgramModeEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

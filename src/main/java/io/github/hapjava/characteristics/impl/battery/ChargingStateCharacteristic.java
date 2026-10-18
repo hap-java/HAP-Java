@@ -17,10 +17,18 @@ public class ChargingStateCharacteristic extends EnumCharacteristic<ChargingStat
       Supplier<CompletableFuture<ChargingStateEnum>> getter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(ChargingStateEnum.values(), getter, subscriber, unsubscriber);
+  }
+
+  public ChargingStateCharacteristic(
+      ChargingStateEnum[] validValues,
+      Supplier<CompletableFuture<ChargingStateEnum>> getter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "0000008F-0000-1000-8000-0026BB765291",
         "Charging state",
-        ChargingStateEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

@@ -19,10 +19,19 @@ public class ClosedCaptionsCharacteristic extends EnumCharacteristic<ClosedCapti
       ExceptionalConsumer<ClosedCaptionsEnum> setter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(ClosedCaptionsEnum.values(), getter, setter, subscriber, unsubscriber);
+  }
+
+  public ClosedCaptionsCharacteristic(
+      ClosedCaptionsEnum[] validValues,
+      Supplier<CompletableFuture<ClosedCaptionsEnum>> getter,
+      ExceptionalConsumer<ClosedCaptionsEnum> setter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "000000DD-0000-1000-8000-0026BB765291",
         "closed captions",
-        ClosedCaptionsEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),

@@ -20,10 +20,19 @@ public class TemperatureDisplayUnitCharacteristic
       ExceptionalConsumer<TemperatureDisplayUnitEnum> setter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(TemperatureDisplayUnitEnum.values(), getter, setter, subscriber, unsubscriber);
+  }
+
+  public TemperatureDisplayUnitCharacteristic(
+      TemperatureDisplayUnitEnum[] validValues,
+      Supplier<CompletableFuture<TemperatureDisplayUnitEnum>> getter,
+      ExceptionalConsumer<TemperatureDisplayUnitEnum> setter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "00000036-0000-1000-8000-0026BB765291",
         "Temperature units",
-        TemperatureDisplayUnitEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),

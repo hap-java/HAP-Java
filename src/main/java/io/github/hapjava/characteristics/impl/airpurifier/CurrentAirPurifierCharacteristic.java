@@ -18,10 +18,18 @@ public class CurrentAirPurifierCharacteristic
       Supplier<CompletableFuture<CurrentAirPurifierStateEnum>> getter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(CurrentAirPurifierStateEnum.values(), getter, subscriber, unsubscriber);
+  }
+
+  public CurrentAirPurifierCharacteristic(
+      CurrentAirPurifierStateEnum[] validValues,
+      Supplier<CompletableFuture<CurrentAirPurifierStateEnum>> getter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "000000A9-0000-1000-8000-0026BB765291",
         "current air purifier state",
-        CurrentAirPurifierStateEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.empty(),
         Optional.of(subscriber),

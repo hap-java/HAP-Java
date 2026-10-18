@@ -18,10 +18,19 @@ public class SwingModeCharacteristic extends EnumCharacteristic<SwingModeEnum>
       ExceptionalConsumer<SwingModeEnum> setter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(SwingModeEnum.values(), getter, setter, subscriber, unsubscriber);
+  }
+
+  public SwingModeCharacteristic(
+      SwingModeEnum[] validValues,
+      Supplier<CompletableFuture<SwingModeEnum>> getter,
+      ExceptionalConsumer<SwingModeEnum> setter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "000000B6-0000-1000-8000-0026BB765291",
         "Swing Mode",
-        SwingModeEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),

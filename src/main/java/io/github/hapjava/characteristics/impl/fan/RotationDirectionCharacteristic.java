@@ -18,10 +18,19 @@ public class RotationDirectionCharacteristic extends EnumCharacteristic<Rotation
       ExceptionalConsumer<RotationDirectionEnum> setter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
       Runnable unsubscriber) {
+    this(RotationDirectionEnum.values(), getter, setter, subscriber, unsubscriber);
+  }
+
+  public RotationDirectionCharacteristic(
+      RotationDirectionEnum[] validValues,
+      Supplier<CompletableFuture<RotationDirectionEnum>> getter,
+      ExceptionalConsumer<RotationDirectionEnum> setter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
     super(
         "00000028-0000-1000-8000-0026BB765291",
         "Rotation direction",
-        RotationDirectionEnum.values(),
+        validValues,
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),
