@@ -11,12 +11,8 @@ import java.util.function.Supplier;
 
 /** Volume characteristic to control audio volume. */
 public class VolumeCharacteristic extends IntegerCharacteristic implements EventableCharacteristic {
-  public static final int DEFAULT_MIN_VALUE = 0;
-  public static final int DEFAULT_MAX_VALUE = 100;
 
   public VolumeCharacteristic(
-      int minValue,
-      int maxValue,
       Supplier<CompletableFuture<Integer>> getter,
       ExceptionalConsumer<Integer> setter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
@@ -24,20 +20,12 @@ public class VolumeCharacteristic extends IntegerCharacteristic implements Event
     super(
         "00000119-0000-1000-8000-0026BB765291",
         "volume",
-        minValue,
-        maxValue,
+        0,
+        100,
         "percentage",
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),
         Optional.of(unsubscriber));
-  }
-
-  public VolumeCharacteristic(
-      Supplier<CompletableFuture<Integer>> getter,
-      ExceptionalConsumer<Integer> setter,
-      Consumer<HomekitCharacteristicChangeCallback> subscriber,
-      Runnable unsubscriber) {
-    this(DEFAULT_MIN_VALUE, DEFAULT_MAX_VALUE, getter, setter, subscriber, unsubscriber);
   }
 }
