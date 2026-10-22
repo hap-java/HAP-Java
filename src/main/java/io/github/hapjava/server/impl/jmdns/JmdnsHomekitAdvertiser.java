@@ -1,20 +1,18 @@
 package io.github.hapjava.server.impl.jmdns;
 
-import static io.github.hapjava.server.impl.crypto.HAPSetupCodeUtils.generateSHA512Hash;
-
+import io.github.hapjava.server.HomekitAdvertiser;
+import io.github.hapjava.server.impl.advertiser.HapDnsTxt;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.HashMap;
 import java.util.Map;
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class JmdnsHomekitAdvertiser {
-
-  private static final String SERVICE_TYPE = "_hap._tcp.local.";
+/** HomeKit advertiser backed by JmDNS (binds / uses UDP 5353). */
+public class JmdnsHomekitAdvertiser implements HomekitAdvertiser {
 
   private final JmDNS jmdns;
   private boolean discoverable = true;
@@ -37,6 +35,7 @@ public class JmdnsHomekitAdvertiser {
     jmdns = JmDNS.create(localAddress);
   }
 
+  @Override
   public synchronized void advertise(
       String label, int category, String mac, int port, int configurationIndex, String setupId)
       throws Exception {
@@ -64,10 +63,12 @@ public class JmdnsHomekitAdvertiser {
     isAdvertising = true;
   }
 
+  @Override
   public synchronized void stop() {
     unregisterService();
   }
 
+  @Override
   public synchronized void setDiscoverable(boolean discoverable) throws IOException {
     if (this.discoverable != discoverable) {
       this.discoverable = discoverable;
@@ -79,6 +80,7 @@ public class JmdnsHomekitAdvertiser {
     }
   }
 
+  @Override
   public synchronized void setMac(String mac) throws IOException {
     if (this.mac != mac) {
       this.mac = mac;
@@ -90,6 +92,7 @@ public class JmdnsHomekitAdvertiser {
     }
   }
 
+  @Override
   public synchronized void setConfigurationIndex(int revision) throws IOException {
     if (this.configurationIndex != revision) {
       this.configurationIndex = revision;
@@ -109,7 +112,7 @@ public class JmdnsHomekitAdvertiser {
   }
 
   private void registerService() throws IOException {
-    logger.info("Registering " + SERVICE_TYPE + " on port " + port);
+    logger.info("Registering " + HapDnsTxt.SERVICE_TYPE_LOCAL + " on port " + port);
     if (this.serviceInfo != null) {
       throw new AssertionError(
           "Registering an already registered service without unregistering first is not allowed");
@@ -120,17 +123,8 @@ public class JmdnsHomekitAdvertiser {
 
   private ServiceInfo buildServiceInfo() {
     logger.trace("MAC:" + mac + " Setup Id:" + setupId);
-    Map<String, String> props = new HashMap<>();
-    props.put("sf", discoverable ? "1" : "0");
-    props.put("id", mac);
-    props.put("md", label);
-    props.put("sh", generateSHA512Hash(setupId + mac));
-    props.put("c#", Integer.toString(configurationIndex));
-    props.put("s#", "1");
-    props.put("ff", "0");
-    props.put("ci", Integer.toString(category));
-    props.put("pv", "1.1");
-
-    return ServiceInfo.create(SERVICE_TYPE, label, port, 1, 1, props);
+    Map<String, String> props =
+        HapDnsTxt.buildProperties(discoverable, mac, label, setupId, configurationIndex, category);
+    return ServiceInfo.create(HapDnsTxt.SERVICE_TYPE_LOCAL, label, port, 1, 1, props);
   }
 }

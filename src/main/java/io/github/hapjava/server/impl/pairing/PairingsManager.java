@@ -1,9 +1,9 @@
 package io.github.hapjava.server.impl.pairing;
 
+import io.github.hapjava.server.HomekitAdvertiser;
 import io.github.hapjava.server.HomekitAuthInfo;
 import io.github.hapjava.server.impl.http.HttpRequest;
 import io.github.hapjava.server.impl.http.HttpResponse;
-import io.github.hapjava.server.impl.jmdns.JmdnsHomekitAdvertiser;
 import io.github.hapjava.server.impl.pairing.TypeLengthValueUtils.DecodeResult;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -15,11 +15,11 @@ import org.slf4j.LoggerFactory;
 public class PairingsManager {
 
   private final HomekitAuthInfo authInfo;
-  private final JmdnsHomekitAdvertiser advertiser;
+  private final HomekitAdvertiser advertiser;
 
   private static final Logger LOGGER = LoggerFactory.getLogger(PairingsManager.class);
 
-  public PairingsManager(HomekitAuthInfo authInfo, JmdnsHomekitAdvertiser advertiser) {
+  public PairingsManager(HomekitAuthInfo authInfo, HomekitAdvertiser advertiser) {
     this.authInfo = authInfo;
     this.advertiser = advertiser;
   }

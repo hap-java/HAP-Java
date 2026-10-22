@@ -25,6 +25,23 @@ Include HAP-Java in your project using maven:
 After that, check out the [Sample](https://github.com/hap-java/HAP-Java/tree/sample) and
 read the [Javadoc](https://hap-java.github.io/HAP-Java/apidocs/index.html)
 
+Native DNS-SD / Bonjour (macOS)
+=========
+
+JmDNS binds UDP **5353**. On macOS that port is owned by `mDNSResponder`, so dedicated JmDNS advertising fails with “Address already in use” and Home never sees `_hap._tcp`.
+
+This build adds a native advertiser that registers through Bonjour without binding 5353:
+
+```java
+import io.github.hapjava.server.HomekitAdvertisers;
+import io.github.hapjava.server.impl.HomekitServer;
+
+HomekitServer server =
+    new HomekitServer(bindAddress, 9124, HomekitAdvertisers.nativeDnssd());
+```
+
+Or `HomekitAdvertisers.auto(bindAddress)` to prefer native DNS-SD when available. Full details: [docs/NATIVE_DNSSD.md](docs/NATIVE_DNSSD.md).
+
 Supported HomeKit Accessories
 =========
 
