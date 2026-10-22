@@ -1,5 +1,8 @@
 # HAP-Java 2.0.10
 * Add optional Mute characteristic to Doorbell service
+* Add pluggable `HomekitAdvertiser` with native DNS-SD / Bonjour implementation (`DnssdHomekitAdvertiser`) so macOS can advertise `_hap._tcp` without binding UDP 5353 [#212](https://github.com/hap-java/HAP-Java/issues/212) (see [docs/NATIVE_DNSSD.md](docs/NATIVE_DNSSD.md))
+* Extract shared HAP TXT helpers (`HapDnsTxt`)
+* Add optional runtime dependency on JNA (`net.java.dev.jna:jna`) for native `DNSServiceRegister` (macOS `libSystem` / Avahi `libdns_sd`); JmDNS path unchanged when native DNS-SD is not used
 
 # HAP-Java 2.0.9
 * Fix Set Duration and Remaining Duration characteristics to advertise format `uint32` instead of `int` [#202](https://github.com/hap-java/HAP-Java/issues/202)
