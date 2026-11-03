@@ -3,6 +3,7 @@ package io.github.hapjava.server.impl;
 import io.github.hapjava.accessories.Bridge;
 import io.github.hapjava.accessories.HomekitAccessory;
 import io.github.hapjava.server.HomekitAccessoryCategories;
+import io.github.hapjava.server.HomekitAdvertiser;
 import io.github.hapjava.server.HomekitAuthInfo;
 import io.github.hapjava.server.HomekitWebHandler;
 import io.github.hapjava.server.impl.connections.HomekitClientConnectionFactoryImpl;
@@ -27,7 +28,7 @@ public class HomekitRoot {
 
   private static final Logger logger = LoggerFactory.getLogger(HomekitRoot.class);
   private static final int DEFAULT_ACCESSORY_CATEGORY = HomekitAccessoryCategories.OTHER;
-  private final JmdnsHomekitAdvertiser advertiser;
+  private final HomekitAdvertiser advertiser;
   private final HomekitWebHandler webHandler;
   private final HomekitAuthInfo authInfo;
   private final String label;
@@ -60,7 +61,7 @@ public class HomekitRoot {
       int category,
       HomekitWebHandler webHandler,
       HomekitAuthInfo authInfo,
-      JmdnsHomekitAdvertiser advertiser)
+      HomekitAdvertiser advertiser)
       throws IOException {
     this.advertiser = advertiser;
     this.webHandler = webHandler;
