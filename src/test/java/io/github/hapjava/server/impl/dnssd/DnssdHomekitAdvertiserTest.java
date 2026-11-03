@@ -63,7 +63,9 @@ public class DnssdHomekitAdvertiserTest {
   public void advertiseRegistersHapService() throws Exception {
     advertise();
 
+    ArgumentCaptor<Integer> ifIndex = ArgumentCaptor.forClass(Integer.class);
     ArgumentCaptor<String> type = ArgumentCaptor.forClass(String.class);
+    ArgumentCaptor<String> host = ArgumentCaptor.forClass(String.class);
     ArgumentCaptor<Short> port = ArgumentCaptor.forClass(Short.class);
     ArgumentCaptor<byte[]> txt = ArgumentCaptor.forClass(byte[].class);
 
@@ -71,11 +73,11 @@ public class DnssdHomekitAdvertiserTest {
         .DNSServiceRegister(
             any(PointerByReference.class),
             anyInt(),
-            anyInt(),
+            ifIndex.capture(),
             anyString(),
             type.capture(),
             anyString(),
-            nullable(String.class),
+            host.capture(),
             port.capture(),
             anyShort(),
             txt.capture(),
@@ -83,8 +85,51 @@ public class DnssdHomekitAdvertiserTest {
             any());
 
     assertThat(type.getValue()).isEqualTo("_hap._tcp");
+    assertThat(ifIndex.getValue()).isEqualTo(DnssdHomekitAdvertiser.INTERFACE_INDEX_ANY);
+    assertThat(host.getValue()).isNull();
     assertThat(port.getValue()).isEqualTo(DnssdHomekitAdvertiser.toNetworkByteOrderPort(9124));
     assertThat(txt.getValue()).isNotEmpty();
+  }
+
+  @Test
+  public void advertisePassesConfiguredInterfaceIndexAndHost() throws Exception {
+    subject = new DnssdHomekitAdvertiser(dnsSd, 4, "192.168.0.6");
+    when(dnsSd.DNSServiceRegister(
+            any(PointerByReference.class),
+            anyInt(),
+            anyInt(),
+            anyString(),
+            anyString(),
+            anyString(),
+            nullable(String.class),
+            anyShort(),
+            anyShort(),
+            any(byte[].class),
+            any(),
+            any()))
+        .thenAnswer(successRegister);
+
+    advertise();
+
+    ArgumentCaptor<Integer> ifIndex = ArgumentCaptor.forClass(Integer.class);
+    ArgumentCaptor<String> host = ArgumentCaptor.forClass(String.class);
+    verify(dnsSd)
+        .DNSServiceRegister(
+            any(PointerByReference.class),
+            anyInt(),
+            ifIndex.capture(),
+            anyString(),
+            anyString(),
+            anyString(),
+            host.capture(),
+            anyShort(),
+            anyShort(),
+            any(byte[].class),
+            any(),
+            any());
+
+    assertThat(ifIndex.getValue()).isEqualTo(4);
+    assertThat(host.getValue()).isEqualTo("192.168.0.6");
   }
 
   @Test

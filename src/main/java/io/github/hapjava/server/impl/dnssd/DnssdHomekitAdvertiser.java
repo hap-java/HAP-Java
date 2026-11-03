@@ -5,6 +5,9 @@ import com.sun.jna.ptr.PointerByReference;
 import io.github.hapjava.server.HomekitAdvertiser;
 import io.github.hapjava.server.impl.advertiser.HapDnsTxt;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Map;
@@ -19,15 +22,24 @@ import org.slf4j.LoggerFactory;
  *
  * <p>Uses JNA to call {@code DNSServiceRegister} / {@code DNSServiceRefDeallocate}.
  *
+ * <p>Pass an {@link InetAddress} to scope registration to one LAN interface/host; the no-arg
+ * constructor registers on all interfaces ({@code interfaceIndex = 0}) with the system default
+ * hostname ({@code host = null}).
+ *
  * @author Karel Goderis
  */
 public class DnssdHomekitAdvertiser implements HomekitAdvertiser {
 
   private static final Logger logger = LoggerFactory.getLogger(DnssdHomekitAdvertiser.class);
 
+  /** DNS-SD: register on all interfaces. */
+  public static final int INTERFACE_INDEX_ANY = 0;
+
   private static final boolean SUPPORTED = detectSupport();
 
   private final DnsSdLibrary dnsSd;
+  private final int interfaceIndex;
+  private final String host;
   private final Object lock = new Object();
 
   private boolean discoverable = true;
@@ -44,30 +56,96 @@ public class DnssdHomekitAdvertiser implements HomekitAdvertiser {
   private Thread processThread;
   private final AtomicBoolean runProcessLoop = new AtomicBoolean(false);
 
+  /** Register on all interfaces using the system default hostname. */
   public DnssdHomekitAdvertiser() {
+    this(INTERFACE_INDEX_ANY, null);
+  }
+
+  /**
+   * Scope registration to {@code localAddress}: SRV host is that address's host string, and the
+   * DNS-SD interface index is taken from the matching {@link NetworkInterface} when available.
+   *
+   * @param localAddress LAN address the HAP TCP listener uses
+   */
+  public DnssdHomekitAdvertiser(InetAddress localAddress) {
+    this(resolveInterfaceIndex(localAddress), resolveHost(localAddress));
+  }
+
+  /**
+   * Full control over DNS-SD {@code interfaceIndex} and {@code host}.
+   *
+   * @param interfaceIndex {@link #INTERFACE_INDEX_ANY} (0) for all interfaces, or a platform
+   *     interface index from {@link NetworkInterface#getIndex()}
+   * @param host SRV target host (IP or DNS name), or {@code null} for the system default hostname
+   */
+  public DnssdHomekitAdvertiser(int interfaceIndex, String host) {
     if (!SUPPORTED) {
       throw new UnsupportedOperationException("Native DNS-SD is not available");
     }
     this.dnsSd = DnsSdLibrary.load();
+    this.interfaceIndex = interfaceIndex;
+    this.host = host;
   }
 
   /** Visible for tests that inject a mock library. */
   DnssdHomekitAdvertiser(DnsSdLibrary dnsSd) {
+    this(dnsSd, INTERFACE_INDEX_ANY, null);
+  }
+
+  /** Visible for tests that inject a mock library with interface/host. */
+  DnssdHomekitAdvertiser(DnsSdLibrary dnsSd, int interfaceIndex, String host) {
     this.dnsSd = dnsSd;
+    this.interfaceIndex = interfaceIndex;
+    this.host = host;
   }
 
   public static boolean isSupported() {
     return SUPPORTED;
   }
 
+  /** DNS-SD interface index used for registration (0 = all interfaces). */
+  public int getInterfaceIndex() {
+    return interfaceIndex;
+  }
+
+  /** SRV host passed to DNS-SD, or {@code null} for the system default. */
+  public String getHost() {
+    return host;
+  }
+
   private static boolean detectSupport() {
     try {
       DnsSdLibrary.load();
       return true;
-    } catch (UnsatisfiedLinkError | Exception e) {
+    } catch (LinkageError | Exception e) {
+      // LinkageError covers NoClassDefFoundError when optional JNA is absent, and
+      // UnsatisfiedLinkError when libSystem / libdns_sd cannot be loaded.
       logger.debug("Native DNS-SD not available: {}", e.toString());
       return false;
     }
+  }
+
+  private static String resolveHost(InetAddress localAddress) {
+    Objects.requireNonNull(localAddress, "localAddress");
+    return localAddress.getHostAddress();
+  }
+
+  private static int resolveInterfaceIndex(InetAddress localAddress) {
+    Objects.requireNonNull(localAddress, "localAddress");
+    try {
+      NetworkInterface nif = NetworkInterface.getByInetAddress(localAddress);
+      if (nif != null) {
+        int index = nif.getIndex();
+        if (index > 0) {
+          return index;
+        }
+      }
+    } catch (SocketException e) {
+      logger.debug("Could not resolve NetworkInterface for {}: {}", localAddress, e.toString());
+    }
+    logger.debug(
+        "No network interface index for {}; registering on all interfaces (index 0)", localAddress);
+    return INTERFACE_INDEX_ANY;
   }
 
   @Override
@@ -84,7 +162,11 @@ public class DnssdHomekitAdvertiser implements HomekitAdvertiser {
       this.setupId = setupId;
       this.category = category;
       this.configurationIndex = configurationIndex;
-      logger.trace("Advertising accessory {} via native DNS-SD", label);
+      logger.trace(
+          "Advertising accessory {} via native DNS-SD (interfaceIndex={}, host={})",
+          label,
+          interfaceIndex,
+          host);
       registerService();
       isAdvertising = true;
     }
@@ -155,11 +237,11 @@ public class DnssdHomekitAdvertiser implements HomekitAdvertiser {
         dnsSd.DNSServiceRegister(
             refOut,
             0,
-            0,
+            interfaceIndex,
             label,
             HapDnsTxt.SERVICE_TYPE,
             HapDnsTxt.DOMAIN_LOCAL,
-            null,
+            host,
             netPort,
             (short) txt.length,
             txt,
@@ -173,9 +255,11 @@ public class DnssdHomekitAdvertiser implements HomekitAdvertiser {
       throw new IOException("DNSServiceRegister returned a null service reference");
     }
     logger.info(
-        "Registered {} via native DNS-SD on port {} (no UDP 5353 bind)",
+        "Registered {} via native DNS-SD on port {} (interfaceIndex={}, host={}, no UDP 5353 bind)",
         HapDnsTxt.SERVICE_TYPE,
-        port);
+        port,
+        interfaceIndex,
+        host);
     startProcessLoop(serviceRef);
   }
 

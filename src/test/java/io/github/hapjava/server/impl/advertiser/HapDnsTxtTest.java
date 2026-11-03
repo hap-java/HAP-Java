@@ -14,6 +14,7 @@ public class HapDnsTxtTest {
         HapDnsTxt.buildProperties(true, "AA:BB:CC:DD:EE:FF", "Bridge", "ABCD", 3, 2);
 
     assertThat(props)
+        .containsOnlyKeys("sf", "id", "md", "sh", "c#", "s#", "ff", "ci", "pv")
         .containsEntry("sf", "1")
         .containsEntry("id", "AA:BB:CC:DD:EE:FF")
         .containsEntry("md", "Bridge")
@@ -23,6 +24,15 @@ public class HapDnsTxtTest {
         .containsEntry("ci", "2")
         .containsEntry("pv", "1.1");
     assertThat(props.get("sh")).isNotBlank();
+  }
+
+  @Test
+  public void buildPropertiesKeepsStableKeyOrderForDeterministicTxt() {
+    // LinkedHashMap insertion order (deterministic). RFC 6763 ignores TXT pair order; this
+    // differs from the pre-HapDnsTxt HashMap iteration order some dns-sd -L dumps showed.
+    assertThat(
+            HapDnsTxt.buildProperties(true, "AA:BB:CC:DD:EE:FF", "Bridge", "ABCD", 3, 2).keySet())
+        .containsExactly("sf", "id", "md", "sh", "c#", "s#", "ff", "ci", "pv");
   }
 
   @Test
