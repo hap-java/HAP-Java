@@ -3,8 +3,6 @@ package io.github.hapjava.characteristics.impl;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.github.hapjava.characteristics.Characteristic;
-import io.github.hapjava.characteristics.impl.slat.CurrentTiltAngleCharacteristic;
-import io.github.hapjava.characteristics.impl.slat.TargetTiltAngleCharacteristic;
 import io.github.hapjava.characteristics.impl.windowcovering.CurrentHorizontalTiltAngleCharacteristic;
 import io.github.hapjava.characteristics.impl.windowcovering.CurrentVerticalTiltAngleCharacteristic;
 import io.github.hapjava.characteristics.impl.windowcovering.TargetHorizontalTiltAngleCharacteristic;
@@ -22,14 +20,6 @@ public class CustomTiltAngleRangeTest {
     // Serialized output captured before custom ranges were added.
     for (Case c :
         Arrays.asList(
-            Case.of(
-                new CurrentTiltAngleCharacteristic(
-                    () -> CompletableFuture.completedFuture(50), cb -> {}, () -> {}),
-                "{\"iid\":7,\"type\":\"C1\",\"perms\":[\"pr\",\"ev\"],\"format\":\"int\",\"value\":50,\"minValue\":-90,\"maxValue\":90,\"minStep\":1,\"unit\":\"arcdegrees\"}"),
-            Case.of(
-                new TargetTiltAngleCharacteristic(
-                    () -> CompletableFuture.completedFuture(50), v -> {}, cb -> {}, () -> {}),
-                "{\"iid\":7,\"type\":\"C2\",\"perms\":[\"pr\",\"pw\",\"ev\"],\"format\":\"int\",\"value\":50,\"minValue\":-90,\"maxValue\":90,\"minStep\":1,\"unit\":\"arcdegrees\"}"),
             Case.of(
                 new CurrentHorizontalTiltAngleCharacteristic(
                     () -> CompletableFuture.completedFuture(50), cb -> {}, () -> {}),
@@ -56,10 +46,6 @@ public class CustomTiltAngleRangeTest {
   public void customRangeIsAdvertised() {
     for (Characteristic c :
         Arrays.<Characteristic>asList(
-            new CurrentTiltAngleCharacteristic(
-                0, 90, () -> CompletableFuture.completedFuture(50), cb -> {}, () -> {}),
-            new TargetTiltAngleCharacteristic(
-                0, 90, () -> CompletableFuture.completedFuture(50), v -> {}, cb -> {}, () -> {}),
             new CurrentHorizontalTiltAngleCharacteristic(
                 0, 90, () -> CompletableFuture.completedFuture(50), cb -> {}, () -> {}),
             new TargetHorizontalTiltAngleCharacteristic(
