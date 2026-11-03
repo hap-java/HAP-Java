@@ -18,7 +18,7 @@ import javax.jmdns.JmDNS;
  * // Force JmDNS (e.g. share openHAB's instance):
  * HomekitAdvertiser adv = HomekitAdvertisers.jmdns(sharedJmDNS);
  *
- * // Native DNS-SD limited to one LAN address / interface:
+ * // Native DNS-SD on the interface that owns the HAP bind address (SRV host = system default):
  * HomekitAdvertiser adv = HomekitAdvertisers.nativeDnssd(InetAddress.getByName("192.168.0.6"));
  * }</pre>
  *
@@ -68,8 +68,10 @@ public final class HomekitAdvertisers {
   }
 
   /**
-   * Native DNS-SD / Bonjour advertiser scoped to {@code localAddress}: SRV host is that address and
-   * registration uses the matching network interface index when resolvable.
+   * Native DNS-SD / Bonjour advertiser scoped to the interface that owns {@code localAddress}.
+   * Registration uses that interface index when resolvable; SRV host stays {@code null} (system
+   * hostname). Passing an IP literal as DNS-SD host is incorrect — it yields an SRV target with no
+   * A record and breaks Home pairing.
    *
    * @param localAddress LAN address the HAP TCP server listens on
    * @return a native DNS-SD advertiser

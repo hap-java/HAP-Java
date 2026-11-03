@@ -22,9 +22,10 @@ import org.slf4j.LoggerFactory;
  *
  * <p>Uses JNA to call {@code DNSServiceRegister} / {@code DNSServiceRefDeallocate}.
  *
- * <p>Pass an {@link InetAddress} to scope registration to one LAN interface/host; the no-arg
- * constructor registers on all interfaces ({@code interfaceIndex = 0}) with the system default
- * hostname ({@code host = null}).
+ * <p>Pass an {@link InetAddress} to scope registration to one LAN <em>interface</em>; SRV host
+ * stays {@code null} so mDNSResponder advertises the system hostname (with A/AAAA). Passing a raw
+ * IP as DNS-SD {@code host} breaks pairing — the daemon does not synthesize an A record for that
+ * name. The no-arg constructor registers on all interfaces ({@code interfaceIndex = 0}).
  *
  * @author Karel Goderis
  */
@@ -62,13 +63,16 @@ public class DnssdHomekitAdvertiser implements HomekitAdvertiser {
   }
 
   /**
-   * Scope registration to {@code localAddress}: SRV host is that address's host string, and the
-   * DNS-SD interface index is taken from the matching {@link NetworkInterface} when available.
+   * Scope registration to the network interface that owns {@code localAddress}. SRV {@code host} is
+   * left {@code null} (system default hostname + A/AAAA via mDNSResponder).
+   *
+   * <p>Do not pass {@code localAddress.getHostAddress()} as DNS-SD host: a literal IP becomes an
+   * SRV target name with no A record, and Home pairing hangs after accepting the QR code.
    *
    * @param localAddress LAN address the HAP TCP listener uses
    */
   public DnssdHomekitAdvertiser(InetAddress localAddress) {
-    this(resolveInterfaceIndex(localAddress), resolveHost(localAddress));
+    this(resolveInterfaceIndex(localAddress), null);
   }
 
   /**
@@ -76,7 +80,8 @@ public class DnssdHomekitAdvertiser implements HomekitAdvertiser {
    *
    * @param interfaceIndex {@link #INTERFACE_INDEX_ANY} (0) for all interfaces, or a platform
    *     interface index from {@link NetworkInterface#getIndex()}
-   * @param host SRV target host (IP or DNS name), or {@code null} for the system default hostname
+   * @param host SRV target <strong>DNS hostname</strong>, or {@code null} for the system default.
+   *     Must not be a raw IP literal — DNS-SD will not register an A/AAAA for it.
    */
   public DnssdHomekitAdvertiser(int interfaceIndex, String host) {
     if (!SUPPORTED) {
@@ -123,11 +128,6 @@ public class DnssdHomekitAdvertiser implements HomekitAdvertiser {
       logger.debug("Native DNS-SD not available: {}", e.toString());
       return false;
     }
-  }
-
-  private static String resolveHost(InetAddress localAddress) {
-    Objects.requireNonNull(localAddress, "localAddress");
-    return localAddress.getHostAddress();
   }
 
   private static int resolveInterfaceIndex(InetAddress localAddress) {

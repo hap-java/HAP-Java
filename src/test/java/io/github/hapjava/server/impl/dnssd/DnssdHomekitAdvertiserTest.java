@@ -93,7 +93,8 @@ public class DnssdHomekitAdvertiserTest {
 
   @Test
   public void advertisePassesConfiguredInterfaceIndexAndHost() throws Exception {
-    subject = new DnssdHomekitAdvertiser(dnsSd, 4, "192.168.0.6");
+    // Advanced ctor may pass a real DNS hostname; raw IPs must not be used as DNS-SD host.
+    subject = new DnssdHomekitAdvertiser(dnsSd, 4, "bridge.local");
     when(dnsSd.DNSServiceRegister(
             any(PointerByReference.class),
             anyInt(),
@@ -129,7 +130,15 @@ public class DnssdHomekitAdvertiserTest {
             any());
 
     assertThat(ifIndex.getValue()).isEqualTo(4);
-    assertThat(host.getValue()).isEqualTo("192.168.0.6");
+    assertThat(host.getValue()).isEqualTo("bridge.local");
+  }
+
+  @Test
+  public void inetAddressConstructorLeavesHostNull() {
+    // Package-visible mock ctor mirrors InetAddress behaviour: interface scoped, host=null.
+    subject = new DnssdHomekitAdvertiser(dnsSd, 7, null);
+    assertThat(subject.getInterfaceIndex()).isEqualTo(7);
+    assertThat(subject.getHost()).isNull();
   }
 
   @Test

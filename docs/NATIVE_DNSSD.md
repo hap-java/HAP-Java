@@ -40,7 +40,7 @@ import java.net.InetAddress;
 
 InetAddress bind = InetAddress.getByName("192.168.0.6");
 
-// Prefer scoping native registration to the HAP bind address (interface + SRV host):
+// Prefer scoping native registration to the HAP bind interface (SRV host stays system default):
 HomekitServer server =
     new HomekitServer(bind, 9124, HomekitAdvertisers.nativeDnssd(bind));
 
@@ -91,7 +91,7 @@ setConfigurationIndex(int)
 | `jmdns(JmDNS)` | Wrap an existing JmDNS (force JmDNS / share openHAB’s instance) |
 | `jmdns(InetAddress)` | Create dedicated JmDNS on that address |
 | `nativeDnssd()` | Native Bonjour on **all** interfaces (`interfaceIndex = 0`, default host) |
-| `nativeDnssd(InetAddress)` | Native Bonjour scoped to that address’s interface index + SRV host |
+| `nativeDnssd(InetAddress)` | Native Bonjour on that address’s interface index; SRV host = system default (`null`) |
 | `isNativeDnssdSupported()` | Whether JNA + dns_sd **load** (not a live register probe) |
 | `auto(InetAddress)` | **Deprecated** — prefer an explicit `jmdns` / `nativeDnssd` choice |
 
@@ -108,7 +108,7 @@ When an advertiser is supplied, `createBridge` / `createStandaloneAccessory` use
 
 * **JNA** is an **optional** dependency. It loads `System` on macOS/Darwin and `dns_sd` elsewhere (Avahi Bonjour compatibility). Missing JNA surfaces as `LinkageError` and `isNativeDnssdSupported()` returns `false`.
 * `DNSServiceRegister` receives the TCP port in **network byte order**.
-* Default `nativeDnssd()` uses `interfaceIndex = 0` (all interfaces) and `host = null` (system hostname). Prefer `nativeDnssd(InetAddress)` when the HAP TCP listener is bound to one LAN address.
+* Default `nativeDnssd()` uses `interfaceIndex = 0` (all interfaces) and `host = null` (system hostname). Prefer `nativeDnssd(InetAddress)` to limit the interface index when the HAP TCP listener is bound to one LAN address — still with `host = null`. Never pass a raw IP as DNS-SD `host` (no A record → Home hangs on “Setting up”).
 * TXT is RFC 6763 length-prefixed `key=value` bytes (`HapDnsTxt.encodeTxt`). Key insertion order is stable (`LinkedHashMap`); RFC 6763 does not require a particular pair order.
 * A daemon thread runs `DNSServiceProcessResult` until `DNSServiceRefDeallocate` on `stop()` / re-register.
 * Re-registration (discoverability, MAC, `c#`) deallocates and registers again — same pattern as the JmDNS advertiser.
