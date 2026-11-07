@@ -17,6 +17,8 @@ public class JmdnsHomekitAdvertiser {
   private static final String SERVICE_TYPE = "_hap._tcp.local.";
 
   private final JmDNS jmdns;
+  private final boolean ownsJmdns;
+  private Thread shutdownHook;
   private boolean discoverable = true;
   private static final Logger logger = LoggerFactory.getLogger(JmdnsHomekitAdvertiser.class);
   private boolean isAdvertising = false;
@@ -30,11 +32,16 @@ public class JmdnsHomekitAdvertiser {
   private int category;
 
   public JmdnsHomekitAdvertiser(JmDNS jmdns) {
-    this.jmdns = jmdns;
+    this(jmdns, false);
   }
 
   public JmdnsHomekitAdvertiser(InetAddress localAddress) throws UnknownHostException, IOException {
-    jmdns = JmDNS.create(localAddress);
+    this(JmDNS.create(localAddress), true);
+  }
+
+  JmdnsHomekitAdvertiser(JmDNS jmdns, boolean ownsJmdns) {
+    this.jmdns = jmdns;
+    this.ownsJmdns = ownsJmdns;
   }
 
   public synchronized void advertise(
@@ -54,18 +61,33 @@ public class JmdnsHomekitAdvertiser {
 
     registerService();
 
-    Runtime.getRuntime()
-        .addShutdownHook(
-            new Thread(
-                () -> {
-                  logger.trace("Stopping advertising in response to shutdown.");
-                  jmdns.unregisterAllServices();
-                }));
+    shutdownHook =
+        new Thread(
+            () -> {
+              logger.trace("Stopping advertising in response to shutdown.");
+              jmdns.unregisterAllServices();
+            });
+    Runtime.getRuntime().addShutdownHook(shutdownHook);
     isAdvertising = true;
   }
 
   public synchronized void stop() {
     unregisterService();
+    isAdvertising = false;
+    if (shutdownHook != null) {
+      try {
+        Runtime.getRuntime().removeShutdownHook(shutdownHook);
+      } catch (IllegalStateException e) {
+        // already shutting down
+      }
+    }
+    if (ownsJmdns) {
+      try {
+        jmdns.close();
+      } catch (IOException e) {
+        logger.warn("Failed to close mDNS", e);
+      }
+    }
   }
 
   public synchronized void setDiscoverable(boolean discoverable) throws IOException {

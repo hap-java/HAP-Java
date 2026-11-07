@@ -1,5 +1,6 @@
 # HAP-Java 2.0.10
 * Add optional Mute characteristic to Doorbell service
+* Fix leak of mDNS instances and shutdown hooks when stopping `HomekitRoot`
 
 # HAP-Java 2.0.9
 * Fix Set Duration and Remaining Duration characteristics to advertise format `uint32` instead of `int` [#202](https://github.com/hap-java/HAP-Java/issues/202)
