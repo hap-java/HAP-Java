@@ -12,8 +12,12 @@ import java.util.function.Supplier;
 /** This characteristic describes the target angle of vertical slats. */
 public class TargetVerticalTiltAngleCharacteristic extends IntegerCharacteristic
     implements EventableCharacteristic {
+  public static final int DEFAULT_MIN_VALUE = -90;
+  public static final int DEFAULT_MAX_VALUE = 90;
 
   public TargetVerticalTiltAngleCharacteristic(
+      int minValue,
+      int maxValue,
       Supplier<CompletableFuture<Integer>> getter,
       ExceptionalConsumer<Integer> setter,
       Consumer<HomekitCharacteristicChangeCallback> subscriber,
@@ -21,12 +25,20 @@ public class TargetVerticalTiltAngleCharacteristic extends IntegerCharacteristic
     super(
         "0000007D-0000-1000-8000-0026BB765291",
         "target vertical tilt angle",
-        -90,
-        90,
+        minValue,
+        maxValue,
         "arcdegrees",
         Optional.of(getter),
         Optional.of(setter),
         Optional.of(subscriber),
         Optional.of(unsubscriber));
+  }
+
+  public TargetVerticalTiltAngleCharacteristic(
+      Supplier<CompletableFuture<Integer>> getter,
+      ExceptionalConsumer<Integer> setter,
+      Consumer<HomekitCharacteristicChangeCallback> subscriber,
+      Runnable unsubscriber) {
+    this(DEFAULT_MIN_VALUE, DEFAULT_MAX_VALUE, getter, setter, subscriber, unsubscriber);
   }
 }

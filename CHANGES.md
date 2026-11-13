@@ -1,4 +1,5 @@
 # HAP-Java 2.0.10
+* Add constructors with custom min/max to the window covering tilt angle characteristics [#162](https://github.com/hap-java/HAP-Java/issues/162)
 * Add optional Mute characteristic to Doorbell service
 
 # HAP-Java 2.0.9
