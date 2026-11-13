@@ -33,7 +33,6 @@ jobs:
         git config --global user.name "github-actions[bot]"
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
     - name: Maven release
-      # Only deploy; the site is published by the deploy workflow on pushes to master.
       run: mvn release:prepare release:perform -B -DreleaseVersion=${{ github.event.inputs.releaseVersion }} -Dgoals=deploy
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
