@@ -12,6 +12,7 @@
 	<properties>
     	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<netty.version>4.1.139.Final</netty.version>
+		<bouncycastle.version>1.86</bouncycastle.version>
 	</properties>
 
 	<licenses>
@@ -106,13 +107,13 @@
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
 			<artifactId>bcpkix-jdk18on</artifactId>
-			<version>1.83</version>
+			<version>${bouncycastle.version}</version>
 		</dependency>
 
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bctls-jdk18on</artifactId>
-            <version>1.82</version>
+            <version>${bouncycastle.version}</version>
         </dependency>
 
 		<dependency>
