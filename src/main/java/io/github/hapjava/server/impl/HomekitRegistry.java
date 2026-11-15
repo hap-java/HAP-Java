@@ -2,6 +2,7 @@ package io.github.hapjava.server.impl;
 
 import io.github.hapjava.accessories.HomekitAccessory;
 import io.github.hapjava.characteristics.Characteristic;
+import io.github.hapjava.characteristics.impl.base.BaseCharacteristic;
 import io.github.hapjava.server.impl.connections.SubscriptionManager;
 import io.github.hapjava.services.Service;
 import io.github.hapjava.services.impl.AccessoryInformationService;
@@ -63,6 +64,9 @@ public class HomekitRegistry {
         newServicesByInterfaceId.put(++iid, service);
         for (Characteristic characteristic : service.getCharacteristics()) {
           newCharacteristicsByInterfaceId.put(++iid, characteristic);
+          if (characteristic instanceof BaseCharacteristic) {
+            ((BaseCharacteristic<?>) characteristic).setInstanceId(iid);
+          }
         }
       }
       services.put(accessory, newServicesByInterfaceId);

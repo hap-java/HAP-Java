@@ -117,6 +117,14 @@ public abstract class IntegerCharacteristic extends BaseCharacteristic<Integer> 
             });
   }
 
+  public int getMinValue() {
+    return minValue;
+  }
+
+  public int getMaxValue() {
+    return maxValue;
+  }
+
   @Override
   public CompletableFuture<Integer> getValue() {
     return getter.map(integerGetter -> integerGetter.get()).orElse(null);

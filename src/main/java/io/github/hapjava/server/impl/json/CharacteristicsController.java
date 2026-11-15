@@ -2,6 +2,7 @@ package io.github.hapjava.server.impl.json;
 
 import io.github.hapjava.characteristics.Characteristic;
 import io.github.hapjava.characteristics.EventableCharacteristic;
+import io.github.hapjava.characteristics.WriteResponseCharacteristic;
 import io.github.hapjava.server.impl.HomekitRegistry;
 import io.github.hapjava.server.impl.connections.SubscriptionManager;
 import io.github.hapjava.server.impl.http.HomekitClientConnection;
@@ -68,6 +69,8 @@ public class CharacteristicsController {
 
   public HttpResponse put(HttpRequest request, HomekitClientConnection connection)
       throws Exception {
+    JsonArrayBuilder responses = Json.createArrayBuilder();
+    boolean hasWriteResponse = false;
     subscriptions.batchUpdate();
     try {
       try (ByteArrayInputStream bais = new ByteArrayInputStream(request.getBody())) {
@@ -88,9 +91,20 @@ public class CharacteristicsController {
             return new HapJsonNoContentResponse();
           }
 
+          JsonObjectBuilder response =
+              Json.createObjectBuilder().add("aid", aid).add("iid", iid).add("status", 0);
           if (jsonCharacteristic.containsKey("value")) {
-            characteristic.setValue(jsonCharacteristic.get("value"), connection.getUsername());
+            if (jsonCharacteristic.getBoolean("r", false)
+                && characteristic instanceof WriteResponseCharacteristic) {
+              ((WriteResponseCharacteristic) characteristic)
+                  .setValueWithResponse(
+                      jsonCharacteristic.get("value"), connection.getUsername(), response);
+              hasWriteResponse = true;
+            } else {
+              characteristic.setValue(jsonCharacteristic.get("value"), connection.getUsername());
+            }
           }
+          responses.add(response);
           if (jsonCharacteristic.containsKey("ev")
               && characteristic instanceof EventableCharacteristic) {
             if (jsonCharacteristic.getBoolean("ev")) {
@@ -106,6 +120,13 @@ public class CharacteristicsController {
     } finally {
       subscriptions.completeUpdateBatch();
     }
-    return new HapJsonNoContentResponse();
+    if (!hasWriteResponse) {
+      return new HapJsonNoContentResponse();
+    }
+    try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        JsonWriter jsonWriter = Json.createWriter(baos)) {
+      jsonWriter.write(Json.createObjectBuilder().add("characteristics", responses).build());
+      return new HapJsonMultiStatusResponse(baos.toByteArray());
+    }
   }
 }
