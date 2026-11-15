@@ -34,6 +34,7 @@ public abstract class BaseCharacteristic<T> implements Characteristic, Eventable
   private final boolean isWritable;
   private final Optional<Consumer<HomekitCharacteristicChangeCallback>> subscriber;
   private final Optional<Runnable> unsubscriber;
+  private volatile int instanceId;
 
   /**
    * Default constructor
@@ -74,6 +75,20 @@ public abstract class BaseCharacteristic<T> implements Characteristic, Eventable
   /** {@inheritDoc} */
   public String getType() {
     return type;
+  }
+
+  /** @return the instance id assigned when the accessory was registered, 0 before. */
+  public int getInstanceId() {
+    return instanceId;
+  }
+
+  /**
+   * Called by the server when it assigns instance ids to the accessory's characteristics.
+   *
+   * @param instanceId the instance id
+   */
+  public void setInstanceId(int instanceId) {
+    this.instanceId = instanceId;
   }
 
   @Override
