@@ -1,9 +1,12 @@
 # HAP-Java 2.0.10
+* Add constructors with custom min/max to the window covering tilt angle characteristics [#162](https://github.com/hap-java/HAP-Java/issues/162)
 * Add optional Mute characteristic to Doorbell service
 * Add pluggable `HomekitAdvertiser` SPI plus JmDNS and optional native DNS-SD / Bonjour (`DnssdHomekitAdvertiser`) backends so embeds can share host mDNS or avoid a second multicast stack [#212](https://github.com/hap-java/HAP-Java/issues/212) (see [docs/NATIVE_DNSSD.md](docs/NATIVE_DNSSD.md))
 * Extract shared HAP TXT helpers (`HapDnsTxt`) with stable key order; all advertisers publish the same property set
 * JNA (`net.java.dev.jna:jna`) is **optional** for `nativeDnssd()`; JmDNS-only consumers do not need it. Applications choose `jmdns(...)` or `nativeDnssd(...)` explicitly (`auto(...)` is deprecated)
 * `nativeDnssd(InetAddress)` scopes by interface index only and keeps SRV `host` null (system hostname). An IP literal as host broke pairing (SRV target with no A record)
+* Fix leak of mDNS instances and shutdown hooks when stopping `HomekitRoot`
+* Updated netty to 4.1.139.Final
 
 # HAP-Java 2.0.9
 * Fix Set Duration and Remaining Duration characteristics to advertise format `uint32` instead of `int` [#202](https://github.com/hap-java/HAP-Java/issues/202)

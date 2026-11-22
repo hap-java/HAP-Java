@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 public class JmdnsHomekitAdvertiser implements HomekitAdvertiser {
 
   private final JmDNS jmdns;
+  private final boolean ownsJmdns;
+  private Thread shutdownHook;
   private boolean discoverable = true;
   private static final Logger logger = LoggerFactory.getLogger(JmdnsHomekitAdvertiser.class);
   private boolean isAdvertising = false;
@@ -28,11 +30,16 @@ public class JmdnsHomekitAdvertiser implements HomekitAdvertiser {
   private int category;
 
   public JmdnsHomekitAdvertiser(JmDNS jmdns) {
-    this.jmdns = jmdns;
+    this(jmdns, false);
   }
 
   public JmdnsHomekitAdvertiser(InetAddress localAddress) throws UnknownHostException, IOException {
-    jmdns = JmDNS.create(localAddress);
+    this(JmDNS.create(localAddress), true);
+  }
+
+  JmdnsHomekitAdvertiser(JmDNS jmdns, boolean ownsJmdns) {
+    this.jmdns = jmdns;
+    this.ownsJmdns = ownsJmdns;
   }
 
   @Override
@@ -53,19 +60,34 @@ public class JmdnsHomekitAdvertiser implements HomekitAdvertiser {
 
     registerService();
 
-    Runtime.getRuntime()
-        .addShutdownHook(
-            new Thread(
-                () -> {
-                  logger.trace("Stopping advertising in response to shutdown.");
-                  jmdns.unregisterAllServices();
-                }));
+    shutdownHook =
+        new Thread(
+            () -> {
+              logger.trace("Stopping advertising in response to shutdown.");
+              jmdns.unregisterAllServices();
+            });
+    Runtime.getRuntime().addShutdownHook(shutdownHook);
     isAdvertising = true;
   }
 
   @Override
   public synchronized void stop() {
     unregisterService();
+    isAdvertising = false;
+    if (shutdownHook != null) {
+      try {
+        Runtime.getRuntime().removeShutdownHook(shutdownHook);
+      } catch (IllegalStateException e) {
+        // already shutting down
+      }
+    }
+    if (ownsJmdns) {
+      try {
+        jmdns.close();
+      } catch (IOException e) {
+        logger.warn("Failed to close mDNS", e);
+      }
+    }
   }
 
   @Override

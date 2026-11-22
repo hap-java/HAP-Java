@@ -2,7 +2,9 @@ package io.github.hapjava.server.impl.jmdns;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 import java.io.IOException;
@@ -74,6 +76,29 @@ public class JmdnsHomekitAdvertiserTest {
     assertThat(info.getPropertyString("ci")).isEqualTo("1");
     assertThat(info.getPropertyString("pv")).isEqualTo("1.1");
     assertThat(info.getPropertyString("sh")).isNotBlank();
+  }
+
+  @Test
+  public void testStopClosesOwnedJmdns() throws Exception {
+    subject = new JmdnsHomekitAdvertiser(jmdns, true);
+    advertise();
+    subject.stop();
+    verify(jmdns).close();
+  }
+
+  @Test
+  public void testStopDoesNotCloseSuppliedJmdns() throws Exception {
+    advertise();
+    subject.stop();
+    verify(jmdns, never()).close();
+  }
+
+  @Test
+  public void testSetDiscoverableAfterStopDoesNotRegister() throws Exception {
+    advertise();
+    subject.stop();
+    subject.setDiscoverable(false);
+    verify(jmdns).registerService(any(ServiceInfo.class));
   }
 
   private ServiceInfo getArgumentFromUnregister() {
