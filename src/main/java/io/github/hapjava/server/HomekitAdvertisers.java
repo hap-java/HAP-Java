@@ -7,18 +7,19 @@ import java.net.InetAddress;
 import javax.jmdns.JmDNS;
 
 /**
- * Factories for {@link HomekitAdvertiser} implementations.
+ * Factories for {@link HomekitAdvertiser} implementations shipped with HAP-Java.
  *
- * <p>Callers (e.g. openHAB) should choose the advertiser explicitly: use {@link #jmdns(JmDNS)} to
- * share an existing JmDNS instance, {@link #jmdns(InetAddress)} for a dedicated JmDNS socket, or
- * {@link #nativeDnssd()} / {@link #nativeDnssd(InetAddress)} for Bonjour without binding UDP 5353.
- * Do not rely on HAP-Java to pick a policy automatically.
+ * <p>Callers should choose explicitly: {@link #jmdns(JmDNS)} to share a host instance, {@link
+ * #jmdns(InetAddress)} for a dedicated JmDNS stack, or {@link #nativeDnssd()} / {@link
+ * #nativeDnssd(InetAddress)} for optional system DNS-SD (Bonjour / Avahi). Hosts may also inject
+ * their own {@link HomekitAdvertiser} (e.g. openHAB wrapping core mDNS). Do not rely on HAP-Java to
+ * pick a policy automatically — see {@code docs/NATIVE_DNSSD.md}.
  *
  * <pre>{@code
- * // Force JmDNS (e.g. share openHAB's instance):
+ * // Share host JmDNS (e.g. openHAB):
  * HomekitAdvertiser adv = HomekitAdvertisers.jmdns(sharedJmDNS);
  *
- * // Native DNS-SD on the interface that owns the HAP bind address (SRV host = system default):
+ * // Optional native DNS-SD on the HAP bind interface (SRV host = system default):
  * HomekitAdvertiser adv = HomekitAdvertisers.nativeDnssd(InetAddress.getByName("192.168.0.6"));
  * }</pre>
  *

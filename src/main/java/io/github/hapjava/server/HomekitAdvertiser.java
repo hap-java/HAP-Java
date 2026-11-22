@@ -5,10 +5,11 @@ import java.io.IOException;
 /**
  * Publishes a HomeKit accessory / bridge via DNS-SD ({@code _hap._tcp}).
  *
- * <p>The default implementation uses JmDNS and binds UDP port 5353. On platforms where a system
- * mDNS responder already owns that port (notably macOS {@code mDNSResponder}), use {@link
- * io.github.hapjava.server.impl.dnssd.DnssdHomekitAdvertiser} instead, which registers through the
- * native Bonjour / DNS-SD API without binding 5353.
+ * <p>Backend-agnostic SPI: applications may inject JmDNS, native Bonjour/DNS-SD, Avahi, or a host
+ * wrapper (e.g. openHAB’s shared mDNS). HAP-Java ships {@link
+ * io.github.hapjava.server.impl.jmdns.JmdnsHomekitAdvertiser} and an optional {@link
+ * io.github.hapjava.server.impl.dnssd.DnssdHomekitAdvertiser}. Prefer sharing the host’s mDNS when
+ * one exists; native DNS-SD avoids a second in-process multicast stack.
  *
  * @see io.github.hapjava.server.impl.jmdns.JmdnsHomekitAdvertiser
  * @see io.github.hapjava.server.impl.dnssd.DnssdHomekitAdvertiser
