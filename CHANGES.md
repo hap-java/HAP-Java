@@ -1,4 +1,8 @@
 # HAP-Java 2.0.10
+* Expose asynchronous HomeKit startup failures through `HomekitRoot.startAsync()` and clean up failed starts
+  * Synchronous startup exceptions are also reported through the returned future; duplicate starts fail without stopping an existing startup or listener
+  * Failed startup stops the HTTP listener even when only mDNS registration failed, including when using the existing `start()` method; already-paired controllers can no longer use that listener
+  * Recovery is not automatic: integrations must create a new server and root for another attempt because the default HTTP handler cannot be restarted
 * Add constructors with custom min/max to the window covering tilt angle characteristics [#162](https://github.com/hap-java/HAP-Java/issues/162)
 * Add optional Mute characteristic to Doorbell service
 * Fix leak of mDNS instances and shutdown hooks when stopping `HomekitRoot`

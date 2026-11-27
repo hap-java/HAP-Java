@@ -10,6 +10,8 @@ import io.github.hapjava.server.impl.connections.SubscriptionManager;
 import io.github.hapjava.server.impl.jmdns.JmdnsHomekitAdvertiser;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 import javax.jmdns.JmDNS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -158,14 +160,55 @@ public class HomekitRoot {
    * call this after you have used the {@link #addAccessory(HomekitAccessory)} method to add all the
    * initial accessories you plan on advertising, as any later additions will cause the HomeKit
    * clients to reconnect.
+   *
+   * <p>Startup failures are logged. Use {@link #startAsync()} to handle them in the caller. An
+   * advertising failure also stops the HTTP listener. Recovery is not automatic and requires a new
+   * server and root.
    */
   public void start() {
+    startAsync()
+        .whenComplete(
+            (ignored, error) -> {
+              if (error != null) {
+                logger.error("Could not start HomeKit root {}", label, error);
+              }
+            });
+  }
+
+  /**
+   * Starts handling and advertising the previously added HomeKit accessories.
+   *
+   * <p>Startup failures, including exceptions thrown before the HTTP handler returns a future,
+   * complete the returned future exceptionally after cleanup. If advertising fails after the HTTP
+   * listener has started, the listener is stopped as well. Recovery requires a new server and root;
+   * the default HTTP handler cannot be restarted.
+   *
+   * <p>A start requested while this root is starting or running fails without stopping the existing
+   * startup or listener.
+   *
+   * @return a future that completes after the HTTP listener has started and the advertiser has
+   *     registered the service, or exceptionally after a failed start has been cleaned up
+   */
+  public CompletableFuture<Void> startAsync() {
+    if (started) {
+      CompletableFuture<Void> failure = new CompletableFuture<>();
+      failure.completeExceptionally(new IllegalStateException("HomeKit root is already started"));
+      return failure;
+    }
     started = true;
-    madeChanges = false;
-    registry.reset();
-    webHandler
-        .start(
-            new HomekitClientConnectionFactoryImpl(authInfo, registry, subscriptions, advertiser))
+    CompletableFuture<Integer> portFuture;
+    try {
+      madeChanges = false;
+      registry.reset();
+      portFuture =
+          webHandler.start(
+              new HomekitClientConnectionFactoryImpl(
+                  authInfo, registry, subscriptions, advertiser));
+    } catch (RuntimeException e) {
+      portFuture = new CompletableFuture<>();
+      portFuture.completeExceptionally(e);
+    }
+    return portFuture
         .thenAccept(
             port -> {
               try {
@@ -178,7 +221,14 @@ public class HomekitRoot {
                     configurationIndex,
                     authInfo.getSetupId());
               } catch (Exception e) {
-                throw new RuntimeException(e);
+                throw new CompletionException(e);
+              }
+            })
+        .whenComplete(
+            (ignored, error) -> {
+              if (error != null) {
+                started = false;
+                stop();
               }
             });
   }
