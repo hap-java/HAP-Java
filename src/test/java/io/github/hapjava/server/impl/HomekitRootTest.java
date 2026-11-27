@@ -6,6 +6,7 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -118,6 +119,76 @@ public class HomekitRootTest {
     verify(advertiser, never()).advertise(any(), anyInt(), any(), anyInt(), anyInt(), any());
     root.setConfigurationIndex(2);
     verify(advertiser, never()).setConfigurationIndex(2);
+  }
+
+  @Test
+  public void testStartAsyncPropagatesSynchronousFailure() throws Exception {
+    RuntimeException failure = new IllegalStateException("HTTP startup failed");
+    when(webHandler.start(any())).thenThrow(failure);
+
+    CompletableFuture<Void> start = root.startAsync();
+
+    Assert.assertTrue(start.isCompletedExceptionally());
+    Assert.assertSame(
+        failure, Assert.assertThrows(CompletionException.class, start::join).getCause());
+    verify(webHandler).stop();
+    verify(advertiser).stop();
+    verify(advertiser, never()).advertise(any(), anyInt(), any(), anyInt(), anyInt(), any());
+    root.setConfigurationIndex(2);
+    verify(advertiser, never()).setConfigurationIndex(2);
+  }
+
+  @Test
+  public void testStartCleansUpSynchronousFailure() throws Exception {
+    when(webHandler.start(any())).thenThrow(new IllegalStateException("HTTP startup failed"));
+
+    root.start();
+
+    verify(webHandler).stop();
+    verify(advertiser).stop();
+    root.setConfigurationIndex(2);
+    verify(advertiser, never()).setConfigurationIndex(2);
+  }
+
+  @Test
+  public void testDuplicateStartDoesNotStopPendingStartup() throws Exception {
+    CompletableFuture<Integer> bind = new CompletableFuture<>();
+    when(webHandler.start(any())).thenReturn(bind);
+
+    CompletableFuture<Void> first = root.startAsync();
+    CompletableFuture<Void> duplicate = root.startAsync();
+
+    Assert.assertTrue(duplicate.isCompletedExceptionally());
+    Assert.assertTrue(
+        Assert.assertThrows(CompletionException.class, duplicate::join).getCause()
+            instanceof IllegalStateException);
+    Assert.assertFalse(first.isDone());
+    verify(webHandler, times(1)).start(any());
+    verify(webHandler, never()).stop();
+    verify(advertiser, never()).stop();
+
+    bind.complete(PORT);
+
+    Assert.assertTrue(first.isDone());
+    first.join();
+    verify(advertiser).advertise(eq(LABEL), eq(1), any(), eq(PORT), eq(1), any());
+  }
+
+  @Test
+  public void testDuplicateStartDoesNotStopRunningRoot() throws Exception {
+    root.startAsync().join();
+
+    CompletableFuture<Void> duplicate = root.startAsync();
+
+    Assert.assertTrue(duplicate.isCompletedExceptionally());
+    Assert.assertTrue(
+        Assert.assertThrows(CompletionException.class, duplicate::join).getCause()
+            instanceof IllegalStateException);
+    verify(webHandler, times(1)).start(any());
+    verify(webHandler, never()).stop();
+    verify(advertiser, never()).stop();
+    root.setConfigurationIndex(2);
+    verify(advertiser).setConfigurationIndex(2);
   }
 
   @Test

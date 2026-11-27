@@ -161,7 +161,9 @@ public class HomekitRoot {
    * initial accessories you plan on advertising, as any later additions will cause the HomeKit
    * clients to reconnect.
    *
-   * <p>Startup failures are logged. Use {@link #startAsync()} to handle them in the caller.
+   * <p>Startup failures are logged. Use {@link #startAsync()} to handle them in the caller. An
+   * advertising failure also stops the HTTP listener. Recovery is not automatic and requires a new
+   * server and root.
    */
   public void start() {
     startAsync()
@@ -176,16 +178,37 @@ public class HomekitRoot {
   /**
    * Starts handling and advertising the previously added HomeKit accessories.
    *
+   * <p>Startup failures, including exceptions thrown before the HTTP handler returns a future,
+   * complete the returned future exceptionally after cleanup. If advertising fails after the HTTP
+   * listener has started, the listener is stopped as well. Recovery requires a new server and root;
+   * the default HTTP handler cannot be restarted.
+   *
+   * <p>A start requested while this root is starting or running fails without stopping the existing
+   * startup or listener.
+   *
    * @return a future that completes after the HTTP listener has started and the advertiser has
    *     registered the service, or exceptionally after a failed start has been cleaned up
    */
   public CompletableFuture<Void> startAsync() {
+    if (started) {
+      CompletableFuture<Void> failure = new CompletableFuture<>();
+      failure.completeExceptionally(new IllegalStateException("HomeKit root is already started"));
+      return failure;
+    }
     started = true;
-    madeChanges = false;
-    registry.reset();
-    return webHandler
-        .start(
-            new HomekitClientConnectionFactoryImpl(authInfo, registry, subscriptions, advertiser))
+    CompletableFuture<Integer> portFuture;
+    try {
+      madeChanges = false;
+      registry.reset();
+      portFuture =
+          webHandler.start(
+              new HomekitClientConnectionFactoryImpl(
+                  authInfo, registry, subscriptions, advertiser));
+    } catch (RuntimeException e) {
+      portFuture = new CompletableFuture<>();
+      portFuture.completeExceptionally(e);
+    }
+    return portFuture
         .thenAccept(
             port -> {
               try {
