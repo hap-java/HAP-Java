@@ -1,4 +1,5 @@
 # HAP-Java 2.0.10
+* Expose asynchronous HomeKit startup failures through `HomekitRoot.startAsync()` and clean up failed starts
 * Add constructors with custom min/max to the window covering tilt angle characteristics [#162](https://github.com/hap-java/HAP-Java/issues/162)
 * Add optional Mute characteristic to Doorbell service
 * Fix leak of mDNS instances and shutdown hooks when stopping `HomekitRoot`

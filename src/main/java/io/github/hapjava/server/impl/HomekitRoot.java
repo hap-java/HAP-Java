@@ -10,6 +10,8 @@ import io.github.hapjava.server.impl.connections.SubscriptionManager;
 import io.github.hapjava.server.impl.jmdns.JmdnsHomekitAdvertiser;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 import javax.jmdns.JmDNS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -158,12 +160,30 @@ public class HomekitRoot {
    * call this after you have used the {@link #addAccessory(HomekitAccessory)} method to add all the
    * initial accessories you plan on advertising, as any later additions will cause the HomeKit
    * clients to reconnect.
+   *
+   * <p>Startup failures are logged. Use {@link #startAsync()} to handle them in the caller.
    */
   public void start() {
+    startAsync()
+        .whenComplete(
+            (ignored, error) -> {
+              if (error != null) {
+                logger.error("Could not start HomeKit root {}", label, error);
+              }
+            });
+  }
+
+  /**
+   * Starts handling and advertising the previously added HomeKit accessories.
+   *
+   * @return a future that completes after the HTTP listener has started and the advertiser has
+   *     registered the service, or exceptionally after a failed start has been cleaned up
+   */
+  public CompletableFuture<Void> startAsync() {
     started = true;
     madeChanges = false;
     registry.reset();
-    webHandler
+    return webHandler
         .start(
             new HomekitClientConnectionFactoryImpl(authInfo, registry, subscriptions, advertiser))
         .thenAccept(
@@ -178,7 +198,14 @@ public class HomekitRoot {
                     configurationIndex,
                     authInfo.getSetupId());
               } catch (Exception e) {
-                throw new RuntimeException(e);
+                throw new CompletionException(e);
+              }
+            })
+        .whenComplete(
+            (ignored, error) -> {
+              if (error != null) {
+                started = false;
+                stop();
               }
             });
   }

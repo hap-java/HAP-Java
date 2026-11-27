@@ -1,7 +1,9 @@
 package io.github.hapjava.server.impl;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -13,7 +15,10 @@ import io.github.hapjava.server.HomekitAuthInfo;
 import io.github.hapjava.server.HomekitWebHandler;
 import io.github.hapjava.server.impl.http.HomekitClientConnectionFactory;
 import io.github.hapjava.server.impl.jmdns.JmdnsHomekitAdvertiser;
+import java.io.IOException;
+import java.net.BindException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -64,6 +69,70 @@ public class HomekitRootTest {
   public void testWebHandlerStarts() throws Exception {
     root.start();
     verify(webHandler).start(any(HomekitClientConnectionFactory.class));
+  }
+
+  @Test
+  public void testFailedWebHandlerStartIsCleanedUp() throws Exception {
+    CompletableFuture<Integer> bind = new CompletableFuture<>();
+    when(webHandler.start(any())).thenReturn(bind);
+
+    root.start();
+    bind.completeExceptionally(new BindException("Address not available"));
+
+    verify(webHandler).stop();
+    verify(advertiser).stop();
+    root.setConfigurationIndex(2);
+    verify(advertiser, never()).setConfigurationIndex(2);
+  }
+
+  @Test
+  public void testStartAsyncWaitsForWebHandler() throws Exception {
+    CompletableFuture<Integer> bind = new CompletableFuture<>();
+    when(webHandler.start(any())).thenReturn(bind);
+
+    CompletableFuture<Void> start = root.startAsync();
+
+    Assert.assertFalse(start.isDone());
+    verify(advertiser, never()).advertise(any(), anyInt(), any(), anyInt(), anyInt(), any());
+
+    bind.complete(PORT);
+
+    start.join();
+    verify(advertiser).advertise(eq(LABEL), eq(1), any(), eq(PORT), eq(1), any());
+    verify(webHandler, never()).stop();
+  }
+
+  @Test
+  public void testStartAsyncPropagatesBindFailure() throws Exception {
+    CompletableFuture<Integer> bind = new CompletableFuture<>();
+    when(webHandler.start(any())).thenReturn(bind);
+    BindException failure = new BindException("Address not available");
+
+    CompletableFuture<Void> start = root.startAsync();
+    bind.completeExceptionally(failure);
+
+    Assert.assertSame(
+        failure, Assert.assertThrows(CompletionException.class, start::join).getCause());
+    verify(webHandler).stop();
+    verify(advertiser).stop();
+    verify(advertiser, never()).advertise(any(), anyInt(), any(), anyInt(), anyInt(), any());
+    root.setConfigurationIndex(2);
+    verify(advertiser, never()).setConfigurationIndex(2);
+  }
+
+  @Test
+  public void testStartAsyncPropagatesAdvertisingFailure() throws Exception {
+    IOException failure = new IOException("mDNS registration failed");
+    doThrow(failure).when(advertiser).advertise(any(), anyInt(), any(), anyInt(), anyInt(), any());
+
+    CompletableFuture<Void> start = root.startAsync();
+
+    Assert.assertSame(
+        failure, Assert.assertThrows(CompletionException.class, start::join).getCause());
+    verify(webHandler).stop();
+    verify(advertiser).stop();
+    root.setConfigurationIndex(2);
+    verify(advertiser, never()).setConfigurationIndex(2);
   }
 
   @Test
