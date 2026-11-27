@@ -25,6 +25,22 @@ Include HAP-Java in your project using maven:
 After that, check out the [Sample](https://github.com/hap-java/HAP-Java/tree/sample) and
 read the [Javadoc](https://hap-java.github.io/HAP-Java/apidocs/index.html)
 
+HomeKit mDNS advertising
+=========
+
+HAP-Java publishes `_hap._tcp` through a pluggable `HomekitAdvertiser`: share a host **JmDNS**, use a dedicated JmDNS, or optionally register via **native DNS-SD** (Bonjour / Avahi) so the process does not run a second multicast stack. Prefer sharing the host’s mDNS when one exists (e.g. openHAB); native support is an optimization for clean system integration, not a workaround for a permanent port lock.
+
+```java
+import io.github.hapjava.server.HomekitAdvertisers;
+import io.github.hapjava.server.impl.HomekitServer;
+
+// Share host JmDNS, or nativeDnssd(bindAddress) for system DNS-SD (optional JNA):
+HomekitServer server =
+    new HomekitServer(bindAddress, 9124, HomekitAdvertisers.jmdns(sharedJmDNS));
+```
+
+Architecture, openHAB split, and native notes: [docs/NATIVE_DNSSD.md](docs/NATIVE_DNSSD.md).
+
 Supported HomeKit Accessories
 =========
 

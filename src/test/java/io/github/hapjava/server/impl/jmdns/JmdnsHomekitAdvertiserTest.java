@@ -57,6 +57,28 @@ public class JmdnsHomekitAdvertiserTest {
   }
 
   @Test
+  public void advertiseRegistersFullHapTxtPropertySet() throws Exception {
+    advertise();
+
+    ArgumentCaptor<ServiceInfo> captor = ArgumentCaptor.forClass(ServiceInfo.class);
+    verify(jmdns).registerService(captor.capture());
+    ServiceInfo info = captor.getValue();
+
+    assertThat(info.getType()).isEqualTo("_hap._tcp.local.");
+    assertThat(info.getName()).isEqualTo("test");
+    assertThat(info.getPort()).isEqualTo(1234);
+    assertThat(info.getPropertyString("sf")).isEqualTo("1");
+    assertThat(info.getPropertyString("id")).isEqualTo("00:00:00:00:00:00");
+    assertThat(info.getPropertyString("md")).isEqualTo("test");
+    assertThat(info.getPropertyString("c#")).isEqualTo("1");
+    assertThat(info.getPropertyString("s#")).isEqualTo("1");
+    assertThat(info.getPropertyString("ff")).isEqualTo("0");
+    assertThat(info.getPropertyString("ci")).isEqualTo("1");
+    assertThat(info.getPropertyString("pv")).isEqualTo("1.1");
+    assertThat(info.getPropertyString("sh")).isNotBlank();
+  }
+
+  @Test
   public void testStopClosesOwnedJmdns() throws Exception {
     subject = new JmdnsHomekitAdvertiser(jmdns, true);
     advertise();

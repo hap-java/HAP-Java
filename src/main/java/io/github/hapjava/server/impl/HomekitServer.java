@@ -1,6 +1,7 @@
 package io.github.hapjava.server.impl;
 
 import io.github.hapjava.accessories.HomekitAccessory;
+import io.github.hapjava.server.HomekitAdvertiser;
 import io.github.hapjava.server.HomekitAuthInfo;
 import io.github.hapjava.server.impl.http.impl.HomekitHttpServer;
 import java.io.IOException;
@@ -23,6 +24,9 @@ import javax.jmdns.JmDNS;
  * same values on each start of your application or HomeKit will fail to recognize your device as
  * being the same.
  *
+ * <p>On macOS, prefer constructing with an explicit {@link HomekitAdvertiser} from {@link
+ * io.github.hapjava.server.HomekitAdvertisers#nativeDnssd()} so advertising does not bind UDP 5353.
+ *
  * @author Andy Lintner
  */
 public class HomekitServer {
@@ -30,11 +34,14 @@ public class HomekitServer {
   private final HomekitHttpServer http;
   private final InetAddress localAddress;
   private final JmDNS jmdns;
+  private final HomekitAdvertiser advertiser;
 
   /**
    * Constructor. Contains an argument indicating the number of threads to use in the http server.
    * The other constructors default this to the number of available processors, however you may
    * increase this in an environment with many users and/or blocking accessory implementations.
+   *
+   * <p>Advertising uses a dedicated JmDNS instance (binds UDP 5353).
    *
    * @param localAddress local address to bind to.
    * @param port local port to bind to.
@@ -44,6 +51,28 @@ public class HomekitServer {
   public HomekitServer(InetAddress localAddress, int port, int nThreads) throws IOException {
     this.localAddress = localAddress;
     this.jmdns = null;
+    this.advertiser = null;
+    http = new HomekitHttpServer(localAddress, port, nThreads);
+  }
+
+  /**
+   * Constructor that uses a caller-supplied advertiser (e.g. native DNS-SD) and does not create
+   * JmDNS.
+   *
+   * @param localAddress local address for the HAP HTTP server
+   * @param port local TCP port
+   * @param nThreads HTTP worker threads
+   * @param advertiser mDNS / DNS-SD advertiser (must not be null)
+   */
+  public HomekitServer(
+      InetAddress localAddress, int port, int nThreads, HomekitAdvertiser advertiser)
+      throws IOException {
+    if (advertiser == null) {
+      throw new IllegalArgumentException("advertiser must not be null");
+    }
+    this.localAddress = localAddress;
+    this.jmdns = null;
+    this.advertiser = advertiser;
     http = new HomekitHttpServer(localAddress, port, nThreads);
   }
 
@@ -58,6 +87,7 @@ public class HomekitServer {
   public HomekitServer(JmDNS jmdns, int port, int nThreads) throws IOException {
     this.jmdns = jmdns;
     this.localAddress = null;
+    this.advertiser = null;
     http = new HomekitHttpServer(jmdns.getInetAddress(), port, nThreads);
   }
 
@@ -70,6 +100,15 @@ public class HomekitServer {
    */
   public HomekitServer(InetAddress localAddress, int port) throws IOException {
     this(localAddress, port, Runtime.getRuntime().availableProcessors());
+  }
+
+  /**
+   * HAP HTTP on {@code localAddress}:{@code port} with an explicit advertiser (native DNSSD or
+   * shared JmDNS wrapper).
+   */
+  public HomekitServer(InetAddress localAddress, int port, HomekitAdvertiser advertiser)
+      throws IOException {
+    this(localAddress, port, Runtime.getRuntime().availableProcessors(), advertiser);
   }
 
   /**
@@ -111,7 +150,10 @@ public class HomekitServer {
   public HomekitStandaloneAccessoryServer createStandaloneAccessory(
       HomekitAuthInfo authInfo, HomekitAccessory accessory)
       throws IOException, ExecutionException, InterruptedException {
-    if (jmdns != null) {
+    if (advertiser != null) {
+      return new HomekitStandaloneAccessoryServer(
+          accessory, http, localAddress, authInfo, advertiser);
+    } else if (jmdns != null) {
       return new HomekitStandaloneAccessoryServer(accessory, http, jmdns, authInfo);
     } else {
       return new HomekitStandaloneAccessoryServer(accessory, http, localAddress, authInfo);
@@ -121,7 +163,10 @@ public class HomekitServer {
   public HomekitStandaloneAccessoryServer createStandaloneAccessory(
       HomekitAuthInfo authInfo, HomekitAccessory accessory, int category)
       throws IOException, ExecutionException, InterruptedException {
-    if (jmdns != null) {
+    if (advertiser != null) {
+      return new HomekitStandaloneAccessoryServer(
+          accessory, http, localAddress, authInfo, category, advertiser);
+    } else if (jmdns != null) {
       return new HomekitStandaloneAccessoryServer(accessory, http, jmdns, authInfo, category);
     } else {
       return new HomekitStandaloneAccessoryServer(
@@ -158,7 +203,9 @@ public class HomekitServer {
       String hardwareRevision)
       throws IOException {
     HomekitRoot root;
-    if (jmdns != null) {
+    if (advertiser != null) {
+      root = new HomekitRoot(label, category, http, authInfo, advertiser);
+    } else if (jmdns != null) {
       root = new HomekitRoot(label, category, http, jmdns, authInfo);
     } else {
       root = new HomekitRoot(label, category, http, localAddress, authInfo);
